@@ -3,9 +3,9 @@ site_name: Moto Mods Developer Documentation
 site_description: >-
   A restored archive of the Moto Mods developer documentation originally
   published at developer.motorola.com, rebuilt from Wayback Machine captures.
-site_url: https://jksim.github.io/motomods-docs/
-repo_url: https://github.com/jksim/motomods-docs
-repo_name: motomods-docs
+site_url: https://jksim.github.io/moto-mods-developer-docs/
+repo_url: https://github.com/jksim/moto-mods-developer-docs
+repo_name: moto-mods-developer-docs
 edit_uri: ""
 copyright: >-
   Original documentation &copy; Motorola Mobility LLC. Archived for historical
@@ -83,7 +83,7 @@ plugins:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/jksim/motomods-docs
+      link: https://github.com/jksim/moto-mods-developer-docs
       name: This archive on GitHub
 
 nav:

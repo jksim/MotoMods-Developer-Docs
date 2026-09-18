@@ -4,7 +4,7 @@ A restored, readable copy of the Moto Mods developer documentation Motorola
 published at `developer.motorola.com` from 2016 until the portal was retired.
 Rebuilt from Wayback Machine captures and served with MkDocs Material.
 
-**📖 Read it: <https://jksim.github.io/motomods-docs/>**
+**📖 Read it: <https://jksim.github.io/moto-mods-developer-docs/>**
 
 Moto Mods were snap-on hardware modules for the Moto Z phone. The platform was
 opened to developers with a Mods Development Kit, a firmware stack built on
