@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="title" content="Flashing Firmware | Motorola Developer Portal"/>
+<meta name="description" content="Overview
+Once the firmware has been generated, it needs to be installed (flashed) onto the Reference Moto Mod.   The Moto Mods Development Kit (MDK) provides two mechanisms for performing a firmware flash, the MDK Utility Android Application and over Serial Wire Debug via OpenOCD."/>
+<meta name="Generator" content="Drupal 8 (https://www.drupal.org)"/>
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="shortcut icon" href="../../sites/default/files/favicon.png" type="image/png"/>
+<link rel="shortlink" href="https://developer.motorola.com/node/78"/>
+<link rel="revision" href="/documentation/flashing-firmware"/>
+    <title>Flashing Firmware | Motorola Developer Portal</title>
+	<link rel="canonical" href="https://developer.motorola.com/documentation/flashing-firmware/" />
+    <link rel="stylesheet" href="../../sites/default/files/css/css_DwGtwBiZC0vlzKcGpRugXvj0W5vxr3GO0mzT1HUOQd8.css" media="all"/>
+<link rel="stylesheet" href="../../sites/default/files/css/css_xJirtWXj_cO3XOmFun1diM4WbO4k-JyVBEY94xOF2Us.css" media="all"/>
+<!--[if lte IE 8]>
+<script src="/sites/default/files/js/js_VtafjXmRvoUgAzqzYTA3Wrjkx9wcWhjP0G4ZnnqRamA.js"></script>
+<![endif]-->
+  </head>
+  <body class="node-78 path-node page-node-type-documentation has-glyphicons">
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+          <header class="navbar navbar-default container" id="navbar" role="banner">
+        <div class="region region-top-notification">
+    <section id="block-indiegogocampaign" class="block block-block-content block-block-contentb3767c65-684a-49c5-8d10-99e6ab84eab6 clearfix">
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="topbar">
+<div class="topbar-left">
+<div class="backToMotorola"><a href="https://motorola.com/" style="margin:5px 0px;">motorola.com</a></div>
+</div>
+<div class="topbar-center"></div>
+</div>
+<div class="topbar-right"></div>
+</div>
+  </section>
+  </div>
+            <div class="navbar-header">
+          <div class="region region-navigation">
+          <a class="logo navbar-btn pull-left" href="/" title="Home" rel="home">
+      <img src="../../sites/default/files/logo.png" alt="Home"/>
+    </a>
+        <a class="name navbar-brand" href="/" title="Home" rel="home">Motorola Developer Portal</a>
+    <nav role="navigation" aria-labelledby="block-motorola-main-menu-menu" id="block-motorola-main-menu">
+            <h2 class="sr-only" id="block-motorola-main-menu-menu">Main navigation</h2>
+              <ul class="menu nav navbar-nav">
+                            <li>
+        <a href="../../documentation/" data-drupal-link-system-path="node/109">Documentation</a>
+                  </li>
+                        <li>
+        <a href="../../tools-kits/" data-drupal-link-system-path="node/110">Tools & Kits</a>
+                  </li>
+                        <li>
+        <a href="/" data-drupal-link-system-path="node/108">Support</a>
+                  </li>
+                        <li>
+        <a href="../../community/" data-drupal-link-system-path="node/126">Community</a>
+                  </li>
+                        <li>
+        <a href="../../partner/" data-drupal-link-system-path="node/106">Partner with Moto</a>
+                  </li>
+        </ul>
+  </nav>
+<div class="search-block-form block block-search block-search-form-block" data-drupal-selector="search-block-form" id="block-motorola-search" role="search">
+      <h2 class="visually-hidden">Search</h2>
+      <form action="/" method="get" id="search-block-form" accept-charset="UTF-8">
+  <div class="form-item js-form-item form-type-search js-form-type-search form-item-keys js-form-item-keys form-no-label form-group">
+      <label for="edit-keys" class="control-label sr-only">Search</label>
+  <div class="input-group"><input title="Enter the terms you wish to search for." data-drupal-selector="edit-keys" class="form-search form-control" placeholder="Search" type="search" id="edit-keys" name="keys" value="" size="15" maxlength="128" data-toggle="tooltip"/><span class="input-group-btn"><button type="submit" value="Search" class="button js-form-submit form-submit btn-primary btn icon-only" name=""><span class="sr-only">Search</span><span class="icon glyphicon glyphicon-search" aria-hidden="true"></span></button></span></div>
+  </div>
+<div class="form-actions form-group js-form-wrapper form-wrapper" data-drupal-selector="edit-actions" id="edit-actions"></div>
+</form>
+  </div>
+<section id="block-mobilebutton" class="block block-block-content block-block-contentee461971-1c7b-46d8-8e1e-0c56d5500c6e clearfix">
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div><button class="mobile_button"><span>Menu</span></button></div></div>
+  </section>
+  </div>
+                      </div>
+    </header>
+  <div role="main" class="main-container container js-quickedit-main-content">
+    <div class="row">
+                              <aside class="col-sm-3" role="complementary">
+              <div class="region region-sidebar-first">
+    <section id="block-categoriesblock" class="block block-custom clearfix">
+      <ul class="categories-tree"><li class="parent"><span></span><a href="#main-content" data-drupal-link-system-path="<front>">Documentation</a><ul><li><a href="#main-content" data-drupal-link-system-path="<front>">Overview</a><ul><li><a href="../../documentation/system-architecture/" data-drupal-link-system-path="node/118">System Architecture</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="<front>">Software</a><ul><li><a href="/" data-drupal-link-system-path="node/46">Android SDK Overview</a><a href="/" data-drupal-link-system-path="node/41">Mod Management</a><a href="/" data-drupal-link-system-path="node/43">Mod Raw Devices</a><a href="/" data-drupal-link-system-path="node/53">Mod Display</a><a href="/" data-drupal-link-system-path="node/56">Mod Battery</a><a href="/" data-drupal-link-system-path="node/58">Mod Audio</a><a href="../../documentation/mod-hid/" data-drupal-link-system-path="node/61">Mod HID</a><a href="../../documentation/mod-usb/" data-drupal-link-system-path="node/64">Mod USB</a><a href="/" data-drupal-link-system-path="node/117">Moto Mods Android SDK</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="<front>">Firmware</a><ul><li><a href="/" data-drupal-link-system-path="node/55">Firmware Overview</a><a href="/" data-drupal-link-system-path="node/84">Mod Management</a><a href="/" data-drupal-link-system-path="node/60">Raw Protocol</a><a href="/" data-drupal-link-system-path="node/63">Display Protocol</a><a href="/" data-drupal-link-system-path="node/69">Battery Protocol</a><a href="/" data-drupal-link-system-path="node/75">Audio Protocol</a><a href="/" data-drupal-link-system-path="node/77">HID Protocol</a><a href="/" data-drupal-link-system-path="node/42">USB-Ext Protocol</a><a href="/" data-drupal-link-system-path="node/66">Lights Protocol</a><a href="/" data-drupal-link-system-path="node/72">Power Transfer Protocol</a><a href="/" data-drupal-link-system-path="node/80">Camera-Ext Protocol</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="<front>">Developer Tools</a><ul><li><a href="/" data-drupal-link-system-path="node/67">Developer Tools Overview</a><a href="/" data-drupal-link-system-path="node/70">Setup Environment</a><a href="/" data-drupal-link-system-path="node/73">Build from Source</a><a href="/" data-drupal-link-system-path="node/76">Starting a New Project</a><a href="../../documentation/flashing-firmware/" data-drupal-link-system-path="node/78" class="is-active">Flashing Firmware</a><a href="../../documentation/debug-and-log/" data-drupal-link-system-path="node/79">Debug and Log</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="<front>">MDK</a><ul><li><a href="../../documentation/mdk-overview-0/" data-drupal-link-system-path="node/147">MDK Overview</a><a href="/" data-drupal-link-system-path="node/122">Reference Moto Mod</a><a href="../../documentation/perforated-board/" data-drupal-link-system-path="node/50">Perforated Board</a><a href="/" data-drupal-link-system-path="node/47">HAT Adapter Board</a><a href="/" data-drupal-link-system-path="node/49">Custom Circuit Board</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="<front>">Examples</a><ul><li><a href="../../documentation/examples-overview/" data-drupal-link-system-path="node/44">Examples Overview</a><a href="../../documentation/mdk-utility/" data-drupal-link-system-path="node/54">MDK Utility</a><a href="/" data-drupal-link-system-path="node/57">Hello World!</a><a href="/" data-drupal-link-system-path="node/59">Sensor</a><a href="/" data-drupal-link-system-path="node/62">Battery</a><a href="/" data-drupal-link-system-path="node/123">Audio</a><a href="/" data-drupal-link-system-path="node/68">Display</a><a href="/" data-drupal-link-system-path="node/71">Camera</a><a href="/" data-drupal-link-system-path="node/74">Miscellaneous</a></li></ul></li><li><a href="../../documentation/all-downloads/" data-drupal-link-system-path="documentation/all-downloads">Downloads</a></li></ul></li></ul>
+  </section>
+  </div>
+          </aside>
+                  <section class="main-content col-sm-9">
+                                      <div class="highlighted">  <div class="region region-highlighted">
+  </div>
+</div>
+                          <a id="main-content"></a>
+            <div class="region region-content">
+        <ol class="breadcrumb">
+          <li>
+                  <a href="../../documentation/">Overview</a>
+              </li>
+          <li class="active">
+                  Flashing Firmware
+              </li>
+      </ol>
+    <h1 class="page-header"><span>Flashing Firmware</span>
+</h1>
+  <article data-history-node-id="78" role="article" about="/documentation/flashing-firmware" class="documentation full clearfix">
+  <div class="content">
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><h2>Overview</h2>
+<p>Once the firmware has been generated, it needs to be installed (flashed) onto the Reference Moto Mod.   The Moto Mods Development Kit (MDK) provides two mechanisms for performing a firmware flash, the MDK Utility Android Application and over Serial Wire Debug via OpenOCD.</p>
+<p>The Reference Moto Mod Bootloader uses the Vendor ID (VID) and Product ID (PID) to ensure the correct NuttX firmware is running on the device and to provide over-the-air firmware updates.  You will need to switch between the Personality Card example mode VID and the developer prototype VID based on if you are using the example Personality Cards or developing custom code.<br/>
+ </p>
+<hr/><h2> <a id="mdkutility"></a>Moto Mods Development Kit Utility Android Application</h2>
+<p>The MDK Utility Application which was installed when the base reference Moto Mod was connected to you Moto Z can be used to flash the bootloader and NuttX images.</p>
+<p>Using this method requires an ‘opt-in’ from both the bootloader and NuttX when you build your custom firmware load. You will need to make sure the <code>CONFIG_GREYBUS_MODS_SUPPORT_VENDOR_UPDATES</code> parameter is set as follows:</p>
+<p>In your bootloader defconfig:</p>
+<pre>
+<code>CONFIG_GREYBUS_MODS_SUPPORT_VENDOR_UPDATES=y</code></pre>
+<p>For NuttX, use the menuconfig tool (make menuconfig) and navigate to:</p>
+<pre>
+<code>Device Drivers  --&gt;  
+    Greybus support (GREYBUS [=y]) 
+        [*] Mods Protocol
+            [*] Support APK update of firmware</code></pre>
+<p>Before you will be able to flash your firmware with the MDK Utility, you must switch your Reference Moto Mod from Example to Developer Mode.</p>
+<p> </p>
+<h3>Example and Developer Modes</h3>
+<p><br/>
+The Reference Moto Mod Bootloader uses the Vendor ID (VID) and Product ID (PID) to ensure the correct NuttX firmware is running on the device and to provide over-the-air firmware updates. When you receive the Reference Moto Mod it will be in Example mode with a MDK VID and a PID derived from the Personality Card which is installed. When developing your custom firmware for prototyping, you should switch to the Developer VID of 0x42 to ensure no firmware over-the-air update attempts to reflash you Reference Moto Mod. To easily update the bootloader with Developer VID 0x42, use the Set Mode function in the MDK Utility.</p>
+<p>The MDK Utility intentionally restricts firmware flashing to Developer VID 0x42. As a result, your prototype projects should use 0x42 for easy flashing.</p>
+<h3 id="switching-between-personality-card-modes">Switching Between Personality Card Modes</h3>
+<p>The MDK Utility Android Application provides a simple mechanism to switch between these two VIDs as follows:</p>
+<p><img alt="mdk-tools-flash-02.png" data-image="../../static/5715eee9b09f95a12b44e0ed/t/57ae3bea440243d6c7e14761/1471036462328/mdk-tools-flash-02.png" data-image-dimensions="1440x2560" data-image-focal-point="0.5,0.5" data-image-id="57ae3bea440243d6c7e14761" data-image-resolution="300w" data-load="false" data-src="../../static/5715eee9b09f95a12b44e0ed/t/57ae3bea440243d6c7e14761/1471036462328/mdk-tools-flash-02.png" data-type="image" src="../../static/5715eee9b09f95a12b44e0ed/t/57ae3bea440243d6c7e14761/1471036462328/mdk-tools-flash-02.png"/> <img alt="mdk-tools-flash-03.png" data-image="../../static/5715eee9b09f95a12b44e0ed/t/57ae3c0c20099e650eda942e/1471036478366/mdk-tools-flash-03.png" data-image-dimensions="1440x2560" data-image-focal-point="0.5,0.5" data-image-id="57ae3c0c20099e650eda942e" data-image-resolution="300w" data-load="false" data-src="../../static/5715eee9b09f95a12b44e0ed/t/57ae3c0c20099e650eda942e/1471036478366/mdk-tools-flash-03.png" data-type="image" src="../../static/5715eee9b09f95a12b44e0ed/t/57ae3c0c20099e650eda942e/1471036478366/mdk-tools-flash-03.png"/></p>
+<h3 id="flashing-with-the-mdk-utility">Flashing with the MDK Utility</h3>
+<p>From the nuttx/nuttx directory, <code>$ adb push nuttx.tftf /sdcard/Download/</code></p>
+<p>Then on your phone, navigate to the MDKUtility, select the file you just uploaded, and choose PERFORM UPDATE.</p>
+<p><img alt="mdk-tools-flash-01.png" data-image="../../static/5715eee9b09f95a12b44e0ed/t/57ae392346c3c4e559932a4f/1471035731699/mdk-tools-flash-01.png" data-image-dimensions="1440x2560" data-image-focal-point="0.5,0.5" data-image-id="57ae392346c3c4e559932a4f" data-image-resolution="300w" data-load="false" data-src="../../static/5715eee9b09f95a12b44e0ed/t/57ae392346c3c4e559932a4f/1471035731699/mdk-tools-flash-01.png" data-type="image" src="../../static/5715eee9b09f95a12b44e0ed/t/57ae392346c3c4e559932a4f/1471035731699/mdk-tools-flash-01.png"/></p>
+<p>Should your firmware fail to boot properly, the “Name” in the MDK Utility will read “Firmware.” If this occurs, or your firmware does boot but does not work properly, use Developer Recovery to reflash the MDK-POWERED default Developer firmware.<br/>
+ </p>
+<hr/><h2 id="serial-wire-debug-flashing-with-openocd">Serial Wire Debug Flashing with OpenOCD</h2>
+<p>On the Reference Moto Mod provided in the MDK, the firmware may also be flashed directly through the Serial Wire Debug (SWD) interface with OpenOCD. This ensures there is a path to recovering your Reference Moto Mod if there is a error or crash in your custom firmware. Follow the procedure on the Setup Environment page for OpenOCD installation.</p>
+<h3 id="flashing-muc-bootloader">Flashing MuC Bootloader</h3>
+<p>From the muc-loader directory:</p>
+<pre>
+<code>$ openocd -f board/moto_mdk_muc_reset.cfg -c "program ./out/boot_&lt;target_name&gt;.bin 0x08000000 reset exit"</code></pre>
+<h3 id="flashing-main-firmware-nuttx-">Flashing Main Firmware (Nuttx)</h3>
+<p>From the nuttx/nuttx directory:</p>
+<pre>
+<code>$ openocd -f board/moto_mdk_muc_reset.cfg -c "program nuttx.tftf 0x08008000 reset exit"</code></pre>
+<p>When flashing the bootloader or firmware with OpenOCD, ensure the VID/PID matches between the two or your firmware will not boot.</p>
+</div>
+  </div>
+</article>
+<section id="block-backtotop" class="block block-block-content block-block-content041966f5-0fe1-4320-8eee-cdeaf244dc88 clearfix">
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><button><i class="fa fa-chevron-circle-up"></i></button></div>
+  </section>
+  </div>
+              </section>
+                </div>
+  </div>
+            <section class="above_footer container" role="contentinfo">
+              <div class="region region-above-footer">
+    <section id="block-helpblock" class="block block-block-content block-block-content532cffc6-7ce7-4d4f-9e9f-e0d60194d4b8 clearfix">
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="footer-help">
+<div class="header">
+<h2>Looking for help?</h2>
+</div>
+<div class="buttons"><a class="go" href="/">Go to FAQ</a> <span>or</span> <a class="ask" href="../../community/">Ask the community</a></div>
+</div>
+</div>
+  </section>
+  </div>
+        </section>
+      <footer class="footer container" role="contentinfo">
+        <div class="region region-footer">
+    <section id="block-footerlogo" class="block block-block-content block-block-contentede1d594-0667-4d58-82ab-50e38daccec8 clearfix">
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="footer-logo-wrap"><a href="https://www.moto.com/"><img alt="Motorola" src="../../themes/motorola/images/footer-logo.png"/></a></div>
+<p>©2017 Motorola<br/>
+All rights reserved.</p>
+</div>
+  </section>
+<nav role="navigation" aria-labelledby="block-support-menu" id="block-support">
+  <h2 class="visually-hidden" id="block-support-menu">Footer menu</h2>
+              <ul class="menu nav">
+                            <li>
+        <a href="/" data-drupal-link-system-path="node/108">FAQ</a>
+                  </li>
+                        <li>
+        <a href="https://www.motorola.com/us/legal/privacy-policy">Privacy Policy</a>
+                  </li>
+        </ul>
+  </nav>
+<nav role="navigation" aria-labelledby="block-footermenu2-menu" id="block-footermenu2">
+  <h2 class="visually-hidden" id="block-footermenu2-menu">Footer menu 2</h2>
+              <ul class="menu nav">
+                            <li>
+        <a href="mailto:mdk-help@motorola.com">Ask MDK Help</a>
+                  </li>
+        </ul>
+  </nav>
+<section id="block-footersocials" class="block block-block-content block-block-content5d7a0a23-4c63-49b5-8680-e7e7e5a9ac14 clearfix">
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><ul><li><a class="facebook" href="https://www.facebook.com/moto/" target="_blank">Facebook</a></li>
+	<li><a class="twitter" href="https://twitter.com/moto" target="_blank">Twitter</a></li>
+	<li><a class="youtube" href="https://www.youtube.com/user/motorola" target="_blank">Youtube</a></li>
+</ul></div>
+  </section>
+  </div>
+    </footer>
+  </div>
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","scriptPath":null,"pathPrefix":"","currentPath":"node\/78","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","bootstrap":{"forms_has_error_value_toggle":1,"modal_animation":1,"modal_backdrop":"true","modal_keyboard":1,"modal_show":1,"modal_size":"","popover_enabled":1,"popover_animation":1,"popover_container":"body","popover_content":"","popover_delay":"0","popover_html":0,"popover_placement":"right","popover_selector":"","popover_title":"","popover_trigger":"click","popover_trigger_autoclose":1,"tooltip_enabled":1,"tooltip_animation":1,"tooltip_container":"body","tooltip_delay":"0","tooltip_html":0,"tooltip_placement":"auto left","tooltip_selector":"","tooltip_trigger":"hover"},"ajaxTrustedUrl":{"\/search\/node":true},"user":{"uid":0,"permissionsHash":"08a43bd0e8ec4c73d93f574eaa23fbdc9bc9ccb4f4e2fc3399bdb61c76cc3671"}}</script>
+<script src="../../sites/default/files/js/js_8emfEOO9orRe8bF7M-RvCkUspYNAKLxey8G77d5ELaA.js"></script>
+  </body>
+</html>

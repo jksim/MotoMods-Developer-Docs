@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html  lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+    <meta charset="utf-8" />
+<meta name="title" content="System Architecture | Motorola Developer Portal" />
+<meta name="description" content="Overview
+
+The Moto Mods architecture specifies a uniform and consistent platform for pluggable attachments that act as seamless and natural extensions of the device, the Android OS and the user experience itself.
+
+The Moto Mods System Architecture" />
+<meta name="Generator" content="Drupal 8 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/sites/default/files/favicon.png" type="image/png" />
+<link rel="canonical" href="/documentation/system-architecture" />
+<link rel="shortlink" href="/node/118" />
+<link rel="revision" href="/documentation/system-architecture" />
+
+    <title>System Architecture | Motorola Developer Portal</title>
+    <link rel="stylesheet" href="/sites/default/files/css/css_DwGtwBiZC0vlzKcGpRugXvj0W5vxr3GO0mzT1HUOQd8.css?qgsn5s" media="all" />
+<link rel="stylesheet" href="/sites/default/files/css/css_xJirtWXj_cO3XOmFun1diM4WbO4k-JyVBEY94xOF2Us.css?qgsn5s" media="all" />
+
+    
+<!--[if lte IE 8]>
+<script src="/sites/default/files/js/js_VtafjXmRvoUgAzqzYTA3Wrjkx9wcWhjP0G4ZnnqRamA.js"></script>
+<![endif]-->
+
+  </head>
+  <body class="node-118 path-node page-node-type-documentation has-glyphicons">
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+          <header class="navbar navbar-default container" id="navbar" role="banner">
+        <div class="region region-top-notification">
+    <section id="block-indiegogocampaign" class="block block-block-content block-block-contentb3767c65-684a-49c5-8d10-99e6ab84eab6 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="topbar">
+<div class="topbar-left">
+<div class="backToMotorola"><a href="https://motorola.com" style="margin:5px 0px;">motorola.com</a></div>
+</div>
+
+<div class="topbar-center"></div>
+</div>
+
+<div class="topbar-right"></div>
+
+
+</div>
+      
+  </section>
+
+
+  </div>
+
+
+            <div class="navbar-header">
+          <div class="region region-navigation">
+          <a class="logo navbar-btn pull-left" href="/" title="Home" rel="home">
+      <img src="/sites/default/files/logo.png" alt="Home" />
+    </a>
+        <a class="name navbar-brand" href="/" title="Home" rel="home">Motorola Developer Portal</a>
+    <nav role="navigation" aria-labelledby="block-motorola-main-menu-menu" id="block-motorola-main-menu">
+            <h2 class="sr-only" id="block-motorola-main-menu-menu">Main navigation</h2>
+
+      
+              <ul class="menu nav navbar-nav">
+                            <li>
+        <a href="/documentation" data-drupal-link-system-path="node/109">Documentation</a>
+                  </li>
+                        <li>
+        <a href="/tools-kits" data-drupal-link-system-path="node/110">Tools &amp; Kits</a>
+                  </li>
+                        <li>
+        <a href="/faq" data-drupal-link-system-path="node/108">Support</a>
+                  </li>
+                        <li>
+        <a href="/community" data-drupal-link-system-path="node/126">Community</a>
+                  </li>
+                        <li>
+        <a href="/partner" data-drupal-link-system-path="node/106">Partner with Moto</a>
+                  </li>
+        </ul>
+  
+
+
+  </nav>
+<div class="search-block-form block block-search block-search-form-block" data-drupal-selector="search-block-form" id="block-motorola-search" role="search">
+  
+      <h2 class="visually-hidden">Search</h2>
+    
+      <form action="/search/node" method="get" id="search-block-form" accept-charset="UTF-8">
+  <div class="form-item js-form-item form-type-search js-form-type-search form-item-keys js-form-item-keys form-no-label form-group">
+      <label for="edit-keys" class="control-label sr-only">Search</label>
+  
+  
+  <div class="input-group"><input title="Enter the terms you wish to search for." data-drupal-selector="edit-keys" class="form-search form-control" placeholder="Search" type="search" id="edit-keys" name="keys" value="" size="15" maxlength="128" data-toggle="tooltip" /><span class="input-group-btn"><button type="submit" value="Search" class="button js-form-submit form-submit btn-primary btn icon-only" name=""><span class="sr-only">Search</span><span class="icon glyphicon glyphicon-search" aria-hidden="true"></span></button></span></div>
+
+  
+  
+  </div>
+<div class="form-actions form-group js-form-wrapper form-wrapper" data-drupal-selector="edit-actions" id="edit-actions"></div>
+
+</form>
+
+  </div>
+<section id="block-mobilebutton" class="block block-block-content block-block-contentee461971-1c7b-46d8-8e1e-0c56d5500c6e clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div><button class="mobile_button"><span>Menu</span></button></div></div>
+      
+  </section>
+
+
+  </div>
+
+                      </div>
+
+                  
+    </header>
+  
+
+  <div role="main" class="main-container container js-quickedit-main-content">
+    <div class="row">
+
+            
+                              <aside class="col-sm-3" role="complementary">
+              <div class="region region-sidebar-first">
+    <section id="block-categoriesblock" class="block block-custom clearfix">
+  
+    
+
+      <ul class="categories-tree"><li class="parent"><span></span><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">Documentation</a><ul><li><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">Overview</a><ul><li><a href="/documentation/system-architecture" data-drupal-link-system-path="node/118" class="is-active">System Architecture</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">Software</a><ul><li><a href="/documentation/software-overview" data-drupal-link-system-path="node/46">Android SDK Overview</a><a href="/documentation/mod-management" data-drupal-link-system-path="node/41">Mod Management</a><a href="/documentation/mod-raw-devices" data-drupal-link-system-path="node/43">Mod Raw Devices</a><a href="/documentation/mod-display" data-drupal-link-system-path="node/53">Mod Display</a><a href="/documentation/mod-battery" data-drupal-link-system-path="node/56">Mod Battery</a><a href="/documentation/mod-audio" data-drupal-link-system-path="node/58">Mod Audio</a><a href="/documentation/mod-hid" data-drupal-link-system-path="node/61">Mod HID</a><a href="/documentation/mod-usb" data-drupal-link-system-path="node/64">Mod USB</a><a href="/download-sdk" data-drupal-link-system-path="node/117">Moto Mods Android SDK</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">Firmware</a><ul><li><a href="/documentation/firmware-overview" data-drupal-link-system-path="node/55">Firmware Overview</a><a href="/documentation/mod-management-0" data-drupal-link-system-path="node/84">Mod Management</a><a href="/documentation/raw-protocol" data-drupal-link-system-path="node/60">Raw Protocol</a><a href="/documentation/display-protocol" data-drupal-link-system-path="node/63">Display Protocol</a><a href="/documentation/battery-protocol" data-drupal-link-system-path="node/69">Battery Protocol</a><a href="/documentation/audio-protocol" data-drupal-link-system-path="node/75">Audio Protocol</a><a href="/documentation/hid-protocol" data-drupal-link-system-path="node/77">HID Protocol</a><a href="/documentation/usb-ext-protocol" data-drupal-link-system-path="node/42">USB-Ext Protocol</a><a href="/documentation/lights-protocol" data-drupal-link-system-path="node/66">Lights Protocol</a><a href="/documentation/power-transfer-protocol" data-drupal-link-system-path="node/72">Power Transfer Protocol</a><a href="/documentation/camera-ext-protocol" data-drupal-link-system-path="node/80">Camera-Ext Protocol</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">Developer Tools</a><ul><li><a href="/documentation/developer-tools-overview" data-drupal-link-system-path="node/67">Developer Tools Overview</a><a href="/documentation/setup-environment" data-drupal-link-system-path="node/70">Setup Environment</a><a href="/documentation/build-source" data-drupal-link-system-path="node/73">Build from Source</a><a href="/documentation/starting-new-project" data-drupal-link-system-path="node/76">Starting a New Project</a><a href="/documentation/flashing-firmware" data-drupal-link-system-path="node/78">Flashing Firmware</a><a href="/documentation/debug-and-log" data-drupal-link-system-path="node/79">Debug and Log</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">MDK</a><ul><li><a href="/documentation/mdk-overview-0" data-drupal-link-system-path="node/147">MDK Overview</a><a href="/documentation/reference-moto-mod" data-drupal-link-system-path="node/122">Reference Moto Mod</a><a href="/documentation/perforated-board" data-drupal-link-system-path="node/50">Perforated Board</a><a href="/documentation/hat-adapter-board" data-drupal-link-system-path="node/47">HAT Adapter Board</a><a href="/documentation/custom-circuit-board" data-drupal-link-system-path="node/49">Custom Circuit Board</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">Examples</a><ul><li><a href="/documentation/examples-overview" data-drupal-link-system-path="node/44">Examples Overview</a><a href="/documentation/mdk-utility" data-drupal-link-system-path="node/54">MDK Utility</a><a href="/documentation/hello-world" data-drupal-link-system-path="node/57">Hello World!</a><a href="/documentation/sensor" data-drupal-link-system-path="node/59">Sensor</a><a href="/documentation/battery" data-drupal-link-system-path="node/62">Battery</a><a href="/documentation/audio-0" data-drupal-link-system-path="node/123">Audio</a><a href="/documentation/display" data-drupal-link-system-path="node/68">Display</a><a href="/documentation/camera" data-drupal-link-system-path="node/71">Camera</a><a href="/documentation/miscellaneous" data-drupal-link-system-path="node/74">Miscellaneous</a></li></ul></li><li><a href="/documentation/all-downloads" data-drupal-link-system-path="documentation/all-downloads">Downloads</a></li></ul></li></ul>
+  </section>
+
+
+  </div>
+
+          </aside>
+              
+                  <section class="main-content col-sm-9">
+
+                                      <div class="highlighted">  <div class="region region-highlighted">
+    
+
+  </div>
+</div>
+                  
+                
+                
+                
+                          <a id="main-content"></a>
+            <div class="region region-content">
+        <ol class="breadcrumb">
+          <li >
+                  <a href="/documentation">Overview</a>
+              </li>
+          <li  class="active">
+                  System Architecture
+              </li>
+      </ol>
+
+    <h1 class="page-header"><span>System Architecture</span>
+</h1>
+
+  <article data-history-node-id="118" role="article" about="/documentation/system-architecture" class="documentation full clearfix">
+
+  
+    
+
+  
+  <div class="content">
+    
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><h2>Overview</h2>
+
+<p>The Moto Mods architecture specifies a uniform and consistent platform for pluggable attachments that act as seamless and natural extensions of the device, the Android OS and the user experience itself.</p>
+
+<p><strong>The Moto Mods System Architecture</strong></p>
+
+<ul><li>Specifies criteria that establish mechanical and electrical interoperability of Moto Mods with the Moto Z smartphone.</li>
+	<li>Defines standard interactions between the Moto Z and Moto Mods that cover bootstrap, security, device detection and device enumeration.</li>
+	<li>Defines (and the platform delivers) a software stack that extends native Android device interfaces for devices such as display, audio and power to the Moto Mod. </li>
+	<li>Defines discrete hardware communication channels to enable control, data and power management information to flow between a Moto Mod and a Moto Z.</li>
+	<li>Designates a protocol specifically to allow proprietary communications between a Moto Mod and a Moto Mod-aware application running on the Moto Z.</li>
+</ul><p><strong>The Moto Mods Development Toolkit (MDK)</strong> includes an SDK with the requisite APIs for developing Moto Mod-aware applications that can listen for Moto Mod specific Intents, identify specific Moto Mod types and conduct packet I/O with the Moto Mod directly.</p>
+
+<p><span> </span></p>
+<img alt="config diagram motomods" data-entity-type="file" data-entity-uuid="a6bd940b-08b6-4d50-b511-9c6df189c334" src="/sites/default/files/inline-images/dev-config-diagram-5.png" class="align-center" /><p><br />
+Each Moto Mod has a Moto Mod Microcontroller (MuC). It is responsible for initialization of the Moto Mod interface with the Moto Z, the enumeration of supported protocols, power management and firmware updates. The MuC runs a Moto Mod specific software stack based on the real-time operating system NuttX and Greybus, a network layer designed for modular mobile component architectures.</p>
+
+<p>The Moto High Speed Bridge is used to provide support for high speed, low power interfaces for Moto Mod displays and cameras. High speed data between Moto Bridge and Moto Z travels over a dedicated link. As the MuC is responsible for setting up these high speed links, the Moto Bridge can be powered off when not in use.</p>
+
+<p>At its foundation, the Moto Mods platform uses the Greybus open source protocol to abstract hot-pluggable device drivers into a Moto Mod.  As a network layer, Greybus multiplexes and demultiplexes packets as they flow between the Moto Mod and Moto Z. It enables kernel drivers running on the Moto Mod to be treated as local by the Moto Z application processor.</p>
+
+<p>In many cases, a Moto Mod will behave in a manner that is indistinguishable from a native hardware component on the Moto Z. For example, a Moto Mod speaker system will appear to Android just like any other integrated audio device, and participate in and follow the operating system’s standard audio-routing logic. The Moto Mod system and architecture achieves this by implementing many of the protocols that are native to the Android OS. This relieves the developer from having to write special-purpose Android kernel drivers, framework updates or a unique application to create a fully-functional and commercial-grade Moto Mod.</p>
+
+<p>Conversely, Moto Mods that include custom sensors or USB devices will likely need their own Android application. Your application will link in the <a href="/documentation/software-overview">Android SDK</a>, and will leverage the <a href="/documentation/raw-protocol">Raw protocol</a> to exchange information between your Moto Mod and Moto Z application.</p>
+
+<p>The power path supports the bi-directional flow of power, with the MuC mediating and controlling the flow of power.<br />
+ </p>
+
+<h2><br />
+Hardware Interfaces</h2>
+
+<p>Moto Mods can be created from a wide variety of interfaces. How you choose to combine them into your custom product is up to you. Table below shows overview of available interfaces and their capabilities.</p>
+
+<table id="yui_3_17_2_1_1504712515753_270"><thead id="yui_3_17_2_1_1504712515753_287"><tr id="yui_3_17_2_1_1504712515753_286"><td id="yui_3_17_2_1_1504712515753_285" width="100">Interface</td>
+			<td>Capabilities</td>
+			<td>Application</td>
+		</tr></thead><tbody><tr><td><strong>I2C</strong></td>
+			<td>1 Mbit/s</td>
+			<td>Low bandwidth, low power</td>
+		</tr><tr><td><strong>SPI</strong></td>
+			<td>15 Mbit/s</td>
+			<td>Medium bandwidth, low power</td>
+		</tr><tr><td><strong>UART</strong></td>
+			<td>10 Mbit/s</td>
+			<td>Medium bandwidth, low power</td>
+		</tr><tr><td><strong>CSI</strong></td>
+			<td>6MP raw10 @ 60fps 13MP raw10 @ 24fps</td>
+			<td>Camera</td>
+		</tr><tr><td><strong>I2S</strong></td>
+			<td>24-bit stereo @ 192kHz</td>
+			<td>Audio</td>
+		</tr><tr><td><strong>MyDP</strong></td>
+			<td>Video: 4K @ 30fps Audio: 8 channels @ 192kHz</td>
+			<td>Audio/Video</td>
+		</tr><tr><td><strong>USB2.0</strong></td>
+			<td>480 Mbit/s</td>
+			<td>USB Devices</td>
+		</tr><tr><td><strong>USB3.1</strong></td>
+			<td>5 Gbit/s</td>
+			<td>USB Host or Device</td>
+		</tr><tr><td><strong>GPIO</strong></td>
+			<td>General Purpose Input &amp; Output</td>
+			<td>Interrupts and peripheral control</td>
+		</tr></tbody></table><h3><br />
+Processor Architecture</h3>
+
+<p>The Moto Mods platform is built around dual implementations of the Greybus protocol stack, one running on the MuC on the Moto Mod and the other running on the AP on the Moto Z. In this design, the MuC acts as the central point of control, mirroring the role of the AP on the Moto Z. </p>
+<img alt="processor architecture" data-entity-type="file" data-entity-uuid="c27e3346-09a0-4707-b361-8eabf5158ba0" src="/sites/default/files/inline-images/dev-proc-diagram-2.png" class="align-center" /><h3>MuC Responsibilities</h3>
+
+<p>The current MuC is a publicly available ARM7 based Cortex-M4F (including FPU) and supports a variety of flash and RAM sizes. Every Moto Mod developer will need to create unique firmware to control and manage their peripherals.</p>
+
+<p>The MuC handles all attach/detach logic and power control between the Moto Z and Moto Mod. When attached to the Moto Z, the MuC communicates the hardware manifest, describing what Greybus protocols are available. All Greybus protocols terminate at the MuC, which provides the overall control for the Moto Mod. Since some protocols (I2S and USB, for example) can go over multiple pathways, the MuC also communicates the physical path being used, allowing the Moto Z to correctly configure its internal switches.</p>
+
+<p>In many cases, your peripherals will be attached directly to the MuC via standard I2C, SPI, or UART interfaces. Standard GPIOs, analog to digital converters, timers and USB are also available for developers to use. The MuC communicates with these directly and handles translation to the appropriate Greybus protocol.</p>
+
+<h3>Moto High Speed Bridge Responsibilities</h3>
+
+<p>Moto provides the current implementation of the high speed bridge in a purpose built IC. The Moto High Speed Bridge is an optional component in the Moto Mod system architecture. It is available to developers who require a high speed interface. The Moto Bridge handles multiplexing and transmission of high-bandwidth interfaces, including CSI, I2S and HSIC in the most power efficient way.</p>
+
+<p>When your project requires the Moto Bridge, one UART is used for an IPC with the MuC. This link is used by the MuC to set up and control the high speed data link using the Moto Mods High Speed IPC (MHB) protocol. MHB provides data structures and messaging that eliminates the need to customize the Moto Bridge firmware to work with your chosen peripheral.</p>
+
+<h2><br />
+Terminology</h2>
+
+<table id="yui_3_17_2_1_1504712515753_307"><thead id="yui_3_17_2_1_1504712515753_306"><tr id="yui_3_17_2_1_1504712515753_305"><td id="yui_3_17_2_1_1504712515753_304" width="100">Acronym</td>
+			<td>Name</td>
+		</tr></thead><tbody><tr><td><strong>CSI</strong></td>
+			<td>Camera Serial Interface</td>
+		</tr><tr><td><strong>DRM</strong></td>
+			<td>Digital Rights Management</td>
+		</tr><tr><td><strong>HID</strong></td>
+			<td>Human Interface Device</td>
+		</tr><tr><td><strong>HSI</strong></td>
+			<td>High-Speed Synchronous Interface</td>
+		</tr><tr><td><strong>HSIC</strong></td>
+			<td>High-Speed Inter-Chip</td>
+		</tr><tr><td><strong>I2C</strong></td>
+			<td>Inter-Integrated Circuit</td>
+		</tr><tr><td><strong>I2S</strong></td>
+			<td>Integrated Interchip Sound</td>
+		</tr><tr><td><strong>IPC</strong></td>
+			<td>Inter-Process Communications</td>
+		</tr><tr><td><strong>MDK</strong></td>
+			<td>Moto Mods Development Kit</td>
+		</tr><tr><td><strong>MHB</strong></td>
+			<td>Moto High Speed Bridge (IPC Protocol)</td>
+		</tr><tr><td><strong>MuC</strong></td>
+			<td>Moto Mod Microcontroller</td>
+		</tr><tr><td><strong>MyDP</strong></td>
+			<td>Mobility DisplayPort</td>
+		</tr><tr><td><strong>SPI</strong></td>
+			<td>Serial Peripheral Interface</td>
+		</tr></tbody></table><p> </p>
+</div>
+      
+  </div>
+
+</article>
+
+<section id="block-backtotop" class="block block-block-content block-block-content041966f5-0fe1-4320-8eee-cdeaf244dc88 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><button><i class="fa fa-chevron-circle-up"></i></button></div>
+      
+  </section>
+
+
+  </div>
+
+              </section>
+
+        
+        
+                </div>
+  </div>
+
+            <section class="above_footer container" role="contentinfo">
+              <div class="region region-above-footer">
+    <section id="block-helpblock" class="block block-block-content block-block-content532cffc6-7ce7-4d4f-9e9f-e0d60194d4b8 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="footer-help">
+<div class="header">
+<h2>Looking for help?</h2>
+</div>
+
+<div class="buttons"><a class="go" href="/faq">Go to FAQ</a> <span>or</span> <a class="ask" href="/community">Ask the community</a></div>
+</div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+        </section>
+    
+      <footer class="footer container" role="contentinfo">
+        <div class="region region-footer">
+    <section id="block-footerlogo" class="block block-block-content block-block-contentede1d594-0667-4d58-82ab-50e38daccec8 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="footer-logo-wrap"><a href="https://www.moto.com/"><img alt="Motorola" src="/themes/motorola/images/footer-logo.png" /></a></div>
+
+<p>©2017 Motorola<br />
+All rights reserved.</p>
+</div>
+      
+  </section>
+
+<nav role="navigation" aria-labelledby="block-support-menu" id="block-support">
+            
+  <h2 class="visually-hidden" id="block-support-menu">Footer menu</h2>
+  
+
+        
+              <ul class="menu nav">
+                            <li>
+        <a href="/faq" data-drupal-link-system-path="node/108">FAQ</a>
+                  </li>
+                        <li>
+        <a href="https://www.motorola.com/us/legal/privacy-policy">Privacy Policy</a>
+                  </li>
+        </ul>
+  
+
+
+  </nav>
+<nav role="navigation" aria-labelledby="block-footermenu2-menu" id="block-footermenu2">
+            
+  <h2 class="visually-hidden" id="block-footermenu2-menu">Footer menu 2</h2>
+  
+
+        
+              <ul class="menu nav">
+                            <li>
+        <a href="mailto:mdk-help@motorola.com">Ask MDK Help</a>
+                  </li>
+        </ul>
+  
+
+
+  </nav>
+<section id="block-footersocials" class="block block-block-content block-block-content5d7a0a23-4c63-49b5-8680-e7e7e5a9ac14 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><ul><li><a class="facebook" href="https://www.facebook.com/moto/" target="_blank">Facebook</a></li>
+	<li><a class="twitter" href="https://twitter.com/moto" target="_blank">Twitter</a></li>
+	<li><a class="youtube" href="https://www.youtube.com/user/motorola" target="_blank">Youtube</a></li>
+</ul></div>
+      
+  </section>
+
+
+  </div>
+
+    </footer>
+  
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","scriptPath":null,"pathPrefix":"","currentPath":"node\/118","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","bootstrap":{"forms_has_error_value_toggle":1,"modal_animation":1,"modal_backdrop":"true","modal_keyboard":1,"modal_show":1,"modal_size":"","popover_enabled":1,"popover_animation":1,"popover_container":"body","popover_content":"","popover_delay":"0","popover_html":0,"popover_placement":"right","popover_selector":"","popover_title":"","popover_trigger":"click","popover_trigger_autoclose":1,"tooltip_enabled":1,"tooltip_animation":1,"tooltip_container":"body","tooltip_delay":"0","tooltip_html":0,"tooltip_placement":"auto left","tooltip_selector":"","tooltip_trigger":"hover"},"ajaxTrustedUrl":{"\/search\/node":true},"user":{"uid":0,"permissionsHash":"08a43bd0e8ec4c73d93f574eaa23fbdc9bc9ccb4f4e2fc3399bdb61c76cc3671"}}</script>
+<script src="/sites/default/files/js/js_8emfEOO9orRe8bF7M-RvCkUspYNAKLxey8G77d5ELaA.js"></script>
+
+  </body>
+</html>

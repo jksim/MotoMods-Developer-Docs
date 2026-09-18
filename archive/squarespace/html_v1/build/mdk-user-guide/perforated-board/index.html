@@ -1,0 +1,1410 @@
+<!doctype html>
+<html xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:article="http://ogp.me/ns/article" lang="en-US" itemscope itemtype="http://schema.org/Article" class="touch-styles">
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- This is Squarespace. --><!-- leona-devs -->
+<base href="">
+<title>MDK User Guide: Perforated Board — Motorola Developer Portal</title>
+	<link rel="canonical" href="https://developer.motorola.com/build/mdk-user-guide/perforated-board/" />
+<link rel="shortcut icon" type="image/x-icon" href="../../../favicon.ico"/>
+<meta property="og:site_name" content="Motorola Developer Portal"/>
+<meta property="og:title" content="MDK User Guide: Perforated Board"/>
+<meta property="og:latitude" content="40.7207559"/>
+<meta property="og:longitude" content="-74.00076130000002"/>
+<meta property="og:url" content="https://developer.motorola.com/build/mdk-user-guide/perforated-board"/>
+<meta property="og:type" content="article"/>
+<meta property="og:description" content="MDK User Guide: Perforated Board Before you begin... Required Hardware
+The Perforated Board requires a Moto Z and Reference Moto Mod. If you don't 
+have these, you'll need to buy the required hardware.
+Note: One Perforated Board is included in-box along with the MDK. You can 
+also buy more P"/>
+<meta property="og:image" content="../../../static/5715eee9b09f95a12b44e0ed/t/5756e708a3360cdbab7d5bd8/1465313491952/hw-perfref-diagram-1-2.png"/>
+<meta property="og:image:width" content="1000"/>
+<meta property="og:image:height" content="362"/>
+<meta itemprop="name" content="MDK User Guide: Perforated Board"/>
+<meta itemprop="url" content="https://developer.motorola.com/build/mdk-user-guide/perforated-board"/>
+<meta itemprop="description" content="MDK User Guide: Perforated Board Before you begin... Required Hardware
+The Perforated Board requires a Moto Z and Reference Moto Mod. If you don't 
+have these, you'll need to buy the required hardware.
+Note: One Perforated Board is included in-box along with the MDK. You can 
+also buy more P"/>
+<meta itemprop="thumbnailUrl" content="../../../static/5715eee9b09f95a12b44e0ed/t/5756e708a3360cdbab7d5bd8/1465313491952/hw-perfref-diagram-1-2.png"/>
+<link rel="image_src" href="../../../static/5715eee9b09f95a12b44e0ed/t/5756e708a3360cdbab7d5bd8/1465313491952/hw-perfref-diagram-1-2.png"/>
+<meta itemprop="image" content="../../../static/5715eee9b09f95a12b44e0ed/t/5756e708a3360cdbab7d5bd8/1465313491952/hw-perfref-diagram-1-2.png"/>
+<meta name="twitter:title" content="MDK User Guide: Perforated Board"/>
+<meta name="twitter:image" content="../../../static/5715eee9b09f95a12b44e0ed/t/5756e708a3360cdbab7d5bd8/1465313491952/hw-perfref-diagram-1-2.png"/>
+<meta name="twitter:url" content="https://developer.motorola.com/build/mdk-user-guide/perforated-board"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:description" content="MDK User Guide: Perforated Board Before you begin... Required Hardware
+The Perforated Board requires a Moto Z and Reference Moto Mod. If you don't 
+have these, you'll need to buy the required hardware.
+Note: One Perforated Board is included in-box along with the MDK. You can 
+also buy more P"/>
+<meta name="description" content=""/>
+<script type="text/javascript" src="../../../script/qJ7WqbMy62JMJ7f6RRy6IbMy6FJMJ7fbK7psMfeMb6MKGHf5PeMsMfeMt6MKG4fHyoIMJjgkMfH6GJojjgIMJjIPMfqMY2q05Egb_3vcekjg8xwp7qvnvuk7hxh.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:600,300,300italic,700normal,700italic,700"/>
+<script type="text/javascript">SQUARESPACE_ROLLUPS = {};</script>
+<script>(function(rollups, name) { if (!rollups[name]) { rollups[name] = {}; } rollups[name].js = ["../../../universal/scripts-compressed/common-393b9842541a13e5c558-min.js"]; })(SQUARESPACE_ROLLUPS, 'squarespace-common');</script>
+<script src="../../../universal/scripts-compressed/common-393b9842541a13e5c558-min.js"></script><script>(function(rollups, name) { if (!rollups[name]) { rollups[name] = {}; } rollups[name].js = ["../../../universal/scripts-compressed/commerce-d577819cdcafd076189e-min.js"]; })(SQUARESPACE_ROLLUPS, 'squarespace-commerce');</script>
+<script src="../../../universal/scripts-compressed/commerce-d577819cdcafd076189e-min.js"></script><script>(function(rollups, name) { if (!rollups[name]) { rollups[name] = {}; } rollups[name].css = ["../../../universal/styles-compressed/commerce-5d92d492f6510be01a117febeac9a310-min.css"]; })(SQUARESPACE_ROLLUPS, 'squarespace-commerce');</script>
+<link rel="stylesheet" type="text/css" href="../../../universal/styles-compressed/commerce-5d92d492f6510be01a117febeac9a310-min.css"/><script data-name="static-context">Static.SQUARESPACE_CONTEXT = {"facebookAppId":"314192535267336","rollups":{"squarespace-announcement-bar":{"css":"https://static.squarespace.com/universal/styles-compressed/announcement-bar-d41d8cd98f00b204e9800998ecf8427e-min.css","js":"../../../universal/scripts-compressed/announcement-bar-e15d8554f2b598321ea4-min.js"},"squarespace-audio-player":{"css":"../../../universal/styles-compressed/audio-player-e1b486594965430889af24c93ffeb509-min.css","js":"../../../universal/scripts-compressed/audio-player-f9df3952ac62fb20c404-min.js"},"squarespace-blog-collection-list":{"css":"https://static.squarespace.com/universal/styles-compressed/blog-collection-list-d41d8cd98f00b204e9800998ecf8427e-min.css","js":"../../../universal/scripts-compressed/blog-collection-list-85938b29ce2208c4aa67-min.js"},"squarespace-calendar-block-renderer":{"css":"../../../universal/styles-compressed/calendar-block-renderer-bba726056d2134131ce9d3077c28adbe-min.css","js":"../../../universal/scripts-compressed/calendar-block-renderer-906bb54be316bb118436-min.js"},"squarespace-chartjs-helpers":{"css":"../../../universal/styles-compressed/chartjs-helpers-9935a41d63cf08ca108505d288c1712e-min.css","js":"../../../universal/scripts-compressed/chartjs-helpers-108fffde88809131c770-min.js"},"squarespace-comments":{"css":"../../../universal/styles-compressed/comments-1ae08467f397480610cf4bf3338d1e0c-min.css","js":"../../../universal/scripts-compressed/comments-ebd10de5ac1e23a47992-min.js"},"squarespace-dialog":{"css":"../../../universal/styles-compressed/dialog-aba41cb3c0853ecd2e2fb2303806d950-min.css","js":"../../../universal/scripts-compressed/dialog-f9778b5b6b953fba64ba-min.js"},"squarespace-events-collection":{"css":"../../../universal/styles-compressed/events-collection-bba726056d2134131ce9d3077c28adbe-min.css","js":"../../../universal/scripts-compressed/events-collection-938f8c5c5ae091db3c18-min.js"},"squarespace-form-rendering-utils":{"js":"../../../universal/scripts-compressed/form-rendering-utils-f5659b33ec76d3f264b0-min.js"},"squarespace-gallery-collection-list":{"css":"https://static.squarespace.com/universal/styles-compressed/gallery-collection-list-d41d8cd98f00b204e9800998ecf8427e-min.css","js":"../../../universal/scripts-compressed/gallery-collection-list-6db0ee1003cdeeaaab67-min.js"},"squarespace-image-zoom":{"css":"../../../universal/styles-compressed/image-zoom-ae974921915aeccaff8ad60c60e19c31-min.css","js":"../../../universal/scripts-compressed/image-zoom-cf2018eb7cc6d67a07d6-min.js"},"squarespace-pinterest":{"css":"https://static.squarespace.com/universal/styles-compressed/pinterest-d41d8cd98f00b204e9800998ecf8427e-min.css","js":"../../../universal/scripts-compressed/pinterest-c27bbca9a040da7a1a33-min.js"},"squarespace-popup-overlay":{"css":"../../../universal/styles-compressed/popup-overlay-fdcf92196a4aebc72317a5c5f60f0289-min.css","js":"../../../universal/scripts-compressed/popup-overlay-ef640e8450bd60e582d6-min.js"},"squarespace-product-quick-view":{"css":"../../../universal/styles-compressed/product-quick-view-9abaaa4dfff182aa8d4ccf3b6ffdbe8d-min.css","js":"../../../universal/scripts-compressed/product-quick-view-1f17b4c3826aed2546df-min.js"},"squarespace-products-collection-item-v2":{"css":"../../../universal/styles-compressed/products-collection-item-v2-ae974921915aeccaff8ad60c60e19c31-min.css","js":"../../../universal/scripts-compressed/products-collection-item-v2-f0d959943301d7ac10e2-min.js"},"squarespace-products-collection-list-v2":{"css":"../../../universal/styles-compressed/products-collection-list-v2-ae974921915aeccaff8ad60c60e19c31-min.css","js":"../../../universal/scripts-compressed/products-collection-list-v2-cd8a906b97c40871db4b-min.js"},"squarespace-search-page":{"css":"../../../universal/styles-compressed/search-page-9c747eeaabe96dacfea4932a63336f54-min.css","js":"../../../universal/scripts-compressed/search-page-f0f6b0477d1416aa20d5-min.js"},"squarespace-search-preview":{"js":"../../../universal/scripts-compressed/search-preview-02fe9bb727503105fb00-min.js"},"squarespace-share-buttons":{"js":"../../../universal/scripts-compressed/share-buttons-9a6ef1c02c2effa2ee1a-min.js"},"squarespace-simple-liking":{"css":"../../../universal/styles-compressed/simple-liking-09fa291ec2800c97714f0d157fd0a6ca-min.css","js":"../../../universal/scripts-compressed/simple-liking-8a8692bef11be2038fab-min.js"},"squarespace-social-buttons":{"css":"../../../universal/styles-compressed/social-buttons-7a696232d1cd101fd62b5f174f9ae6ff-min.css","js":"../../../universal/scripts-compressed/social-buttons-685588a0b15b2e8f9201-min.js"},"squarespace-tourdates":{"css":"https://static.squarespace.com/universal/styles-compressed/tourdates-d41d8cd98f00b204e9800998ecf8427e-min.css","js":"../../../universal/scripts-compressed/tourdates-cf20c526517152ffd63d-min.js"},"squarespace-website-overlays-manager":{"css":"../../../universal/styles-compressed/website-overlays-manager-d1b0ace5f5af772d643f5a6ce0056946-min.css","js":"../../../universal/scripts-compressed/website-overlays-manager-0110776ef875c68d74c4-min.js"}},"pageType":50,"website":{"id":"5715eee9b09f95a12b44e0ed","identifier":"leona-devs","websiteType":1,"contentModifiedOn":1507756543856,"cloneable":false,"developerMode":true,"siteStatus":{},"language":"en-US","timeZone":"America/Chicago","machineTimeZoneOffset":-18000000,"timeZoneOffset":-18000000,"timeZoneAbbr":"CDT","siteTitle":"Motorola Developer Portal","siteTagLine":"Dream. Make. Ship.","siteDescription":"<p><span style=\"font-size:15.4px\">Everything you need to learn about the Moto Mods\u2122 platform, create your own Moto Mod, and take it to market.&nbsp;</span></p>","logoImageId":"5757c416c6fc08b36227de80","socialLogoImageId":"5755264307eaa05442bdf5e8","shareButtonOptions":{"1":true,"8":true,"5":true,"3":true,"6":true,"4":true,"2":true,"7":true},"logoImageUrl":"https://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/5757c416c6fc08b36227de80/1507756543856/","socialLogoImageUrl":"https://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/5755264307eaa05442bdf5e8/1507756543856/","authenticUrl":"https://developer.motorola.com","internalUrl":"https://leona-devs.squarespace.com","baseUrl":"https://developer.motorola.com","primaryDomain":"developer.motorola.com","sslSetting":3,"socialAccounts":[{"serviceId":11,"userId":"UCF5CbIqtNedOBHYhCgaVo5w","screenname":"Josh Wu","addedOn":1465372026418,"profileUrl":"https://www.youtube.com/user/motorola","iconUrl":"../../../-aiajjcTcxW8/AAAAAAAAAAI/AAAAAAAAAAA/F25Fwkym5Yg/s88-c-k-no-rj-c0xffffff/photo.jpg","iconEnabled":true,"serviceName":"youtube"},{"serviceId":2,"userId":"10100700593422275","screenname":"Josh Wu","addedOn":1465370177239,"profileUrl":"https://www.facebook.com/MotoUSA/","iconUrl":"http://graph.facebook.com/10100700593422275/picture?type=square","metaData":{"service":"facebook"},"iconEnabled":true,"serviceName":"facebook"},{"serviceId":4,"userId":"193778334","userName":"xjoshwu","screenname":"Josh Wu","addedOn":1465371811769,"profileUrl":"https://twitter.com/moto","iconUrl":"../../../sticky/default_profile_images/default_profile_1_normal.png","collectionId":"5757cca3ab48de05c0e6df61","iconEnabled":true,"serviceName":"twitter"},{"serviceId":21,"userId":"103148786619544125119","screenname":"Josh Wu","addedOn":1465371948049,"profileUrl":"https://plus.google.com/communities/116517178872973348174","iconUrl":"../../../-aiajjcTcxW8/AAAAAAAAAAI/AAAAAAAAAng/vXUrMPokc1s/photo.jpg","iconEnabled":true,"serviceName":"google"}],"typekitId":"","statsMigrated":false,"imageMetadataProcessingEnabled":false,"screenshotId":"b665f9d2"},"websiteSettings":{"id":"5715eee9b09f95a12b44e0f0","websiteId":"5715eee9b09f95a12b44e0ed","subjects":[],"country":"US","state":"IL","simpleLikingEnabled":true,"mobileInfoBarSettings":{"isContactEmailEnabled":false,"isContactPhoneNumberEnabled":false,"isLocationEnabled":false,"isBusinessHoursEnabled":false},"commentLikesAllowed":true,"commentAnonAllowed":true,"commentThreaded":true,"commentApprovalRequired":false,"commentAvatarsOn":true,"commentSortType":2,"commentFlagThreshold":0,"commentFlagsAllowed":true,"commentEnableByDefault":true,"commentDisableAfterDaysDefault":0,"disqusShortname":"","commentsEnabled":false,"contactPhoneNumber":"","storeSettings":{"returnPolicy":null,"termsOfService":null,"privacyPolicy":null,"paymentSettings":{},"expressCheckout":false,"useLightCart":false,"showNoteField":false,"shippingCountryDefaultValue":"US","billToShippingDefaultValue":false,"showShippingPhoneNumber":true,"isShippingPhoneRequired":false,"showBillingPhoneNumber":true,"isBillingPhoneRequired":false,"multipleQuantityAllowedForServices":true,"currenciesSupported":["CHF","HKD","MXN","EUR","DKK","USD","CAD","MYR","NOK","THB","AUD","SGD","ILS","PLN","GBP","CZK","SEK","NZD","PHP","RUB"],"defaultCurrency":"USD","selectedCurrency":"USD","measurementStandard":1,"orderConfirmationInjectCode":"<style>\n/* <link rel=\"stylesheet\" href=\"style.css\">\n  img .footer-inner {\n  \tmax-width: 80px;\n  }\n  img.thumb-image.loaded {\n  \tleft: 0 !important;\n    max-height: 100% !important;\n  }*/\n  \n</style>","showCustomCheckoutForm":false,"enableMailingListOptInByDefault":true,"sameAsRetailLocation":false,"isLive":false},"useEscapeKeyToLogin":false,"ssBadgeType":1,"ssBadgePosition":4,"ssBadgeVisibility":1,"ssBadgeDevices":1,"pinterestOverlayOptions":{"mode":"disabled"},"ampEnabled":false},"cookieSettings":{"isRestrictiveCookiePolicyEnabled":false},"websiteCloneable":false,"collection":{"title":"Moto Mods Developer: Build Prototype","id":"573979d0a3360ce2541b0a08","fullUrl":"/build/","type":1},"item":{"title":"MDK User Guide: Perforated Board","id":"57461dc0b654f90813ac7526","fullUrl":"/build/mdk-user-guide/perforated-board","publicCommentCount":0,"commentState":2,"recordType":1},"subscribed":false,"appDomain":"squarespace.com","templateTweakable":true,"tweakJSON":{"aspect-ratio":"Auto","banner-slideshow-controls":"Arrows","gallery-arrow-style":"No Background","gallery-aspect-ratio":"3:2 Standard","gallery-auto-crop":"true","gallery-autoplay":"false","gallery-design":"Grid","gallery-info-overlay":"Show on Hover","gallery-loop":"false","gallery-navigation":"Bullets","gallery-show-arrows":"true","gallery-transitions":"Fade","galleryArrowBackground":"rgba(34,34,34,1)","galleryArrowColor":"rgba(255,255,255,1)","galleryAutoplaySpeed":"3","galleryCircleColor":"rgba(255,255,255,1)","galleryInfoBackground":"rgba(0, 0, 0, .7)","galleryThumbnailSize":"100px","gridSize":"280px","gridSpacing":"10px","logoContainerWidth":"200px","product-gallery-auto-crop":"false","product-image-auto-crop":"true","siteTitleContainerWidth":"235px"},"templateId":"5715f8f91d07c0429e184ea4","pageFeatures":[1,2,4],"impersonatedSession":false,"isFacebookTab":false,"tzData":{"zones":[[-360,"US","C%sT",null]],"rules":{"US":[[1967,2006,null,"Oct","lastSun","2:00","0","S"],[1987,2006,null,"Apr","Sun>=1","2:00","1:00","D"],[2007,"max",null,"Mar","Sun>=8","2:00","1:00","D"],[2007,"max",null,"Nov","Sun>=1","2:00","0","S"]]}},"useNewImageLoader":true};</script><script type="text/javascript"> SquarespaceFonts.loadViaContext(); Squarespace.load(window);</script><script type="application/ld+json">{"@context":"http://schema.org","@type":"WebSite","url":"https://developer.motorola.com","name":"Motorola Developer Portal","description":"<p><span style=\"font-size:15.4px\">Everything you need to learn about the Moto Mods\u2122 platform, create your own Moto Mod, and take it to market.&nbsp;</span></p>","image":"https://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/5757c416c6fc08b36227de80/1507756543856/"}</script><!--[if gte IE 9]> <link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/962-05142015/1487275208510/site.css?&filterFeatures=false&part=1"/><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/962-05142015/1487275208510/site.css?&filterFeatures=false&part=2"/><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/962-05142015/1487275208510/site.css?&filterFeatures=false&part=3"/><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/962-05142015/1487275208510/site.css?&filterFeatures=false&part=4"/><![endif]-->
+<!--[if lt IE 9]><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/962-05142015/1487275208510/site.css?&filterFeatures=false&noMedia=true&part=1"/><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/962-05142015/1487275208510/site.css?&filterFeatures=false&noMedia=true&part=2"/><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/962-05142015/1487275208510/site.css?&filterFeatures=false&noMedia=true&part=3"/><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/962-05142015/1487275208510/site.css?&filterFeatures=false&noMedia=true&part=4"/><![endif]-->
+<!--[if !IE]> --><link rel="stylesheet" type="text/css" href="../../../css/1487275208510/site.css"/><!-- <![endif]-->
+<!-- create adrum.js script timestamp -->
+<script>window['adrum-start-time'] = new Date().getTime();</script>
+<!--run adrum.js -->
+<script src="../../../scripts/adrum.js"></script>
+<!-- run page redirects -->
+<script id="redirect" type="text/javascript">	
+    // DEFINE HERE WHICH HERO PAGES SHOULD AUTOMATICALLY LOOK TO REDIRECT
+    // SUBPAGES THAT FOLLOW THE SLUG NAMING CONVENTION OF BASE_URL.COM/AAA-BBB-#  
+	var redirects = {
+     // "/index-page-url": "redirect-target"
+        "/home": "/",
+      	"/buy": "/buy",
+      	"/get-started": "/get-started",
+        "/partner": "/partner",
+        "/support": "/support",
+    };
+  	// DON'T TOUCH ANYTHING BELOW THIS LINE
+  	// UNLESS YOU KNOW JAVASCRIPT
+    (function redirect_page() {
+      	//console.log('Window pathname:', window.location);
+        // store pathname because we have to use it a bunch
+        var pathname = window.location.pathname,
+            redirect_url;
+        for (var $key in redirects) {
+            // look to see if the pathname matches a targeted redirect
+            // index at the start of the string
+            if (new RegExp(('^').concat($key), 'i').test(pathname)) {
+                console.log('This window URL pathname matches a specified redirect path!\nWindow URL pathname:', pathname, '\nProceding to analyze...');
+                // because we store otherwise random numbers in intelligble
+                // variables, create an index and offset
+                var index = 0,
+                    offset = 1;
+                // clean up the pathname: if there's a final / at the *end* of the URL,
+                // get rid of it, since it will prevent us from identifying pages to redirect
+                pathname = (pathname.charAt(pathname.length - offset) === '/') ? pathname.substr(0, pathname.length - offset) : pathname;
+                // after cleaning up the pathname, check to see if the match is an exact one
+                // if it is, don't redirect
+                if (pathname === $key) {
+                    return console.log('Pathname is evaluated as the same page as the potential redirect -- not processing further');
+                } 
+                // check to see if the match corresponds to a subfolder/page URL
+                // rather than a hero card -- if it is, ignore it
+                else if (pathname.match(/\//g).length > offset) {
+                    return console.log('Pathname is evaluated as a subpage -- not applying redirects');
+                } 
+              	// redirect here!
+              	else {
+                    console.log('Pathname should be redirected to', redirects[$key]);
+                    return window.location = redirects[$key];
+                }
+            }
+        }	
+    }());
+</script>
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5HBTJV" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script src="../../../js/324186689.js"></script><link rel="stylesheet" href="../../../assets/css/documentation-styles.css">
+<!-- <style>
+  #header-info-1 {
+  	color: #dbbc8e !important;
+    font-weight: bold !important;
+  }
+  h2 {
+  	color: #5e2862 !important;
+  }
+</style> -->
+<script type="text/javascript">
+      $(window).bind("load", function() {
+        // GA Data Layer Push Events
+        $(".sqs-block-content a:contains('MDK Architecture Overview')").click(function(e){ dataLayer.push({'event' : 'event', 'category' : 'Mods: Build Page Interaction', 'action' : 'Click', 'label' : 'Build: Body: MDK Architecture Overview: Link'}); console.log(' click'); });
+        $(".sqs-block-content a[href*='/products/perforated-board']").click(function(e){ dataLayer.push({'event' : 'event', 'category' : 'Mods: Build Page Interaction', 'action' : 'Click', 'label' : 'Build: Body: Perforated Board: Link'}); console.log(' click'); });
+        $(".sqs-block-content a[href*='/products/hat-adapter-board']").click(function(e){ dataLayer.push({'event' : 'event', 'category' : 'Mods: Build Page Interaction', 'action' : 'Click', 'label' : 'Build: Body: HAT Adapter Board: Link'}); console.log(' click'); });
+        $(".sqs-block-content a[href*='/products/temperature-sensor-personality-card']").click(function(e){ dataLayer.push({'event' : 'event', 'category' : 'Mods: Build Page Interaction', 'action' : 'Click', 'label' : 'Build: Body: Temperature Sensor Personality Card: Link'}); console.log(' click'); });
+        $(".sqs-block-content a[href*='/products/battery-personality-card']").click(function(e){ dataLayer.push({'event' : 'event', 'category' : 'Mods: Build Page Interaction', 'action' : 'Click', 'label' : 'Build: Body: Battery Personality Card: Link'}); console.log(' click'); });
+        $(".sqs-block-content a[href*='/products/display-personality-card']").click(function(e){ dataLayer.push({'event' : 'event', 'category' : 'Mods: Build Page Interaction', 'action' : 'Click', 'label' : 'Build: Body: Display Personality Card: Link'}); console.log(' click'); });
+        $(".sqs-block-content a[href*='/products/audio-personality-card']").click(function(e){ dataLayer.push({'event' : 'event', 'category' : 'Mods: Build Page Interaction', 'action' : 'Click', 'label' : 'Build: Body: Audio Personality Card: Link'}); console.log(' click'); });
+        $(".sqs-block-content a[href*='/partner']").click(function(e){ dataLayer.push({'event' : 'event', 'category' : 'Mods: Build Page Interaction', 'action' : 'Click', 'label' : 'Build: Body: Partner Page: Link'}); console.log(' click'); });
+        $("a[href*='https://pages.motorola-mail.com/moto-mods-developer-us-en']").click(function(e){ dataLayer.push({'event' : 'event', 'category' : 'Mods: Get Started Page Interaction', 'action' : 'Click', 'label' : 'Get Started: Body: Register For Updates: Button'}); console.log('updates click'); });
+      });
+    </script><!-- End of Squarespace Headers -->
+    <script>/* Must be below squarespace-headers */(function(){var e='ontouchstart'in window||navigator.msMaxTouchPoints;var t=document.documentElement;if(!e&&t){t.className=t.className.replace(/touch-styles/,'')}})()
+    </script>
+  </head>
+  <body id="item-57461dc0b654f90813ac7526" class="enable-nav-button nav-button-style-solid nav-button-corner-style-square banner-button-style-solid banner-button-corner-style-square banner-slideshow-controls-arrows meta-priority-date  hide-entry-author hide-list-entry-footer    hide-blog-sidebar center-navigation--info  gallery-design-grid aspect-ratio-auto lightbox-style-light gallery-navigation-bullets gallery-info-overlay-show-on-hover gallery-aspect-ratio-32-standard gallery-arrow-style-no-background gallery-transitions-fade gallery-show-arrows gallery-auto-crop      event-thumbnails event-thumbnail-size-32-standard event-date-label event-date-label-time event-list-show-cats event-list-date event-list-time event-list-address   event-icalgcal-links  event-excerpts  event-item-back-link    product-list-titles-under product-list-alignment-center product-item-size-11-square product-image-auto-crop product-gallery-size-11-square  show-product-price show-product-item-nav product-social-sharing  opentable-style-light newsletter-style-light small-button-style-solid small-button-shape-square medium-button-style-outline medium-button-shape-square large-button-style-outline large-button-shape-square button-style-solid button-corner-style-square tweak-product-quick-view-button-style-floating tweak-product-quick-view-button-position-bottom tweak-product-quick-view-lightbox-excerpt-display-truncate tweak-product-quick-view-lightbox-show-arrows tweak-product-quick-view-lightbox-show-close-button tweak-product-quick-view-lightbox-controls-weight-light native-currency-code-usd collection-573979d0a3360ce2541b0a08 view-item collection-layout-default collection-type-build mobile-style-available">
+    <input type="checkbox" name="mobile-nav-toggle" id="mobileNavToggle" class="mobile-nav-toggle-box hidden"/><a href="#" class="body-overlay"></a>
+    <div class="sqs-announcement-bar-dropzone"></div>
+    <div id="sidecarNav">
+<div id="mobileNavWrapper" class="nav-wrapper" data-content-field="navigation-mobileNav">
+  <nav id="mobileNavigation">
+        <div class="mobile-fullurl- index homepage">
+          <a href="/">
+            Home
+          </a>
+        </div>
+        <div class="mobile-fullurl-get-started index">
+          <a href="../../../get-started/">
+            Get Started
+          </a>
+        </div>
+	        <div class="external outside-folder explore-dropdown">
+	          <a href="../../../explore/">
+	            Explore
+	          </a>
+			  	<div id="subNavMobile">
+        <div class="external" data-url="https://developer.motorola.com/explore/system-architecture">
+          <a href="../../../explore/system-architecture/">
+            System Architecture
+          </a>
+        </div>
+        <div class="external" data-url="https://developer.motorola.com/explore/software">
+          <a href="../../../explore/software/">
+            Moto Mods SDK for Android
+          </a>
+        </div>
+        <div class="external" data-url="https://developer.motorola.com/explore/firmware">
+          <a href="../../../explore/firmware/">
+            Moto Mods Firmware
+          </a>
+        </div>
+</div>
+	        </div>
+	        <div class="external outside-folder build-dropdown">
+	          <a href="../../../build/">
+	            Build
+	          </a>
+			  	<div id="subNavMobile">
+        <div class="external" data-url="https://developer.motorola.com/build/overview">
+          <a href="../../../build/overview/">
+            Overview
+          </a>
+        </div>
+        <div class="external" data-url="https://developer.motorola.com/build/mdk-user-guide">
+          <a href="../../../build/mdk-user-guide/">
+            MDK User Guide
+          </a>
+        </div>
+        <div class="external" data-url="https://developer.motorola.com/build/tools">
+          <a href="../../../build/tools/">
+            Developer Tools
+          </a>
+        </div>
+        <div class="external" data-url="https://developer.motorola.com/build/examples">
+          <a href="../../../build/examples/">
+            Examples
+          </a>
+        </div>
+</div>
+	        </div>
+        <div class="mobile-fullurl-partner index">
+          <a href="../../../partner/">
+            Partner
+          </a>
+        </div>
+        <div class="mobile-fullurl-support index">
+          <a href="../../../support/">
+            Support
+          </a>
+        </div>
+        <div class="mobile-fullurl-buy index">
+          <a href="../../../buy/">
+            Buy
+          </a>
+        </div>
+    <!--<div id="lateral-nav">
+		<div class="button-shop">
+  			<a>Lorem Ipsum</a>
+  		</div>
+  	</div>-->
+  </nav>
+</div>
+    </div>
+    <div id="siteWrapper" class="clearfix">
+      <div class="sqs-cart-dropzone"></div>
+      <header id="header" class="show-on-scroll" data-offset-el=".index-section" data-offset-behavior="bottom" role="banner">
+        <div class="header-inner">
+	        <div id="second-logo">
+			    	<img src="../../../static/ta/5715eee9b09f95a12b44e0ed/936/assets/images/logos/lenovo.png" alt="Lenovo" style="max-width:25px"/>
+		      </div>
+	      <div class="main-header">
+	          <div id="logoWrapper" class="wrapper" data-content-field="site-title">
+	              <h1 id="logoImage"><a href="/"><img src="../../../static/5715eee9b09f95a12b44e0ed/t/5757c416c6fc08b36227de80/1507756543856/_format_1500w.jpg" alt="Motorola Developer Portal"/></a></h1>
+	          </div><!-- comment the linebreak between these two elements because science
+	          --><label for="mobileNavToggle" class="mobile-nav-toggle-label"><div class="top-bar"></div><div class="middle-bar"></div><div class="bottom-bar"></div></label><label for="mobileNavToggle" class="mobile-nav-toggle-label fixed-nav-toggle-label"><div class="top-bar"></div><div class="middle-bar"></div><div class="bottom-bar"></div></label><!-- comment the linebreak between these two elements because science
+	          -->
+	          <div id="headerNav"><div id="mainNavWrapper" class="nav-wrapper" data-content-field="navigation-mainNav">
+  <nav id="mainNavigation" data-content-field="navigation-mainNav">
+        <div class="fullurl- index homepage">
+          <a href="/">
+            Home
+          </a>
+        </div>
+        <div class="fullurl-get-started index">
+          <a href="../../../get-started/">
+            Get Started
+          </a>
+        </div>
+		        <div class="external" id="tab-explore">
+		          <a href="../../../explore/">
+		            Explore
+		          </a>
+		        </div>
+		        <div class="external" id="tab-build">
+		          <a href="../../../build/">
+		            Build
+		          </a>
+		        </div>
+        <div class="fullurl-partner index">
+          <a href="../../../partner/">
+            Partner
+          </a>
+        </div>
+        <div class="fullurl-support index">
+          <a href="../../../support/">
+            Support
+          </a>
+        </div>
+        <div class="fullurl-buy index">
+          <a href="../../../buy/">
+            Buy
+          </a>
+        </div>
+	<!--<div id="lateral-nav">
+		<div class="button-shop">
+  			<a>Lorem Ipsum</a>
+  		</div>
+  	</div>-->
+  </nav>
+</div>
+<!-- style below blocks out the mobile nav toggle only when nav is loaded -->
+<style>.mobile-nav-toggle-label { display: inline-block !important; }</style>
+</div>
+	      </div>
+          <!-- Display subnav only if we are in type name collection -->
+					<div id="subHeaderNav">
+<div id="mainNavWrapper" class="nav-wrapper" data-content-field="navigation-mainNav">
+  <nav id="subNavigation" data-content-field="navigation-mainNav">
+        <div class="external" data-url="https://developer.motorola.com/build/overview">
+          <a href="../../../build/overview/">
+            Overview
+          </a>
+        </div>
+        <div class="external" data-url="https://developer.motorola.com/build/mdk-user-guide">
+          <a href="../../../build/mdk-user-guide/">
+            MDK User Guide
+          </a>
+        </div>
+        <div class="external" data-url="https://developer.motorola.com/build/tools">
+          <a href="../../../build/tools/">
+            Developer Tools
+          </a>
+        </div>
+        <div class="external" data-url="https://developer.motorola.com/build/examples">
+          <a href="../../../build/examples/">
+            Examples
+          </a>
+        </div>
+  </nav>
+</div>
+<!-- style below blocks out the mobile nav toggle only when nav is loaded -->
+<style>.mobile-nav-toggle-label { display: inline-block !important; }</style>
+</div>
+        </div>
+      </header>
+      <main id="page" role="main">
+        <!-- comment the linebreak between these two elements because science
+        --><!-- comment the linebreak between these two elements because science
+        --><div id="content" class="main-content" data-content-field="main-content" data-collection-id="573979d0a3360ce2541b0a08" data-edit-main-image="Banner">
+         <div class="sidebar" data-tag-selected="Perforated Board"> 
+<!-- Here you can modify the query so it matches the slug of the collection to retrieve the tags -->
+<ol>
+<li><a href="../../../build/mdk-user-guide/" data-tag="Reference Moto Mod">Reference Moto Mod</a></li>
+<li><a href="../../../build/mdk-user-guide/perforated-board/" data-tag="Perforated Board">Perforated Board</a></li>
+<li><a href="../../../build/mdk-user-guide/hat-adapter-board/" data-tag="HAT Adapter Board">HAT Adapter Board</a></li>
+<li><a href="../../../build/mdk-user-guide/custom-circuit-board/" data-tag="Custom Circuit Board">Custom Circuit Board</a></li>
+</ol>
+<div class="external-links">
+<div class="sqs-layout sqs-grid-12 columns-12 empty" data-type="block-field" data-updated-on="1472146444757" id="blockField-external-links-57461dc0b654f90813ac7526"><div class="row sqs-row"><div class="col sqs-col-12 span-12"></div></div></div>
+</div>
+</div>
+<div class="entry-content e-content">
+       <div class="sqs-layout sqs-grid-12 columns-12" data-layout-label="Post Body" data-type="item" data-updated-on="1464212969353" id="item-57461dc0b654f90813ac7526"><div class="row sqs-row"><div class="col sqs-col-12 span-12"><div class="sqs-block markdown-block sqs-block-markdown" data-block-type="44" id="block-yui_3_17_2_1_1472132767881_761797"><div class="sqs-block-content"><h1 id="mdk-user-guide-perforated-board">MDK User Guide: Perforated Board</h1>
+<h2 data-preserve-html-node="true" id="before-you-begin">Before you begin...</h2>
+<h4 id="required-hardware">Required Hardware</h4>
+<p>The Perforated Board requires a <a href="http://www.motomods.com/">Moto Z</a> and <a href="../../../products/mdk/">Reference Moto Mod</a>. If you don't have these, you'll need to buy the required hardware.</p>
+<p><strong>Note:</strong> One Perforated Board is included in-box along with the <a href="../../../products/mdk/">MDK</a>. You can also <a href="../../../products/perforated-board/">buy more Perforated Boards</a> as needed.</p>
+</div></div><div class="sqs-block button-block sqs-block-button" data-block-type="53" id="block-yui_3_17_2_1_1472132767881_767588"><div class="sqs-block-content">
+<div class="sqs-block-button-container--left" data-alignment="left" data-button-size="small">
+	<a href="../../../buy/" class="sqs-block-button-element--small sqs-block-button-element">Buy Hardware</a>
+</div></div></div><div class="sqs-block horizontalrule-block sqs-block-horizontalrule" data-block-type="47" id="block-yui_3_17_2_1_1472132767881_760975"><div class="sqs-block-content"><hr/></div></div><div class="sqs-block markdown-block sqs-block-markdown" data-block-type="44" id="block-yui_3_17_2_1_1472132767881_793338"><div class="sqs-block-content"><h2 data-preserve-html-node="true" id="electrical">Electrical Details</h2>
+<h3 data-preserve-html-node="true" id="overview">Overview</h3>
+<p>The Perforated Board is the primary vehicle for starting development of your Moto Mods Development Kit project.</p>
+<p>The <strong>bottom side</strong> contains the mating connector to attach the Perforated Board to the Reference Moto Mod.</p>
+<p>The <strong>top side</strong> consists of 3 distinct areas:</p>
+<ul>
+<li><a href="#breadboard-area"><strong>Breadboard Area:</strong></a> place and connect hardware components needed to realize your project here.</li>
+<li><a href="#mdk-interface-connector-breakout"><strong>MDK Interface (80-pin connector breakout):</strong></a> all connector signals are accessible to probe with test equipment or attach to your project’s hardware.</li>
+<li><a href="#mdk-interface-test-points"><strong>MDK Interface (Test Points):</strong></a> easy access to signals you’re likely to use most often during development of your project, clearly marked with silkscreen.</li>
+</ul>
+</div></div><div class="sqs-block image-block sqs-block-image" data-block-type="5" id="block-yui_3_17_2_1_1464985351909_921069"><div class="sqs-block-content"> 
+    <div class="image-block-outer-wrapper layout-caption-below design-layout-inline">
+      <div class="intrinsic" style="max-width:1500.0px;">
+          <div style="padding-bottom:36.266666412353516%;" class="image-block-wrapper lightbox  has-aspect-ratio" data-description="" data-lightbox-theme="light">
+            <noscript><img src="../../../static/5715eee9b09f95a12b44e0ed/t/5756e708a3360cdbab7d5bd8/1465313491952/hw-perfref-diagram-1-2.png" alt="hw-perfref-diagram-1-2.png"/></noscript><img class="thumb-image" alt="hw-perfref-diagram-1-2.png" data-src="../../../static/5715eee9b09f95a12b44e0ed/t/5756e708a3360cdbab7d5bd8/1465313491952/hw-perfref-diagram-1-2.png" data-image="../../../static/5715eee9b09f95a12b44e0ed/t/5756e708a3360cdbab7d5bd8/1465313491952/hw-perfref-diagram-1-2.png" data-image-dimensions="1500x544" data-image-focal-point="0.5,0.5" data-load="false" data-image-id="5756e708a3360cdbab7d5bd8" data-type="image"/>
+          </div>
+      </div>
+    </div>
+</div></div><div class="sqs-block markdown-block sqs-block-markdown" data-block-type="44" id="block-yui_3_17_2_1_1465419320291_468564"><div class="sqs-block-content"><h3 data-preserve-html-node="true" id="breadboard-area">Breadboard Area</h3>
+<p>The breadboard area contains an arrangement of gold-plated holes to simplify installation and connection of your project’s hardware.  In each row, holes a-e are electrically connected,  and holes f-j are electrically connected.  At the left and right edges of the breadboard area each column (two on each edge, marked with + and -) is electrically connected to provide convenient attachment and connection for power and ground rails used in your design - of course you can use the columns for other purposes, but supply rails are the most common application.</p>
+<h3 data-preserve-html-node="true" id="mdk-interface-connector-breakout">MDK Interface (80-pin connector breakout)</h3>
+<p>All interfaces to the Reference Moto Mod are accessible here. High speed interfaces such as DSI, CSI and USB2.0/MyDP are available only in the breakout area. The pitch of the gold plated pads is 1 mm.</p>
+</div></div><div class="sqs-block image-block sqs-block-image" data-block-type="5" id="block-yui_3_17_2_1_1464985351909_925767"><div class="sqs-block-content"> 
+    <div class="image-block-outer-wrapper layout-caption-below design-layout-inline">
+      <div class="intrinsic" style="max-width:994.0px;">
+          <div style="padding-bottom:49.69818878173828%;" class="image-block-wrapper lightbox  has-aspect-ratio" data-description="" data-lightbox-theme="light">
+            <noscript><img src="../../../static/5715eee9b09f95a12b44e0ed/t/5756e79dab48deb87f30ab3d/1465313502067/hw-perf-diagram-3.png" alt="hw-perf-diagram-3.png"/></noscript><img class="thumb-image" alt="hw-perf-diagram-3.png" data-src="../../../static/5715eee9b09f95a12b44e0ed/t/5756e79dab48deb87f30ab3d/1465313502067/hw-perf-diagram-3.png" data-image="../../../static/5715eee9b09f95a12b44e0ed/t/5756e79dab48deb87f30ab3d/1465313502067/hw-perf-diagram-3.png" data-image-dimensions="994x494" data-image-focal-point="0.5,0.5" data-load="false" data-image-id="5756e79dab48deb87f30ab3d" data-type="image"/>
+          </div>
+      </div>
+    </div>
+</div></div><div class="sqs-block markdown-block sqs-block-markdown" data-block-type="44" id="block-yui_3_17_2_1_1465230394077_54613"><div class="sqs-block-content"><h4 id="test-pattern-">Test Pattern:</h4>
+</div></div><div class="sqs-block code-block sqs-block-code" data-block-type="23" id="block-yui_3_17_2_1_1465318958811_31221"><div class="sqs-block-content"><div class="mobile-table-scroll">
+<table class="pure-table pure-table-bordered">
+  <thead>
+    <tr>
+      <td width="40"><strong>Pin</strong></td>
+      <td width="100"><strong>Signal Name</strong></td>
+      <td width="100"><strong>Signal Type</strong></td>
+      <td width="100"><strong>Primary Function</strong></td>
+      <td width="100"><strong>Alternated Function</strong><br/>
+      (see note 6)</td>
+      <td><strong>Interrupt Group</strong><br/>
+      (see note 7)</td>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td>1</td>
+        <td>3P3</td>
+        <td>Power</td>
+        <td>Regulated 3.3-volt, 500mA power source (see note 1)</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>PC1</td>
+        <td>MuC GPIO</td>
+        <td>I2C3_SDA (see note 2)</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>HSIC_STB</td>
+        <td>MHB HSIC</td>
+        <td>HSIC Strobe. For details, see <a href="../../../explore/firmware/usb-ext/">USB-Ext firmware document</a></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>PC0</td>
+        <td>MuC GPIO</td>
+        <td>I2C3_SCL (see note 2)</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>HSIC_DAT</td>
+        <td>MHB HSIC</td>
+        <td>HSIC data. For details, see <a href="../../../explore/firmware/usb-ext/">USB-Ext firmware document</a></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>PB2</td>
+        <td>MuC GPIO</td>
+        <td>General-purpose input/output</td>
+        <td>MuC_TIMER1_OUT,<br>
+          MuC_Comparator_IN+</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>GND</td>
+        <td>Ground</td>
+        <td>System ground</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>PA2</td>
+        <td>MuC GPIO</td>
+        <td>General-purpose input/output</td>
+        <td>MuC_UART2 TX</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>5P0</td>
+        <td>Power</td>
+        <td>Regulated 5-volt, 1.5A power source (see note 1)</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>PA3</td>
+        <td>MuC GPIO</td>
+        <td>General-purpose input/output</td>
+        <td>MuC_UART2 RX,<br>
+          MuC_Intrrupt_IN (see note 7)</td>
+        <td>Group 3</td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td>VBUS</td>
+        <td>Power</td>
+        <td>VBUS power input/output from/to Moto Mod</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td>PA0</td>
+        <td>MuC GPIO</td>
+        <td>General-purpose input/output</td>
+        <td>MuC_UART2 CTS,<br>
+          MuC_UART4_TX</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td>1P8</td>
+        <td>Power</td>
+        <td>Regulated 1.8-volt, 1A power source (see note 1)</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td>PA1</td>
+        <td>MuC GPIO</td>
+        <td>General-purpose input/output</td>
+        <td>MuC_UART2 RTS,<br>
+          MuC_UART4_RX</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td>GND</td>
+        <td>Ground</td>
+        <td>System ground</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td>PA10</td>
+        <td>MuC GPIO</td>
+        <td>General-purpose input/output</td>
+        <td>MuC_Intrrupt_IN (see note 7)</td>
+        <td>Group 10</td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td>VSYS</td>
+        <td>Power</td>
+        <td>System DC power from Personality Card</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td>PC8</td>
+        <td>MuC GPIO</td>
+        <td>General-purpose input/output</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td>B+</td>
+        <td>Power</td>
+        <td>System DC power from Moto Mod</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td>PA7</td>
+        <td>MuC GPIO</td>
+        <td>General-purpose input/output</td>
+        <td>MuC_SPI1_MOSI,<br>
+          MuC_Intrrupt_IN (see note 7)</td>
+        <td>Group 7</td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td>GND</td>
+        <td>Ground</td>
+        <td>System ground</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td>PA6</td>
+        <td>MuC GPIO</td>
+        <td>General-purpose input/output</td>
+        <td>MuC_SPI1_MISO,<br>
+          MuC_Intrrupt_IN (see note 7)</td>
+        <td>Group 6</td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td>PC7</td>
+        <td>MuC GPIO</td>
+        <td>General-purpose input/output</td>
+        <td>MuC_Intrrupt_In (see note 7)</td>
+        <td>Group 7</td>
+      </tr>
+      <tr>
+        <td>24</td>
+        <td>PD6</td>
+        <td>MuC GPIO</td>
+        <td>General-purpose input/output</td>
+        <td>MuC_UART2 RX,<br>
+          MuC_Intrrupt_IN (see note 7)</td>
+        <td>Group 6</td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td>PC14</td>
+        <td>MuC GPIO</td>
+        <td>General-purpose input/output</td>
+        <td>Master_I2S_BCLK (see note 3)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td>PA5</td>
+        <td>MuC GPIO</td>
+        <td>General-purpose input/output</td>
+        <td>MuC_SPI1_SCK</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>27</td>
+        <td>PC15</td>
+        <td>MuC GPIO</td>
+        <td>General-purpose input/output</td>
+        <td>Master_I2S_WS (see note 3)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>28</td>
+        <td>PA4</td>
+        <td>MuC GPIO</td>
+        <td>General-purpose input/output</td>
+        <td>MuC_SPI1_CS0</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>29</td>
+        <td>PE7</td>
+        <td>MuC GPIO</td>
+        <td>General-purpose input/output</td>
+        <td>Master_I2S_SDI (see note 3)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>30</td>
+        <td>PA15</td>
+        <td>MuC GPIO</td>
+        <td>General-purpose input/output</td>
+        <td>MuC_SPI1_CS1,<br>
+          MuC_Intrrupt_IN (see note 7)</td>
+        <td>Group 15</td>
+      </tr>
+      <tr>
+        <td>31</td>
+        <td>PD7</td>
+        <td>MuC GPIO</td>
+        <td>General-purpose input/output</td>
+        <td>Master_I2S_SDO (see note 3)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>32</td>
+        <td>PA9</td>
+        <td>MuC GPIO</td>
+        <td>General-purpose input/output</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>33</td>
+        <td>PC9</td>
+        <td>MuC GPIO</td>
+        <td>General-purpose input/output</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>34</td>
+        <td>GND</td>
+        <td>Ground</td>
+        <td>System ground</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>35</td>
+        <td>TE</td>
+        <td>Input</td>
+        <td>Tearing Effect (Display Sync) input from personality card</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>36</td>
+        <td>19P2</td>
+        <td>Output</td>
+        <td>19.2 MHz CMOS clock output to personality card (see note 4)</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>37</td>
+        <td>GND</td>
+        <td>Ground</td>
+        <td>System ground</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>38</td>
+        <td>GND</td>
+        <td>Ground</td>
+        <td>System ground</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>39</td>
+        <td>DSI_D0-</td>
+        <td>Display</td>
+        <td>MIPI DSI_D0- output/input to/from personality card</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>40</td>
+        <td>DSI_D2-</td>
+        <td>Display</td>
+        <td>MIPI DSI_D2- output to personality card</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>41</td>
+        <td>DSI_D0+</td>
+        <td>Display</td>
+        <td>MIPI DSI_D0+ output/input to/from personality card</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>42</td>
+        <td>DSI_D2+</td>
+        <td>Display</td>
+        <td>MIPI DSI_D2+ output to personality card</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>43</td>
+        <td>GND</td>
+        <td>Ground</td>
+        <td>System ground</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>44</td>
+        <td>GND</td>
+        <td>Ground</td>
+        <td>System ground</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>45</td>
+        <td>DSI_D1-</td>
+        <td>Display</td>
+        <td>MIPI DSI_D1- output to personality card</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>46</td>
+        <td>DSI_D3-</td>
+        <td>Display</td>
+        <td>MIPI DSI_D3- output to personality card</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>47</td>
+        <td>DSI_D1+</td>
+        <td>Display</td>
+        <td>MIPI DSI_D1+ output to personality card</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>48</td>
+        <td>DSI_D3+</td>
+        <td>Display</td>
+        <td>MIPI DSI_D3+ output to personality card</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>49</td>
+        <td>GND</td>
+        <td>Ground</td>
+        <td>System ground</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>50</td>
+        <td>GND</td>
+        <td>Ground</td>
+        <td>System ground</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>51</td>
+        <td>DSI_CLK-</td>
+        <td>Display</td>
+        <td>MIPI DSI_C- output to personality card</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>52</td>
+        <td>MUC_PB11</td>
+        <td>MuC GPIO</td>
+        <td>General-purpose input/output</td>
+        <td>MuC_I2C2_SDA (see note 2)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>53</td>
+        <td>DSI_CLK+</td>
+        <td>Display</td>
+        <td>MIPI DSI_C+ output to personality card</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>54</td>
+        <td>PB10</td>
+        <td>MuC GPIO</td>
+        <td>General-purpose input/output</td>
+        <td>MuC_I2C2 SCL (see note 2), MuC_Intrrupt_IN (see note 7)</td>
+        <td>Group 10</td>
+      </tr>
+      <tr>
+        <td>55</td>
+        <td>GND</td>
+        <td>Ground</td>
+        <td>System ground</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>56</td>
+        <td>GND</td>
+        <td>Ground</td>
+        <td>System ground</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>57</td>
+        <td>CSI_D0-</td>
+        <td>Camera</td>
+        <td>MIPI CSI_D0- input from personality card</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>58</td>
+        <td>CSI_D2-</td>
+        <td>Camera</td>
+        <td>MIPI CSI_D2- input from personality card</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>59</td>
+        <td>CSI_D0+</td>
+        <td>Camera</td>
+        <td>MIPI CSI_D0+ input from personality card</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>60</td>
+        <td>CSI_D2+</td>
+        <td>Camera</td>
+        <td>MIPI CSI_D2+ input from personality card</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>61</td>
+        <td>GND</td>
+        <td>Ground</td>
+        <td>System ground</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>62</td>
+        <td>GND</td>
+        <td>Ground</td>
+        <td>System ground</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>63</td>
+        <td>CSI_D1-</td>
+        <td>Camera</td>
+        <td>MIPI CSI_D1- input from personality card</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>64</td>
+        <td>CSI_D3-</td>
+        <td>Camera</td>
+        <td>MIPI CSI_D3- input from personality card</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>65</td>
+        <td>CSI_D1+</td>
+        <td>Camera</td>
+        <td>MIPI CSI_D1+ input from personality card</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>66</td>
+        <td>CSI_D3+</td>
+        <td>Camera</td>
+        <td>MIPI CSI_D3+ input from personality card</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>67</td>
+        <td>GND</td>
+        <td>Ground</td>
+        <td>System ground</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>68</td>
+        <td>GND</td>
+        <td>Ground</td>
+        <td>System ground</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>69</td>
+        <td>CSI_CLK-</td>
+        <td>Camera</td>
+        <td>MIPI CSI_C- input from personality card</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>70</td>
+        <td>PH0</td>
+        <td>MuC GPIO</td>
+        <td>General-purpose input/output</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>71</td>
+        <td>CSI_CLK+</td>
+        <td>Camera</td>
+        <td>MIPI CSI_C+ input from personality card</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>72</td>
+        <td>PC3</td>
+        <td>MuC GPIO</td>
+        <td>General-purpose input/output</td>
+        <td>MuC_ADC_IN4,<br>
+          MuC_Intrrupt_IN (see note 7)</td>
+        <td>Group 3</td>
+      </tr>
+      <tr>
+        <td>73</td>
+        <td>GND</td>
+        <td>Ground</td>
+        <td>System ground</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>74</td>
+        <td>PC12</td>
+        <td>MuC GPIO</td>
+        <td>General-purpose input/output</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>75</td>
+        <td>USB_D+</td>
+        <td>USB</td>
+        <td>USB data positive (see note 5)</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>76</td>
+        <td>PG9</td>
+        <td>MuC GPIO</td>
+        <td>General-purpose input/output</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>77</td>
+        <td>USB_D-</td>
+        <td>USB</td>
+        <td>USB data negative (see note 5)</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>78</td>
+        <td>PG10</td>
+        <td>MuC GPIO</td>
+        <td>General-purpose input/output</td>
+        <td>MuC_TIMER1_IN1, MuC_Intrrupt_IN (see note 7)</td>
+        <td>Group 10</td>
+      </tr>
+      <tr>
+        <td>79</td>
+        <td>GND</td>
+        <td>Ground</td>
+        <td>System ground</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>80</td>
+        <td>PG12</td>
+        <td>MuC GPIO</td>
+        <td>General-purpose input/output</td>
+        <td></td>
+        <td></td>
+      </tr>
+  </tbody>
+</table>
+</div></div></div><div class="sqs-block markdown-block sqs-block-markdown" data-block-type="44" id="block-yui_3_17_2_1_1478880746509_63224"><div class="sqs-block-content"><p><strong>Notes:</strong></p>
+<ul>
+<li>(1) Regulator current limit assumes source selected by DIP Switch B3 provides sufficient DC power for your application.</li>
+<li>(2) All MuC GPIO referenced to 1.8V.</li>
+<li>(3) I2S present only if DIP switches A1 and A2 set to enable I2S audio device type.</li>
+<li>(4) 19.2 MHz clock present DIP switch B1 set to “on” position.</li>
+<li>(5) USB signals present only if DIP switches A3 and A4 set to direct these signals to the personality card.</li>
+<li>(6) Alternate function enabler please refer to firmware document.</li>
+<li>(7) Only one Interrupt function allow within same group.</li>
+</ul>
+</div></div><div class="sqs-block markdown-block sqs-block-markdown" data-block-type="44" id="block-yui_3_17_2_1_1465230394077_55799"><div class="sqs-block-content"><hr>
+<h3 data-preserve-html-node="true" id="mdk-interface-test-points">MDK Interface (Test Points)</h3>
+<p>The test points are 1 mm diameter gold plated surrounding the breakout area pads. A full list of the test points is provided in the table below. Silkscreen identifies the signal name at each test point.</p>
+</div></div><div class="sqs-block image-block sqs-block-image" data-block-type="5" id="block-yui_3_17_2_1_1465243615569_683981"><div class="sqs-block-content"> 
+    <div class="image-block-outer-wrapper layout-caption-below design-layout-inline">
+      <div class="intrinsic" style="max-width:964.0px;">
+          <div style="padding-bottom:51.45228576660156%;" class="image-block-wrapper lightbox  has-aspect-ratio" data-description="" data-lightbox-theme="light">
+            <noscript></noscript><img class="thumb-image" alt="hw-perf-diagram-4.png"   data-image-dimensions="964x496" data-image-focal-point="0.5,0.5" data-load="false" data-image-id="5756e7f48a65e2fb344f0478" data-type="image"/>
+          </div>
+      </div>
+    </div>
+</div></div><div class="sqs-block markdown-block sqs-block-markdown" data-block-type="44" id="block-yui_3_17_2_1_1465243615569_684188"><div class="sqs-block-content"><h4 id="test-point-mappings-">Test Point Mappings:</h4></div></div><div class="sqs-block code-block sqs-block-code" data-block-type="23" id="block-yui_3_17_2_1_1465318958811_32965"><div class="sqs-block-content"><table class="pure-table pure-table-bordered">
+<thead>
+  <tr>
+    <td>Pin</td>
+    <td>Test Point</td>
+    <td>Reference Moto Mod signal</td>
+  </tr>
+</thead>
+  <tr>
+    <td>1</td>
+    <td>3V3</td>
+    <td>Regulated 3.3 VDC</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>PC1</td>
+    <td>I2C_SDA</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>HSIC_STROBE</td>
+    <td>HSIC_STROBE</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>PC0</td>
+    <td>I2C_SCL</td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td>HSIC_DATA</td>
+    <td>HSIC_DATA</td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td>PB2</td>
+    <td>GCCLK</td>
+  </tr>
+  <tr>
+    <td>8</td>
+    <td>PA2</td>
+    <td>UART_TX</td>
+  </tr>
+  <tr>
+    <td>9</td>
+    <td>5V0</td>
+    <td>Regulated 5.0 VDC</td>
+  </tr>
+  <tr>
+    <td>10</td>
+    <td>PA3</td>
+    <td>UART_RX</td>
+  </tr>
+  <tr>
+    <td>11</td>
+    <td>VBUS</td>
+    <td>SL_VBUS</td>
+  </tr>
+  <tr>
+    <td>12</td>
+    <td>PA0</td>
+    <td>UART_CTS</td>
+  </tr>
+  <tr>
+    <td>13</td>
+    <td>1V8</td>
+    <td>Regulated 1.8 VDC</td>
+  </tr>
+  <tr>
+    <td>14</td>
+    <td>PA1</td>
+    <td>UART_RTS</td>
+  </tr>
+  <tr>
+    <td>16</td>
+    <td>PA10</td>
+    <td>PA10</td>
+  </tr>
+  <tr>
+    <td>17</td>
+    <td>VSYS</td>
+    <td>VSYS_PCARD</td>
+  </tr>
+  <tr>
+    <td>18</td>
+    <td>PC8</td>
+    <td>PC8</td>
+  </tr>
+  <tr>
+    <td>19</td>
+    <td>BPLUS</td>
+    <td>MOD_B+</td>
+  </tr>
+  <tr>
+    <td>20</td>
+    <td>PA7</td>
+    <td>SPI_MOSI</td>
+  </tr>
+  <tr>
+    <td>22</td>
+    <td>PA6</td>
+    <td>SPI_MISO</td>
+  </tr>
+  <tr>
+    <td>23</td>
+    <td>PC7</td>
+    <td>PC7</td>
+  </tr>
+  <tr>
+    <td>24</td>
+    <td>PD6</td>
+    <td>PD6</td>
+  </tr>
+  <tr>
+    <td>25</td>
+    <td>GPIO16</td>
+    <td>I2S_BCLK</td>
+  </tr>
+  <tr>
+    <td>26</td>
+    <td>PA5</td>
+    <td>SPI_CLK</td>
+  </tr>
+  <tr>
+    <td>27</td>
+    <td>GPIO17</td>
+    <td>I2S_LRCLK</td>
+  </tr>
+  <tr>
+    <td>28</td>
+    <td>PA4</td>
+    <td>SPI_CS0_N</td>
+  </tr>
+  <tr>
+    <td>29</td>
+    <td>GPIO20</td>
+    <td>I2S_SDI</td>
+  </tr>
+  <tr>
+    <td>30</td>
+    <td>PA15</td>
+    <td>SPI_CS1_N</td>
+  </tr>
+  <tr>
+    <td>31</td>
+    <td>GPIO19</td>
+    <td>I2S_SDO</td>
+  </tr>
+  <tr>
+    <td>32</td>
+    <td>PA9</td>
+    <td>PA9</td>
+  </tr>
+  <tr>
+    <td>33</td>
+    <td>PC9</td>
+    <td>PC9</td>
+  </tr>
+  <tr>
+    <td>35</td>
+    <td>GPIO8</td>
+    <td>TE</td>
+  </tr>
+  <tr>
+    <td>36</td>
+    <td>19.2MHZ</td>
+    <td>19.2 MHz Clock</td>
+  </tr>
+  <tr>
+    <td>52</td>
+    <td>PB11</td>
+    <td>Secondary I2C_SDA</td>
+  </tr>
+  <tr>
+    <td>54</td>
+    <td>PB10</td>
+    <td>Secondary I2C_SCL</td>
+  </tr>
+  <tr>
+    <td>70</td>
+    <td>PH0</td>
+    <td>PH0</td>
+  </tr>
+  <tr>
+    <td>72</td>
+    <td>PC3</td>
+    <td>PC3 (Analog input)</td>
+  </tr>
+  <tr>
+    <td>74</td>
+    <td>PC12</td>
+    <td>PC12</td>
+  </tr>
+  <tr>
+    <td>76</td>
+    <td>PG9</td>
+    <td>PG9</td>
+  </tr>
+  <tr>
+    <td>78</td>
+    <td>PG10</td>
+    <td>PG10</td>
+  </tr>
+  <tr>
+    <td>80</td>
+    <td>PG12</td>
+    <td>PG12</td>
+  </tr>
+</table></div></div><div class="sqs-block markdown-block sqs-block-markdown" data-block-type="44" id="block-yui_3_17_2_1_1465230394077_59691"><div class="sqs-block-content"><p><strong>Note:</strong> To minimize impact to signal integrity, high-speed signals are not present at test points.</p>
+</div></div><div class="sqs-block horizontalrule-block sqs-block-horizontalrule" data-block-type="47" id="block-yui_3_17_2_1_1465230394077_60745"><div class="sqs-block-content"><hr/></div></div><div class="sqs-block markdown-block sqs-block-markdown" data-block-type="44" id="block-yui_3_17_2_1_1465230394077_63982"><div class="sqs-block-content"><h2 data-preserve-html-node="true" id="mechanical">Mechanical Details</h2>
+<h3 id="general-dimensions">General Dimensions</h3>
+<ul>
+<li>Pitch 2.54 mm</li>
+<li>26 rows</li>
+<li>Power bus pins on the sides</li>
+<li>First surface soldering</li>
+<li>Allowable Component Height Overview with Included Cover</li>
+</ul>
+<p>When using the in box cover, the height of any items added on top of the perforated board must not exceed 2.3 mm.  Also ensure the height of all items on the board’s bottom side are less than 1.3mm Max Component Height.</p>
+<h4 id="impact-of-exceeding-limits-on-top-side-of-board">Impact of exceeding limits on top side of board</h4>
+<p>If you are using components that exceed these limits, you’ll either need to dremel a hole in the cover, create your own cover, or not use a cover.</p>
+</div></div><div class="sqs-block image-block sqs-block-image" data-block-type="5" id="block-yui_3_17_2_1_1465243615569_842233"><div class="sqs-block-content"> 
+    <div class="image-block-outer-wrapper layout-caption-below design-layout-inline">
+      <div class="intrinsic" style="max-width:922.0px;">
+          <div style="padding-bottom:59.652931213378906%;" class="image-block-wrapper lightbox  has-aspect-ratio" data-description="" data-lightbox-theme="light">
+            <noscript><img src="../../../static/5715eee9b09f95a12b44e0ed/t/5756ecef4d088eaf8dd3a2c7/1465314551111/hw-custom-image-4-6.png" alt="hw-custom-image-4-6.png"/></noscript><img class="thumb-image" alt="hw-custom-image-4-6.png" data-src="../../../static/5715eee9b09f95a12b44e0ed/t/5756ecef4d088eaf8dd3a2c7/1465314551111/hw-custom-image-4-6.png" data-image="../../../static/5715eee9b09f95a12b44e0ed/t/5756ecef4d088eaf8dd3a2c7/1465314551111/hw-custom-image-4-6.png" data-image-dimensions="922x550" data-image-focal-point="0.5,0.5" data-load="false" data-image-id="5756ecef4d088eaf8dd3a2c7" data-type="image"/>
+          </div>
+      </div>
+    </div>
+</div></div><div class="sqs-block markdown-block sqs-block-markdown" data-block-type="44" id="block-yui_3_17_2_1_1465243615569_842441"><div class="sqs-block-content"><h4 id="impact-of-exceeding-limits-on-bottom-side-of-board">Impact of exceeding limits on bottom side of board</h4><p>Exceeding these limits may result in damage to the Perforated Board, its added components, and your Reference Moto Mod.  If the assembly does not fit together properly, circuits on the Perforated Board may work intermittently or completely fail to function.</p></div></div><div class="sqs-block image-block sqs-block-image" data-block-type="5" id="block-yui_3_17_2_1_1465230394077_65145"><div class="sqs-block-content"> 
+    <div class="image-block-outer-wrapper layout-caption-below design-layout-inline">
+      <div class="intrinsic" style="max-width:1046.0px;">
+          <div style="padding-bottom:45.697898864746094%;" class="image-block-wrapper lightbox  has-aspect-ratio" data-description="" data-lightbox-theme="light">
+            <noscript><img src="../../../static/5715eee9b09f95a12b44e0ed/t/5756e771ab48deb87f30a91a/1465313520809/hw-custom-image-4-5.png" alt="hw-custom-image-4-5.png"/></noscript><img class="thumb-image" alt="hw-custom-image-4-5.png" data-src="../../../static/5715eee9b09f95a12b44e0ed/t/5756e771ab48deb87f30a91a/1465313520809/hw-custom-image-4-5.png" data-image="../../../static/5715eee9b09f95a12b44e0ed/t/5756e771ab48deb87f30a91a/1465313520809/hw-custom-image-4-5.png" data-image-dimensions="1046x478" data-image-focal-point="0.5,0.5" data-load="false" data-image-id="5756e771ab48deb87f30a91a" data-type="image"/>
+          </div>
+      </div>
+    </div>
+</div></div><div class="sqs-block horizontalrule-block sqs-block-horizontalrule" data-block-type="47" id="block-yui_3_17_2_1_1466196228195_1043369"><div class="sqs-block-content"><hr/></div></div><div class="sqs-block html-block sqs-block-html sqs-col-6 span-6 float float-left" data-block-type="2" id="block-yui_3_17_2_1_1466196228195_1045389"><div class="sqs-block-content"><p><a href="../../../build/mdk-user-guide/">&lt; Previous Page<br/><strong>Reference Moto Mod</strong></a></p></div></div><div class="sqs-block html-block sqs-block-html" data-block-type="2" id="block-yui_3_17_2_1_1466196228195_1043763"><div class="sqs-block-content"><p class="text-align-right"><a href="../../../build/mdk-user-guide/hat-adapter-board/">Next Page &gt;<br/><strong>HAT Adapter Board</strong></a></p></div></div></div></div></div>
+</div>
+<div class="anchor-links">
+<div class="sqs-layout sqs-grid-12 columns-12" data-type="block-field" data-updated-on="1472149290666" id="blockField-57461dc0b654f90813ac7526"><div class="row sqs-row"><div class="col sqs-col-12 span-12"><div class="sqs-block markdown-block sqs-block-markdown" data-block-type="44" id="block-yui_3_17_2_46_1472132767881_6597"><div class="sqs-block-content"><p>In this page:</p>
+<p><a href="#before-you-begin">Before you begin</a></p>
+<p><a href="#electrical">Electrical Details</a></p>
+<p>• <a href="#overview">Overview</a></p>
+<p>• <a href="#overview">Breadboard Area</a></p>
+<p>• <a href="#mdk-interface-connector-breakout">MDK Interface (80-pin connector breakout)</a></p>
+<p>• <a href="#mdk-interface-test-points">MDK Interface (Test Points)</a></p>
+<p><a href="#mechanical">Mechanical Details</a></p>
+</div></div></div></div></div>
+</div>
+        </div><!-- comment the linebreak between these two elements because science
+        -->
+      </main>
+      <div id="preFooter">
+        <div class="pre-footer-inner">
+          <div class="sqs-layout sqs-grid-12 columns-12 empty" data-layout-label="Pre-Footer Content" data-type="block-field" data-updated-on="1465359668358" id="preFooterBlocks"><div class="row sqs-row"><div class="col sqs-col-12 span-12"></div></div></div>
+        </div>
+      </div>
+      <footer id="footer" role="contentinfo">
+        <div class="footer-inner">
+          <div class="nav-wrapper back-to-top-nav"><nav><div class="back-to-top"><a href="#header">Back to Top</a></div></nav></div>
+          <div class="sqs-layout sqs-grid-12 columns-12" data-layout-label="Footer Content" data-type="block-field" data-updated-on="1476297975826" id="footerBlocks"><div class="row sqs-row"><div class="col sqs-col-2 span-2"><div class="sqs-block image-block sqs-block-image" data-aspect-ratio="31.06382978723404" data-block-type="5" id="block-yui_3_17_2_2_1464950070491_16892"><div class="sqs-block-content"> 
+    <div class="image-block-outer-wrapper layout-caption-hidden design-layout-inline">
+      <div class="intrinsic" style="max-width:940.0px;">
+          <a href="http://motorola.com/">
+          <div style="padding-bottom:31.06382942199707%;" class="image-block-wrapper   has-aspect-ratio" data-description="">
+            <noscript><img src="../../../static/5715eee9b09f95a12b44e0ed/t/57fe81b96b8f5b8742b2e94a/1476297968771/image_file.jpg"/></noscript><img class="thumb-image" data-src="https://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57fe81b96b8f5b8742b2e94a/1476297968771/" data-image="https://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57fe81b96b8f5b8742b2e94a/1476297968771/" data-image-dimensions="940x292" data-image-focal-point="0.5,0.5" data-load="false" data-image-id="57fe81b96b8f5b8742b2e94a" data-type="image"/>
+          </div>
+          </a>
+      </div>
+    </div>
+</div></div></div><div class="col sqs-col-7 span-7"><div class="sqs-block code-block sqs-block-code" data-block-type="23" id="block-yui_3_17_2_2_1463061836809_10948"><div class="sqs-block-content"><div id="footers-blocks" style="position: relative; z-index:999 !important;">
+  <div id="footer-block-1">
+	<h2 id="footer-title-1" class="footer-title">Motorola</h2>
+	<ul class="footer-block footer-block-1">
+      <li><a href="http://motorola-blog.blogspot.com/">Blog</a></li>
+      <li><a href="http://motorola-blog.blogspot.com/p/press-contacts.html">Press</a></li>
+      <li><a href="https://pages.motorola-mail.com/moto-mods-developer-us-en/">Get Updates</a></li>
+    </ul>
+    <br/>
+	<h2 id="footer-title-1" class="footer-title"><a href="../../../support/">Support</a></h2>
+	<ul class="footer-block footer-block-1">
+      <li><a href="../../../support/faq/">FAQ</a></li>
+      <li><a href="https://www.element14.com/community/groups/moto-mods">Forums</a></li>
+      <li><a href="../../../support/">Contact Us</a></li>
+    </ul>
+  </div>
+  <div id="footer-block-2">
+    <h2 id="footer-title-2" class="footer-title">Developers</h2>
+  	<ul class="footer-block footer-block-2">
+     	<li><a href="/">Home</a></li>
+     	<li><a href="../../../get-started/">Get Started</a></li>
+      	<li><a href="../../../build/">Build</a></li>
+		<li><a href="../../../explore/">Explore</a></li>
+		<li><a href="../../../partner/">Partner</a></li>
+		<li><a href="../../../buy/">Buy</a></li>
+    </ul>
+  </div>
+  <div id="footer-block-3">
+    <h2 id="footer-title-3" class="footer-title">Legal</h2>
+  	<ul class="footer-block footer-block-3">
+      <li><a href="http://www.motorola.com/us/legal/privacy-policy">Privacy Policy</a></li>
+      <li><a href="http://www.motorola.com/us/About_Motorola-Legal-Extended-Warranty-terms/About_Motorola-Legal-Extended-Warranty-terms.html">Terms of use</a></li></ul>
+ </div>
+ </div></div></div></div><div class="col sqs-col-3 span-3"><div class="sqs-block socialaccountlinks-v2-block sqs-block-socialaccountlinks-v2" data-block-type="54" id="block-yui_3_17_2_16_1461744171869_5573"><div class="sqs-block-content">
+<div class="sqs-svg-icon--outer social-icon-alignment-right social-icons-color-white social-icons-size-small social-icons-shape-rounded social-icons-style-knockout">
+  <nav class="sqs-svg-icon--list">
+    <a href="https://www.youtube.com/user/motorola" target="_blank" class="sqs-svg-icon--wrapper youtube">
+      <div>
+        <svg class="sqs-svg-icon--social" viewbox="0 0 64 64">
+          <use class="sqs-use--icon" xlink:href="#youtube-icon"></use>
+          <use class="sqs-use--mask" xlink:href="#youtube-mask"></use>
+        </svg>
+      </div>
+    </a><a href="https://www.facebook.com/MotoUSA/" target="_blank" class="sqs-svg-icon--wrapper facebook">
+      <div>
+        <svg class="sqs-svg-icon--social" viewbox="0 0 64 64">
+          <use class="sqs-use--icon" xlink:href="#facebook-icon"></use>
+          <use class="sqs-use--mask" xlink:href="#facebook-mask"></use>
+        </svg>
+      </div>
+    </a><a href="https://twitter.com/moto" target="_blank" class="sqs-svg-icon--wrapper twitter">
+      <div>
+        <svg class="sqs-svg-icon--social" viewbox="0 0 64 64">
+          <use class="sqs-use--icon" xlink:href="#twitter-icon"></use>
+          <use class="sqs-use--mask" xlink:href="#twitter-mask"></use>
+        </svg>
+      </div>
+    </a><a href="https://plus.google.com/communities/116517178872973348174" target="_blank" class="sqs-svg-icon--wrapper google">
+      <div>
+        <svg class="sqs-svg-icon--social" viewbox="0 0 64 64">
+          <use class="sqs-use--icon" xlink:href="#google-icon"></use>
+          <use class="sqs-use--mask" xlink:href="#google-mask"></use>
+        </svg>
+      </div>
+    </a>
+  </nav>
+</div></div></div></div></div><div class="row sqs-row"><div class="col sqs-col-12 span-12"><div class="sqs-block spacer-block sqs-block-spacer sized vsize-1" data-block-type="21" id="block-yui_3_17_2_36_1465340537626_42856"><div class="sqs-block-content">&nbsp;</div></div><div class="row sqs-row"><div class="col sqs-col-6 span-6"><div class="sqs-block html-block sqs-block-html" data-block-type="2" id="block-yui_3_17_2_2_1464882852937_11444"><div class="sqs-block-content"><p>© 2016 Motorola Mobility LLC. All Rights Reserved</p><p>MOTOROLA and the Stylized M Logo are registered trademarks of Motorola Trademark Holdings, LLC</p><p>Android, Google, Google Play, Nexus and other marks are trademarks of Google Inc. The Android robot is reproduced or modified from work created and shared by Google and used according to terms described in the Creative Commons 3.0 Attribution License.</p></div></div></div><div class="col sqs-col-6 span-6"><div class="sqs-block spacer-block sqs-block-spacer sized vsize-1" data-block-type="21" id="block-yui_3_17_2_36_1465340537626_33415"><div class="sqs-block-content">&nbsp;</div></div></div></div></div></div></div>
+        </div>
+      </footer>
+    </div>
+    <script src="../../../static/ta/5715eee9b09f95a12b44e0ed/962/scripts/site.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../../../static/ta/5715eee9b09f95a12b44e0ed/962/scripts/combo/_helpers.js_sticky.js_jquery.js"></script>
+    <script src="../../../static/ta/5715eee9b09f95a12b44e0ed/962/scripts/custom.js" type="text/javascript"></script>
+    <script type="text/javascript" data-sqs-type="imageloader-bootstraper">(function() {if(window.ImageLoader) { window.ImageLoader.bootstrap({}, document); }})();</script><script>Squarespace.afterBodyLoad(Y);</script><svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display:none"><symbol id="youtube-icon" viewbox="0 0 64 64"><path d="M46.7,26c0,0-0.3-2.1-1.2-3c-1.1-1.2-2.4-1.2-3-1.3C38.3,21.4,32,21.4,32,21.4h0 c0,0-6.3,0-10.5,0.3c-0.6,0.1-1.9,0.1-3,1.3c-0.9,0.9-1.2,3-1.2,3S17,28.4,17,30.9v2.3c0,2.4,0.3,4.9,0.3,4.9s0.3,2.1,1.2,3 c1.1,1.2,2.6,1.2,3.3,1.3c2.4,0.2,10.2,0.3,10.2,0.3s6.3,0,10.5-0.3c0.6-0.1,1.9-0.1,3-1.3c0.9-0.9,1.2-3,1.2-3s0.3-2.4,0.3-4.9 v-2.3C47,28.4,46.7,26,46.7,26z M28.9,35.9l0-8.4l8.1,4.2L28.9,35.9z"/></symbol><symbol id="youtube-mask" viewbox="0 0 64 64"><path d="M0,0v64h64V0H0z M47,33.1c0,2.4-0.3,4.9-0.3,4.9s-0.3,2.1-1.2,3c-1.1,1.2-2.4,1.2-3,1.3 C38.3,42.5,32,42.6,32,42.6s-7.8-0.1-10.2-0.3c-0.7-0.1-2.2-0.1-3.3-1.3c-0.9-0.9-1.2-3-1.2-3S17,35.6,17,33.1v-2.3 c0-2.4,0.3-4.9,0.3-4.9s0.3-2.1,1.2-3c1.1-1.2,2.4-1.2,3-1.3c4.2-0.3,10.5-0.3,10.5-0.3h0c0,0,6.3,0,10.5,0.3c0.6,0.1,1.9,0.1,3,1.3 c0.9,0.9,1.2,3,1.2,3s0.3,2.4,0.3,4.9V33.1z M28.9,35.9l8.1-4.2l-8.1-4.2L28.9,35.9z"/></symbol><symbol id="facebook-icon" viewbox="0 0 64 64"><path d="M34.1,47V33.3h4.6l0.7-5.3h-5.3v-3.4c0-1.5,0.4-2.6,2.6-2.6l2.8,0v-4.8c-0.5-0.1-2.2-0.2-4.1-0.2 c-4.1,0-6.9,2.5-6.9,7V28H24v5.3h4.6V47H34.1z"/></symbol><symbol id="facebook-mask" viewbox="0 0 64 64"><path d="M0,0v64h64V0H0z M39.6,22l-2.8,0c-2.2,0-2.6,1.1-2.6,2.6V28h5.3l-0.7,5.3h-4.6V47h-5.5V33.3H24V28h4.6V24 c0-4.6,2.8-7,6.9-7c2,0,3.6,0.1,4.1,0.2V22z"/></symbol><symbol id="twitter-icon" viewbox="0 0 64 64"><path d="M48,22.1c-1.2,0.5-2.4,0.9-3.8,1c1.4-0.8,2.4-2.1,2.9-3.6c-1.3,0.8-2.7,1.3-4.2,1.6 C41.7,19.8,40,19,38.2,19c-3.6,0-6.6,2.9-6.6,6.6c0,0.5,0.1,1,0.2,1.5c-5.5-0.3-10.3-2.9-13.5-6.9c-0.6,1-0.9,2.1-0.9,3.3 c0,2.3,1.2,4.3,2.9,5.5c-1.1,0-2.1-0.3-3-0.8c0,0,0,0.1,0,0.1c0,3.2,2.3,5.8,5.3,6.4c-0.6,0.1-1.1,0.2-1.7,0.2c-0.4,0-0.8,0-1.2-0.1 c0.8,2.6,3.3,4.5,6.1,4.6c-2.2,1.8-5.1,2.8-8.2,2.8c-0.5,0-1.1,0-1.6-0.1c2.9,1.9,6.4,2.9,10.1,2.9c12.1,0,18.7-10,18.7-18.7 c0-0.3,0-0.6,0-0.8C46,24.5,47.1,23.4,48,22.1z"/></symbol><symbol id="twitter-mask" viewbox="0 0 64 64"><path d="M0,0v64h64V0H0z M44.7,25.5c0,0.3,0,0.6,0,0.8C44.7,35,38.1,45,26.1,45c-3.7,0-7.2-1.1-10.1-2.9 c0.5,0.1,1,0.1,1.6,0.1c3.1,0,5.9-1,8.2-2.8c-2.9-0.1-5.3-2-6.1-4.6c0.4,0.1,0.8,0.1,1.2,0.1c0.6,0,1.2-0.1,1.7-0.2 c-3-0.6-5.3-3.3-5.3-6.4c0,0,0-0.1,0-0.1c0.9,0.5,1.9,0.8,3,0.8c-1.8-1.2-2.9-3.2-2.9-5.5c0-1.2,0.3-2.3,0.9-3.3 c3.2,4,8.1,6.6,13.5,6.9c-0.1-0.5-0.2-1-0.2-1.5c0-3.6,2.9-6.6,6.6-6.6c1.9,0,3.6,0.8,4.8,2.1c1.5-0.3,2.9-0.8,4.2-1.6 c-0.5,1.5-1.5,2.8-2.9,3.6c1.3-0.2,2.6-0.5,3.8-1C47.1,23.4,46,24.5,44.7,25.5z"/></symbol><symbol id="google-icon" viewbox="0 0 64 64"><path d="M26.182,30.545v3.491h5.775c-0.233,1.498-1.745,4.393-5.775,4.393c-3.476,0-6.313-2.88-6.313-6.429c0-3.549,2.836-6.429,6.313-6.429c1.978,0,3.302,0.844,4.058,1.571l2.764-2.662c-1.775-1.658-4.073-2.662-6.822-2.662C20.553,21.818,16,26.371,16,32c0,5.629,4.553,10.182,10.182,10.182c5.876,0,9.775-4.131,9.775-9.949c0-0.669-0.073-1.178-0.16-1.687H26.182z M45.091,30.545v-2.909h-2.909v2.909h-2.909v2.909h2.909v2.909h2.909v-2.909H48v-2.909H45.091z"/></symbol><symbol id="google-mask" viewbox="0 0 64 64"><path d="M0,0v64h64V0H0z M26.182,42.182C20.553,42.182,16,37.629,16,32c0-5.629,4.553-10.182,10.182-10.182c2.749,0,5.047,1.004,6.822,2.662l-2.764,2.662c-0.756-0.727-2.08-1.571-4.058-1.571c-3.476,0-6.313,2.88-6.313,6.429c0,3.549,2.836,6.429,6.313,6.429c4.029,0,5.542-2.895,5.775-4.393h-5.775v-3.491h9.615c0.087,0.509,0.16,1.018,0.16,1.687C35.956,38.051,32.058,42.182,26.182,42.182z M48,33.454h-2.909v2.909h-2.909v-2.909h-2.909v-2.909h2.909v-2.909h2.909v2.909H48V33.454z"/></symbol></svg>
+  </body>
+</html>

@@ -1,0 +1,867 @@
+<!doctype html>
+<html xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:article="http://ogp.me/ns/article" lang="en-US" itemscope itemtype="http://schema.org/Article" class="touch-styles">
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- This is Squarespace. --><!-- leona-devs -->
+<base href="">
+<title>Software: Mod USB — Motorola Developer Portal</title>
+	<link rel="canonical" href="https://developer.motorola.com/explore/software/mod-usb/" />
+<link rel="shortcut icon" type="image/x-icon" href="../../../favicon.ico"/>
+<meta property="og:site_name" content="Motorola Developer Portal"/>
+<meta property="og:title" content="Software: Mod USB"/>
+<meta property="og:latitude" content="40.7207559"/>
+<meta property="og:longitude" content="-74.00076130000002"/>
+<meta property="og:url" content="http://developer.motorola.com/explore/software/mod-usb"/>
+<meta property="og:type" content="article"/>
+<meta property="og:description" content="Moto Z Software: Mod USBIntroduction
+USB 2.0 and USB 3.1 are available to the Moto Mod. On attach, the USB-ext 
+protocol is enumerated and can be discovered by the 
+ModManager.hasDeclaredProtocol(). Your firmware must notify the Moto Z when 
+the actual USB device(s) is present on a Moto Mod, as described in the 
+USB-Ext firmware page. After doing so, the USB device(s) present on a Moto 
+Mod will appear to Android as standard USB devices or host. The Moto Mod 
+platform does not expose additional USB related API to access USB devices.
+An application will use the Android UsbManager to access and communicate 
+with USB devices. The Moto Mod platform supports USB Devices, with the Moto 
+Z acting as the USB host, over USB 2.0 and USB 3.1; a Moto Mod can also 
+play the role of USB host, treating the Moto Z as an Android Open Accessory
+. USB 3.1 is only available over the enterprise port, and only if the 
+interface is not used for the Motorola High-Speed Bridge or raw I2S.
+A developer interested in Moto Mod USB should have knowledge of the API 
+defined in the android.hardware.usb package.
+USB Moto Mod
+The information below applies to the developer of a USB Moto Mod or 
+applications which need to communicate to a Moto Mod over USB.
+Moto Mod PID/VID and USB PID/VID
+A UsbDevice is identified by its USB Vendor ID and a USB Product ID; 
+similar to the way a ModDevice is identified by its Moto Mod Vendor ID and 
+Moto Mod Product ID. There are no guarantees that your Moto Mod VID 
+(assigned by Moto) will be the same as the USB VID (assigned by the USB-IF) 
+of your USB device.
+When working with USB hardware on a Moto Mod, it is important to understand 
+that the VID/PID used by the ModDevice API refers to the Moto Mod itself 
+and will be different from the USB VID/PIDs of the USB devices on your Moto 
+Mod. In particular ModDevice.getProductID() will return the product ID of 
+the Moto Mod; while UsbDevice.getProductID() will return the USB product ID 
+of a single discreet USB device on the Moto Mod.
+Determining if a Moto Mod supports USB
+If a Moto Mod enable support for USB-Ext, the USB device on the Moto Mod 
+will be made available immediately when the Moto Mod is attached . Your 
+application can query the ModManager service, via the 
+hasDeclaredProtocol() function, to determine whether a ModDevice supports 
+the USB-Ext protocol.
+if (device.hasDeclaredProtocol(ModProtocol.Protocol.USB) {
+    // This Mod declares USB in its manifest
+  }
+While a Moto Mod might declare USB device support in its manifest, and 
+while most Moto mods will enumerate their USB devices immediately, this 
+behavior depends on the Moto Mod architecture and design.
+Moto Mod USB Conflicts
+As the Moto Z includes both a USB-C port, and support for USB over the Moto 
+Mod interface, there are a few conflicts a developer should keep in mind 
+when designing a USB capable Moto Mod.
+The on device USB-C always takes precedence over a Moto Mod USB
+When a cable or host adapter is plugged into the USB-C port of the phone 
+while USB is connected/enumerated to the Moto Mod, enumeration will be lost 
+to the Moto Mod. Enumeration to the Mod will be lost regardless of the 
+speed (“High-speed” or ”Super Speed”) supported by the data cable connected 
+to the USB-C port of the phone.
+The Moto Mod USB-2.0 Interface only supports host mode
+The USB2 only supports host-mode.
+The Moto Mod USB-3.1 Interface operates only at Superspeed.
+Upstream(host) or downstream (peripherals) connected to this interface 
+should operate at Superspeed (Gen 1). The Moto Mod USB3.1 interface is not 
+backwards compatible with devices that operate at only USB2.0 speeds.
+The Motorola High-Speed Bridge, raw I2S and USB-3.1 are mutually exclusive
+These interfaces cannot be active simultaneously over the Moto Mod 
+interface.
+Handling conflicts with Android
+If USB-Ext is connected over the moto mod interface, and a new host is 
+attached on the device USB-C port, the host on the moto mod will 
+immediately cede control to the USB-C port host. An 
+ACTION_USB_ACCESSORY_DETACHED intent will be broadcast by the USBManager to 
+signal the Moto Mod host has detached, while an 
+ACTION_USB_ACCESSORY_ATTACHED intent will be broadcast to indicate a new 
+host has attached
+If a host is connected over the USB-C interface, and a new USB-Ext is 
+attached on the moto mod interface, USB-Ext will not assert itself until 
+the USB-C host is disconnected. When the USB-C host disconnects, a dormant 
+Moto Mod host will connect and the USBManager service should broadcast an 
+ACTION_USB_ACCESSORY_ATTACHED message as a result.
+Android USB Manager
+As mentioned above, there are no new USB related APIs introduced by the 
+Moto Mod SDK. USB devices are accessible over the Moto Mod interface using 
+Android’s standard USB APIs. We provide a short primer on Android USB 
+management, but the reader should refer to the Android USBManager, 
+USBDevice and Android Open Accessory protocol API provided by the Android 
+SDK for further details.
+Detecting and communicating with a USB device Intent Filter
+In addition to the permission required by the moto mod SDK, an application 
+which needs to communicate with a USB device and be notified of USB device 
+attach and detach can specify an <intent filter> for the 
+android.hardware.usb.action.USB_DEVICE_ATTACHED, the <meta-data> for this 
+intent filter should also content information about the <usb-device> your 
+application wants to filter on in its res/xml/device_filter.xml, as 
+described in the Android USB manager API.
+Your application’s Android manifest should declare the following intent 
+filter:
+<intent-filter>
+      <action android:name=&quot;android.hardware.usb.action.USB_DEVICE_ATTACHED&quot; />
+  </intent-filter>
+  <meta-data android:name=&quot;android.hardware.usb.action.USB_DEVICE_ATTACHED&quot;
+        android:resource=&quot;@xml/device_filter&quot; />
+  </activity>
+And the res/device_filter.xml file should contain the criteria you want to 
+filter by
+<resources>
+    <usb-device vendor-id=&quot;296&quot; product-id=&quot;5461&quot;/>
+</resources>
+USB Permissions
+To communicate with a USB device, your application must have permission 
+from your users. If your application does not use an intent filter to 
+discover USB devices as connection, it must check for permission to access 
+a USB device before trying to access it, and it must call the USBManager 
+requestPermission() API to specifically request permission to communicate 
+with this USB device. These permissions, when granted to an application, 
+allow it to communicate only to the corresponding Moto Mod USB device over 
+USB APIs.
+mUsbManager.requestPermission(device, mPermissionIntent);
+Communicating with a USB Device
+To communicate with a USB device, you need to set up a UsbInterface and 
+UsbEndpoint for the device. Once the UsbEndpoint is setup, your application 
+can make requests to the device using a UsbDeviceConnection on the 
+Endpoint. The bulkTransfer() and controlTransfer() API let an application 
+send data via the USBDevice Endpoint. Data can be sent to a USB Device on 
+the Moto Mod, either synchronously or asynchronously, using the 
+requestWait() API.
+Terminating communication with a device
+When you are done communicating with a device or if receive notification 
+that the device has detached, close the UsbInterface and 
+UsbDeviceConnection by calling releaseInterface() and close(). Your 
+application should listen to the ACTION_USB_DEVICE_DETACHED intent for this 
+reason: to determine when a USB device is detached and make sure the 
+interfaces are properly released and closed at that time.
+< Previous Page
+Mod HID"/>
+<meta property="og:image" content="http://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57570acd2b8dde3d9ed6bd1b/1465322197398/modusb-diagram-01.png?format=1000w"/>
+<meta itemprop="name" content="Software: Mod USB"/>
+<meta itemprop="url" content="http://developer.motorola.com/explore/software/mod-usb"/>
+<meta itemprop="description" content="Moto Z Software: Mod USBIntroduction
+USB 2.0 and USB 3.1 are available to the Moto Mod. On attach, the USB-ext 
+protocol is enumerated and can be discovered by the 
+ModManager.hasDeclaredProtocol(). Your firmware must notify the Moto Z when 
+the actual USB device(s) is present on a Moto Mod, as described in the 
+USB-Ext firmware page. After doing so, the USB device(s) present on a Moto 
+Mod will appear to Android as standard USB devices or host. The Moto Mod 
+platform does not expose additional USB related API to access USB devices.
+An application will use the Android UsbManager to access and communicate 
+with USB devices. The Moto Mod platform supports USB Devices, with the Moto 
+Z acting as the USB host, over USB 2.0 and USB 3.1; a Moto Mod can also 
+play the role of USB host, treating the Moto Z as an Android Open Accessory
+. USB 3.1 is only available over the enterprise port, and only if the 
+interface is not used for the Motorola High-Speed Bridge or raw I2S.
+A developer interested in Moto Mod USB should have knowledge of the API 
+defined in the android.hardware.usb package.
+USB Moto Mod
+The information below applies to the developer of a USB Moto Mod or 
+applications which need to communicate to a Moto Mod over USB.
+Moto Mod PID/VID and USB PID/VID
+A UsbDevice is identified by its USB Vendor ID and a USB Product ID; 
+similar to the way a ModDevice is identified by its Moto Mod Vendor ID and 
+Moto Mod Product ID. There are no guarantees that your Moto Mod VID 
+(assigned by Moto) will be the same as the USB VID (assigned by the USB-IF) 
+of your USB device.
+When working with USB hardware on a Moto Mod, it is important to understand 
+that the VID/PID used by the ModDevice API refers to the Moto Mod itself 
+and will be different from the USB VID/PIDs of the USB devices on your Moto 
+Mod. In particular ModDevice.getProductID() will return the product ID of 
+the Moto Mod; while UsbDevice.getProductID() will return the USB product ID 
+of a single discreet USB device on the Moto Mod.
+Determining if a Moto Mod supports USB
+If a Moto Mod enable support for USB-Ext, the USB device on the Moto Mod 
+will be made available immediately when the Moto Mod is attached . Your 
+application can query the ModManager service, via the 
+hasDeclaredProtocol() function, to determine whether a ModDevice supports 
+the USB-Ext protocol.
+if (device.hasDeclaredProtocol(ModProtocol.Protocol.USB) {
+    // This Mod declares USB in its manifest
+  }
+While a Moto Mod might declare USB device support in its manifest, and 
+while most Moto mods will enumerate their USB devices immediately, this 
+behavior depends on the Moto Mod architecture and design.
+Moto Mod USB Conflicts
+As the Moto Z includes both a USB-C port, and support for USB over the Moto 
+Mod interface, there are a few conflicts a developer should keep in mind 
+when designing a USB capable Moto Mod.
+The on device USB-C always takes precedence over a Moto Mod USB
+When a cable or host adapter is plugged into the USB-C port of the phone 
+while USB is connected/enumerated to the Moto Mod, enumeration will be lost 
+to the Moto Mod. Enumeration to the Mod will be lost regardless of the 
+speed (“High-speed” or ”Super Speed”) supported by the data cable connected 
+to the USB-C port of the phone.
+The Moto Mod USB-2.0 Interface only supports host mode
+The USB2 only supports host-mode.
+The Moto Mod USB-3.1 Interface operates only at Superspeed.
+Upstream(host) or downstream (peripherals) connected to this interface 
+should operate at Superspeed (Gen 1). The Moto Mod USB3.1 interface is not 
+backwards compatible with devices that operate at only USB2.0 speeds.
+The Motorola High-Speed Bridge, raw I2S and USB-3.1 are mutually exclusive
+These interfaces cannot be active simultaneously over the Moto Mod 
+interface.
+Handling conflicts with Android
+If USB-Ext is connected over the moto mod interface, and a new host is 
+attached on the device USB-C port, the host on the moto mod will 
+immediately cede control to the USB-C port host. An 
+ACTION_USB_ACCESSORY_DETACHED intent will be broadcast by the USBManager to 
+signal the Moto Mod host has detached, while an 
+ACTION_USB_ACCESSORY_ATTACHED intent will be broadcast to indicate a new 
+host has attached
+If a host is connected over the USB-C interface, and a new USB-Ext is 
+attached on the moto mod interface, USB-Ext will not assert itself until 
+the USB-C host is disconnected. When the USB-C host disconnects, a dormant 
+Moto Mod host will connect and the USBManager service should broadcast an 
+ACTION_USB_ACCESSORY_ATTACHED message as a result.
+Android USB Manager
+As mentioned above, there are no new USB related APIs introduced by the 
+Moto Mod SDK. USB devices are accessible over the Moto Mod interface using 
+Android’s standard USB APIs. We provide a short primer on Android USB 
+management, but the reader should refer to the Android USBManager, 
+USBDevice and Android Open Accessory protocol API provided by the Android 
+SDK for further details.
+Detecting and communicating with a USB device Intent Filter
+In addition to the permission required by the moto mod SDK, an application 
+which needs to communicate with a USB device and be notified of USB device 
+attach and detach can specify an <intent filter> for the 
+android.hardware.usb.action.USB_DEVICE_ATTACHED, the <meta-data> for this 
+intent filter should also content information about the <usb-device> your 
+application wants to filter on in its res/xml/device_filter.xml, as 
+described in the Android USB manager API.
+Your application’s Android manifest should declare the following intent 
+filter:
+<intent-filter>
+      <action android:name=&quot;android.hardware.usb.action.USB_DEVICE_ATTACHED&quot; />
+  </intent-filter>
+  <meta-data android:name=&quot;android.hardware.usb.action.USB_DEVICE_ATTACHED&quot;
+        android:resource=&quot;@xml/device_filter&quot; />
+  </activity>
+And the res/device_filter.xml file should contain the criteria you want to 
+filter by
+<resources>
+    <usb-device vendor-id=&quot;296&quot; product-id=&quot;5461&quot;/>
+</resources>
+USB Permissions
+To communicate with a USB device, your application must have permission 
+from your users. If your application does not use an intent filter to 
+discover USB devices as connection, it must check for permission to access 
+a USB device before trying to access it, and it must call the USBManager 
+requestPermission() API to specifically request permission to communicate 
+with this USB device. These permissions, when granted to an application, 
+allow it to communicate only to the corresponding Moto Mod USB device over 
+USB APIs.
+mUsbManager.requestPermission(device, mPermissionIntent);
+Communicating with a USB Device
+To communicate with a USB device, you need to set up a UsbInterface and 
+UsbEndpoint for the device. Once the UsbEndpoint is setup, your application 
+can make requests to the device using a UsbDeviceConnection on the 
+Endpoint. The bulkTransfer() and controlTransfer() API let an application 
+send data via the USBDevice Endpoint. Data can be sent to a USB Device on 
+the Moto Mod, either synchronously or asynchronously, using the 
+requestWait() API.
+Terminating communication with a device
+When you are done communicating with a device or if receive notification 
+that the device has detached, close the UsbInterface and 
+UsbDeviceConnection by calling releaseInterface() and close(). Your 
+application should listen to the ACTION_USB_DEVICE_DETACHED intent for this 
+reason: to determine when a USB device is detached and make sure the 
+interfaces are properly released and closed at that time.
+< Previous Page
+Mod HID"/>
+<meta itemprop="thumbnailUrl" content="http://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57570acd2b8dde3d9ed6bd1b/1465322197398/modusb-diagram-01.png?format=1000w"/>
+<link rel="image_src" href="http://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57570acd2b8dde3d9ed6bd1b/1465322197398/modusb-diagram-01.png?format=1000w"/>
+<meta itemprop="image" content="http://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57570acd2b8dde3d9ed6bd1b/1465322197398/modusb-diagram-01.png?format=1000w"/>
+<meta name="twitter:title" content="Software: Mod USB"/>
+<meta name="twitter:image" content="http://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57570acd2b8dde3d9ed6bd1b/1465322197398/modusb-diagram-01.png?format=1000w"/>
+<meta name="twitter:url" content="http://developer.motorola.com/explore/software/mod-usb"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:description" content="Moto Z Software: Mod USBIntroduction
+USB 2.0 and USB 3.1 are available to the Moto Mod. On attach, the USB-ext 
+protocol is enumerated and can be discovered by the 
+ModManager.hasDeclaredProtocol(). Your firmware must notify the Moto Z when 
+the actual USB device(s) is present on a Moto Mod, as described in the 
+USB-Ext firmware page. After doing so, the USB device(s) present on a Moto 
+Mod will appear to Android as standard USB devices or host. The Moto Mod 
+platform does not expose additional USB related API to access USB devices.
+An application will use the Android UsbManager to access and communicate 
+with USB devices. The Moto Mod platform supports USB Devices, with the Moto 
+Z acting as the USB host, over USB 2.0 and USB 3.1; a Moto Mod can also 
+play the role of USB host, treating the Moto Z as an Android Open Accessory
+. USB 3.1 is only available over the enterprise port, and only if the 
+interface is not used for the Motorola High-Speed Bridge or raw I2S.
+A developer interested in Moto Mod USB should have knowledge of the API 
+defined in the android.hardware.usb package.
+USB Moto Mod
+The information below applies to the developer of a USB Moto Mod or 
+applications which need to communicate to a Moto Mod over USB.
+Moto Mod PID/VID and USB PID/VID
+A UsbDevice is identified by its USB Vendor ID and a USB Product ID; 
+similar to the way a ModDevice is identified by its Moto Mod Vendor ID and 
+Moto Mod Product ID. There are no guarantees that your Moto Mod VID 
+(assigned by Moto) will be the same as the USB VID (assigned by the USB-IF) 
+of your USB device.
+When working with USB hardware on a Moto Mod, it is important to understand 
+that the VID/PID used by the ModDevice API refers to the Moto Mod itself 
+and will be different from the USB VID/PIDs of the USB devices on your Moto 
+Mod. In particular ModDevice.getProductID() will return the product ID of 
+the Moto Mod; while UsbDevice.getProductID() will return the USB product ID 
+of a single discreet USB device on the Moto Mod.
+Determining if a Moto Mod supports USB
+If a Moto Mod enable support for USB-Ext, the USB device on the Moto Mod 
+will be made available immediately when the Moto Mod is attached . Your 
+application can query the ModManager service, via the 
+hasDeclaredProtocol() function, to determine whether a ModDevice supports 
+the USB-Ext protocol.
+if (device.hasDeclaredProtocol(ModProtocol.Protocol.USB) {
+    // This Mod declares USB in its manifest
+  }
+While a Moto Mod might declare USB device support in its manifest, and 
+while most Moto mods will enumerate their USB devices immediately, this 
+behavior depends on the Moto Mod architecture and design.
+Moto Mod USB Conflicts
+As the Moto Z includes both a USB-C port, and support for USB over the Moto 
+Mod interface, there are a few conflicts a developer should keep in mind 
+when designing a USB capable Moto Mod.
+The on device USB-C always takes precedence over a Moto Mod USB
+When a cable or host adapter is plugged into the USB-C port of the phone 
+while USB is connected/enumerated to the Moto Mod, enumeration will be lost 
+to the Moto Mod. Enumeration to the Mod will be lost regardless of the 
+speed (“High-speed” or ”Super Speed”) supported by the data cable connected 
+to the USB-C port of the phone.
+The Moto Mod USB-2.0 Interface only supports host mode
+The USB2 only supports host-mode.
+The Moto Mod USB-3.1 Interface operates only at Superspeed.
+Upstream(host) or downstream (peripherals) connected to this interface 
+should operate at Superspeed (Gen 1). The Moto Mod USB3.1 interface is not 
+backwards compatible with devices that operate at only USB2.0 speeds.
+The Motorola High-Speed Bridge, raw I2S and USB-3.1 are mutually exclusive
+These interfaces cannot be active simultaneously over the Moto Mod 
+interface.
+Handling conflicts with Android
+If USB-Ext is connected over the moto mod interface, and a new host is 
+attached on the device USB-C port, the host on the moto mod will 
+immediately cede control to the USB-C port host. An 
+ACTION_USB_ACCESSORY_DETACHED intent will be broadcast by the USBManager to 
+signal the Moto Mod host has detached, while an 
+ACTION_USB_ACCESSORY_ATTACHED intent will be broadcast to indicate a new 
+host has attached
+If a host is connected over the USB-C interface, and a new USB-Ext is 
+attached on the moto mod interface, USB-Ext will not assert itself until 
+the USB-C host is disconnected. When the USB-C host disconnects, a dormant 
+Moto Mod host will connect and the USBManager service should broadcast an 
+ACTION_USB_ACCESSORY_ATTACHED message as a result.
+Android USB Manager
+As mentioned above, there are no new USB related APIs introduced by the 
+Moto Mod SDK. USB devices are accessible over the Moto Mod interface using 
+Android’s standard USB APIs. We provide a short primer on Android USB 
+management, but the reader should refer to the Android USBManager, 
+USBDevice and Android Open Accessory protocol API provided by the Android 
+SDK for further details.
+Detecting and communicating with a USB device Intent Filter
+In addition to the permission required by the moto mod SDK, an application 
+which needs to communicate with a USB device and be notified of USB device 
+attach and detach can specify an <intent filter> for the 
+android.hardware.usb.action.USB_DEVICE_ATTACHED, the <meta-data> for this 
+intent filter should also content information about the <usb-device> your 
+application wants to filter on in its res/xml/device_filter.xml, as 
+described in the Android USB manager API.
+Your application’s Android manifest should declare the following intent 
+filter:
+<intent-filter>
+      <action android:name=&quot;android.hardware.usb.action.USB_DEVICE_ATTACHED&quot; />
+  </intent-filter>
+  <meta-data android:name=&quot;android.hardware.usb.action.USB_DEVICE_ATTACHED&quot;
+        android:resource=&quot;@xml/device_filter&quot; />
+  </activity>
+And the res/device_filter.xml file should contain the criteria you want to 
+filter by
+<resources>
+    <usb-device vendor-id=&quot;296&quot; product-id=&quot;5461&quot;/>
+</resources>
+USB Permissions
+To communicate with a USB device, your application must have permission 
+from your users. If your application does not use an intent filter to 
+discover USB devices as connection, it must check for permission to access 
+a USB device before trying to access it, and it must call the USBManager 
+requestPermission() API to specifically request permission to communicate 
+with this USB device. These permissions, when granted to an application, 
+allow it to communicate only to the corresponding Moto Mod USB device over 
+USB APIs.
+mUsbManager.requestPermission(device, mPermissionIntent);
+Communicating with a USB Device
+To communicate with a USB device, you need to set up a UsbInterface and 
+UsbEndpoint for the device. Once the UsbEndpoint is setup, your application 
+can make requests to the device using a UsbDeviceConnection on the 
+Endpoint. The bulkTransfer() and controlTransfer() API let an application 
+send data via the USBDevice Endpoint. Data can be sent to a USB Device on 
+the Moto Mod, either synchronously or asynchronously, using the 
+requestWait() API.
+Terminating communication with a device
+When you are done communicating with a device or if receive notification 
+that the device has detached, close the UsbInterface and 
+UsbDeviceConnection by calling releaseInterface() and close(). Your 
+application should listen to the ACTION_USB_DEVICE_DETACHED intent for this 
+reason: to determine when a USB device is detached and make sure the 
+interfaces are properly released and closed at that time.
+< Previous Page
+Mod HID"/>
+<meta name="description" content=""/>
+<script type="text/javascript" src="../../../script/qJ7WqbMy62JMJ7f6RRy6IbMy6FJMJ7fbK7psMfeMb6MKGHf5PeMsMfeMt6MKG4fHyoIMJjgkMfH6GJojjgIMJjIPMfqMY2q05Egb_etc8eh48by7f722iincqfp.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:600,300,300italic,700normal,700italic,700"/>
+<script type="text/javascript">SQUARESPACE_ROLLUPS = {};</script>
+<script>(function(rollups, name) { if (!rollups[name]) { rollups[name] = {}; } rollups[name].js = ["../../../universal/scripts-compressed/common-5e94507f3c0e453d11a0-min.js"]; })(SQUARESPACE_ROLLUPS, 'squarespace-common');</script>
+<script>(function(rollups, name) { if (!rollups[name]) { rollups[name] = {}; } rollups[name].js = ["../../../universal/scripts-compressed/commerce-fd3acaef8c84f878af54-min.js"]; })(SQUARESPACE_ROLLUPS, 'squarespace-commerce');</script>
+<script>(function(rollups, name) { if (!rollups[name]) { rollups[name] = {}; } rollups[name].css = ["../../../universal/styles-compressed/commerce-dc2994bcf5b857ab140663df3a2d20aa-min.css"]; })(SQUARESPACE_ROLLUPS, 'squarespace-commerce');</script>
+<script type="text/javascript" data-sqs-type="dynamic-assets-loader">(function() {(function(a){function e(b){-1!==b.indexOf(".js")?document.write("<script "+f+'src="'+b+'">\x3c/script>'):document.write('<link rel="stylesheet" type="text/css" href="'+b+'" />')}var g=function(){var b=window.location.search,a=b.indexOf("exclude=");return-1<a&&(b=b.substr(a+8).split("&")[0])?b.split(","):[]}(),f;f=window.__beta_flag_should_defer?'defer="defer" ':"";try{if(window.top!=window&&window.top.Squarespace&&window.top.Squarespace.frameAvailable){window.top.Squarespace.frameAvailable(window,
+SQUARESPACE_ROLLUPS);return}}catch(h){console.error(h)}for(var c in a)if(!(-1<g.indexOf(c))){if(a[c].js)for(var d=0;d<a[c].js.length;d++)e(a[c].js[d]);if(a[c].css)for(d=0;d<a[c].css.length;d++)e(a[c].css[d])}})(SQUARESPACE_ROLLUPS);
+})();</script><script type="text/javascript" data-sqs-type="imageloader">(function() {var EXCLUDED_SIZES=function(){var a=window.location.search,b=a.indexOf("exclude_imageloader_sizes=");return-1<b&&(a=a.substr(b+26).split("&")[0])?a.split(",").map(function(a){return parseInt(a,10)}):[]}(),SQUARESPACE_SIZES=[2500,1500,1E3,750,500,300,100].filter(function(a){return-1===EXCLUDED_SIZES.indexOf(a)}),IMAGE_LOADING_CLASS="loading",ImageLoader=new function(){this.load=function(a,b){function d(a,b,c){var d=new Image;d.onload=b;d.onerror=c;d.src=a}a.getDOMNode&&(a=a.getDOMNode());var c=this._getDataFromNode(a,
+b),e=!(!c.dimensions||!c.dimensions.width||!c.dimensions.height),g=c.load+"";if("false"===g)return!1;var h=c.mode;if(e&&("fit"===h||"fill"===h)){h=a.parentNode;if(!h)return console.error("Not doing anything, parentNode not found."),!1;if(!this.refresh(a,b,h))return!1}var n=this._intendToLoad(a,c);if("string"===typeof n&&"viewport"!==g){var m=this.getUrl(n,c),g=a.getAttribute("data-image-resolution");a.getAttribute("src")!==m&&this.isValidResolution(n,g)&&(a.onload=function(){a.className=a.className.replace(IMAGE_LOADING_CLASS,
+" ").trim();a.setAttribute("data-image-resolution",n)},!a.getAttribute("src")&&-1===a.className.indexOf(IMAGE_LOADING_CLASS)&&(a.className+=(a.className?" ":"")+IMAGE_LOADING_CLASS),!a.getAttribute("src")&&e?(a.setAttribute("src",m),c.useBgImage&&(a.parentNode.style.backgroundImage="url("+m+")")):d(m,function(){e?a.setAttribute("src",m):(a.setAttribute("data-image-dimensions",this.width+"x"+this.height),ImageLoader.load(a,b))},function(){a.className=a.className.replace(IMAGE_LOADING_CLASS," ").trim();
+a.setAttribute("src",m)}));return!0}return n};this.refresh=function(a,b,d){a.getDOMNode&&(a=a.getDOMNode());d&&d.getDOMNode&&(d=d.getDOMNode());d=d||a.parentNode;if(!d)return console.error("Not doing anything, parentNode not found."),!1;var c=this._getDataFromNode(a,b),e=d.offsetWidth,g=d.offsetHeight;b=c.mode;if("none"!==b){var h=c.dimensions.width,n=c.dimensions.height,m=h/n,q=e/g;if(c.useBgImage&&"fill"===b&&"backgroundSize"in document.documentElement.style)return a.style.display="none",d.style.backgroundSize=
+"cover",d.style.backgroundPosition=100*c.focalPoint.x+"% "+100*c.focalPoint.y+"%",!0;if(c.fixedRatio)"fill"==b&&q>m||"fit"==b&&q<m?(k=100,l=100*(q/m),r=(100-l)*c.focalPoint.y,p=0):(k=100*(m/q),l=100,r=0,p=(100-k)*c.focalPoint.x),a.style.top=r+"%",a.style.left=p+"%",a.style.width=k+"%",a.style.height=l+"%";else{var f;"fill"===b?f=m>q?g/n:e/h:"fit"===b&&(f=m<q?g/n:e/h);!c.stretch&&"fit"==b&&1<f&&(f=1);var k=Math.ceil(h*f),l=Math.ceil(n*f);if(0===k||0===l)return!1;var p,r;"fill"===b?(p=Math.min(Math.max(e/
+2-k*c.focalPoint.x,e-k),0),r=Math.min(Math.max(g/2-l*c.focalPoint.y,g-l),0)):"fit"===b&&(f=c.fitAlignment,p=f.left?0:f.right?e-k:k<e?(e-k)/2:0,r=f.top?0:f.bottom?g-l:l<g?(g-l)/2:0,"inline"==this._getStyle(a,"display")&&(a.style.fontSize="0px"),this._resetAlt(a,function(){k-=a.offsetHeight-a.clientHeight;l-=a.offsetWidth-a.clientWidth}));a.style.top=Math.ceil(r)+"px";a.style.left=Math.ceil(p)+"px";a.style.width=Math.ceil(k)+"px";a.style.height=Math.ceil(l)+"px"}p=this._getStyle(d,"position");a.style.position=
+"relative"==p?"absolute":"relative";if("fill"==b&&(b=this._getStyle(d,"overflow"),!b||"hidden"!=b))d.style.overflow="hidden";return!0}};this._intendToLoad=function(a,b){function d(c,d){"none"===b.mode&&(a.style.width=null,a.style.height=null);var e=parseFloat(a.getAttribute(c)),f=parseFloat(e);if(!f||isNaN(f))e=h._getStyle(a,c),f=parseFloat(e);if(!f||isNaN(f))e=h._getStyle(a,"max-"+c,"max"+(c.substr(0,1).toUpperCase()+c.substr(1))),f=parseFloat(e);if(0===d||e)switch(h._stringType(e)){case "percentage":d=
+parseInt(e,10)/100*g["offset"+c.substr(0,1).toUpperCase()+c.substr(1)];break;case "number":d=parseInt(e,10)}!f&&0!==d&&!a.getAttribute("src")&&(d=0);return d}b=b||this._getDataFromNode(a);if(!b.source)return!1;var c=a.offsetWidth,e=a.offsetHeight,g=a.parentNode,h=this;this._resetAlt(a,function(){c=d("width",c);e=d("height",e)});0===c&&0===e?(c=b.dimensions.width,e=b.dimensions.height):0===c?c=this.getDimensionForValue("width",e,b):0===e&&(e=this.getDimensionForValue("height",c,b));"viewport"===b.load&&
+(a.style.width=Math.floor(c)+"px",a.style.height=Math.floor(e)+"px");return this.getSquarespaceSize(c,e,b)};this._getDataFromNode=function(a,b){b=b||{};var d={focalPoint:{x:0.5,y:0.5},dimensions:{width:null,height:null},mode:"none",fitAlignment:{center:!0},load:"true",stretch:!0,fixedRatio:!1};if(b.focalPoint)d.focalPoint=b.focalPoint;else{var c=a.getAttribute("data-image-focal-point");if(c&&(c=c.split(","))&&2==c.length)d.focalPoint={x:parseFloat(c[0]),y:parseFloat(c[1])}}if(b.dimensions)d.dimensions=
+b.dimensions;else if((c=a.getAttribute("data-image-dimensions"))&&(c=c.split("x"))&&2==c.length)d.dimensions={width:parseInt(c[0],10),height:parseInt(c[1],10)};b.mode?d.mode=b.mode:a.parentNode&&(c=a.parentNode.className,-1!==c.indexOf("content-fill")?d.mode="fill":-1!==c.indexOf("content-fit")&&(d.mode="fit"));if("fit"===d.mode&&a.parentNode&&(c=b.fitAlignment||a.getAttribute("data-alignment")||a.parentNode.getAttribute("data-alignment")))d.fitAlignment={top:-1!==c.indexOf("top"),left:-1!==c.indexOf("left"),
+center:-1!==c.indexOf("center"),right:-1!==c.indexOf("right"),bottom:-1!==c.indexOf("bottom")};b.load?d.load=b.load:(c=a.getAttribute("data-load"))&&(d.load=c);if("undefined"!==typeof b.stretch)d.stretch=b.stretch;else if(c=a.getAttribute("data-image-stretch"))d.stretch="true"===c?!0:!1;d.source=b.source?b.source:a.getAttribute("data-src");d.source&&this.isSquarespaceUrl(d.source)&&("http:"===d.source.substr(0,5)&&"https"===window.location.protocol.substr(0,5))&&(d.source=d.source.replace("http://",
+"https://"));if(b.fixedRatio)d.fixedRatio=b.fixedRatio;else if(c=a.getAttribute("data-fixed-ratio"))d.fixedRatio="true"==c;b.useBgImage?d.useBgImage=b.useBgImage:(c=a.getAttribute("data-use-bg-image"),d.useBgImage="true"===c||!0===c?!0:!1);return d};this._stringType=function(a){return"string"===typeof a&&-1!==a.indexOf("%")?"percentage":isNaN(parseInt(a,10))?NaN:"number"};this._getStyle=function(a,b,d){var c;a.currentStyle?c=a.currentStyle[d||b]:window.getComputedStyle&&(c=document.defaultView.getComputedStyle(a,
+null).getPropertyValue(b));return c};this._isVisible=function(a){a=a.getBoundingClientRect();return 0<=a.left&&0<=a.top||0<=a.bottom&&0<=a.right||0<=a.left&&0<=a.bottom||0<=a.right&&0<=a.top};this.getSquarespaceSize=function(a,b,d){a=Math.max(b/(d.dimensions.height/d.dimensions.width),a);"undefined"===typeof app&&"number"===typeof window.devicePixelRatio&&(a*=window.devicePixelRatio);for(b=1;b<SQUARESPACE_SIZES.length&&!(a>SQUARESPACE_SIZES[b]);b++);return SQUARESPACE_SIZES[b-1]+"w"};this.getDimensionForValue=
+function(a,b,d){var c=d.dimensions.width;d=d.dimensions.height;return"width"==a?c/d*b:"height"==a?d/c*b:NaN};this.getUrl=function(a,b){var d=b.source;return a&&("/"==d[0]||this.isSquarespaceUrl(d))?(-1===d.indexOf("format="+a)&&(d=d+(-1!==d.indexOf("?")?"&":"?")+"format="+a),d):b.source};this.isSquarespaceUrl=function(a){return-1!==a.indexOf("squarespace.com")||-1!==a.indexOf("squarespace.net")||-1!==a.indexOf("sqsp.net")};this.isValidResolution=function(a,b){a=parseInt(a,10);b=parseInt(b,10);return isNaN(a)||
+isNaN(b)?!0:a>b};this._resetAlt=function(a,b){var d=a.getAttribute("alt"),c=d&&0<d.length&&!a.getAttribute("src");if(c){var e=a.style.display;a.removeAttribute("alt");a.style.display="none";a.offsetHeight+0;a.style.display=e}b.call(this);c&&a.setAttribute("alt",d)};this.bootstrap=function(){var a=document.images;if(0<a.length)for(var b=0,d=a.length;b<d;b++)((a[b].hasAttribute?a[b].hasAttribute("data-image"):a[b].attributes["data-image"])||(a[b].hasAttribute?a[b].hasAttribute("data-src"):a[b].attributes["data-src"]))&&
+"false"!==(a[b].getAttribute?a[b].getAttribute("data-load"):a[b].attributes["data-load"])+""&&ImageLoader.load(a[b])}};window.ImageLoader=ImageLoader;window.YUI&&YUI.add("squarespace-imageloader",function(a){},"1.0",{requires:[]});
+})();</script>
+<script>Static.SQUARESPACE_CONTEXT = {"facebookAppId":"314192535267336","rollups":{"squarespace-announcement-bar":{"css":"http://static.squarespace.com/universal/styles-compressed/announcement-bar-d41d8cd98f00b204e9800998ecf8427e-min.css","js":"../../../universal/scripts-compressed/announcement-bar-953ed1cd99cc9b87f7a2-min.js"},"squarespace-audio-player":{"css":"../../../universal/styles-compressed/audio-player-76e4bfcc3f9830beb388bae2002fbe6c-min.css","js":"../../../universal/scripts-compressed/audio-player-98a9173c9d0ffd51f2ba-min.js"},"squarespace-blog-collection-list":{"css":"http://static.squarespace.com/universal/styles-compressed/blog-collection-list-d41d8cd98f00b204e9800998ecf8427e-min.css","js":"../../../universal/scripts-compressed/blog-collection-list-e3f0e3c96f9f77c0fa8a-min.js"},"squarespace-calendar-block-renderer":{"css":"../../../universal/styles-compressed/calendar-block-renderer-edb9ea58c015fca447b97a2948a5c589-min.css","js":"../../../universal/scripts-compressed/calendar-block-renderer-39cca1f2e4e0f96a6ad5-min.js"},"squarespace-chartjs-helpers":{"css":"../../../universal/styles-compressed/chartjs-helpers-9935a41d63cf08ca108505d288c1712e-min.css","js":"../../../universal/scripts-compressed/chartjs-helpers-ac72687dc63de36835c1-min.js"},"squarespace-comments":{"css":"../../../universal/styles-compressed/comments-54d9a235556bd6d2c4429d030a5b72af-min.css","js":"../../../universal/scripts-compressed/comments-a6afc8f75ac78d98ea0a-min.js"},"squarespace-dialog":{"css":"../../../universal/styles-compressed/dialog-c88f372c40a33112d5ee06509be7e7d8-min.css","js":"../../../universal/scripts-compressed/dialog-7533bc02eb401e051c14-min.js"},"squarespace-events-collection":{"css":"../../../universal/styles-compressed/events-collection-edb9ea58c015fca447b97a2948a5c589-min.css","js":"../../../universal/scripts-compressed/events-collection-b653d5aa26179e6ac6c8-min.js"},"squarespace-gallery-collection-list":{"css":"http://static.squarespace.com/universal/styles-compressed/gallery-collection-list-d41d8cd98f00b204e9800998ecf8427e-min.css","js":"../../../universal/scripts-compressed/gallery-collection-list-46bf412970dc140b6d72-min.js"},"squarespace-image-zoom":{"css":"../../../universal/styles-compressed/image-zoom-ae974921915aeccaff8ad60c60e19c31-min.css","js":"../../../universal/scripts-compressed/image-zoom-f6cd9050c5d8c057ace4-min.js"},"squarespace-pinterest":{"css":"http://static.squarespace.com/universal/styles-compressed/pinterest-d41d8cd98f00b204e9800998ecf8427e-min.css","js":"../../../universal/scripts-compressed/pinterest-e9b8f9d6b857f360efb3-min.js"},"squarespace-product-quick-view":{"css":"../../../universal/styles-compressed/product-quick-view-eb4b900ac0155bed2f175aa82e2a7c17-min.css","js":"../../../universal/scripts-compressed/product-quick-view-385bcf122538af11172a-min.js"},"squarespace-products-collection-item-v2":{"css":"../../../universal/styles-compressed/products-collection-item-v2-ae974921915aeccaff8ad60c60e19c31-min.css","js":"../../../universal/scripts-compressed/products-collection-item-v2-3486dc9b8dbd99755e7d-min.js"},"squarespace-products-collection-list-v2":{"css":"../../../universal/styles-compressed/products-collection-list-v2-ae974921915aeccaff8ad60c60e19c31-min.css","js":"../../../universal/scripts-compressed/products-collection-list-v2-4cd969ff0438e7ef97a3-min.js"},"squarespace-search-page":{"css":"../../../universal/styles-compressed/search-page-9e3daa07ec7490c2f0be98a39351cb63-min.css","js":"../../../universal/scripts-compressed/search-page-87a4e5e16a12647eda19-min.js"},"squarespace-share-buttons":{"js":"../../../universal/scripts-compressed/share-buttons-ca50e441efae95c3b149-min.js"},"squarespace-simple-liking":{"css":"../../../universal/styles-compressed/simple-liking-09fa291ec2800c97714f0d157fd0a6ca-min.css","js":"../../../universal/scripts-compressed/simple-liking-9a2140e20ef2f503a19f-min.js"},"squarespace-social-buttons":{"css":"../../../universal/styles-compressed/social-buttons-7a696232d1cd101fd62b5f174f9ae6ff-min.css","js":"../../../universal/scripts-compressed/social-buttons-0730f331e9d8376edc18-min.js"},"squarespace-tourdates":{"css":"http://static.squarespace.com/universal/styles-compressed/tourdates-d41d8cd98f00b204e9800998ecf8427e-min.css","js":"../../../universal/scripts-compressed/tourdates-c7794d87ff1cec0a657f-min.js"}},"pageType":50,"website":{"id":"5715eee9b09f95a12b44e0ed","identifier":"leona-devs","websiteType":1,"contentModifiedOn":1476370330509,"cloneable":false,"developerMode":true,"siteStatus":{},"language":"en-US","timeZone":"America/Chicago","machineTimeZoneOffset":-18000000,"timeZoneOffset":-18000000,"timeZoneAbbr":"CDT","siteTitle":"Motorola Developer Portal","siteTagLine":"Dream. Make. Ship.","siteDescription":"<p><span style=\"font-size:15.4px\">Everything you need to learn about the Moto Mods\u2122 platform, create your own Moto Mod, and take it to market.&nbsp;</span></p>","logoImageId":"5757c416c6fc08b36227de80","socialLogoImageId":"5755264307eaa05442bdf5e8","shareButtonOptions":{"8":true,"2":true,"1":true,"7":true,"5":true,"3":true,"4":true,"6":true},"logoImageUrl":"http://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/5757c416c6fc08b36227de80/1476370330509/","socialLogoImageUrl":"http://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/5755264307eaa05442bdf5e8/1476370330509/","authenticUrl":"http://developer.motorola.com","internalUrl":"http://leona-devs.squarespace.com","baseUrl":"http://developer.motorola.com","primaryDomain":"developer.motorola.com","socialAccounts":[{"serviceId":11,"userId":"UCF5CbIqtNedOBHYhCgaVo5w","screenname":"Josh Wu","addedOn":1465372026418,"profileUrl":"https://www.youtube.com/user/motorola","iconUrl":"../../../-aiajjcTcxW8/AAAAAAAAAAI/AAAAAAAAAAA/F25Fwkym5Yg/s88-c-k-no-rj-c0xffffff/photo.jpg","iconEnabled":true,"serviceName":"youtube"},{"serviceId":2,"userId":"10100700593422275","screenname":"Josh Wu","addedOn":1465370177239,"profileUrl":"https://www.facebook.com/MotoUSA/","iconUrl":"http://graph.facebook.com/10100700593422275/picture?type=square","metaData":{"service":"facebook"},"iconEnabled":true,"serviceName":"facebook"},{"serviceId":4,"userId":"193778334","userName":"xjoshwu","screenname":"Josh Wu","addedOn":1465371811769,"profileUrl":"https://twitter.com/moto","iconUrl":"../../../sticky/default_profile_images/default_profile_1_normal.png","collectionId":"5757cca3ab48de05c0e6df61","iconEnabled":true,"serviceName":"twitter"},{"serviceId":21,"userId":"103148786619544125119","screenname":"Josh Wu","addedOn":1465371948049,"profileUrl":"https://plus.google.com/communities/116517178872973348174","iconUrl":"../../../-aiajjcTcxW8/AAAAAAAAAAI/AAAAAAAAAng/vXUrMPokc1s/photo.jpg","iconEnabled":true,"serviceName":"google"}],"typekitId":"","statsMigrated":false,"imageMetadataProcessingEnabled":false},"websiteSettings":{"id":"5715eee9b09f95a12b44e0f0","websiteId":"5715eee9b09f95a12b44e0ed","subjects":[],"country":"US","state":"IL","markdownMode":true,"simpleLikingEnabled":true,"mobileInfoBarSettings":{"isContactEmailEnabled":false,"isContactPhoneNumberEnabled":false,"isLocationEnabled":false,"isBusinessHoursEnabled":false},"lastAgreedTermsOfService":2,"defaultPostFormat":"%y/%m/%d/%t","commentLikesAllowed":true,"commentAnonAllowed":true,"commentThreaded":true,"commentApprovalRequired":false,"commentAvatarsOn":true,"commentSortType":2,"commentFlagThreshold":0,"commentFlagsAllowed":true,"commentEnableByDefault":true,"commentDisableAfterDaysDefault":0,"disqusShortname":"","homepageTitleFormat":"%s","collectionTitleFormat":"%c \u2014 %s","itemTitleFormat":"%i \u2014 %s","commentsEnabled":false,"contactPhoneNumber":"","allowSquarespacePromotion":false,"storeSettings":{"returnPolicy":null,"termsOfService":null,"privacyPolicy":null,"paymentSettings":{},"expressCheckout":false,"useLightCart":false,"showNoteField":false,"shippingCountryDefaultValue":"US","billToShippingDefaultValue":false,"showShippingPhoneNumber":true,"isShippingPhoneRequired":false,"showBillingPhoneNumber":true,"isBillingPhoneRequired":false,"currenciesSupported":["USD","CAD","GBP","AUD","EUR","CHF","NOK","SEK","DKK"],"defaultCurrency":"USD","selectedCurrency":"USD","measurementStandard":1,"orderConfirmationInjectCode":"<style>\n/* <link rel=\"stylesheet\" href=\"style.css\">\n  img .footer-inner {\n  \tmax-width: 80px;\n  }\n  img.thumb-image.loaded {\n  \tleft: 0 !important;\n    max-height: 100% !important;\n  }*/\n  \n</style>","showCustomCheckoutForm":false,"enableMailingListOptInByDefault":true,"sameAsRetailLocation":false,"stripeConnected":false,"isLive":false,"storeState":3},"useEscapeKeyToLogin":false,"ssBadgeType":1,"ssBadgePosition":4,"ssBadgeVisibility":1,"ssBadgeDevices":1,"pinterestOverlayOptions":{"mode":"disabled"},"ampEnabled":false},"websiteCloneable":false,"collection":{"title":"Moto Mods Developer: Explore Platform","id":"57397c50c2ea512278d32978","fullUrl":"/explore/","type":1},"item":{"title":"Software: Mod USB","id":"5745e842555986dec9ab55fb","fullUrl":"/explore/software/mod-usb","publicCommentCount":0,"commentState":2,"recordType":1},"subscribed":false,"appDomain":"squarespace.com","templateTweakable":true,"tweakJSON":{"aspect-ratio":"Auto","banner-slideshow-controls":"Arrows","gallery-arrow-style":"No Background","gallery-aspect-ratio":"3:2 Standard","gallery-auto-crop":"true","gallery-autoplay":"false","gallery-design":"Grid","gallery-info-overlay":"Show on Hover","gallery-loop":"false","gallery-navigation":"Bullets","gallery-show-arrows":"true","gallery-transitions":"Fade","galleryArrowBackground":"rgba(34,34,34,1)","galleryArrowColor":"rgba(255,255,255,1)","galleryAutoplaySpeed":"3","galleryCircleColor":"rgba(255,255,255,1)","galleryInfoBackground":"rgba(0, 0, 0, .7)","galleryThumbnailSize":"100px","gridSize":"280px","gridSpacing":"10px","logoContainerWidth":"200px","product-gallery-auto-crop":"false","product-image-auto-crop":"true","siteTitleContainerWidth":"235px"},"templateId":"5715f8f91d07c0429e184ea4","pageFeatures":[1,2,4],"impersonatedSession":false,"isFacebookTab":false,"tzData":{"zones":[[-360,"US","C%sT",null]],"rules":{"US":[[1967,2006,null,"Oct","lastSun","2:00","0","S"],[1987,2006,null,"Apr","Sun>=1","2:00","1:00","D"],[2007,"max",null,"Mar","Sun>=8","2:00","1:00","D"],[2007,"max",null,"Nov","Sun>=1","2:00","0","S"]]}}};</script><script type="text/javascript"> SquarespaceFonts.loadViaContext(); Squarespace.load(window);</script><script type="application/ld+json">{"@context":"http://schema.org","@type":"WebSite","url":"http://developer.motorola.com","name":"Motorola Developer Portal","description":"<p><span style=\"font-size:15.4px\">Everything you need to learn about the Moto Mods\u2122 platform, create your own Moto Mod, and take it to market.&nbsp;</span></p>","image":"http://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/5757c416c6fc08b36227de80/1476370330509/"}</script><!--[if gte IE 9]> <link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/955-05142015/1476298698666/site.css?&filterFeatures=false&part=1"/><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/955-05142015/1476298698666/site.css?&filterFeatures=false&part=2"/><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/955-05142015/1476298698666/site.css?&filterFeatures=false&part=3"/><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/955-05142015/1476298698666/site.css?&filterFeatures=false&part=4"/><![endif]-->
+<!--[if lt IE 9]><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/955-05142015/1476298698666/site.css?&filterFeatures=false&noMedia=true&part=1"/><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/955-05142015/1476298698666/site.css?&filterFeatures=false&noMedia=true&part=2"/><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/955-05142015/1476298698666/site.css?&filterFeatures=false&noMedia=true&part=3"/><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/955-05142015/1476298698666/site.css?&filterFeatures=false&noMedia=true&part=4"/><![endif]-->
+<!--[if !IE]> --><link rel="stylesheet" type="text/css" href="../../../css/1476298698666/site.css"/><!-- <![endif]-->
+<!-- create adrum.js script timestamp -->
+<script>window['adrum-start-time'] = new Date().getTime();</script>
+<!--run adrum.js -->
+<script src="../../../scripts/adrum.js"></script>
+<!-- run page redirects -->
+<script id="redirect" type="text/javascript">	
+    // DEFINE HERE WHICH HERO PAGES SHOULD AUTOMATICALLY LOOK TO REDIRECT
+    // SUBPAGES THAT FOLLOW THE SLUG NAMING CONVENTION OF BASE_URL.COM/AAA-BBB-#  
+	var redirects = {
+     // "/index-page-url": "redirect-target"
+        "/home": "/",
+      	"/buy": "/buy",
+      	"/get-started": "/get-started",
+        "/partner": "/partner",
+        "/support": "/support",
+    };
+  	// DON'T TOUCH ANYTHING BELOW THIS LINE
+  	// UNLESS YOU KNOW JAVASCRIPT
+    (function redirect_page() {
+      	//console.log('Window pathname:', window.location);
+        // store pathname because we have to use it a bunch
+        var pathname = window.location.pathname,
+            redirect_url;
+        for (var $key in redirects) {
+            // look to see if the pathname matches a targeted redirect
+            // index at the start of the string
+            if (new RegExp(('^').concat($key), 'i').test(pathname)) {
+                console.log('This window URL pathname matches a specified redirect path!\nWindow URL pathname:', pathname, '\nProceding to analyze...');
+                // because we store otherwise random numbers in intelligble
+                // variables, create an index and offset
+                var index = 0,
+                    offset = 1;
+                // clean up the pathname: if there's a final / at the *end* of the URL,
+                // get rid of it, since it will prevent us from identifying pages to redirect
+                pathname = (pathname.charAt(pathname.length - offset) === '/') ? pathname.substr(0, pathname.length - offset) : pathname;
+                // after cleaning up the pathname, check to see if the match is an exact one
+                // if it is, don't redirect
+                if (pathname === $key) {
+                    return console.log('Pathname is evaluated as the same page as the potential redirect -- not processing further');
+                } 
+                // check to see if the match corresponds to a subfolder/page URL
+                // rather than a hero card -- if it is, ignore it
+                else if (pathname.match(/\//g).length > offset) {
+                    return console.log('Pathname is evaluated as a subpage -- not applying redirects');
+                } 
+              	// redirect here!
+              	else {
+                    console.log('Pathname should be redirected to', redirects[$key]);
+                    return window.location = redirects[$key];
+                }
+            }
+        }	
+    }());
+</script>
+<noscript>
+  <iframe src="http://www.googletagmanager.com/ns.html?id=GTM-5HBTJV" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script src="../../../js/324186689.js"></script><link rel="stylesheet" href="../../../assets/css/documentation-styles.css">
+<!-- <style>
+  #header-info-1 {
+  	color: #dbbc8e !important;
+    font-weight: bold !important;
+  }
+  h2 {
+  	color: #5e2862 !important;
+  }
+</style> -->
+<script type="text/javascript">
+      $(window).bind("load", function() {
+        // GA Data Layer Push Events
+        $(".sqs-block-button-element a[href*='/explore/software']").click(function(e){ dataLayer.push({'event' : 'event', 'category' : 'Mods: Explore Page Interaction', 'action' : 'Click', 'label' : 'Explore: Body: Learn More (Moto Z): Button'}); console.log('software click'); });
+        $(".sqs-block-button-element a[href*='/explore/firmware']").click(function(e){ dataLayer.push({'event' : 'event', 'category' : 'Mods: Explore Page Interaction', 'action' : 'Click', 'label' : 'Explore: Body: Learn More (Moto Mods): Button'}); console.log('firmware click'); });
+        $(".sqs-block-button-element a[href*='/build']").click(function(e){ dataLayer.push({'event' : 'event', 'category' : 'Mods: Explore Page Interaction', 'action' : 'Click', 'label' : 'Explore: Body: Learn More (MDK): Button'}); console.log('build click'); });
+        $("a[href*='https://pages.motorola-mail.com/moto-mods-developer-us-en']").click(function(e){ dataLayer.push({'event' : 'event', 'category' : 'Mods: Get Started Page Interaction', 'action' : 'Click', 'label' : 'Get Started: Body: Register For Updates: Button'}); console.log('updates click'); });
+      });
+    </script><!-- End of Squarespace Headers -->
+    <script>/* Must be below squarespace-headers */(function(){var e='ontouchstart'in window||navigator.msMaxTouchPoints;var t=document.documentElement;if(!e&&t){t.className=t.className.replace(/touch-styles/,'')}})()
+    </script>
+  </head>
+  <body id="item-5745e842555986dec9ab55fb" class="enable-nav-button nav-button-style-solid nav-button-corner-style-square banner-button-style-solid banner-button-corner-style-square banner-slideshow-controls-arrows meta-priority-date  hide-entry-author hide-list-entry-footer    hide-blog-sidebar center-navigation--info  gallery-design-grid aspect-ratio-auto lightbox-style-light gallery-navigation-bullets gallery-info-overlay-show-on-hover gallery-aspect-ratio-32-standard gallery-arrow-style-no-background gallery-transitions-fade gallery-show-arrows gallery-auto-crop      event-thumbnails event-thumbnail-size-32-standard event-date-label event-date-label-time event-list-show-cats event-list-date event-list-time event-list-address   event-icalgcal-links  event-excerpts  event-item-back-link    product-list-titles-under product-list-alignment-center product-item-size-11-square product-image-auto-crop product-gallery-size-11-square  show-product-price show-product-item-nav product-social-sharing  opentable-style-light newsletter-style-light small-button-style-solid small-button-shape-square medium-button-style-outline medium-button-shape-square large-button-style-outline large-button-shape-square button-style-solid button-corner-style-square tweak-product-quick-view-button-style-floating tweak-product-quick-view-button-position-bottom tweak-product-quick-view-lightbox-excerpt-display-truncate tweak-product-quick-view-lightbox-show-arrows tweak-product-quick-view-lightbox-show-close-button tweak-product-quick-view-lightbox-controls-weight-light native-currency-code-usd view-item collection-layout-default collection-type-explore collection-57397c50c2ea512278d32978 mobile-style-available">
+    <input type="checkbox" name="mobile-nav-toggle" id="mobileNavToggle" class="mobile-nav-toggle-box hidden"/><a href="#" class="body-overlay"></a>
+    <div class="sqs-announcement-bar-dropzone"></div>
+    <div id="sidecarNav">
+<div id="mobileNavWrapper" class="nav-wrapper" data-content-field="navigation-mobileNav">
+  <nav id="mobileNavigation">
+        <div class="mobile-fullurl- index homepage">
+          <a href="/">
+            Home
+          </a>
+        </div>
+        <div class="mobile-fullurl-get-started index">
+          <a href="../../../get-started/">
+            Get Started
+          </a>
+        </div>
+	        <div class="external outside-folder explore-dropdown">
+	          <a href="../../../explore/">
+	            Explore
+	          </a>
+			  	<div id="subNavMobile">
+        <div class="external" data-url="http://developer.motorola.com/explore/system-architecture">
+          <a href="../../../explore/system-architecture/">
+            System Architecture
+          </a>
+        </div>
+        <div class="external" data-url="http://developer.motorola.com/explore/software">
+          <a href="../../../explore/software/">
+            Moto Mods SDK for Android
+          </a>
+        </div>
+        <div class="external" data-url="http://developer.motorola.com/explore/firmware">
+          <a href="../../../explore/firmware/">
+            Moto Mods Firmware
+          </a>
+        </div>
+</div>
+	        </div>
+	        <div class="external outside-folder build-dropdown">
+	          <a href="../../../build/">
+	            Build
+	          </a>
+			  	<div id="subNavMobile">
+        <div class="external" data-url="http://developer.motorola.com/build/overview">
+          <a href="../../../build/overview/">
+            Overview
+          </a>
+        </div>
+        <div class="external" data-url="http://developer.motorola.com/build/mdk-user-guide">
+          <a href="../../../build/mdk-user-guide/">
+            MDK User Guide
+          </a>
+        </div>
+        <div class="external" data-url="http://developer.motorola.com/build/tools">
+          <a href="../../../build/tools/">
+            Developer Tools
+          </a>
+        </div>
+        <div class="external" data-url="http://developer.motorola.com/build/examples">
+          <a href="../../../build/examples/">
+            Examples
+          </a>
+        </div>
+</div>
+	        </div>
+        <div class="mobile-fullurl-partner index">
+          <a href="../../../partner/">
+            Partner
+          </a>
+        </div>
+        <div class="mobile-fullurl-support index">
+          <a href="../../../support/">
+            Support
+          </a>
+        </div>
+        <div class="mobile-fullurl-buy index">
+          <a href="../../../buy/">
+            Buy
+          </a>
+        </div>
+    <!--<div id="lateral-nav">
+		<div class="button-shop">
+  			<a>Lorem Ipsum</a>
+  		</div>
+  	</div>-->
+  </nav>
+</div>
+    </div>
+    <div id="siteWrapper" class="clearfix">
+      <div class="sqs-cart-dropzone"></div>
+      <header id="header" class="show-on-scroll" data-offset-el=".index-section" data-offset-behavior="bottom" role="banner">
+        <div class="header-inner">
+	        <div id="second-logo">
+			    	<img src="../../../static/ta/5715eee9b09f95a12b44e0ed/936/assets/images/logos/lenovo.png" alt="Lenovo" style="max-width:25px"/>
+		      </div>
+	      <div class="main-header">
+	          <div id="logoWrapper" class="wrapper" data-content-field="site-title">
+	              <h1 id="logoImage"><a href="/"></a></h1>
+	          </div><!-- comment the linebreak between these two elements because science
+	          --><label for="mobileNavToggle" class="mobile-nav-toggle-label"><div class="top-bar"></div><div class="middle-bar"></div><div class="bottom-bar"></div></label><label for="mobileNavToggle" class="mobile-nav-toggle-label fixed-nav-toggle-label"><div class="top-bar"></div><div class="middle-bar"></div><div class="bottom-bar"></div></label><!-- comment the linebreak between these two elements because science
+	          -->
+	          <div id="headerNav"><div id="mainNavWrapper" class="nav-wrapper" data-content-field="navigation-mainNav">
+  <nav id="mainNavigation" data-content-field="navigation-mainNav">
+        <div class="fullurl- index homepage">
+          <a href="/">
+            Home
+          </a>
+        </div>
+        <div class="fullurl-get-started index">
+          <a href="../../../get-started/">
+            Get Started
+          </a>
+        </div>
+		        <div class="external" id="tab-explore">
+		          <a href="../../../explore/">
+		            Explore
+		          </a>
+		        </div>
+		        <div class="external" id="tab-build">
+		          <a href="../../../build/">
+		            Build
+		          </a>
+		        </div>
+        <div class="fullurl-partner index">
+          <a href="../../../partner/">
+            Partner
+          </a>
+        </div>
+        <div class="fullurl-support index">
+          <a href="../../../support/">
+            Support
+          </a>
+        </div>
+        <div class="fullurl-buy index">
+          <a href="../../../buy/">
+            Buy
+          </a>
+        </div>
+	<!--<div id="lateral-nav">
+		<div class="button-shop">
+  			<a>Lorem Ipsum</a>
+  		</div>
+  	</div>-->
+  </nav>
+</div>
+<!-- style below blocks out the mobile nav toggle only when nav is loaded -->
+<style>.mobile-nav-toggle-label { display: inline-block !important; }</style>
+</div>
+	      </div>
+          <!-- Display subnav only if we are in type name collection -->
+					<div id="subHeaderNav">
+<div id="mainNavWrapper" class="nav-wrapper" data-content-field="navigation-mainNav">
+  <nav id="subNavigation" data-content-field="navigation-mainNav">
+        <div class="external" data-url="http://developer.motorola.com/explore/system-architecture">
+          <a href="../../../explore/system-architecture/">
+            System Architecture
+          </a>
+        </div>
+        <div class="external" data-url="http://developer.motorola.com/explore/software">
+          <a href="../../../explore/software/">
+            Moto Mods SDK for Android
+          </a>
+        </div>
+        <div class="external" data-url="http://developer.motorola.com/explore/firmware">
+          <a href="../../../explore/firmware/">
+            Moto Mods Firmware
+          </a>
+        </div>
+  </nav>
+</div>
+<!-- style below blocks out the mobile nav toggle only when nav is loaded -->
+<style>.mobile-nav-toggle-label { display: inline-block !important; }</style>
+</div>
+        </div>
+      </header>
+      <main id="page" role="main">
+        <!-- comment the linebreak between these two elements because science
+        --><!-- comment the linebreak between these two elements because science
+        --><div id="content" class="main-content" data-content-field="main-content" data-collection-id="57397c50c2ea512278d32978" data-edit-main-image="Banner">
+         <div class="sidebar" data-tag-selected="Mod USB"> 
+<!-- Here you can modify the query so it matches the slug of the collection to retrieve the tags -->
+<!-- original code is below this line
+<squarespace:query collection="explore" limit="10" category="Software">
+-->
+<!-- modified code starts here -->
+<ol>
+<li><a href="../../../explore/software/" data-tag="Overview">Overview</a></li>
+<li><a href="../../../explore/software/mod-management/" data-tag="Mod Management">Mod Management</a></li>
+<li><a href="../../../explore/software/mod-raw-devices/" data-tag="Mod Raw Devices">Mod Raw Devices</a></li>
+<li><a href="../../../explore/software/mod-display/" data-tag="Mod Display">Mod Display</a></li>
+<li><a href="../../../explore/software/mod-battery/" data-tag="Mod Battery">Mod Battery</a></li>
+<li><a href="../../../explore/software/mod-audio/" data-tag="Mod Audio">Mod Audio</a></li>
+<li><a href="../../../explore/software/mod-hid/" data-tag="Mod HID">Mod HID</a></li>
+<li><a href="../../../explore/software/mod-usb/" data-tag="Mod USB">Mod USB</a></li>
+</ol>
+<div class="external-links">
+<div class="sqs-layout sqs-grid-12 columns-12" data-type="block-field" data-updated-on="1472248291838" id="blockField-external-links-5745e842555986dec9ab55fb"><div class="row sqs-row"><div class="col sqs-col-12 span-12"><div class="sqs-block code-block sqs-block-code" data-block-type="23" id="block-yui_3_17_2_15_1465399098503_6015"><div class="sqs-block-content"><div class="desktop-hide">
+<p><a href="http://motorolamobilityllc.github.io/motomods_sdk/com/motorola/mod/package-summary.html" target="_blank">Moto Mods SDK for Android API Reference </a><br/></p>
+</div>
+<div class="mobile-hide">
+<br/><hr class="subsplit"/><br/>
+<p><a href="http://motorolamobilityllc.github.io/motomods_sdk" target="_blank">Moto Mods SDK for Android API Reference </a></p>
+<p>• <a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html" target="_blank">Index </a></p>
+<p>• <a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModListener.html" target="_blank">ModListener </a></p>
+<p>• <a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModBacklight.html" target="_blank">ModBacklight </a></p>
+<p>• <a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModBattery.html" target="_blank">ModBattery </a></p>
+<p>• <a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModConnection.html" target="_blank">ModConnection </a></p>
+<p>• <a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModContract.html" target="_blank">ModContract </a></p>
+<p>• <a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModDevice.html" target="_blank">ModDevice </a></p>
+<p>• <a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModDisplay.html" target="_blank">ModDisplay </a></p>
+<p>• <a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModInterfaceDelegation.html" target="_blank">ModInterfaceDelegation </a></p>
+<p>• <a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModManager.html" target="_blank">ModManager </a></p>
+<p>• <a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModProtocol.html" target="_blank">ModProtocol </a></p>
+</div></div></div></div></div></div>
+</div>
+</div>
+<div class="entry-content e-content">
+       <div class="sqs-layout sqs-grid-12 columns-12" data-layout-label="Post Body" data-type="item" data-updated-on="1464199257501" id="item-5745e842555986dec9ab55fb"><div class="row sqs-row"><div class="col sqs-col-12 span-12"><div class="sqs-block html-block sqs-block-html" data-block-type="2" id="block-86e445cf1d08e5f86305"><div class="sqs-block-content"><h1>Moto Z Software: Mod USB</h1></div></div><div class="sqs-block markdown-block sqs-block-markdown" data-block-type="44" id="block-yui_3_17_2_1_1464776858965_82454"><div class="sqs-block-content"><h2 id="introduction">Introduction</h2>
+<p>USB 2.0 and USB 3.1 are available to the Moto Mod.  On attach, the USB-ext protocol is enumerated and can be discovered by the <code>ModManager.hasDeclaredProtocol()</code>.  Your firmware must notify the Moto Z when the actual USB device(s) is present on a Moto Mod, as described in the <a href="../../../explore/firmware/usb-ext/">USB-Ext</a> firmware page.  After doing so, the USB device(s) present on a Moto Mod will appear to Android as standard USB devices or host. The Moto Mod platform does not expose additional USB related API to access USB devices.</p>
+<p>An application will use the Android UsbManager to access and communicate with USB devices. The Moto Mod platform supports USB Devices, with the Moto Z acting as the USB host,  over USB 2.0 and USB 3.1; a Moto Mod can also play the role of USB host, treating the Moto Z as an <a href="https://source.android.com/devices/accessories/protocol.html">Android Open Accessory</a>. USB 3.1 is only available over the enterprise port, and only if the interface is not used for the Motorola High-Speed Bridge or raw I2S.</p>
+<p>A developer interested in Moto Mod USB should have knowledge of the API defined in the <a href="http://developer.android.com/reference/android/hardware/usb/package-summary.html">android.hardware.usb</a> package.</p>
+</div></div><div class="sqs-block image-block sqs-block-image" data-block-type="5" id="block-yui_3_17_2_1_1464776858965_86089"><div class="sqs-block-content">
+	<div class="image-block-outer-wrapper layout-caption-below ">
+		<div class="intrinsic" style="max-width:1500.0px;">
+				<div style="padding-bottom:58.46666717529297%;" class="image-block-wrapper lightbox  has-aspect-ratio" data-description="" data-lightbox-theme="light">
+					<noscript></noscript><img class="thumb-image" alt="modusb-diagram-01.png"   data-image-dimensions="1500x877" data-image-focal-point="0.5,0.5" data-load="false" data-image-id="57570acd2b8dde3d9ed6bd1b" data-type="image"/>
+				</div>
+		</div>
+	</div>
+</div></div><div class="sqs-block horizontalrule-block sqs-block-horizontalrule" data-block-type="47" id="block-yui_3_17_2_1_1464776858965_89161"><div class="sqs-block-content"><hr/></div></div><div class="sqs-block html-block sqs-block-html" data-block-type="2" id="block-yui_3_17_2_1_1464776858965_89527"><div class="sqs-block-content"><h2>USB Moto Mod</h2><p>The information below applies to the developer of a USB Moto Mod or applications which need to communicate to a Moto Mod over USB.</p></div></div><div class="sqs-block horizontalrule-block sqs-block-horizontalrule" data-block-type="47" id="block-yui_3_17_2_1_1464776858965_91735"><div class="sqs-block-content"><hr/></div></div><div class="sqs-block markdown-block sqs-block-markdown" data-block-type="44" id="block-yui_3_17_2_1_1464776858965_92075"><div class="sqs-block-content"><h3 id="moto-mod-pid-vid-and-usb-pid-vid">Moto Mod PID/VID and USB PID/VID</h3>
+<p>A <code>UsbDevice</code> is identified by its USB Vendor ID and a USB Product ID; similar to the way a <code>ModDevice</code> is identified by its Moto Mod Vendor ID and Moto Mod Product ID.  There are no guarantees that your Moto Mod VID (assigned by Moto) will be the same as the USB VID (assigned by the USB-IF) of your USB device.</p>
+<p>When working with USB hardware on a Moto Mod, it is important to understand that the VID/PID used by the <code>ModDevice</code> API refers to the Moto Mod itself and will be different from the USB VID/PIDs of the USB devices on your Moto Mod. In particular <code>ModDevice.getProductID()</code> will return the product ID of the Moto Mod; while <code>UsbDevice.getProductID()</code> will return the USB product ID of a single discreet USB device on the Moto Mod.</p>
+</div></div><div class="sqs-block horizontalrule-block sqs-block-horizontalrule" data-block-type="47" id="block-yui_3_17_2_1_1464776858965_91396"><div class="sqs-block-content"><hr/></div></div><div class="sqs-block markdown-block sqs-block-markdown" data-block-type="44" id="block-yui_3_17_2_1_1464776858965_93749"><div class="sqs-block-content"><h3 id="determining-if-a-moto-mod-supports-usb">Determining if a Moto Mod supports USB</h3>
+<p>If a Moto Mod enable support for USB-Ext, the USB device on the Moto Mod will be made available immediately when the Moto Mod is attached . Your application can query the ModManager service, via the <code>hasDeclaredProtocol()</code> function, to determine whether a ModDevice supports the <code>USB-Ext</code> protocol.</p>
+<pre><code>if (device.hasDeclaredProtocol(ModProtocol.Protocol.USB) {
+    // This Mod declares USB in its manifest
+  }</code></pre><p>While a Moto Mod might declare USB device support in its manifest, and while most Moto mods will enumerate their USB devices immediately, this behavior depends on the Moto Mod architecture and design.</p>
+</div></div><div class="sqs-block horizontalrule-block sqs-block-horizontalrule" data-block-type="47" id="block-yui_3_17_2_1_1464776858965_91043"><div class="sqs-block-content"><hr/></div></div><div class="sqs-block markdown-block sqs-block-markdown" data-block-type="44" id="block-yui_3_17_2_1_1464776858965_96079"><div class="sqs-block-content"><h3 id="moto-mod-usb-conflicts">Moto Mod USB Conflicts</h3>
+<p>As the Moto Z includes both a USB-C port, and support for USB over the Moto Mod interface, there are a few conflicts a developer should keep in mind when designing a USB capable Moto Mod.</p>
+<h4 id="the-on-device-usb-c-always-takes-precedence-over-a-moto-mod-usb">The on device USB-C <em>always</em> takes precedence over a Moto Mod USB</h4>
+<p>When a cable or host adapter is plugged into the USB-C port of the phone while USB is connected/enumerated to the Moto Mod, enumeration will be lost to the Moto Mod. Enumeration to the Mod will be lost regardless of the speed (“High-speed” or ”Super Speed”) supported by the data cable connected to the USB-C port of the phone. </p>
+<h4 id="the-moto-mod-usb-2-0-interface-only-supports-host-mode">The Moto Mod USB-2.0 Interface only supports host mode</h4>
+<p>The USB2 only supports host-mode. </p>
+<h4 id="the-moto-mod-usb-3-1-interface-operates-only-at-superspeed-">The Moto Mod USB-3.1 Interface operates only at Superspeed.</h4>
+<p>Upstream(host) or downstream (peripherals) connected to this interface should operate at Superspeed (Gen 1).  The Moto Mod USB3.1 interface is not backwards compatible with devices that operate at only USB2.0 speeds.</p>
+<h4 id="the-motorola-high-speed-bridge-raw-i2s-and-usb-3-1-are-mutually-exclusive">The Motorola High-Speed Bridge, raw I2S and USB-3.1 are mutually exclusive</h4>
+<p>These interfaces cannot be active simultaneously over the Moto Mod interface.</p>
+</div></div><div class="sqs-block horizontalrule-block sqs-block-horizontalrule" data-block-type="47" id="block-yui_3_17_2_1_1464776858965_90177"><div class="sqs-block-content"><hr/></div></div><div class="sqs-block markdown-block sqs-block-markdown" data-block-type="44" id="block-yui_3_17_2_1_1464776858965_97841"><div class="sqs-block-content"><h3 id="handling-conflicts-with-android">Handling conflicts with Android</h3>
+<p>If USB-Ext is connected over the moto mod interface, and a new host is attached on the device USB-C port, the host on the moto mod will immediately cede control to the USB-C port host. An <strong><code>ACTION_USB_ACCESSORY_DETACHED</code></strong> intent will be broadcast by the USBManager to signal the Moto Mod host has detached, while an <strong><code>ACTION_USB_ACCESSORY_ATTACHED</code></strong> intent will be broadcast to indicate a new host has attached</p>
+<p>If a host is connected over the USB-C interface, and a new USB-Ext is attached on the moto mod interface, USB-Ext will not assert itself until the USB-C host is disconnected. When the USB-C host disconnects, a dormant Moto Mod host will connect and the USBManager service should broadcast an <strong><code>ACTION_USB_ACCESSORY_ATTACHED</code></strong> message as a result.</p>
+</div></div><div class="sqs-block horizontalrule-block sqs-block-horizontalrule" data-block-type="47" id="block-yui_3_17_2_1_1464776858965_90692"><div class="sqs-block-content"><hr/></div></div><div class="sqs-block markdown-block sqs-block-markdown" data-block-type="44" id="block-yui_3_17_2_1_1464776858965_99532"><div class="sqs-block-content"><h3 id="android-usb-manager">Android USB Manager</h3>
+<p>As mentioned above, there are no new USB related APIs introduced by the Moto Mod SDK. USB devices are accessible over the Moto Mod interface using Android’s standard USB APIs. We provide a short primer on Android USB management, but the reader should refer to the Android <code>USBManager</code>, <code>USBDevice</code> and Android Open Accessory protocol API provided by the Android SDK for further details.</p>
+<h3 id="detecting-and-communicating-with-a-usb-device">Detecting and communicating with a USB device</h3>
+<h4 id="intent-filter">Intent Filter</h4>
+<p>In addition to the permission required by the moto mod SDK, an application which needs to communicate with a USB device and be notified of USB device attach and detach can specify an <code>&lt;intent filter&gt;</code> for the <code>android.hardware.usb.action.USB_DEVICE_ATTACHED</code>,  the <code>&lt;meta-data&gt;</code> for this intent filter should also content information about the <code>&lt;usb-device&gt;</code> your application wants to filter on in its res/xml/device_filter.xml, as described in the Android USB manager API.</p>
+<p>Your application’s Android manifest should declare the following intent filter:</p>
+<pre><code>&lt;intent-filter&gt;
+      &lt;action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" /&gt;
+  &lt;/intent-filter&gt;
+  &lt;meta-data android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+        android:resource="@xml/device_filter" /&gt;
+  &lt;/activity&gt;</code></pre><p>And the res/device_filter.xml file should contain the criteria you want to filter by</p>
+<pre><code>&lt;resources&gt;
+    &lt;usb-device vendor-id="296" product-id="5461"/&gt;
+&lt;/resources&gt;</code></pre><h4 id="usb-permissions">USB Permissions</h4>
+<p>To communicate with a USB device, your application must have permission from your users. If your application does not use an intent filter to discover USB devices as connection, it must check for permission to access a USB device before trying to access it, and it must call the <code>USBManager requestPermission()</code> API to specifically request permission to communicate with this USB device. These permissions, when granted to an application, allow it to communicate only to the corresponding Moto Mod USB device over USB APIs.</p>
+<pre><code>mUsbManager.requestPermission(device, mPermissionIntent);</code></pre><h4 id="communicating-with-a-usb-device">Communicating with a USB Device</h4>
+<p>To communicate with a USB device, you need to set up a <a href="http://developer.android.com/reference/android/hardware/usb/UsbInterface.html"><code>UsbInterface</code></a> and <a href="http://developer.android.com/reference/android/hardware/usb/UsbEndpoint.html"><code>UsbEndpoint</code></a> for the device. Once the <code>UsbEndpoint</code> is setup, your application can make requests to the device using a <a href="http://developer.android.com/reference/android/hardware/usb/UsbDeviceConnection.html"><code>UsbDeviceConnection</code></a> on the Endpoint. The <code>bulkTransfer()</code> and <code>controlTransfer()</code> API let an application send data via the USBDevice Endpoint. Data can be sent to a USB Device on the Moto Mod, either synchronously or asynchronously, using the <code>requestWait()</code> API.</p>
+<h4 id="terminating-communication-with-a-device">Terminating communication with a device</h4>
+<p>When you are done communicating with a device or if receive notification that the device has detached, close the <a href="http://developer.android.com/reference/android/hardware/usb/UsbInterface.html"><code>UsbInterface</code></a> and <a href="http://developer.android.com/reference/android/hardware/usb/UsbDeviceConnection.html"><code>UsbDeviceConnection</code></a> by calling <a href="http://developer.android.com/reference/android/hardware/usb/UsbDeviceConnection.html#releaseInterface(android.hardware.usb.UsbInterface)(android.hardware.usb.UsbInterface)"><code>releaseInterface()</code></a> and <a href="http://developer.android.com/reference/android/hardware/usb/UsbDeviceConnection.html#close()()"><code>close()</code></a>. Your application should listen to the <code>ACTION_USB_DEVICE_DETACHED</code> intent for this reason: to determine when a USB device is detached and make sure the interfaces are properly released and closed at that time.</p>
+</div></div><div class="sqs-block horizontalrule-block sqs-block-horizontalrule" data-block-type="47" id="block-yui_3_17_2_1_1466196228195_678349"><div class="sqs-block-content"><hr/></div></div><div class="sqs-block html-block sqs-block-html" data-block-type="2" id="block-yui_3_17_2_1_1466196228195_678721"><div class="sqs-block-content"><p><a href="../../../explore/software/mod-hid/">&lt; Previous Page<br/><strong>Mod HID</strong></a></p></div></div></div></div></div>
+</div>
+<div class="anchor-links">
+<div class="sqs-layout sqs-grid-12 columns-12 empty" data-type="block-field" id="blockField-5745e842555986dec9ab55fb"><div class="row sqs-row"><div class="col sqs-col-12 span-12"></div></div></div>
+</div>
+        </div><!-- comment the linebreak between these two elements because science
+        -->
+      </main>
+      <div id="preFooter">
+        <div class="pre-footer-inner">
+          <div class="sqs-layout sqs-grid-12 columns-12 empty" data-layout-label="Pre-Footer Content" data-type="block-field" data-updated-on="1465359668358" id="preFooterBlocks"><div class="row sqs-row"><div class="col sqs-col-12 span-12"></div></div></div>
+        </div>
+      </div>
+      <footer id="footer" role="contentinfo">
+        <div class="footer-inner">
+          <div class="nav-wrapper back-to-top-nav"><nav><div class="back-to-top"><a href="#header">Back to Top</a></div></nav></div>
+          <div class="sqs-layout sqs-grid-12 columns-12" data-layout-label="Footer Content" data-type="block-field" data-updated-on="1476297975826" id="footerBlocks"><div class="row sqs-row"><div class="col sqs-col-2 span-2"><div class="sqs-block image-block sqs-block-image" data-aspect-ratio="31.06382978723404" data-block-type="5" id="block-yui_3_17_2_2_1464950070491_16892"><div class="sqs-block-content">
+	<div class="image-block-outer-wrapper layout-caption-hidden ">
+		<div class="intrinsic" style="max-width:940.0px;">
+				<a href="http://motorola.com/">
+				<div style="padding-bottom:31.06382942199707%;" class="image-block-wrapper   has-aspect-ratio" data-description="">
+					<noscript><img src="../../../static/5715eee9b09f95a12b44e0ed/t/57fe81b96b8f5b8742b2e94a/1476297968771/image_file.jpg"/></noscript><img class="thumb-image" data-src="https://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57fe81b96b8f5b8742b2e94a/1476297968771/" data-image="https://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57fe81b96b8f5b8742b2e94a/1476297968771/" data-image-dimensions="940x292" data-image-focal-point="0.5,0.5" data-load="false" data-image-id="57fe81b96b8f5b8742b2e94a" data-type="image"/>
+				</div>
+				</a>
+		</div>
+	</div>
+</div></div></div><div class="col sqs-col-7 span-7"><div class="sqs-block code-block sqs-block-code" data-block-type="23" id="block-yui_3_17_2_2_1463061836809_10948"><div class="sqs-block-content"><div id="footers-blocks" style="position: relative; z-index:999 !important;">
+  <div id="footer-block-1">
+	<h2 id="footer-title-1" class="footer-title">Motorola</h2>
+	<ul class="footer-block footer-block-1">
+      <li><a href="http://motorola-blog.blogspot.com/">Blog</a></li>
+      <li><a href="http://motorola-blog.blogspot.com/p/press-contacts.html">Press</a></li>
+      <li><a href="https://pages.motorola-mail.com/moto-mods-developer-us-en/">Get Updates</a></li>
+    </ul>
+    <br/>
+	<h2 id="footer-title-1" class="footer-title"><a href="../../../support/">Support</a></h2>
+	<ul class="footer-block footer-block-1">
+      <li><a href="../../../support/faq/">FAQ</a></li>
+      <li><a href="https://www.element14.com/community/groups/moto-mods">Forums</a></li>
+      <li><a href="../../../support/">Contact Us</a></li>
+    </ul>
+  </div>
+  <div id="footer-block-2">
+    <h2 id="footer-title-2" class="footer-title">Developers</h2>
+  	<ul class="footer-block footer-block-2">
+     	<li><a href="/">Home</a></li>
+     	<li><a href="../../../get-started/">Get Started</a></li>
+      	<li><a href="../../../build/">Build</a></li>
+		<li><a href="../../../explore/">Explore</a></li>
+		<li><a href="../../../partner/">Partner</a></li>
+		<li><a href="../../../buy/">Buy</a></li>
+    </ul>
+  </div>
+  <div id="footer-block-3">
+    <h2 id="footer-title-3" class="footer-title">Legal</h2>
+  	<ul class="footer-block footer-block-3">
+      <li><a href="http://www.motorola.com/us/legal/privacy-policy">Privacy Policy</a></li>
+      <li><a href="http://www.motorola.com/us/About_Motorola-Legal-Extended-Warranty-terms/About_Motorola-Legal-Extended-Warranty-terms.html">Terms of use</a></li></ul>
+ </div>
+ </div></div></div></div><div class="col sqs-col-3 span-3"><div class="sqs-block socialaccountlinks-v2-block sqs-block-socialaccountlinks-v2" data-block-type="54" id="block-yui_3_17_2_16_1461744171869_5573"><div class="sqs-block-content"><nav class="sqs-svg-icon--list social-icon-alignment-right social-icons-color-white social-icons-size-small social-icons-shape-rounded social-icons-style-knockout"><a href="https://www.youtube.com/user/motorola" target="_blank" class="sqs-svg-icon--wrapper youtube" style=""><div><svg class="sqs-svg-icon--social" viewbox="0 0 64 64"><use class="sqs-use--background" xlink:href="/universal/svg/social-accounts.svg#background"></use><use class="sqs-use--icon" xlink:href="/universal/svg/social-accounts.svg#youtube-icon"></use><use class="sqs-use--mask" xlink:href="/universal/svg/social-accounts.svg#youtube-mask"></use></svg></div></a><a href="https://www.facebook.com/MotoUSA/" target="_blank" class="sqs-svg-icon--wrapper facebook" style=""><div><svg class="sqs-svg-icon--social" viewbox="0 0 64 64"><use class="sqs-use--background" xlink:href="/universal/svg/social-accounts.svg#background"></use><use class="sqs-use--icon" xlink:href="/universal/svg/social-accounts.svg#facebook-icon"></use><use class="sqs-use--mask" xlink:href="/universal/svg/social-accounts.svg#facebook-mask"></use></svg></div></a><a href="https://twitter.com/moto" target="_blank" class="sqs-svg-icon--wrapper twitter" style=""><div><svg class="sqs-svg-icon--social" viewbox="0 0 64 64"><use class="sqs-use--background" xlink:href="/universal/svg/social-accounts.svg#background"></use><use class="sqs-use--icon" xlink:href="/universal/svg/social-accounts.svg#twitter-icon"></use><use class="sqs-use--mask" xlink:href="/universal/svg/social-accounts.svg#twitter-mask"></use></svg></div></a><a href="https://plus.google.com/communities/116517178872973348174" target="_blank" class="sqs-svg-icon--wrapper google" style=""><div><svg class="sqs-svg-icon--social" viewbox="0 0 64 64"><use class="sqs-use--background" xlink:href="/universal/svg/social-accounts.svg#background"></use><use class="sqs-use--icon" xlink:href="/universal/svg/social-accounts.svg#google-icon"></use><use class="sqs-use--mask" xlink:href="/universal/svg/social-accounts.svg#google-mask"></use></svg></div></a></nav></div></div></div></div><div class="row sqs-row"><div class="col sqs-col-12 span-12"><div class="sqs-block spacer-block sqs-block-spacer sized vsize-1" data-block-type="21" id="block-yui_3_17_2_36_1465340537626_42856"><div class="sqs-block-content">&nbsp;</div></div><div class="row sqs-row"><div class="col sqs-col-6 span-6"><div class="sqs-block html-block sqs-block-html" data-block-type="2" id="block-yui_3_17_2_2_1464882852937_11444"><div class="sqs-block-content"><p>© 2016 Motorola Mobility LLC. All Rights Reserved</p><p>MOTOROLA and the Stylized M Logo are registered trademarks of Motorola Trademark Holdings, LLC</p><p>Android, Google, Google Play, Nexus and other marks are trademarks of Google Inc. The Android robot is reproduced or modified from work created and shared by Google and used according to terms described in the Creative Commons 3.0 Attribution License.</p></div></div></div><div class="col sqs-col-6 span-6"><div class="sqs-block spacer-block sqs-block-spacer sized vsize-1" data-block-type="21" id="block-yui_3_17_2_36_1465340537626_33415"><div class="sqs-block-content">&nbsp;</div></div></div></div></div></div></div>
+        </div>
+      </footer>
+    </div>
+    <script src="../../../static/ta/5715eee9b09f95a12b44e0ed/955/scripts/site.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../../../static/ta/5715eee9b09f95a12b44e0ed/955/scripts/combo/_helpers.js_sticky.js_jquery.js"></script>
+    <script src="../../../static/ta/5715eee9b09f95a12b44e0ed/955/scripts/custom.js" type="text/javascript"></script>
+    <script type="text/javascript" data-sqs-type="imageloader-bootstraper">(function() {if(window.ImageLoader) { window.ImageLoader.bootstrap(); }})();</script>
+<script>Squarespace.afterBodyLoad(Y);</script>
+  </body>
+</html>

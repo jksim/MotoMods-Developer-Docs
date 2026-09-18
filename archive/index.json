@@ -1,0 +1,1550 @@
+{
+  "build": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/build/index.html",
+        "bytes": 68307,
+        "captured_file": "build/index.html",
+        "snapshot": "html"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/build",
+    "title": "Build Prototype",
+    "used_in_site": true
+  },
+  "build/examples": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/build/examples/index.html",
+        "bytes": 53040,
+        "captured_file": "build/examples.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html/build/examples/index.html",
+        "bytes": 57880,
+        "captured_file": "build/examples/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/build/examples/index.html",
+        "bytes": 61388,
+        "captured_file": "build/examples.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/build/examples",
+    "title": "Examples: Overview",
+    "used_in_site": true
+  },
+  "build/examples/audio": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/build/examples/audio/index.html",
+        "bytes": 86764,
+        "captured_file": "build/examples/audio.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html/build/examples/audio/index.html",
+        "bytes": 92172,
+        "captured_file": "build/examples/audio/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/build/examples/audio/index.html",
+        "bytes": 87011,
+        "captured_file": "build/examples/audio.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/build/examples/audio",
+    "title": "Examples: Audio Personality Card",
+    "used_in_site": true
+  },
+  "build/examples/battery": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/build/examples/battery/index.html",
+        "bytes": 94675,
+        "captured_file": "build/examples/battery.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html/build/examples/battery/index.html",
+        "bytes": 99966,
+        "captured_file": "build/examples/battery/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/build/examples/battery/index.html",
+        "bytes": 95079,
+        "captured_file": "build/examples/battery.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/build/examples/battery",
+    "title": "Examples: Battery Personality Card",
+    "used_in_site": true
+  },
+  "build/examples/camera-hat": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/build/examples/camera-hat/index.html",
+        "bytes": 72461,
+        "captured_file": "build/examples/camera-hat.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html/build/examples/camera-hat/index.html",
+        "bytes": 76496,
+        "captured_file": "build/examples/camera-hat/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/build/examples/camera-hat/index.html",
+        "bytes": 72710,
+        "captured_file": "build/examples/camera-hat.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/build/examples/camera-hat",
+    "title": "Examples: Camera with HAT Adapter",
+    "used_in_site": true
+  },
+  "build/examples/display": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/build/examples/display/index.html",
+        "bytes": 81687,
+        "captured_file": "build/examples/display.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html/build/examples/display/index.html",
+        "bytes": 86719,
+        "captured_file": "build/examples/display/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/build/examples/display/index.html",
+        "bytes": 81938,
+        "captured_file": "build/examples/display.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/build/examples/display",
+    "title": "Examples: Display Personality Card",
+    "used_in_site": true
+  },
+  "build/examples/hello-world": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/build/examples/hello-world/index.html",
+        "bytes": 66844,
+        "captured_file": "build/examples/hello-world.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html/build/examples/hello-world/index.html",
+        "bytes": 71201,
+        "captured_file": "build/examples/hello-world/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/build/examples/hello-world/index.html",
+        "bytes": 75503,
+        "captured_file": "build/examples/hello-world.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/build/examples/hello-world",
+    "title": "Examples: Hello World!",
+    "used_in_site": true
+  },
+  "build/examples/mdk-utility": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/build/examples/mdk-utility/index.html",
+        "bytes": 63012,
+        "captured_file": "build/examples/mdk-utility.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html/build/examples/mdk-utility/index.html",
+        "bytes": 67495,
+        "captured_file": "build/examples/mdk-utility/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/build/examples/mdk-utility/index.html",
+        "bytes": 71311,
+        "captured_file": "build/examples/mdk-utility.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/build/examples/mdk-utility",
+    "title": "Examples: MDK Utility",
+    "used_in_site": true
+  },
+  "build/examples/misc": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/build/examples/misc/index.html",
+        "bytes": 60243,
+        "captured_file": "build/examples/misc.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html/build/examples/misc/index.html",
+        "bytes": 64663,
+        "captured_file": "build/examples/misc/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/build/examples/misc/index.html",
+        "bytes": 60821,
+        "captured_file": "build/examples/misc.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/build/examples/misc",
+    "title": "Examples: Miscellaneous Examples",
+    "used_in_site": true
+  },
+  "build/examples/sensor": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/build/examples/sensor/index.html",
+        "bytes": 89634,
+        "captured_file": "build/examples/sensor.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html/build/examples/sensor/index.html",
+        "bytes": 94778,
+        "captured_file": "build/examples/sensor/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/build/examples/sensor/index.html",
+        "bytes": 89892,
+        "captured_file": "build/examples/sensor.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/build/examples/sensor",
+    "title": "Examples: Sensor Personality Card",
+    "used_in_site": true
+  },
+  "build/intro": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/build/intro/index.html",
+        "bytes": 72875,
+        "captured_file": "build/intro.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html/build/intro/index.html",
+        "bytes": 77932,
+        "captured_file": "build/intro/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/build/intro/index.html",
+        "bytes": 72492,
+        "captured_file": "build/intro.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/build/intro",
+    "title": "Build Prototype",
+    "used_in_site": true
+  },
+  "build/mdk-user-guide": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/build/mdk-user-guide/index.html",
+        "bytes": 95754,
+        "captured_file": "build/mdk-user-guide.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html/build/mdk-user-guide/index.html",
+        "bytes": 102102,
+        "captured_file": "build/mdk-user-guide/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/build/mdk-user-guide/index.html",
+        "bytes": 95998,
+        "captured_file": "build/mdk-user-guide.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/build/mdk-user-guide",
+    "title": "MDK User Guide: Reference Moto Mod",
+    "used_in_site": true
+  },
+  "build/mdk-user-guide/custom-circuit-board": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/build/mdk-user-guide/custom-circuit-board/index.html",
+        "bytes": 68352,
+        "captured_file": "build/mdk-user-guide/custom-circuit-board.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html/build/mdk-user-guide/custom-circuit-board/index.html",
+        "bytes": 72545,
+        "captured_file": "build/mdk-user-guide/custom-circuit-board/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/build/mdk-user-guide/custom-circuit-board/index.html",
+        "bytes": 68566,
+        "captured_file": "build/mdk-user-guide/custom-circuit-board.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/build/mdk-user-guide/custom-circuit-board",
+    "title": "MDK User Guide: Custom Circuit Board",
+    "used_in_site": true
+  },
+  "build/mdk-user-guide/hat-adapter-board": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/build/mdk-user-guide/hat-adapter-board/index.html",
+        "bytes": 78430,
+        "captured_file": "build/mdk-user-guide/hat-adapter-board.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html/build/mdk-user-guide/hat-adapter-board/index.html",
+        "bytes": 84418,
+        "captured_file": "build/mdk-user-guide/hat-adapter-board/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/build/mdk-user-guide/hat-adapter-board/index.html",
+        "bytes": 78665,
+        "captured_file": "build/mdk-user-guide/hat-adapter-board.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/build/mdk-user-guide/hat-adapter-board",
+    "title": "MDK User Guide: HAT Adapter Board",
+    "used_in_site": true
+  },
+  "build/mdk-user-guide/perforated-board": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/build/mdk-user-guide/perforated-board/index.html",
+        "bytes": 79314,
+        "captured_file": "build/mdk-user-guide/perforated-board.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html/build/mdk-user-guide/perforated-board/index.html",
+        "bytes": 83735,
+        "captured_file": "build/mdk-user-guide/perforated-board/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/build/mdk-user-guide/perforated-board/index.html",
+        "bytes": 79296,
+        "captured_file": "build/mdk-user-guide/perforated-board.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/build/mdk-user-guide/perforated-board",
+    "title": "MDK User Guide: Perforated Board",
+    "used_in_site": true
+  },
+  "build/overview": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/build/overview/index.html",
+        "bytes": 52222,
+        "captured_file": "build/overview.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html/build/overview/index.html",
+        "bytes": 56469,
+        "captured_file": "build/overview/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/build/overview/index.html",
+        "bytes": 60387,
+        "captured_file": "build/overview.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/build/overview",
+    "title": "MDK User Guide: Overview",
+    "used_in_site": false
+  },
+  "build/tools": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/build/tools/index.html",
+        "bytes": 47142,
+        "captured_file": "build/tools.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html/build/tools/index.html",
+        "bytes": 51152,
+        "captured_file": "build/tools/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/build/tools/index.html",
+        "bytes": 47256,
+        "captured_file": "build/tools.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/build/tools",
+    "title": "Developer Tools: Overview",
+    "used_in_site": true
+  },
+  "build/tools/build-from-source": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/build/tools/build-from-source/index.html",
+        "bytes": 94756,
+        "captured_file": "build/tools/build-from-source.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html/build/tools/build-from-source/index.html",
+        "bytes": 99572,
+        "captured_file": "build/tools/build-from-source/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/build/tools/build-from-source/index.html",
+        "bytes": 94856,
+        "captured_file": "build/tools/build-from-source.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/build/tools/build-from-source",
+    "title": "Developer Tools: Build from Source",
+    "used_in_site": true
+  },
+  "build/tools/debug-and-log": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/build/tools/debug-and-log/index.html",
+        "bytes": 98163,
+        "captured_file": "build/tools/debug-and-log.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html/build/tools/debug-and-log/index.html",
+        "bytes": 102922,
+        "captured_file": "build/tools/debug-and-log/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/build/tools/debug-and-log/index.html",
+        "bytes": 98207,
+        "captured_file": "build/tools/debug-and-log.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/build/tools/debug-and-log",
+    "title": "Developer Tools: Debug and Log",
+    "used_in_site": false
+  },
+  "build/tools/flashing-firmware": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/build/tools/flashing-firmware/index.html",
+        "bytes": 72036,
+        "captured_file": "build/tools/flashing-firmware.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html/build/tools/flashing-firmware/index.html",
+        "bytes": 76002,
+        "captured_file": "build/tools/flashing-firmware/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/build/tools/flashing-firmware/index.html",
+        "bytes": 72212,
+        "captured_file": "build/tools/flashing-firmware.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/build/tools/flashing-firmware",
+    "title": "Developer Tools: Flashing Firmware",
+    "used_in_site": true
+  },
+  "build/tools/setup-environment": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/build/tools/setup-environment/index.html",
+        "bytes": 71719,
+        "captured_file": "build/tools/setup-environment.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html/build/tools/setup-environment/index.html",
+        "bytes": 76531,
+        "captured_file": "build/tools/setup-environment/index.html",
+        "snapshot": "html"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/build/tools/setup-environment",
+    "title": "Developer Tools: Setup Your Development Environment",
+    "used_in_site": true
+  },
+  "buy": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/buy/index.html",
+        "bytes": 70779,
+        "captured_file": "buy/index.html",
+        "snapshot": "html"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/buy",
+    "title": "Moto Mods Developer: Buy",
+    "used_in_site": true
+  },
+  "documentation": {
+    "copies": [
+      {
+        "archived_as": "archive/drupal/html/documentation/index.html",
+        "bytes": 23692,
+        "captured_file": "documentation/index.html",
+        "snapshot": "html"
+      }
+    ],
+    "portal": "drupal",
+    "source_url": "http://developer.motorola.com/documentation",
+    "title": "Overview",
+    "used_in_site": false
+  },
+  "documentation/all-downloads": {
+    "copies": [
+      {
+        "archived_as": "archive/drupal/html/documentation/all-downloads/index.html",
+        "bytes": 27759,
+        "captured_file": "documentation/all-downloads.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/drupal/html/documentation/all-downloads/index.html",
+        "bytes": 29065,
+        "captured_file": "documentation/all-downloads/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/drupal/html_v1/documentation/all-downloads/index.html",
+        "bytes": 27759,
+        "captured_file": "documentation/all-downloads.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "drupal",
+    "source_url": "http://developer.motorola.com/documentation/all-downloads",
+    "title": "All Downloads",
+    "used_in_site": true
+  },
+  "documentation/debug-and-log": {
+    "copies": [
+      {
+        "archived_as": "archive/drupal/html/documentation/debug-and-log/index.html",
+        "bytes": 48358,
+        "captured_file": "documentation/debug-and-log.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/drupal/html/documentation/debug-and-log/index.html",
+        "bytes": 50504,
+        "captured_file": "documentation/debug-and-log/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/drupal/html_v1/documentation/debug-and-log/index.html",
+        "bytes": 48917,
+        "captured_file": "documentation/debug-and-log.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "drupal",
+    "source_url": "http://developer.motorola.com/documentation/debug-and-log",
+    "title": "Debug and Log",
+    "used_in_site": true
+  },
+  "documentation/examples-overview": {
+    "copies": [
+      {
+        "archived_as": "archive/drupal/html/documentation/examples-overview/index.html",
+        "bytes": 19709,
+        "captured_file": "documentation/examples-overview.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/drupal/html/documentation/examples-overview/index.html",
+        "bytes": 21022,
+        "captured_file": "documentation/examples-overview/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/drupal/html_v1/documentation/examples-overview/index.html",
+        "bytes": 19709,
+        "captured_file": "documentation/examples-overview.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "drupal",
+    "source_url": "http://developer.motorola.com/documentation/examples-overview",
+    "title": "Examples Overview",
+    "used_in_site": false
+  },
+  "documentation/flashing-firmware": {
+    "copies": [
+      {
+        "archived_as": "archive/drupal/html/documentation/flashing-firmware/index.html",
+        "bytes": 19459,
+        "captured_file": "documentation/flashing-firmware.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/drupal/html/documentation/flashing-firmware/index.html",
+        "bytes": 22628,
+        "captured_file": "documentation/flashing-firmware/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/drupal/html_v1/documentation/flashing-firmware/index.html",
+        "bytes": 21091,
+        "captured_file": "documentation/flashing-firmware.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "drupal",
+    "source_url": "http://developer.motorola.com/documentation/flashing-firmware",
+    "title": "Flashing Firmware",
+    "used_in_site": false
+  },
+  "documentation/mdk-overview": {
+    "copies": [
+      {
+        "archived_as": "archive/drupal/html/documentation/mdk-overview/index.html",
+        "bytes": 51873,
+        "captured_file": "documentation/mdk-overview/index.html",
+        "snapshot": "html"
+      }
+    ],
+    "portal": "drupal",
+    "source_url": "http://developer.motorola.com/documentation/mdk-overview",
+    "title": "MDK Overview",
+    "used_in_site": true
+  },
+  "documentation/mdk-overview-0": {
+    "copies": [
+      {
+        "archived_as": "archive/drupal/html/documentation/mdk-overview-0/index.html",
+        "bytes": 19244,
+        "captured_file": "documentation/mdk-overview-0.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/drupal/html/documentation/mdk-overview-0/index.html",
+        "bytes": 20280,
+        "captured_file": "documentation/mdk-overview-0/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/drupal/html_v1/documentation/mdk-overview-0/index.html",
+        "bytes": 19244,
+        "captured_file": "documentation/mdk-overview-0.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "drupal",
+    "source_url": "http://developer.motorola.com/documentation/mdk-overview-0",
+    "title": "MDK Overview",
+    "used_in_site": false
+  },
+  "documentation/mdk-utility": {
+    "copies": [
+      {
+        "archived_as": "archive/drupal/html/documentation/mdk-utility/index.html",
+        "bytes": 26738,
+        "captured_file": "documentation/mdk-utility.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/drupal/html/documentation/mdk-utility/index.html",
+        "bytes": 28267,
+        "captured_file": "documentation/mdk-utility/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/drupal/html_v1/documentation/mdk-utility/index.html",
+        "bytes": 26738,
+        "captured_file": "documentation/mdk-utility.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "drupal",
+    "source_url": "http://developer.motorola.com/documentation/mdk-utility",
+    "title": "MDK Utility",
+    "used_in_site": false
+  },
+  "documentation/mod-hid": {
+    "copies": [
+      {
+        "archived_as": "archive/drupal/html/documentation/mod-hid/index.html",
+        "bytes": 22791,
+        "captured_file": "documentation/mod-hid.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/drupal/html/documentation/mod-hid/index.html",
+        "bytes": 24082,
+        "captured_file": "documentation/mod-hid/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/drupal/html_v1/documentation/mod-hid/index.html",
+        "bytes": 22791,
+        "captured_file": "documentation/mod-hid.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "drupal",
+    "source_url": "http://developer.motorola.com/documentation/mod-hid",
+    "title": "Mod HID",
+    "used_in_site": false
+  },
+  "documentation/mod-usb": {
+    "copies": [
+      {
+        "archived_as": "archive/drupal/html/documentation/mod-usb/index.html",
+        "bytes": 27317,
+        "captured_file": "documentation/mod-usb.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/drupal/html/documentation/mod-usb/index.html",
+        "bytes": 28844,
+        "captured_file": "documentation/mod-usb/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/drupal/html_v1/documentation/mod-usb/index.html",
+        "bytes": 27317,
+        "captured_file": "documentation/mod-usb.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "drupal",
+    "source_url": "http://developer.motorola.com/documentation/mod-usb",
+    "title": "Mod USB",
+    "used_in_site": false
+  },
+  "documentation/perforated-board": {
+    "copies": [
+      {
+        "archived_as": "archive/drupal/html/documentation/perforated-board/index.html",
+        "bytes": 35253,
+        "captured_file": "documentation/perforated-board.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/drupal/html/documentation/perforated-board/index.html",
+        "bytes": 36807,
+        "captured_file": "documentation/perforated-board/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/drupal/html_v1/documentation/perforated-board/index.html",
+        "bytes": 35253,
+        "captured_file": "documentation/perforated-board.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "drupal",
+    "source_url": "http://developer.motorola.com/documentation/perforated-board",
+    "title": "Perforated Board",
+    "used_in_site": false
+  },
+  "documentation/system-architecture": {
+    "copies": [
+      {
+        "archived_as": "archive/drupal/html/documentation/system-architecture/index.html",
+        "bytes": 23654,
+        "captured_file": "documentation/system-architecture.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/drupal/html/documentation/system-architecture/index.html",
+        "bytes": 25384,
+        "captured_file": "documentation/system-architecture/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/drupal/html_v1/documentation/system-architecture/index.html",
+        "bytes": 23654,
+        "captured_file": "documentation/system-architecture.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "drupal",
+    "source_url": "http://developer.motorola.com/documentation/system-architecture",
+    "title": "System Architecture",
+    "used_in_site": false
+  },
+  "explore": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/explore/index.html",
+        "bytes": 60076,
+        "captured_file": "explore/index.html",
+        "snapshot": "html"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/explore",
+    "title": "Explore Platform",
+    "used_in_site": true
+  },
+  "explore/firmware": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/explore/firmware/index.html",
+        "bytes": 62783,
+        "captured_file": "explore/firmware/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/explore/firmware/index.html",
+        "bytes": 58153,
+        "captured_file": "explore/firmware.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/explore/firmware",
+    "title": "Firmware: Overview",
+    "used_in_site": true
+  },
+  "explore/firmware/audio": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/explore/firmware/audio/index.html",
+        "bytes": 224179,
+        "captured_file": "explore/firmware/audio/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/explore/firmware/audio/index.html",
+        "bytes": 218674,
+        "captured_file": "explore/firmware/audio.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/explore/firmware/audio",
+    "title": "Firmware: Audio Protocol",
+    "used_in_site": true
+  },
+  "explore/firmware/battery": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/explore/firmware/battery/index.html",
+        "bytes": 78788,
+        "captured_file": "explore/firmware/battery/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/explore/firmware/battery/index.html",
+        "bytes": 75347,
+        "captured_file": "explore/firmware/battery.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/explore/firmware/battery",
+    "title": "Firmware: Battery Protocol",
+    "used_in_site": true
+  },
+  "explore/firmware/camera-ext/camera-controls": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/explore/firmware/camera-ext/camera-controls/index.html",
+        "bytes": 87030,
+        "captured_file": "explore/firmware/camera-ext/camera-controls/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/explore/firmware/camera-ext/camera-controls/index.html",
+        "bytes": 80815,
+        "captured_file": "explore/firmware/camera-ext/camera-controls.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/explore/firmware/camera-ext/camera-controls",
+    "title": "Mods Camera Controls",
+    "used_in_site": true
+  },
+  "explore/firmware/display": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/explore/firmware/display/index.html",
+        "bytes": 232066,
+        "captured_file": "explore/firmware/display/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/explore/firmware/display/index.html",
+        "bytes": 226397,
+        "captured_file": "explore/firmware/display.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/explore/firmware/display",
+    "title": "Firmware: Display Protocol",
+    "used_in_site": true
+  },
+  "explore/firmware/hid": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/explore/firmware/hid/index.html",
+        "bytes": 83426,
+        "captured_file": "explore/firmware/hid/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/explore/firmware/hid/index.html",
+        "bytes": 79854,
+        "captured_file": "explore/firmware/hid.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/explore/firmware/hid",
+    "title": "Firmware: HID Protocol",
+    "used_in_site": true
+  },
+  "explore/firmware/lights": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/explore/firmware/lights/index.html",
+        "bytes": 60339,
+        "captured_file": "explore/firmware/lights/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/explore/firmware/lights/index.html",
+        "bytes": 56820,
+        "captured_file": "explore/firmware/lights.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/explore/firmware/lights",
+    "title": "Firmware: Lights Protocol",
+    "used_in_site": true
+  },
+  "explore/firmware/mod-management": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/explore/firmware/mod-management/index.html",
+        "bytes": 76950,
+        "captured_file": "explore/firmware/mod-management/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/explore/firmware/mod-management/index.html",
+        "bytes": 73566,
+        "captured_file": "explore/firmware/mod-management.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/explore/firmware/mod-management",
+    "title": "Firmware: Mod Management",
+    "used_in_site": true
+  },
+  "explore/firmware/power-transfer": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/explore/firmware/power-transfer/index.html",
+        "bytes": 106493,
+        "captured_file": "explore/firmware/power-transfer/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/explore/firmware/power-transfer/index.html",
+        "bytes": 102311,
+        "captured_file": "explore/firmware/power-transfer.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/explore/firmware/power-transfer",
+    "title": "Firmware: Power Transfer Protocol",
+    "used_in_site": true
+  },
+  "explore/firmware/raw": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/explore/firmware/raw/index.html",
+        "bytes": 77045,
+        "captured_file": "explore/firmware/raw/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/explore/firmware/raw/index.html",
+        "bytes": 73468,
+        "captured_file": "explore/firmware/raw.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/explore/firmware/raw",
+    "title": "Firmware: Raw Protocol",
+    "used_in_site": true
+  },
+  "explore/firmware/usb-ext": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/explore/firmware/usb-ext/index.html",
+        "bytes": 73466,
+        "captured_file": "explore/firmware/usb-ext/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/explore/firmware/usb-ext/index.html",
+        "bytes": 70081,
+        "captured_file": "explore/firmware/usb-ext.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/explore/firmware/usb-ext",
+    "title": "Firmware: USB-Ext Protocol",
+    "used_in_site": true
+  },
+  "explore/intro": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/explore/intro/index.html",
+        "bytes": 70497,
+        "captured_file": "explore/intro/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/explore/intro/index.html",
+        "bytes": 66033,
+        "captured_file": "explore/intro.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/explore/intro",
+    "title": "Explore Platform",
+    "used_in_site": true
+  },
+  "explore/software": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/explore/software/index.html",
+        "bytes": 64882,
+        "captured_file": "explore/software/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/explore/software/index.html",
+        "bytes": 60161,
+        "captured_file": "explore/software.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/explore/software",
+    "title": "Software: Overview",
+    "used_in_site": true
+  },
+  "explore/software/mod-audio": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/explore/software/mod-audio/index.html",
+        "bytes": 91054,
+        "captured_file": "explore/software/mod-audio/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/explore/software/mod-audio/index.html",
+        "bytes": 86978,
+        "captured_file": "explore/software/mod-audio.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/explore/software/mod-audio",
+    "title": "Software: Mod Audio",
+    "used_in_site": true
+  },
+  "explore/software/mod-battery": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/explore/software/mod-battery/index.html",
+        "bytes": 112367,
+        "captured_file": "explore/software/mod-battery/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/explore/software/mod-battery/index.html",
+        "bytes": 108071,
+        "captured_file": "explore/software/mod-battery.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/explore/software/mod-battery",
+    "title": "Software: Mod Battery",
+    "used_in_site": true
+  },
+  "explore/software/mod-display": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/explore/software/mod-display/index.html",
+        "bytes": 72000,
+        "captured_file": "explore/software/mod-display/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/explore/software/mod-display/index.html",
+        "bytes": 67611,
+        "captured_file": "explore/software/mod-display.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/explore/software/mod-display",
+    "title": "Software: Mod Display",
+    "used_in_site": true
+  },
+  "explore/software/mod-hid": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/explore/software/mod-hid/index.html",
+        "bytes": 75894,
+        "captured_file": "explore/software/mod-hid/index.html",
+        "snapshot": "html"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/explore/software/mod-hid",
+    "title": "Software: Mod HID",
+    "used_in_site": true
+  },
+  "explore/software/mod-management": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/explore/software/mod-management/index.html",
+        "bytes": 164307,
+        "captured_file": "explore/software/mod-management/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/explore/software/mod-management/index.html",
+        "bytes": 158734,
+        "captured_file": "explore/software/mod-management.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/explore/software/mod-management",
+    "title": "Software: Mod Mangement",
+    "used_in_site": true
+  },
+  "explore/software/mod-raw-devices": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/explore/software/mod-raw-devices/index.html",
+        "bytes": 133741,
+        "captured_file": "explore/software/mod-raw-devices/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/explore/software/mod-raw-devices/index.html",
+        "bytes": 127458,
+        "captured_file": "explore/software/mod-raw-devices.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/explore/software/mod-raw-devices",
+    "title": "Software: Raw Devices",
+    "used_in_site": true
+  },
+  "explore/software/mod-usb": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/explore/software/mod-usb/index.html",
+        "bytes": 92277,
+        "captured_file": "explore/software/mod-usb/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/explore/software/mod-usb/index.html",
+        "bytes": 87371,
+        "captured_file": "explore/software/mod-usb.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/explore/software/mod-usb",
+    "title": "Software: Mod USB",
+    "used_in_site": true
+  },
+  "explore/system-architecture": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/explore/system-architecture/index.html",
+        "bytes": 61686,
+        "captured_file": "explore/system-architecture/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/explore/system-architecture/index.html",
+        "bytes": 57603,
+        "captured_file": "explore/system-architecture.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/explore/system-architecture",
+    "title": "System Architecture",
+    "used_in_site": true
+  },
+  "get-started": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/get-started/index.html",
+        "bytes": 63845,
+        "captured_file": "get-started/index.html",
+        "snapshot": "html"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/get-started",
+    "title": "Moto Mods Developer: Get Started",
+    "used_in_site": true
+  },
+  "partner": {
+    "copies": [
+      {
+        "archived_as": "archive/drupal/html/partner/index.html",
+        "bytes": 277108,
+        "captured_file": "partner/index.html",
+        "snapshot": "html"
+      }
+    ],
+    "portal": "drupal",
+    "source_url": "http://developer.motorola.com/partner",
+    "title": "Moto Mods\u2122 Certification Program",
+    "used_in_site": true
+  },
+  "partner/certification-guidelines": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/partner/certification-guidelines/index.html",
+        "bytes": 58657,
+        "captured_file": "partner/certification-guidelines/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/partner/certification-guidelines/index.html",
+        "bytes": 54362,
+        "captured_file": "partner/certification-guidelines.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/partner/certification-guidelines",
+    "title": "Partner: Certification Guidelines",
+    "used_in_site": true
+  },
+  "partner/contact-form": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/partner/contact-form/index.html",
+        "bytes": 55519,
+        "captured_file": "partner/contact-form/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/partner/contact-form/index.html",
+        "bytes": 49021,
+        "captured_file": "partner/contact-form.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/partner/contact-form",
+    "title": "Partner: Contact Form",
+    "used_in_site": true
+  },
+  "partner/overview": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/partner/overview/index.html",
+        "bytes": 48243,
+        "captured_file": "partner/overview/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/partner/overview/index.html",
+        "bytes": 44452,
+        "captured_file": "partner/overview.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/partner/overview",
+    "title": "Partner: Certification Overview",
+    "used_in_site": true
+  },
+  "products": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/products/index.html",
+        "bytes": 62741,
+        "captured_file": "products/index.html",
+        "snapshot": "html"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/products",
+    "title": "Products",
+    "used_in_site": true
+  },
+  "products/audio-personality-card": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/products/audio-personality-card/index.html",
+        "bytes": 65262,
+        "captured_file": "products/audio-personality-card/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/products/audio-personality-card/index.html",
+        "bytes": 60232,
+        "captured_file": "products/audio-personality-card.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/products/audio-personality-card",
+    "title": "Audio Personality Card",
+    "used_in_site": true
+  },
+  "products/battery-personality-card": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/products/battery-personality-card/index.html",
+        "bytes": 57737,
+        "captured_file": "products/battery-personality-card/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/products/battery-personality-card/index.html",
+        "bytes": 59687,
+        "captured_file": "products/battery-personality-card.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/products/battery-personality-card",
+    "title": "Battery Personality Card",
+    "used_in_site": true
+  },
+  "products/display-personality-card": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/products/display-personality-card/index.html",
+        "bytes": 66623,
+        "captured_file": "products/display-personality-card/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/products/display-personality-card/index.html",
+        "bytes": 60338,
+        "captured_file": "products/display-personality-card.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/products/display-personality-card",
+    "title": "Display Personality Card",
+    "used_in_site": true
+  },
+  "products/hat-adapter-board": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/products/hat-adapter-board/index.html",
+        "bytes": 56037,
+        "captured_file": "products/hat-adapter-board/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/products/hat-adapter-board/index.html",
+        "bytes": 51096,
+        "captured_file": "products/hat-adapter-board.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/products/hat-adapter-board",
+    "title": "HAT Adapter Board",
+    "used_in_site": true
+  },
+  "products/mdk": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/products/mdk/index.html",
+        "bytes": 66307,
+        "captured_file": "products/mdk/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/products/mdk/index.html",
+        "bytes": 60315,
+        "captured_file": "products/mdk.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/products/mdk",
+    "title": "Moto Mods Development Kit",
+    "used_in_site": true
+  },
+  "products/perforated-board": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/products/perforated-board/index.html",
+        "bytes": 57008,
+        "captured_file": "products/perforated-board/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/products/perforated-board/index.html",
+        "bytes": 59471,
+        "captured_file": "products/perforated-board.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/products/perforated-board",
+    "title": "Perforated Board",
+    "used_in_site": true
+  },
+  "products/temperature-sensor-personality-card": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/products/temperature-sensor-personality-card/index.html",
+        "bytes": 57537,
+        "captured_file": "products/temperature-sensor-personality-card/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/products/temperature-sensor-personality-card/index.html",
+        "bytes": 59453,
+        "captured_file": "products/temperature-sensor-personality-card.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/products/temperature-sensor-personality-card",
+    "title": "Temperature Sensor Personality Card",
+    "used_in_site": true
+  },
+  "support": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/support/index.html",
+        "bytes": 61134,
+        "captured_file": "support/index.html",
+        "snapshot": "html"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/support",
+    "title": "Moto Mods Developer: Support",
+    "used_in_site": true
+  },
+  "support/faq": {
+    "copies": [
+      {
+        "archived_as": "archive/squarespace/html/support/faq/index.html",
+        "bytes": 67322,
+        "captured_file": "support/faq/index.html",
+        "snapshot": "html"
+      },
+      {
+        "archived_as": "archive/squarespace/html_v1/support/faq/index.html",
+        "bytes": 63430,
+        "captured_file": "support/faq.html",
+        "snapshot": "html_v1"
+      }
+    ],
+    "portal": "squarespace",
+    "source_url": "http://developer.motorola.com/support/faq",
+    "title": "FAQs",
+    "used_in_site": true
+  },
+  "tools-kits": {
+    "copies": [
+      {
+        "archived_as": "archive/drupal/html/tools-kits/index.html",
+        "bytes": 22183,
+        "captured_file": "tools-kits/index.html",
+        "snapshot": "html"
+      }
+    ],
+    "portal": "drupal",
+    "source_url": "http://developer.motorola.com/tools-kits",
+    "title": "Tools & Kits",
+    "used_in_site": true
+  }
+}

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html  lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+    <meta charset="utf-8" />
+<meta name="title" content="Mod HID | Motorola Developer Portal" />
+<meta name="description" content="HID support over greybus
+
+The HID (Human Interface Device) protocol is supported over the Greybus Moto Mod interface. HID supports HID buttons, keyboard and mouse and trackpad devices. Any device type currently supported by Android’s USB HID implementation is supported over the Moto Mod Greybus HID interface, this includes buttons, keyboards and keypads, gamepads and touch devices.
+
+Events generated on a HID class compliant Moto Mod are routed to, and available for consumption, your Android phone, as input or motion events." />
+<meta name="Generator" content="Drupal 8 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/sites/default/files/favicon.png" type="image/png" />
+<link rel="canonical" href="/documentation/mod-hid" />
+<link rel="shortlink" href="/node/61" />
+<link rel="revision" href="/documentation/mod-hid" />
+
+    <title>Mod HID | Motorola Developer Portal</title>
+    <link rel="stylesheet" href="/sites/default/files/css/css_DwGtwBiZC0vlzKcGpRugXvj0W5vxr3GO0mzT1HUOQd8.css?qgsn5s" media="all" />
+<link rel="stylesheet" href="/sites/default/files/css/css_xJirtWXj_cO3XOmFun1diM4WbO4k-JyVBEY94xOF2Us.css?qgsn5s" media="all" />
+
+    
+<!--[if lte IE 8]>
+<script src="/sites/default/files/js/js_VtafjXmRvoUgAzqzYTA3Wrjkx9wcWhjP0G4ZnnqRamA.js"></script>
+<![endif]-->
+
+  </head>
+  <body class="node-61 path-node page-node-type-documentation has-glyphicons">
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+          <header class="navbar navbar-default container" id="navbar" role="banner">
+        <div class="region region-top-notification">
+    <section id="block-indiegogocampaign" class="block block-block-content block-block-contentb3767c65-684a-49c5-8d10-99e6ab84eab6 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="topbar">
+<div class="topbar-left">
+<div class="backToMotorola"><a href="https://motorola.com" style="margin:5px 0px;">motorola.com</a></div>
+</div>
+
+<div class="topbar-center"></div>
+</div>
+
+<div class="topbar-right"></div>
+
+
+</div>
+      
+  </section>
+
+
+  </div>
+
+
+            <div class="navbar-header">
+          <div class="region region-navigation">
+          <a class="logo navbar-btn pull-left" href="/" title="Home" rel="home">
+      <img src="/sites/default/files/logo.png" alt="Home" />
+    </a>
+        <a class="name navbar-brand" href="/" title="Home" rel="home">Motorola Developer Portal</a>
+    <nav role="navigation" aria-labelledby="block-motorola-main-menu-menu" id="block-motorola-main-menu">
+            <h2 class="sr-only" id="block-motorola-main-menu-menu">Main navigation</h2>
+
+      
+              <ul class="menu nav navbar-nav">
+                            <li>
+        <a href="/documentation" data-drupal-link-system-path="node/109">Documentation</a>
+                  </li>
+                        <li>
+        <a href="/tools-kits" data-drupal-link-system-path="node/110">Tools &amp; Kits</a>
+                  </li>
+                        <li>
+        <a href="/faq" data-drupal-link-system-path="node/108">Support</a>
+                  </li>
+                        <li>
+        <a href="/community" data-drupal-link-system-path="node/126">Community</a>
+                  </li>
+                        <li>
+        <a href="/partner" data-drupal-link-system-path="node/106">Partner with Moto</a>
+                  </li>
+        </ul>
+  
+
+
+  </nav>
+<div class="search-block-form block block-search block-search-form-block" data-drupal-selector="search-block-form" id="block-motorola-search" role="search">
+  
+      <h2 class="visually-hidden">Search</h2>
+    
+      <form action="/search/node" method="get" id="search-block-form" accept-charset="UTF-8">
+  <div class="form-item js-form-item form-type-search js-form-type-search form-item-keys js-form-item-keys form-no-label form-group">
+      <label for="edit-keys" class="control-label sr-only">Search</label>
+  
+  
+  <div class="input-group"><input title="Enter the terms you wish to search for." data-drupal-selector="edit-keys" class="form-search form-control" placeholder="Search" type="search" id="edit-keys" name="keys" value="" size="15" maxlength="128" data-toggle="tooltip" /><span class="input-group-btn"><button type="submit" value="Search" class="button js-form-submit form-submit btn-primary btn icon-only" name=""><span class="sr-only">Search</span><span class="icon glyphicon glyphicon-search" aria-hidden="true"></span></button></span></div>
+
+  
+  
+  </div>
+<div class="form-actions form-group js-form-wrapper form-wrapper" data-drupal-selector="edit-actions" id="edit-actions"></div>
+
+</form>
+
+  </div>
+<section id="block-mobilebutton" class="block block-block-content block-block-contentee461971-1c7b-46d8-8e1e-0c56d5500c6e clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div><button class="mobile_button"><span>Menu</span></button></div></div>
+      
+  </section>
+
+
+  </div>
+
+                      </div>
+
+                  
+    </header>
+  
+
+  <div role="main" class="main-container container js-quickedit-main-content">
+    <div class="row">
+
+            
+                              <aside class="col-sm-3" role="complementary">
+              <div class="region region-sidebar-first">
+    <section id="block-categoriesblock" class="block block-custom clearfix">
+  
+    
+
+      <ul class="categories-tree"><li class="parent"><span></span><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">Documentation</a><ul><li><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">Overview</a><ul><li><a href="/documentation/system-architecture" data-drupal-link-system-path="node/118">System Architecture</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">Software</a><ul><li><a href="/documentation/software-overview" data-drupal-link-system-path="node/46">Android SDK Overview</a><a href="/documentation/mod-management" data-drupal-link-system-path="node/41">Mod Management</a><a href="/documentation/mod-raw-devices" data-drupal-link-system-path="node/43">Mod Raw Devices</a><a href="/documentation/mod-display" data-drupal-link-system-path="node/53">Mod Display</a><a href="/documentation/mod-battery" data-drupal-link-system-path="node/56">Mod Battery</a><a href="/documentation/mod-audio" data-drupal-link-system-path="node/58">Mod Audio</a><a href="/documentation/mod-hid" data-drupal-link-system-path="node/61" class="is-active">Mod HID</a><a href="/documentation/mod-usb" data-drupal-link-system-path="node/64">Mod USB</a><a href="/download-sdk" data-drupal-link-system-path="node/117">Moto Mods Android SDK</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">Firmware</a><ul><li><a href="/documentation/firmware-overview" data-drupal-link-system-path="node/55">Firmware Overview</a><a href="/documentation/mod-management-0" data-drupal-link-system-path="node/84">Mod Management</a><a href="/documentation/raw-protocol" data-drupal-link-system-path="node/60">Raw Protocol</a><a href="/documentation/display-protocol" data-drupal-link-system-path="node/63">Display Protocol</a><a href="/documentation/battery-protocol" data-drupal-link-system-path="node/69">Battery Protocol</a><a href="/documentation/audio-protocol" data-drupal-link-system-path="node/75">Audio Protocol</a><a href="/documentation/hid-protocol" data-drupal-link-system-path="node/77">HID Protocol</a><a href="/documentation/usb-ext-protocol" data-drupal-link-system-path="node/42">USB-Ext Protocol</a><a href="/documentation/lights-protocol" data-drupal-link-system-path="node/66">Lights Protocol</a><a href="/documentation/power-transfer-protocol" data-drupal-link-system-path="node/72">Power Transfer Protocol</a><a href="/documentation/camera-ext-protocol" data-drupal-link-system-path="node/80">Camera-Ext Protocol</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">Developer Tools</a><ul><li><a href="/documentation/developer-tools-overview" data-drupal-link-system-path="node/67">Developer Tools Overview</a><a href="/documentation/setup-environment" data-drupal-link-system-path="node/70">Setup Environment</a><a href="/documentation/build-source" data-drupal-link-system-path="node/73">Build from Source</a><a href="/documentation/starting-new-project" data-drupal-link-system-path="node/76">Starting a New Project</a><a href="/documentation/flashing-firmware" data-drupal-link-system-path="node/78">Flashing Firmware</a><a href="/documentation/debug-and-log" data-drupal-link-system-path="node/79">Debug and Log</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">MDK</a><ul><li><a href="/documentation/mdk-overview-0" data-drupal-link-system-path="node/147">MDK Overview</a><a href="/documentation/reference-moto-mod" data-drupal-link-system-path="node/122">Reference Moto Mod</a><a href="/documentation/perforated-board" data-drupal-link-system-path="node/50">Perforated Board</a><a href="/documentation/hat-adapter-board" data-drupal-link-system-path="node/47">HAT Adapter Board</a><a href="/documentation/custom-circuit-board" data-drupal-link-system-path="node/49">Custom Circuit Board</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">Examples</a><ul><li><a href="/documentation/examples-overview" data-drupal-link-system-path="node/44">Examples Overview</a><a href="/documentation/mdk-utility" data-drupal-link-system-path="node/54">MDK Utility</a><a href="/documentation/hello-world" data-drupal-link-system-path="node/57">Hello World!</a><a href="/documentation/sensor" data-drupal-link-system-path="node/59">Sensor</a><a href="/documentation/battery" data-drupal-link-system-path="node/62">Battery</a><a href="/documentation/audio-0" data-drupal-link-system-path="node/123">Audio</a><a href="/documentation/display" data-drupal-link-system-path="node/68">Display</a><a href="/documentation/camera" data-drupal-link-system-path="node/71">Camera</a><a href="/documentation/miscellaneous" data-drupal-link-system-path="node/74">Miscellaneous</a></li></ul></li><li><a href="/documentation/all-downloads" data-drupal-link-system-path="documentation/all-downloads">Downloads</a></li></ul></li></ul>
+  </section>
+
+<section id="block-codeblock" class="block block-block-content block-block-content071e10d8-69be-4209-b478-084e01ef6d30 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><ul><li><a href="http://motorolamobilityllc.github.io/motomods_sdk" target="_blank">Moto Mods SDK for Android API Reference</a></li>
+	<li><span>• </span><a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html" target="_blank">Index</a></li>
+	<li><span>• </span><a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModListener.html" id="yui_3_17_2_1_1516649362190_261" target="_blank">ModListener</a></li>
+	<li><span>• </span><a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModBacklight.html" target="_blank">ModBacklight</a></li>
+	<li><span>• </span><a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModBattery.html" target="_blank">ModBattery</a></li>
+	<li><span>• </span><a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModConnection.html" target="_blank">ModConnection</a></li>
+	<li><span>• </span><a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModContract.html" target="_blank">ModContract</a></li>
+	<li><span>• </span><a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModDevice.html" target="_blank">ModDevice</a></li>
+	<li><span>• </span><a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModDisplay.html" target="_blank">ModDisplay</a></li>
+	<li><span>• </span><a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModInterfaceDelegation.html" target="_blank">ModInterfaceDelegation</a></li>
+	<li><span>• </span><a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModManager.html" target="_blank">ModManager</a></li>
+	<li><span>• </span><a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModProtocol.html" target="_blank">ModProtocol</a></li>
+</ul></div>
+      
+  </section>
+
+
+  </div>
+
+          </aside>
+              
+                  <section class="main-content col-sm-9">
+
+                                      <div class="highlighted">  <div class="region region-highlighted">
+    
+
+  </div>
+</div>
+                  
+                
+                
+                
+                          <a id="main-content"></a>
+            <div class="region region-content">
+        <ol class="breadcrumb">
+          <li >
+                  <a href="/documentation">Overview</a>
+              </li>
+          <li  class="active">
+                  Mod HID
+              </li>
+      </ol>
+
+    <h1 class="page-header"><span>Mod HID</span>
+</h1>
+
+  <article data-history-node-id="61" role="article" about="/documentation/mod-hid" class="documentation full clearfix">
+
+  
+    
+
+  
+  <div class="content">
+    
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><h2>HID support over greybus</h2>
+
+<p>The HID (Human Interface Device) protocol is supported over the Greybus Moto Mod interface. HID supports HID buttons, keyboard and mouse and trackpad devices. Any device type currently supported by Android’s USB HID implementation is supported over the Moto Mod Greybus HID interface, this includes buttons, keyboards and keypads, gamepads and touch devices.</p>
+
+<p>Events generated on a HID class compliant Moto Mod are routed to, and available for consumption, your Android phone, as input or motion events.</p>
+
+<p>Moto Mod HIDs leverage Android’s existing USB HID implementation.  A developer interested in developing a Moto Mod which embeds human interface controls should have knowledge of Android’s input subsystem as documented in the Android PDK.</p>
+
+<p>There are no new or proprietary APIs in the Moto Mod SDK for HID support. <br />
+ </p>
+
+<hr /><h2 id="moto-mod-hid-support">Moto Mod HID support</h2>
+
+<p>A class compliant Moto Mod HID will pass its USB HID PID/VID in to the Moto Z in HID descriptors. This PID/VID combination will be used by Android to transform a HID event into an Android event.</p>
+
+<pre>
+<code>struct hid_descriptor {
+    uint8_t length;
+    uint16_t report_desc_length;
+    uint16_t hid_version;
+    uint16_t product_id;
+    uint16_t vendor_id;
+    uint8_t country_code;
+};</code></pre>
+
+<p>The VID/PID generated in these report descriptors will be used by Android’s input pipeline to locate the appropriate Key Layout, Keymap and Input Device Configuration files and translate these into Android Keycodes, using the same heuristic as is used for other USB HID devices and detailed in the <a data-preserve-html-node="true" href="https://source.android.com/devices/input/overview.html">Android Input subsystem overview document</a>.<br />
+ </p>
+
+<hr /><h2>Android HID Integration</h2>
+
+<p>Events generated by an attached HID compliant Moto Mod are routed to Android’s EventHub by the Greybus HID kernel driver. As in standard Android HID support, the InputReader will decode the input events and produce Android input events. Android will either use the Input Device configuration, Keyboard Layout and Keymap files associated with the input device or use the  system defaults to decode the input events into Android input events.</p>
+
+<p>By default, to decode events from your input device, Android will use the same logic it uses for USB HID devices:</p>
+
+<ul><li>The Input Device configuration file associated with your input device, <a href="https://source.android.com/devices/input/input-device-configuration-files.html">as documented in the Android SDK</a>. Similarly, Android will use the VID/PID passed in your HID report descriptor to determine the IDC file to use.<br />
+	 </li>
+	<li>The Key-layout file associated with your HID device, <a href="https://source.android.com/devices/input/key-layout-files.html">as documented in the Android SDK</a>. Please note: The <strong>VID/PID</strong> passed in your HID report descriptor will determine the key layout file to use, <em>not</em> the VID/PID advertised in the Moto Mod hardware manifest.<br />
+	 </li>
+	<li>The Key-map file associated with your HID device, <a href="https://source.android.com/devices/input/key-character-map-files.html">as documented in the Android SDK</a>. Similarly, Android with use the VID/PID passed in via your HID report descriptor.<br />
+	 </li>
+</ul><hr /><h2 id="hid-usage-and-keycodes">HID Usage and Keycodes</h2>
+
+<p>Android supports a variety of keyboard devices including special function keypads (volume and power controls), compact embedded QWERTY keyboards, and fully featured PC-style external keyboards. For a complete list of the HID mappings and their corresponding Linux and Android Keycodes, please refer to the <a data-preserve-html-node="true" href="https://source.android.com/devices/input/keyboard-devices.html#hid-usages-linux-key-codes-and-android-key-codes">HID section of the Android PDK</a>. When an HID Moto Mod is attached to the Moto Z, and active, Android application will receive input event with the Android <code>KEYCODE_</code>corresponding to the HID usage value generated by your Moto Mod.<br />
+ </p>
+
+<hr /><h2 id="detecting-whether-a-moto-mod-supports-hid">Detecting whether a Moto Mod supports HID</h2>
+
+<p>If your Moto Mod embeds a HID compliant device, the Moto Mod platform will make the HID available to the Moto Z immediately when attached. If your application needs to determine whether the moto mod currently attached to your phone support the HID protocol, it can use the <code>hasDeclaredProtocol()</code> function to determine whether the attached <code>ModDevice</code> supports the HID protocol as illustrated below.</p>
+
+<pre>
+<code>if (device.hasDeclaredProtocol(ModProtocol.Protocol.HID) {
+    // This Mod declares USB in its manifest
+  }
+</code>
+</pre>
+
+<hr /><h2 id="receiving-hid-events">Receiving HID events</h2>
+
+<p>If your Moto Mod embeds a HID compliant device, the Moto Mod platform will make the HID devices available to the Moto Z immediately when attached and fully enumerated. As soon as the HID protocol device has been successfully brought up, as indicated by the <code>ACTION_MOD_ENUMERATION_DONE</code>, the HID events generated by the connected Moto Mod will be routed to the Android input subsystem.</p>
+</div>
+      
+  </div>
+
+</article>
+
+<section id="block-backtotop" class="block block-block-content block-block-content041966f5-0fe1-4320-8eee-cdeaf244dc88 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><button><i class="fa fa-chevron-circle-up"></i></button></div>
+      
+  </section>
+
+
+  </div>
+
+              </section>
+
+        
+        
+                </div>
+  </div>
+
+            <section class="above_footer container" role="contentinfo">
+              <div class="region region-above-footer">
+    <section id="block-helpblock" class="block block-block-content block-block-content532cffc6-7ce7-4d4f-9e9f-e0d60194d4b8 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="footer-help">
+<div class="header">
+<h2>Looking for help?</h2>
+</div>
+
+<div class="buttons"><a class="go" href="/faq">Go to FAQ</a> <span>or</span> <a class="ask" href="/community">Ask the community</a></div>
+</div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+        </section>
+    
+      <footer class="footer container" role="contentinfo">
+        <div class="region region-footer">
+    <section id="block-footerlogo" class="block block-block-content block-block-contentede1d594-0667-4d58-82ab-50e38daccec8 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="footer-logo-wrap"><a href="https://www.moto.com/"><img alt="Motorola" src="/themes/motorola/images/footer-logo.png" /></a></div>
+
+<p>©2017 Motorola<br />
+All rights reserved.</p>
+</div>
+      
+  </section>
+
+<nav role="navigation" aria-labelledby="block-support-menu" id="block-support">
+            
+  <h2 class="visually-hidden" id="block-support-menu">Footer menu</h2>
+  
+
+        
+              <ul class="menu nav">
+                            <li>
+        <a href="/faq" data-drupal-link-system-path="node/108">FAQ</a>
+                  </li>
+                        <li>
+        <a href="https://www.motorola.com/us/legal/privacy-policy">Privacy Policy</a>
+                  </li>
+        </ul>
+  
+
+
+  </nav>
+<nav role="navigation" aria-labelledby="block-footermenu2-menu" id="block-footermenu2">
+            
+  <h2 class="visually-hidden" id="block-footermenu2-menu">Footer menu 2</h2>
+  
+
+        
+              <ul class="menu nav">
+                            <li>
+        <a href="mailto:mdk-help@motorola.com">Ask MDK Help</a>
+                  </li>
+        </ul>
+  
+
+
+  </nav>
+<section id="block-footersocials" class="block block-block-content block-block-content5d7a0a23-4c63-49b5-8680-e7e7e5a9ac14 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><ul><li><a class="facebook" href="https://www.facebook.com/moto/" target="_blank">Facebook</a></li>
+	<li><a class="twitter" href="https://twitter.com/moto" target="_blank">Twitter</a></li>
+	<li><a class="youtube" href="https://www.youtube.com/user/motorola" target="_blank">Youtube</a></li>
+</ul></div>
+      
+  </section>
+
+
+  </div>
+
+    </footer>
+  
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","scriptPath":null,"pathPrefix":"","currentPath":"node\/61","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","bootstrap":{"forms_has_error_value_toggle":1,"modal_animation":1,"modal_backdrop":"true","modal_keyboard":1,"modal_show":1,"modal_size":"","popover_enabled":1,"popover_animation":1,"popover_container":"body","popover_content":"","popover_delay":"0","popover_html":0,"popover_placement":"right","popover_selector":"","popover_title":"","popover_trigger":"click","popover_trigger_autoclose":1,"tooltip_enabled":1,"tooltip_animation":1,"tooltip_container":"body","tooltip_delay":"0","tooltip_html":0,"tooltip_placement":"auto left","tooltip_selector":"","tooltip_trigger":"hover"},"ajaxTrustedUrl":{"\/search\/node":true},"user":{"uid":0,"permissionsHash":"08a43bd0e8ec4c73d93f574eaa23fbdc9bc9ccb4f4e2fc3399bdb61c76cc3671"}}</script>
+<script src="/sites/default/files/js/js_8emfEOO9orRe8bF7M-RvCkUspYNAKLxey8G77d5ELaA.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,130 @@
+/* Moto Mods archive — styling for the markup carried over from the original
+   portal, plus the home page card grid. */
+
+:root {
+  --mm-card-border: var(--md-default-fg-color--lightest);
+}
+
+/* ---------------------------------------------------------------- tables -- */
+/* Protocol reference tables came across as raw HTML because they use rowspan,
+   colspan and repeated <thead> groups that a Markdown table cannot express. */
+.md-typeset table.pure-table {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.72rem;
+}
+
+.md-typeset table.pure-table th,
+.md-typeset table.pure-table td {
+  padding: 0.5em 0.8em;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  vertical-align: top;
+  text-align: left;
+}
+
+.md-typeset table.pure-table thead td,
+.md-typeset table.pure-table thead th {
+  background: var(--md-default-fg-color--lightest);
+  font-weight: 700;
+}
+
+/* Several tables repeat <thead> mid-table to label a new group of rows. */
+.md-typeset table.pure-table thead + tbody + thead td {
+  border-top: 2px solid var(--md-default-fg-color--light);
+}
+
+.md-typeset table.pure-table code {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* --------------------------------------------------------------- figures -- */
+.md-typeset img {
+  border-radius: 2px;
+}
+
+.md-typeset p > img:only-child {
+  display: block;
+  margin: 1.2em auto;
+  max-width: 100%;
+}
+
+/* ----------------------------------------------------------- product grid -- */
+ul.mm-cards {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 1rem;
+  margin: 1.4em 0 !important;
+  padding: 0;
+}
+
+ul.mm-cards li {
+  margin: 0 !important;
+}
+
+ul.mm-cards a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  height: 100%;
+  padding: 0.9rem;
+  border: 1px solid var(--mm-card-border);
+  border-radius: 4px;
+  text-align: center;
+  font-weight: 600;
+  transition: border-color 120ms, transform 120ms;
+}
+
+ul.mm-cards a:hover {
+  border-color: var(--md-accent-fg-color);
+  transform: translateY(-2px);
+}
+
+ul.mm-cards img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+}
+
+/* ------------------------------------------------------------- home page -- */
+.mm-home-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  margin: 1.6em 0;
+}
+
+.md-typeset .mm-home-card {
+  display: block;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--mm-card-border);
+  border-left: 3px solid var(--md-primary-fg-color);
+  border-radius: 4px;
+  color: var(--md-default-fg-color);
+  transition: border-color 120ms, background 120ms;
+}
+
+.md-typeset .mm-home-card:hover {
+  background: var(--md-default-fg-color--lightest);
+  border-color: var(--md-accent-fg-color);
+}
+
+.md-typeset .mm-home-card small {
+  display: block;
+  margin-top: 0.35rem;
+  font-weight: 400;
+  color: var(--md-default-fg-color--light);
+}
+
+/* ------------------------------------------------- missing-image fallback -- */
+/* A handful of the original diagrams were never captured anywhere; mark them
+   rather than showing a broken-image icon. */
+.md-typeset img.mm-missing,
+.md-typeset img[src$="missing.svg"] {
+  padding: 2rem;
+  border: 1px dashed var(--md-default-fg-color--light);
+  background: var(--md-default-fg-color--lightest);
+}

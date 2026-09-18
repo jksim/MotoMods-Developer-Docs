@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html  lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+    <meta charset="utf-8" />
+<meta name="title" content="MDK Overview | Motorola Developer Portal" />
+<meta name="description" content="Overview
+
+The Reference Moto Mod is the central component for the creation of your prototypes. It provides the core interfaces to the Moto Z platform, processing resources, GPIO and standard peripheral interfaces, power and charging control, and the capability to configure these blocks appropriately for your project." />
+<meta name="Generator" content="Drupal 8 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/sites/default/files/favicon.png" type="image/png" />
+<link rel="canonical" href="/documentation/mdk-overview" />
+<link rel="shortlink" href="/node/81" />
+<link rel="revision" href="/documentation/mdk-overview" />
+
+    <title>MDK Overview | Motorola Developer Portal</title>
+    <link rel="stylesheet" href="/sites/default/files/css/css_DwGtwBiZC0vlzKcGpRugXvj0W5vxr3GO0mzT1HUOQd8.css?qgsn5s" media="all" />
+<link rel="stylesheet" href="/sites/default/files/css/css_xJirtWXj_cO3XOmFun1diM4WbO4k-JyVBEY94xOF2Us.css?qgsn5s" media="all" />
+
+    
+<!--[if lte IE 8]>
+<script src="/sites/default/files/js/js_VtafjXmRvoUgAzqzYTA3Wrjkx9wcWhjP0G4ZnnqRamA.js"></script>
+<![endif]-->
+
+  </head>
+  <body class="node-81 path-node page-node-type-documentation has-glyphicons">
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+          <header class="navbar navbar-default container" id="navbar" role="banner">
+        <div class="region region-top-notification">
+    <section id="block-indiegogocampaign" class="block block-block-content block-block-contentb3767c65-684a-49c5-8d10-99e6ab84eab6 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="topbar">
+<div class="topbar-left">
+<div class="backToMotorola"><a href="https://motorola.com" style="margin:5px 0px;">motorola.com</a></div>
+</div>
+
+<div class="topbar-center"></div>
+</div>
+
+<div class="topbar-right"></div>
+
+
+</div>
+      
+  </section>
+
+
+  </div>
+
+
+            <div class="navbar-header">
+          <div class="region region-navigation">
+          <a class="logo navbar-btn pull-left" href="/" title="Home" rel="home">
+      <img src="/sites/default/files/logo.png" alt="Home" />
+    </a>
+        <a class="name navbar-brand" href="/" title="Home" rel="home">Motorola Developer Portal</a>
+    <nav role="navigation" aria-labelledby="block-motorola-main-menu-menu" id="block-motorola-main-menu">
+            <h2 class="sr-only" id="block-motorola-main-menu-menu">Main navigation</h2>
+
+      
+              <ul class="menu nav navbar-nav">
+                            <li>
+        <a href="/documentation" data-drupal-link-system-path="node/109">Documentation</a>
+                  </li>
+                        <li>
+        <a href="/tools-kits" data-drupal-link-system-path="node/110">Tools &amp; Kits</a>
+                  </li>
+                        <li>
+        <a href="/faq" data-drupal-link-system-path="node/108">Support</a>
+                  </li>
+                        <li>
+        <a href="/community" data-drupal-link-system-path="node/126">Community</a>
+                  </li>
+                        <li>
+        <a href="/partner" data-drupal-link-system-path="node/106">Partner with Moto</a>
+                  </li>
+        </ul>
+  
+
+
+  </nav>
+<div class="search-block-form block block-search block-search-form-block" data-drupal-selector="search-block-form" id="block-motorola-search" role="search">
+  
+      <h2 class="visually-hidden">Search</h2>
+    
+      <form action="/search/node" method="get" id="search-block-form" accept-charset="UTF-8">
+  <div class="form-item js-form-item form-type-search js-form-type-search form-item-keys js-form-item-keys form-no-label form-group">
+      <label for="edit-keys" class="control-label sr-only">Search</label>
+  
+  
+  <div class="input-group"><input title="Enter the terms you wish to search for." data-drupal-selector="edit-keys" class="form-search form-control" placeholder="Search" type="search" id="edit-keys" name="keys" value="" size="15" maxlength="128" data-toggle="tooltip" /><span class="input-group-btn"><button type="submit" value="Search" class="button js-form-submit form-submit btn-primary btn icon-only" name=""><span class="sr-only">Search</span><span class="icon glyphicon glyphicon-search" aria-hidden="true"></span></button></span></div>
+
+  
+  
+  </div>
+<div class="form-actions form-group js-form-wrapper form-wrapper" data-drupal-selector="edit-actions" id="edit-actions"></div>
+
+</form>
+
+  </div>
+<section id="block-mobilebutton" class="block block-block-content block-block-contentee461971-1c7b-46d8-8e1e-0c56d5500c6e clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div><button class="mobile_button"><span>Menu</span></button></div></div>
+      
+  </section>
+
+
+  </div>
+
+                      </div>
+
+                  
+    </header>
+  
+
+  <div role="main" class="main-container container js-quickedit-main-content">
+    <div class="row">
+
+            
+                              <aside class="col-sm-3" role="complementary">
+              <div class="region region-sidebar-first">
+    <section id="block-categoriesblock" class="block block-custom clearfix">
+  
+    
+
+      <ul class="categories-tree"><li class="parent"><span></span><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">Documentation</a><ul><li><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">Overview</a><ul><li><a href="/documentation/system-architecture" data-drupal-link-system-path="node/118">System Architecture</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">Software</a><ul><li><a href="/documentation/software-overview" data-drupal-link-system-path="node/46">Android SDK Overview</a><a href="/documentation/mod-management" data-drupal-link-system-path="node/41">Mod Management</a><a href="/documentation/mod-raw-devices" data-drupal-link-system-path="node/43">Mod Raw Devices</a><a href="/documentation/mod-display" data-drupal-link-system-path="node/53">Mod Display</a><a href="/documentation/mod-battery" data-drupal-link-system-path="node/56">Mod Battery</a><a href="/documentation/mod-audio" data-drupal-link-system-path="node/58">Mod Audio</a><a href="/documentation/mod-hid" data-drupal-link-system-path="node/61">Mod HID</a><a href="/documentation/mod-usb" data-drupal-link-system-path="node/64">Mod USB</a><a href="/download-sdk" data-drupal-link-system-path="node/117">Moto Mods Android SDK</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">Firmware</a><ul><li><a href="/documentation/firmware-overview" data-drupal-link-system-path="node/55">Firmware Overview</a><a href="/documentation/mod-management-0" data-drupal-link-system-path="node/84">Mod Management</a><a href="/documentation/raw-protocol" data-drupal-link-system-path="node/60">Raw Protocol</a><a href="/documentation/display-protocol" data-drupal-link-system-path="node/63">Display Protocol</a><a href="/documentation/battery-protocol" data-drupal-link-system-path="node/69">Battery Protocol</a><a href="/documentation/audio-protocol" data-drupal-link-system-path="node/75">Audio Protocol</a><a href="/documentation/hid-protocol" data-drupal-link-system-path="node/77">HID Protocol</a><a href="/documentation/usb-ext-protocol" data-drupal-link-system-path="node/42">USB-Ext Protocol</a><a href="/documentation/lights-protocol" data-drupal-link-system-path="node/66">Lights Protocol</a><a href="/documentation/power-transfer-protocol" data-drupal-link-system-path="node/72">Power Transfer Protocol</a><a href="/documentation/camera-ext-protocol" data-drupal-link-system-path="node/80">Camera-Ext Protocol</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">Developer Tools</a><ul><li><a href="/documentation/developer-tools-overview" data-drupal-link-system-path="node/67">Developer Tools Overview</a><a href="/documentation/setup-environment" data-drupal-link-system-path="node/70">Setup Environment</a><a href="/documentation/build-source" data-drupal-link-system-path="node/73">Build from Source</a><a href="/documentation/starting-new-project" data-drupal-link-system-path="node/76">Starting a New Project</a><a href="/documentation/flashing-firmware" data-drupal-link-system-path="node/78">Flashing Firmware</a><a href="/documentation/debug-and-log" data-drupal-link-system-path="node/79">Debug and Log</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">MDK</a><ul><li><a href="/documentation/mdk-overview-0" data-drupal-link-system-path="node/147">MDK Overview</a><a href="/documentation/reference-moto-mod" data-drupal-link-system-path="node/122">Reference Moto Mod</a><a href="/documentation/perforated-board" data-drupal-link-system-path="node/50">Perforated Board</a><a href="/documentation/hat-adapter-board" data-drupal-link-system-path="node/47">HAT Adapter Board</a><a href="/documentation/custom-circuit-board" data-drupal-link-system-path="node/49">Custom Circuit Board</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">Examples</a><ul><li><a href="/documentation/examples-overview" data-drupal-link-system-path="node/44">Examples Overview</a><a href="/documentation/mdk-utility" data-drupal-link-system-path="node/54">MDK Utility</a><a href="/documentation/hello-world" data-drupal-link-system-path="node/57">Hello World!</a><a href="/documentation/sensor" data-drupal-link-system-path="node/59">Sensor</a><a href="/documentation/battery" data-drupal-link-system-path="node/62">Battery</a><a href="/documentation/audio-0" data-drupal-link-system-path="node/123">Audio</a><a href="/documentation/display" data-drupal-link-system-path="node/68">Display</a><a href="/documentation/camera" data-drupal-link-system-path="node/71">Camera</a><a href="/documentation/miscellaneous" data-drupal-link-system-path="node/74">Miscellaneous</a></li></ul></li><li><a href="/documentation/all-downloads" data-drupal-link-system-path="documentation/all-downloads">Downloads</a></li></ul></li></ul>
+  </section>
+
+
+  </div>
+
+          </aside>
+              
+                  <section class="main-content col-sm-9">
+
+                                      <div class="highlighted">  <div class="region region-highlighted">
+    
+
+  </div>
+</div>
+                  
+                
+                
+                
+                          <a id="main-content"></a>
+            <div class="region region-content">
+        <ol class="breadcrumb">
+          <li >
+                  <a href="/documentation">Overview</a>
+              </li>
+          <li  class="active">
+                  MDK Overview
+              </li>
+      </ol>
+
+    <h1 class="page-header"><span>MDK Overview</span>
+</h1>
+
+  <article data-history-node-id="81" role="article" about="/documentation/mdk-overview" class="documentation full clearfix">
+
+  
+    
+
+  
+  <div class="content">
+    
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><h2 data-preserve-html-node="true" id="overview">Overview</h2>
+
+<p>The Reference Moto Mod is the central component for the creation of your prototypes. It provides the core interfaces to the Moto Z platform, processing resources, GPIO and standard peripheral interfaces, power and charging control, and the capability to configure these blocks appropriately for your project.</p>
+
+<p><img alt="hw-connector-diagram-1.png" data-image="https://developer.motorola.com/static/5715eee9b09f95a12b44e0ed/t/5756e1708259b50a3ba92f4e/1465313414858/hw-connector-diagram-1.png" data-image-dimensions="894x576" data-image-focal-point="0.5,0.5" data-image-id="5756e1708259b50a3ba92f4e" data-image-resolution="750w" data-load="false" data-src="https://developer.motorola.com/static/5715eee9b09f95a12b44e0ed/t/5756e1708259b50a3ba92f4e/1465313414858/hw-connector-diagram-1.png" data-type="image" src="https://developer.motorola.com/static/5715eee9b09f95a12b44e0ed/t/5756e1708259b50a3ba92f4e/1465313414858/hw-connector-diagram-1.png?format=750w" /></p>
+
+<h4 id="download-schematics">Download Schematics</h4>
+
+<p>We provide schematics for the Moto Mods Development Kit. See the <a href="https://developer.motorola.com/build/mdk-user-guide#downloads">Downloads</a> section at the end of this page for more.<br />
+ </p>
+
+<hr /><h2 data-preserve-html-node="true" id="key-components-and-configuration"><br />
+Key Components and Configuration</h2>
+
+<h3 id="the-moto-mod-micro-controller-muc-">The Moto Mod Micro Controller (MuC)</h3>
+
+<p>The MuC is the target for custom firmware for your Moto Mod. Powered by a Cortex-M4 based STML476, it provides onboard compute and control, GPIO, and various standard interfaces used to realize your project. The MuC is the main point of communication between the Moto Z and includes Greybus abstraction layer.</p>
+
+<p>For further documentation on the STML476 used in the Reference Moto Mod:<br data-preserve-html-node="true" /><a data-preserve-html-node="true" href="http://www.st.com/content/st_com/en/products/microcontrollers/stm32-32-bit-arm-cortex-mcus/stm32l4-series/stm32l4x6/stm32l476me.html" target="_blank">ST Micro website for the STM32L476 <img data-preserve-html-node="true" src="https://developer.motorola.com/sites/default/files/inline-images/open-in-new-window.png" width="14" /></a><br data-preserve-html-node="true" /><a data-preserve-html-node="true" href="http://www.st.com/content/ccc/resource/technical/document/datasheet/c5/ed/2f/60/aa/79/42/0b/DM00108832.pdf/files/DM00108832.pdf/jcr:content/translations/en.DM00108832.pdf" target="_blank">STM32L476XX Datasheet (Part Overview) <img data-preserve-html-node="true" src="https://developer.motorola.com/sites/default/files/inline-images/open-in-new-window.png" width="14" /></a><br data-preserve-html-node="true" /><a data-preserve-html-node="true" href="http://www.st.com/content/ccc/resource/technical/document/reference_manual/02/35/09/0c/4f/f7/40/03/DM00083560.pdf/files/DM00083560.pdf/jcr:content/translations/en.DM00083560.pdf" target="_blank">STML4X6 Reference Manual (in depth technical detail) <img data-preserve-html-node="true" src="https://developer.motorola.com/sites/default/files/inline-images/open-in-new-window.png" width="14" /></a><br />
+ </p>
+
+<hr /><h3 id="moto-high-speed-bridge-mhb-"><br />
+Moto High-Speed Bridge (MHB)</h3>
+
+<p>Industry standard CSI and DSI interfaces are supplied through the Moto Bridge as well as I2S audio for those Moto Mods requiring the camera or display interfaces.<br />
+ </p>
+
+<hr /><h3 id="power-and-charging-block"><br />
+Power and charging block</h3>
+
+<p>Contains the control, regulated and unregulated power control, battery selection, and charging paths for the Moto Mod system. See the DIP Switch B configuration section for the configuration options for this block.<br />
+ </p>
+
+<hr /><h3 id="usb-connectors"><br />
+USB Connectors</h3>
+
+<p>This set of three connectors enable connection of USB 2.0, MyDP and USB 3.1 peripherals, as well as Reference Moto Mod debug interfaces. Control and configuration of these connections is managed by the DIP switches.</p>
+
+<h4 id="debug-connector-usb-1-">Debug Connector (USB #1)</h4>
+
+<p>This Type C Connector is the debug port for all your projects using the Reference Moto Mod. The interfaces provided are detailed below.</p>
+
+<ul><li><strong>Port 1</strong> - MuC Serial Wire Debug (SWD)</li>
+	<li><strong>Port 2</strong> - MHB JTAG</li>
+	<li><strong>Port 3</strong> - MuC Serial Console</li>
+	<li><strong>Port 4</strong> - MHB Serial Console (Rx only)</li>
+</ul><p>The Moto Mod will accept 500mA of current into USB Connector 1 to power the Reference Moto Mod. USB Connector 1 will not charge the onboard battery or any battery included on your custom personality card.</p>
+
+<h4 id="usb-type-c-connector-usb-2-">USB Type-C Connector (USB #2)</h4>
+
+<p>This Type C Connector provides access to the following Mod interfaces:</p>
+
+<ul><li><strong>USB 3.1</strong> - host and slave</li>
+	<li><strong>USB 2.0</strong> - host only</li>
+</ul><p>The onboard battery on the Reference Moto Mod can be charged via this port. The port is compliant with USB C DRP.</p>
+
+<h4 id="mydp-connector-usb-3-">MyDP connector (USB #3)</h4>
+
+<p>This Micro B connector provides access to the following Mod interfaces:</p>
+
+<ul><li><strong>USB 2.0</strong> - host only</li>
+	<li><strong>MyDP</strong></li>
+</ul><p>The Reference Moto Mod provides DC power out of the MyDP connector for USB Host mode support.<br />
+ </p>
+
+<hr /><h3 id="dip-switch-configuration"><br />
+DIP Switch Configuration</h3>
+
+<p>Two DIP switches are provided to configure the Reference Moto Mod to support your Moto Mod project development.</p>
+
+<h4 id="dip-switch-a-">DIP Switch A:</h4>
+
+<ul><li>These switches control routing and selection of High Speed Signal Groups A and B.</li>
+	<li>Group A signals are defined as USB 2.0 and MyDP and are controlled by switches A3 and A4.</li>
+	<li>Group B signals include M-PHY, USB 3.1 and I2S functionality and are controlled by switches A1 and A2.</li>
+</ul><h5 id="a1-a2-high-speed-group-b-control-">A1/A2 High speed Group B Control:</h5>
+
+<table><thead><tr><td width="200">Device Type</td>
+			<td>A1</td>
+			<td>A2</td>
+			<td>Description</td>
+		</tr></thead><tbody><tr><td>Group B Disabled</td>
+			<td>Off</td>
+			<td>Off</td>
+			<td>All Group B signal paths disabled.</td>
+		</tr><tr><td>MHB Device</td>
+			<td>On</td>
+			<td>Off</td>
+			<td>Enables the Moto High-speed Bridge (MHB). Use this mode for devices requiring CSI or DSI on the 80-pin connector. When configured in this mode, I2S signals on the 80 pin connector are routed to the MHB as well. Used in the Display Personality Card example.</td>
+		</tr><tr><td>I2S Audio Device</td>
+			<td>Off</td>
+			<td>On</td>
+			<td>Use for devices requiring direct access to I2S from the Moto Z. MHB is disabled and I2S signals on the 80-pin connector are routed to the Moto Mod connection to the Moto Z. Used in the Audio Personality Card example.</td>
+		</tr><tr><td>USB3.1 Device</td>
+			<td>On</td>
+			<td>On</td>
+			<td>Use for devices requiring a USB3.1 host or client connection. MHB is disabled and USB3.1 is available on USB Type-C Connector.</td>
+		</tr><tr></tr></tbody></table><h5 id="a3-a4-high-speed-group-a-control-">A3/A4 High speed Group A Control:</h5>
+
+<table><thead><tr><td width="200">Device Type</td>
+			<td>A3</td>
+			<td>A4</td>
+			<td>Description</td>
+		</tr></thead><tbody><tr><td>Group A Disabled</td>
+			<td>Off</td>
+			<td>Off</td>
+			<td>All Group A signal paths disabled.</td>
+		</tr><tr><td>MyDP Device</td>
+			<td>On</td>
+			<td>Off</td>
+			<td>Group A connected to MyDP Connector. Use to connect a MyDP device to the MyDP connector. This mode can also support USB Client devices connected to the MyDP port. In this mode power is available from the Reverence Moto Mod on the VBUS pin.</td>
+		</tr><tr><td>USB 2.0 Client</td>
+			<td>Off</td>
+			<td>On</td>
+			<td>Group A connected to USB Type-C connector. Use to connect a USB Client device on the USB Type-C connector.</td>
+		</tr><tr><td>USB2.0 Personality Card</td>
+			<td>On</td>
+			<td>On</td>
+			<td>Group A signals are routed to the 80-pin connector.</td>
+		</tr><tr></tr></tbody></table><h4 id="dip-switch-b-">Dip Switch B:</h4>
+
+<p>These switches enable the reference clock for the Personality Card, control various power and charging configurations, and select GPIO or I2S functionality to the I2S signal group of the 80-pin connector.</p>
+
+<h5 id="switch-b1-personality-card-reference-clock-control-">Switch B1 - Personality Card Reference Clock Control:</h5>
+
+<table><thead><tr><td width="200">Device Type</td>
+			<td>B1</td>
+			<td>Description</td>
+		</tr></thead><tbody><tr><td>Personality Card with onboard reference clock or none required</td>
+			<td>Off</td>
+			<td>19.2 MHz clock disabled, pin 36 of 80-pin connector is high impedance</td>
+		</tr><tr><td>Personality Card requiring 19.2 MHz reference clock</td>
+			<td>On</td>
+			<td>19.2 MHz clock enabled, present at pin 36 of 80-pin connector</td>
+		</tr><tr></tr></tbody></table><h5 id="switch-b2-i2s-signal-group-alternate-mode-">Switch B2 - I2S Signal Group Alternate Mode:</h5>
+
+<table><thead><tr><td width="200">Device Type</td>
+			<td>B2</td>
+			<td>Description</td>
+		</tr></thead><tbody><tr><td>I2S on 80-pin connector</td>
+			<td>Off</td>
+			<td>Use this mode if using I2S</td>
+		</tr><tr><td>GPIO alternate mode</td>
+			<td>On</td>
+			<td>Use this mode to use the pins as GPIO from the MuC (Notes 1,2)</td>
+		</tr><tr></tr></tbody></table><p><strong>Note 1:</strong> This mode disables the external 32kHz clock of the MuC.<br /><strong>Note 2:</strong> This mode disables the State of Charge LED functionality. (See On Board LEDs below).</p>
+
+<h5 id="switch-b3-battery-selection-">Switch B3 - Battery Selection:</h5>
+
+<table><thead><tr><td width="200">Device Type</td>
+			<td>B3</td>
+			<td>Description</td>
+		</tr></thead><tbody><tr><td>Reference Mod Battery</td>
+			<td>Off</td>
+			<td>Use this configuration if your project uses the battery provided on the Reference Moto Mod. In this mode, pin 17 of the 80-pin connector is disabled from providing power to the system.</td>
+		</tr><tr><td>Personality card Battery</td>
+			<td>On</td>
+			<td>Use this configuration if your personality card includes a battery. Charging and Metering is the responsibility of the Personality Card. In this mode, battery power for the Reference Moto Mod is derived from the 80-pin connector pin 17.</td>
+		</tr><tr></tr></tbody></table><h5 id="switch-b4-usb-c-power-source-">Switch B4 - USB-C Power Source:</h5>
+
+<table><thead><tr><td width="200">Device Type</td>
+			<td>B4</td>
+			<td>Description</td>
+		</tr></thead><tbody><tr><td>USB Connector 2 Powered</td>
+			<td>Off</td>
+			<td>Use this mode to power the Reference Moto Mod from USB Type-C. Charging of onboard battery available (See Switch B3 above).</td>
+		</tr><tr><td>Debug connector Powered</td>
+			<td>On</td>
+			<td>Use this mode to power the Reference Moto Mod from the Debug Connector<br />
+			Note: This mode will not charge any battery (on-board or Personality Card)</td>
+		</tr><tr></tr></tbody></table><h4 id="example-personality-card-configurations">Example Personality Card Configurations</h4>
+
+<p>The table below details the DIP switch configuration for each of the available example Personality Cards.</p>
+
+<h5 id="example-personality-card-configurations-">Example Personality Card Configurations:</h5>
+
+<table><thead width="100%"><tr><td align="center" rowspan="2">Personality Card</td>
+			<td align="center" colspan="4">DIP Switch A</td>
+			<td align="center" colspan="4">DIP Switch B</td>
+		</tr><tr><td align="center">A1</td>
+			<td align="center">A2</td>
+			<td align="center">A3</td>
+			<td align="center">A4</td>
+			<td align="center">B1</td>
+			<td align="center">B2</td>
+			<td align="center">B3</td>
+			<td align="center">B4</td>
+		</tr></thead><tbody width="100%"><tr><td align="center">DSI Display</td>
+			<td align="center">On</td>
+			<td align="center">Off</td>
+			<td align="center">X</td>
+			<td align="center">X</td>
+			<td align="center">X</td>
+			<td align="center">X</td>
+			<td align="center">Off</td>
+			<td align="center">X</td>
+		</tr><tr><td align="center">Audio</td>
+			<td align="center">Off</td>
+			<td align="center">On</td>
+			<td align="center">X</td>
+			<td align="center">X</td>
+			<td align="center">X</td>
+			<td align="center">Off</td>
+			<td align="center">Off</td>
+			<td align="center">X</td>
+		</tr><tr><td align="center">Battery</td>
+			<td align="center">X</td>
+			<td align="center">X</td>
+			<td align="center">X</td>
+			<td align="center">X</td>
+			<td align="center">X</td>
+			<td align="center">X</td>
+			<td align="center">On</td>
+			<td align="center">X</td>
+		</tr><tr><td align="center">Sensor</td>
+			<td align="center">X</td>
+			<td align="center">X</td>
+			<td align="center">X</td>
+			<td align="center">X</td>
+			<td align="center">X</td>
+			<td align="center">X</td>
+			<td align="center">Off</td>
+			<td align="center">X</td>
+		</tr></tbody></table><p><strong>Note:</strong> X = Not Applicable<br />
+ </p>
+
+<hr /><h3 id="onboard-leds"><br />
+Onboard LEDs</h3>
+
+<p>The Reference Moto Mod contains three LEDs. Two LEDs are used to indicate the Reference Moto Mod battery state of charge, and the other is available for you to use in your applications.</p>
+
+<h4 id="led-connection-and-active-state-">LED Connection and Active State:</h4>
+
+<table><thead><tr><td>LED</td>
+			<td>GPIO</td>
+			<td width="100">State</td>
+			<td>Usage</td>
+		</tr></thead><tbody><tr><td>Red LED (Bottom)</td>
+			<td>PD7</td>
+			<td>Low: LED On<br />
+			High: LED off</td>
+			<td>Indicates Battery State of Charge (SoC) in conjunction with the Green LED</td>
+		</tr><tr><td>Green LED (Bottom)</td>
+			<td>PE7</td>
+			<td>Low: LED On<br />
+			High: LED off</td>
+			<td>Indicates Battery SoC in conjunction with the Red LED</td>
+		</tr><tr><td>White LED (Top)</td>
+			<td>PE8</td>
+			<td>Low: LED On<br />
+			High: LED off</td>
+			<td>User defined</td>
+		</tr><tr></tr></tbody></table><p> </p>
+
+<hr /><p> </p>
+
+<h3><br />
+Personality Board Connector</h3>
+
+<p>Personality cards attach to the 80-pin connector. This connector provides access to GPIO, power, and multiple standard busses. The function of some pins is controlled by the DIP switches.</p>
+
+<h4 id="connector-definition">Connector Definition</h4>
+
+<p>The 80-pin connector exposes various Moto Mod interfaces to make it easy for you to develop and switch between projects using a single Reference Moto Mod.</p>
+
+<p><img alt="hw-b2b-diagram-1.png" data-image="https://developer.motorola.com/static/5715eee9b09f95a12b44e0ed/t/5756e1a08259b50a3ba930b9/1465313432212/hw-b2b-diagram-1.png" data-image-dimensions="1500x771" data-image-focal-point="0.5,0.5" data-image-id="5756e1a08259b50a3ba930b9" data-image-resolution="1000w" data-load="false" data-src="https://developer.motorola.com/static/5715eee9b09f95a12b44e0ed/t/5756e1a08259b50a3ba930b9/1465313432212/hw-b2b-diagram-1.png" data-type="image" src="https://developer.motorola.com/static/5715eee9b09f95a12b44e0ed/t/5756e1a08259b50a3ba930b9/1465313432212/hw-b2b-diagram-1.png?format=1000w" /></p>
+
+<table><thead><tr><td width="40"><strong>Pin</strong></td>
+			<td width="100"><strong>Signal Name</strong></td>
+			<td width="100"><strong>Signal Type</strong></td>
+			<td width="100"><strong>Primary Function</strong></td>
+			<td width="100"><strong>Alternate Function</strong><br />
+			(see note 6)</td>
+			<td><strong>Interrupt Group</strong><br />
+			(see note 7)</td>
+		</tr></thead><tbody><tr><td>1</td>
+			<td>3P3</td>
+			<td>Power</td>
+			<td>Regulated 3.3-volt, 500mA power source (see note 1)</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>2</td>
+			<td>PC1</td>
+			<td>MuC GPIO</td>
+			<td>I2C3_SDA (see note 2)</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>3</td>
+			<td>HSIC_STB</td>
+			<td>MHB HSIC</td>
+			<td>HSIC Strobe. For details, see <a href="https://developer.motorola.com/explore/firmware/usb-ext">USB-Ext firmware document</a></td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>4</td>
+			<td>PC0</td>
+			<td>MuC GPIO</td>
+			<td>I2C3_SCL (see note 2)</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>5</td>
+			<td>HSIC_DAT</td>
+			<td>MHB HSIC</td>
+			<td>HSIC data. For details, see <a href="https://developer.motorola.com/explore/firmware/usb-ext">USB-Ext firmware document</a></td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>6</td>
+			<td>PB2</td>
+			<td>MuC GPIO</td>
+			<td>General-purpose input/output</td>
+			<td>MuC_TIMER1_OUT,<br />
+			MuC_Comparator_IN+</td>
+			<td> </td>
+		</tr><tr><td>7</td>
+			<td>GND</td>
+			<td>Ground</td>
+			<td>System ground</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>8</td>
+			<td>PA2</td>
+			<td>MuC GPIO</td>
+			<td>General-purpose input/output</td>
+			<td>MuC_UART2 TX</td>
+			<td> </td>
+		</tr><tr><td>9</td>
+			<td>5P0</td>
+			<td>Power</td>
+			<td>Regulated 5-volt, 1.5A power source (see note 1)</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>10</td>
+			<td>PA3</td>
+			<td>MuC GPIO</td>
+			<td>General-purpose input/output</td>
+			<td>MuC_UART2 RX,<br />
+			MuC_Interrupt_IN (see note 7)</td>
+			<td>Group 3</td>
+		</tr><tr><td>11</td>
+			<td>VBUS</td>
+			<td>Power</td>
+			<td>VBUS power input/output from/to Moto Mod</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>12</td>
+			<td>PA0</td>
+			<td>MuC GPIO</td>
+			<td>General-purpose input/output</td>
+			<td>MuC_UART2 CTS,<br />
+			MuC_UART4_TX</td>
+			<td> </td>
+		</tr><tr><td>13</td>
+			<td>1P8</td>
+			<td>Power</td>
+			<td>Regulated 1.8-volt, 1A power source (see note 1)</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>14</td>
+			<td>PA1</td>
+			<td>MuC GPIO</td>
+			<td>General-purpose input/output</td>
+			<td>MuC_UART2 RTS,<br />
+			MuC_UART4_RX</td>
+			<td> </td>
+		</tr><tr><td>15</td>
+			<td>GND</td>
+			<td>Ground</td>
+			<td>System ground</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>16</td>
+			<td>PA10</td>
+			<td>MuC GPIO</td>
+			<td>General-purpose input/output</td>
+			<td>MuC_Interrupt_IN (see note 7)</td>
+			<td>Group 10</td>
+		</tr><tr><td>17</td>
+			<td>VSYS</td>
+			<td>Power</td>
+			<td>System DC power from Personality Card</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>18</td>
+			<td>PC8</td>
+			<td>MuC GPIO</td>
+			<td>General-purpose input/output</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>19</td>
+			<td>B+</td>
+			<td>Power</td>
+			<td>System DC power from Moto Mod</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>20</td>
+			<td>PA7</td>
+			<td>MuC GPIO</td>
+			<td>General-purpose input/output</td>
+			<td>MuC_SPI1_MOSI,<br />
+			MuC_Interrupt_IN (see note 7)</td>
+			<td>Group 7</td>
+		</tr><tr><td>21</td>
+			<td>GND</td>
+			<td>Ground</td>
+			<td>System ground</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>22</td>
+			<td>PA6</td>
+			<td>MuC GPIO</td>
+			<td>General-purpose input/output</td>
+			<td>MuC_SPI1_MISO,<br />
+			MuC_Interrupt_IN (see note 7)</td>
+			<td>Group 6</td>
+		</tr><tr><td>23</td>
+			<td>PC7</td>
+			<td>MuC GPIO</td>
+			<td>General-purpose input/output</td>
+			<td>MuC_Interrupt_In (see note 7)</td>
+			<td>Group 7</td>
+		</tr><tr><td>24</td>
+			<td>PD6</td>
+			<td>MuC GPIO</td>
+			<td>General-purpose input/output</td>
+			<td>MuC_UART2 RX,<br />
+			MuC_Interrupt_IN (see note 7)</td>
+			<td>Group 6</td>
+		</tr><tr><td>25</td>
+			<td>PC14</td>
+			<td>MuC GPIO</td>
+			<td>General-purpose input/output</td>
+			<td>Master_I2S_BCLK (see note 3)</td>
+			<td> </td>
+		</tr><tr><td>26</td>
+			<td>PA5</td>
+			<td>MuC GPIO</td>
+			<td>General-purpose input/output</td>
+			<td>MuC_SPI1_SCK</td>
+			<td> </td>
+		</tr><tr><td>27</td>
+			<td>PC15</td>
+			<td>MuC GPIO</td>
+			<td>General-purpose input/output</td>
+			<td>Master_I2S_WS (see note 3)</td>
+			<td> </td>
+		</tr><tr><td>28</td>
+			<td>PA4</td>
+			<td>MuC GPIO</td>
+			<td>General-purpose input/output</td>
+			<td>MuC_SPI1_CS0</td>
+			<td> </td>
+		</tr><tr><td>29</td>
+			<td>PE7</td>
+			<td>MuC GPIO</td>
+			<td>General-purpose input/output</td>
+			<td>Master_I2S_SDI (see note 3)</td>
+			<td> </td>
+		</tr><tr><td>30</td>
+			<td>PA15</td>
+			<td>MuC GPIO</td>
+			<td>General-purpose input/output</td>
+			<td>MuC_SPI1_CS1,<br />
+			MuC_Interrupt_IN (see note 7)</td>
+			<td>Group 15</td>
+		</tr><tr><td>31</td>
+			<td>PD7</td>
+			<td>MuC GPIO</td>
+			<td>General-purpose input/output</td>
+			<td>Master_I2S_SDO (see note 3)</td>
+			<td> </td>
+		</tr><tr><td>32</td>
+			<td>PA9</td>
+			<td>MuC GPIO</td>
+			<td>General-purpose input/output</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>33</td>
+			<td>PC9</td>
+			<td>MuC GPIO</td>
+			<td>General-purpose input/output</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>34</td>
+			<td>GND</td>
+			<td>Ground</td>
+			<td>System ground</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>35</td>
+			<td>TE</td>
+			<td>Input</td>
+			<td>Tearing Effect (Display Sync) input from personality card</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>36</td>
+			<td>19P2</td>
+			<td>Output</td>
+			<td>19.2 MHz CMOS clock output to personality card (see note 4)</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>37</td>
+			<td>GND</td>
+			<td>Ground</td>
+			<td>System ground</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>38</td>
+			<td>GND</td>
+			<td>Ground</td>
+			<td>System ground</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>39</td>
+			<td>DSI_D0-</td>
+			<td>Display</td>
+			<td>MIPI DSI_D0- output/input to/from personality card</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>40</td>
+			<td>DSI_D2-</td>
+			<td>Display</td>
+			<td>MIPI DSI_D2- output to personality card</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>41</td>
+			<td>DSI_D0+</td>
+			<td>Display</td>
+			<td>MIPI DSI_D0+ output/input to/from personality card</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>42</td>
+			<td>DSI_D2+</td>
+			<td>Display</td>
+			<td>MIPI DSI_D2+ output to personality card</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>43</td>
+			<td>GND</td>
+			<td>Ground</td>
+			<td>System ground</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>44</td>
+			<td>GND</td>
+			<td>Ground</td>
+			<td>System ground</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>45</td>
+			<td>DSI_D1-</td>
+			<td>Display</td>
+			<td>MIPI DSI_D1- output to personality card</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>46</td>
+			<td>DSI_D3-</td>
+			<td>Display</td>
+			<td>MIPI DSI_D3- output to personality card</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>47</td>
+			<td>DSI_D1+</td>
+			<td>Display</td>
+			<td>MIPI DSI_D1+ output to personality card</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>48</td>
+			<td>DSI_D3+</td>
+			<td>Display</td>
+			<td>MIPI DSI_D3+ output to personality card</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>49</td>
+			<td>GND</td>
+			<td>Ground</td>
+			<td>System ground</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>50</td>
+			<td>GND</td>
+			<td>Ground</td>
+			<td>System ground</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>51</td>
+			<td>DSI_CLK-</td>
+			<td>Display</td>
+			<td>MIPI DSI_C- output to personality card</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>52</td>
+			<td>MUC_PB11</td>
+			<td>MuC GPIO</td>
+			<td>General-purpose input/output</td>
+			<td>MuC_I2C2_SDA (see note 2)</td>
+			<td> </td>
+		</tr><tr><td>53</td>
+			<td>DSI_CLK+</td>
+			<td>Display</td>
+			<td>MIPI DSI_C+ output to personality card</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>54</td>
+			<td>PB10</td>
+			<td>MuC GPIO</td>
+			<td>General-purpose input/output</td>
+			<td>MuC_I2C2 SCL (see note 2), MuC_Interrupt_IN (see note 7)</td>
+			<td>Group 10</td>
+		</tr><tr><td>55</td>
+			<td>GND</td>
+			<td>Ground</td>
+			<td>System ground</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>56</td>
+			<td>GND</td>
+			<td>Ground</td>
+			<td>System ground</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>57</td>
+			<td>CSI_D0-</td>
+			<td>Camera</td>
+			<td>MIPI CSI_D0- input from personality card</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>58</td>
+			<td>CSI_D2-</td>
+			<td>Camera</td>
+			<td>MIPI CSI_D2- input from personality card</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>59</td>
+			<td>CSI_D0+</td>
+			<td>Camera</td>
+			<td>MIPI CSI_D0+ input from personality card</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>60</td>
+			<td>CSI_D2+</td>
+			<td>Camera</td>
+			<td>MIPI CSI_D2+ input from personality card</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>61</td>
+			<td>GND</td>
+			<td>Ground</td>
+			<td>System ground</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>62</td>
+			<td>GND</td>
+			<td>Ground</td>
+			<td>System ground</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>63</td>
+			<td>CSI_D1-</td>
+			<td>Camera</td>
+			<td>MIPI CSI_D1- input from personality card</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>64</td>
+			<td>CSI_D3-</td>
+			<td>Camera</td>
+			<td>MIPI CSI_D3- input from personality card</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>65</td>
+			<td>CSI_D1+</td>
+			<td>Camera</td>
+			<td>MIPI CSI_D1+ input from personality card</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>66</td>
+			<td>CSI_D3+</td>
+			<td>Camera</td>
+			<td>MIPI CSI_D3+ input from personality card</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>67</td>
+			<td>GND</td>
+			<td>Ground</td>
+			<td>System ground</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>68</td>
+			<td>GND</td>
+			<td>Ground</td>
+			<td>System ground</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>69</td>
+			<td>CSI_CLK-</td>
+			<td>Camera</td>
+			<td>MIPI CSI_C- input from personality card</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>70</td>
+			<td>PH0</td>
+			<td>MuC GPIO</td>
+			<td>General-purpose input/output</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>71</td>
+			<td>CSI_CLK+</td>
+			<td>Camera</td>
+			<td>MIPI CSI_C+ input from personality card</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>72</td>
+			<td>PC3</td>
+			<td>MuC GPIO</td>
+			<td>General-purpose input/output</td>
+			<td>MuC_ADC_IN4,<br />
+			MuC_Interrupt_IN (see note 7)</td>
+			<td>Group 3</td>
+		</tr><tr><td>73</td>
+			<td>GND</td>
+			<td>Ground</td>
+			<td>System ground</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>74</td>
+			<td>PC12</td>
+			<td>MuC GPIO</td>
+			<td>General-purpose input/output</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>75</td>
+			<td>USB_D+</td>
+			<td>USB</td>
+			<td>USB data positive (see note 5)</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>76</td>
+			<td>PG9</td>
+			<td>MuC GPIO</td>
+			<td>General-purpose input/output</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>77</td>
+			<td>USB_D-</td>
+			<td>USB</td>
+			<td>USB data negative (see note 5)</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>78</td>
+			<td>PG10</td>
+			<td>MuC GPIO</td>
+			<td>General-purpose input/output</td>
+			<td>MuC_TIMER1_IN1, MuC_Interrupt_IN (see note 7)</td>
+			<td>Group 10</td>
+		</tr><tr><td>79</td>
+			<td>GND</td>
+			<td>Ground</td>
+			<td>System ground</td>
+			<td> </td>
+			<td> </td>
+		</tr><tr><td>80</td>
+			<td>PG12</td>
+			<td>MuC GPIO</td>
+			<td>General-purpose input/output</td>
+			<td> </td>
+			<td> </td>
+		</tr></tbody></table><p><strong>Notes:</strong></p>
+
+<ul><li>(1) Regulator current limit assumes source selected by DIP Switch B3 provides sufficient DC power for your application.</li>
+	<li>(2) All MuC GPIO referenced to 1.8V.</li>
+	<li>(3) I2S present only if DIP switches A1 and A2 set to enable I2S audio device type.</li>
+	<li>(4) 19.2 MHz clock present DIP switch B1 set to “on” position.</li>
+	<li>(5) USB signals present only if DIP switches A3 and A4 set to direct these signals to the personality card.</li>
+	<li>(6) Alternate function enabler please refer to firmware document.</li>
+	<li>(7) Only one Interrupt function allow within same group.<br />
+	 </li>
+</ul><hr /><h2 data-preserve-html-node="true" id="example-personality-cards"><br />
+Using Example Personality Cards</h2>
+
+<h3 id="inserting-and-removing-personality-card">Inserting and Removing Personality Card</h3>
+
+<blockquote>
+<p><strong>NOTE:</strong><br />
+ALWAYS detach the Reference Moto Mod from Moto Z before attempting to insert or remove a Personality Card, the Perforated Board, or Raspberry Pi HAT Adapter Board.</p>
+</blockquote>
+
+<h4 id="inserting-personality-card-into-reference-moto-mod">Inserting Personality Card Into Reference Moto Mod</h4>
+
+<ul><li><strong>Step 1:</strong> Toe-in top edge of board under housing tabs</li>
+	<li><strong>Step 2:</strong> Press board down to seat the connector</li>
+</ul><p><img alt="hw-perf-image-5-6.png" data-image="https://developer.motorola.com/static/5715eee9b09f95a12b44e0ed/t/5756e43107eaa0e11ab7977b/1465313460416/hw-perf-image-5-6.png" data-image-dimensions="1500x594" data-image-focal-point="0.5,0.5" data-image-id="5756e43107eaa0e11ab7977b" data-image-resolution="1000w" data-load="false" data-src="https://developer.motorola.com/static/5715eee9b09f95a12b44e0ed/t/5756e43107eaa0e11ab7977b/1465313460416/hw-perf-image-5-6.png" data-type="image" src="https://developer.motorola.com/static/5715eee9b09f95a12b44e0ed/t/5756e43107eaa0e11ab7977b/1465313460416/hw-perf-image-5-6.png?format=1000w" /></p>
+
+<h4 id="removing-personality-card-from-reference-moto-mod">Removing Personality Card From Reference Moto Mod</h4>
+
+<ul><li><strong>Step 1:</strong> Grip sides of board within two finger scoops</li>
+	<li><strong>Step 2:</strong> Pull up to unseat the 80-pin connector</li>
+</ul><p><img alt="hw-perf-image-6.png" data-image="https://developer.motorola.com/static/5715eee9b09f95a12b44e0ed/t/5756e46107eaa0e11ab79911/1465313471015/hw-perf-image-6.png" data-image-dimensions="1500x582" data-image-focal-point="0.5,0.5" data-image-id="5756e46107eaa0e11ab79911" data-image-resolution="1000w" data-load="false" data-src="https://developer.motorola.com/static/5715eee9b09f95a12b44e0ed/t/5756e46107eaa0e11ab79911/1465313471015/hw-perf-image-6.png" data-type="image" src="https://developer.motorola.com/static/5715eee9b09f95a12b44e0ed/t/5756e46107eaa0e11ab79911/1465313471015/hw-perf-image-6.png?format=1000w" /></p>
+
+<h3 id="installation-of-custom-firmware">Installation of Custom Firmware</h3>
+
+<p>The <a href="https://developer.motorola.com/build/examples">example Personality Cards</a> require custom firmware on the Reference Moto Mod to run. Each Personality Card includes an onboard EEPROM queried by the MuC bootloader on attach. If needed, the MuC bootloader will request the Moto Z to download and install the latest firmware needed for the attached personality card.</p>
+
+<p><strong>IMPORTANT:</strong><br />
+When using the Perforated Board, or Pi HAT Adapter Board, don’t forget to create a custom bootloader for your MuC that includes your unique VID/PID, or the prototype VID <code>0x42</code>. If you don’t you’ll end up overwriting your custom firmware with the default MuC firmware each time you boot!<br />
+ </p>
+
+<hr /><h2 data-preserve-html-node="true" id="downloads"><br />
+Downloads</h2>
+
+<p>This section contains the downloadable files associated with this example.</p>
+<p><a href="all-downloads">All Downloads</a></p>
+<!--
+<p>Before downloading, please read through the&nbsp;<a href="https://developer.motorola.com/assets/html/moto-mods-dev-kit-terms-and-conditions.html">Moto Mods Development Kit Terms &amp; Conditions</a>:</p>
+
+<p><iframe height="200px" src="https://developer.motorola.com/assets/html/moto-mods-dev-kit-terms-and-conditions.html" width="100%"></iframe></p>
+
+<form action="https://leona-devs.squarespace.com/" autocomplete="on" method="POST" onsubmit="
+      return (function(form) {
+        Y.use('squarespace-form-submit', 'node', function(Y){
+          (new Y.Squarespace.FormSubmit({
+            formNode: Y.Node(form)
+          })).submit('57c068ab8419c2d210bbdb14', '573979d0a3360ce2541b0a08', 'item-57461a0c8a65e2986d2630b6');
+        });
+        return false;
+      })(this)">
+<p><label for="email-yui_3_17_2_1_1472227217962_108619-field">Optional - Enter your email address to sign up for updates:</label><input id="email-yui_3_17_2_1_1472227217962_108619-field" name="email" spellcheck="false" type="text" x-autocompletetype="email" /></p>
+
+<p><input type="submit" value="I Agree &amp; Request Download" /></p>
+</form>
+-->
+<hr /><h2 data-preserve-html-node="true" id="safety"><br />
+Safety Instructions</h2>
+
+<h3 id="warnings">Warnings</h3>
+
+<ul><li><strong>Important:</strong> This product contains magnets. Always keep products with magnets more than 20 cm. (8 in.) from medical devices, such as pacemakers, internal cardio defibrillators or other devices that can be affected by a magnetic field. Also, keep products with magnets away from credit cards, ID cards, and other media that use magnetically encoded information.</li>
+	<li>Due to the nature of the product, it is not possible to fully meet ESD (Electrostatic Discharge) Protection requirements as components and interconnections are more exposed in a development kit. Should the audio/video stop unexpectedly, remove and re-attach the Personality Card.</li>
+	<li>The reference Moto Mod shall only be powered by connecting it to a Moto Z device or through the USB Connectors 1 &amp; 2.</li>
+	<li>A Personality Card shall only be powered by inserting it into the Reference Moto Mod.</li>
+	<li>Always detach the Reference Moto Mod from Moto Z before attempting to insert or remove a Personality Card, the Perforated Board, or Raspberry Pi HAT Adapter Board.</li>
+	<li>This product should be operated in a well ventilated environment.</li>
+	<li>This product should be placed on a stable, flat, non-conductive surface in use and should not be contacted by conductive items.</li>
+	<li>The connection of incompatible devices to the GPIO connector may affect compliance or result in damage to the unit and invalidate the connected Moto Z’s warranty</li>
+	<li>All peripherals used with the Moto Mods Development Kit should comply with relevant standards for the country of use and be marked accordingly to ensure that safety and performance requirements are met.</li>
+	<li>If peripherals are connected via a cable or connector, the cable or connector used must offer adequate insulation and operation in order that the requirements of the relevant performance and safety requirements are met.</li>
+	<li>Any damage to your Moto Z’s caused by the use of the Moto Mods Development kit is not covered by the Moto Z limited warranty.</li>
+	<li>Motorola accepts no liability arising from the use or misuse of the MDK or Moto Mods platform, or any applications based upon it</li>
+	<li>Apps and MDK projects must only be built by someone competent to do so.</li>
+</ul><h3 id="instructions-for-safe-use">Instructions for safe use</h3>
+
+<p>To avoid malfunction or damage to your MDK or Moto Z please observe the following:</p>
+
+<ul><li>Always use industry standard practices for handling and developing electronic devices.</li>
+	<li>Do not expose it to water, moisture or place on a conductive surface whilst in operation.</li>
+	<li>Do not expose it to heat from any source; the MDK is designed for reliable operation at normal ambient room temperatures.</li>
+	<li>Take care whilst handling to avoid mechanical or electrical damage to the printed circuit board and connectors.</li>
+	<li>Avoid handling the printed circuit board while it is powered. Only handle by the edges to minimise the risk of electrostatic discharge damage.</li>
+	<li>Where a protective cover is provided, it is recommended that it is used to provide mechanical and electrical protection to the components.</li>
+	<li>Take care of sharp edges and connector pins.</li>
+</ul><p><em>Raspberry Pi is a trademark of the Raspberry Pi Foundation.</em></p>
+</div>
+      
+  </div>
+
+</article>
+
+<section id="block-backtotop" class="block block-block-content block-block-content041966f5-0fe1-4320-8eee-cdeaf244dc88 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><button><i class="fa fa-chevron-circle-up"></i></button></div>
+      
+  </section>
+
+
+  </div>
+
+              </section>
+
+        
+        
+                </div>
+  </div>
+
+            <section class="above_footer container" role="contentinfo">
+              <div class="region region-above-footer">
+    <section id="block-helpblock" class="block block-block-content block-block-content532cffc6-7ce7-4d4f-9e9f-e0d60194d4b8 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="footer-help">
+<div class="header">
+<h2>Looking for help?</h2>
+</div>
+
+<div class="buttons"><a class="go" href="/faq">Go to FAQ</a> <span>or</span> <a class="ask" href="/community">Ask the community</a></div>
+</div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+        </section>
+    
+      <footer class="footer container" role="contentinfo">
+        <div class="region region-footer">
+    <section id="block-footerlogo" class="block block-block-content block-block-contentede1d594-0667-4d58-82ab-50e38daccec8 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="footer-logo-wrap"><a href="https://www.moto.com/"><img alt="Motorola" src="/themes/motorola/images/footer-logo.png" /></a></div>
+
+<p>©2017 Motorola<br />
+All rights reserved.</p>
+</div>
+      
+  </section>
+
+<nav role="navigation" aria-labelledby="block-support-menu" id="block-support">
+            
+  <h2 class="visually-hidden" id="block-support-menu">Footer menu</h2>
+  
+
+        
+              <ul class="menu nav">
+                            <li>
+        <a href="/faq" data-drupal-link-system-path="node/108">FAQ</a>
+                  </li>
+                        <li>
+        <a href="https://www.motorola.com/us/legal/privacy-policy">Privacy Policy</a>
+                  </li>
+        </ul>
+  
+
+
+  </nav>
+<nav role="navigation" aria-labelledby="block-footermenu2-menu" id="block-footermenu2">
+            
+  <h2 class="visually-hidden" id="block-footermenu2-menu">Footer menu 2</h2>
+  
+
+        
+              <ul class="menu nav">
+                            <li>
+        <a href="mailto:mdk-help@motorola.com">Ask MDK Help</a>
+                  </li>
+        </ul>
+  
+
+
+  </nav>
+<section id="block-footersocials" class="block block-block-content block-block-content5d7a0a23-4c63-49b5-8680-e7e7e5a9ac14 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><ul><li><a class="facebook" href="https://www.facebook.com/moto/" target="_blank">Facebook</a></li>
+	<li><a class="twitter" href="https://twitter.com/moto" target="_blank">Twitter</a></li>
+	<li><a class="youtube" href="https://www.youtube.com/user/motorola" target="_blank">Youtube</a></li>
+</ul></div>
+      
+  </section>
+
+
+  </div>
+
+    </footer>
+  
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","scriptPath":null,"pathPrefix":"","currentPath":"node\/81","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","bootstrap":{"forms_has_error_value_toggle":1,"modal_animation":1,"modal_backdrop":"true","modal_keyboard":1,"modal_show":1,"modal_size":"","popover_enabled":1,"popover_animation":1,"popover_container":"body","popover_content":"","popover_delay":"0","popover_html":0,"popover_placement":"right","popover_selector":"","popover_title":"","popover_trigger":"click","popover_trigger_autoclose":1,"tooltip_enabled":1,"tooltip_animation":1,"tooltip_container":"body","tooltip_delay":"0","tooltip_html":0,"tooltip_placement":"auto left","tooltip_selector":"","tooltip_trigger":"hover"},"ajaxTrustedUrl":{"\/search\/node":true},"user":{"uid":0,"permissionsHash":"08a43bd0e8ec4c73d93f574eaa23fbdc9bc9ccb4f4e2fc3399bdb61c76cc3671"}}</script>
+<script src="/sites/default/files/js/js_8emfEOO9orRe8bF7M-RvCkUspYNAKLxey8G77d5ELaA.js"></script>
+
+  </body>
+</html>

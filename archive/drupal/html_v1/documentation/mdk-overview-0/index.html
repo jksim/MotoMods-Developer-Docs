@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="title" content="MDK Overview | Motorola Developer Portal"/>
+<meta name="description" content="Introduction
+The Moto Mods Development Kit (MDK) abstracts complex areas of the Moto Mod architecture so you can focus on your design, create a prototype and refine your concepts quickly and efficiently. To get your projects up and running quickly, the MDK includes a Reference Moto Mod that you attach to your Moto Z device along with a Perforated Board that you can use to solder your custom components and create your first prototype."/>
+<meta name="Generator" content="Drupal 8 (https://www.drupal.org)"/>
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="shortcut icon" href="../../sites/default/files/favicon.png" type="image/png"/>
+<link rel="shortlink" href="https://developer.motorola.com/node/147"/>
+<link rel="revision" href="/documentation/mdk-overview-0"/>
+    <title>MDK Overview | Motorola Developer Portal</title>
+	<link rel="canonical" href="https://developer.motorola.com/documentation/mdk-overview-0/" />
+    <link rel="stylesheet" href="../../sites/default/files/css/css_mrab1GKFgElx-kxKCNq1SnIWRV-GYZDakUc8CBnGRwo.css" media="all"/>
+<link rel="stylesheet" href="../../sites/default/files/css/css_xJirtWXj_cO3XOmFun1diM4WbO4k-JyVBEY94xOF2Us.css" media="all"/>
+<!--[if lte IE 8]>
+<script src="/sites/default/files/js/js_VtafjXmRvoUgAzqzYTA3Wrjkx9wcWhjP0G4ZnnqRamA.js"></script>
+<![endif]-->
+  </head>
+  <body class="node-147 path-node page-node-type-documentation has-glyphicons">
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+          <header class="navbar navbar-default container" id="navbar" role="banner">
+        <div class="region region-top-notification">
+    <section id="block-indiegogocampaign" class="block block-block-content block-block-contentb3767c65-684a-49c5-8d10-99e6ab84eab6 clearfix">
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="topbar">
+<div class="topbar-left">
+<div class="backToMotorola"><a href="https://motorola.com/" style="margin:5px 0px;">motorola.com</a></div>
+</div>
+<div class="topbar-center">
+<div class="bannerCenter"><a href="https://enterprise.indiegogo.com/motomod/" style="margin:5px 0px;" target="_blank"><strong>2018 Indiegogo <i>Transform The Smartphone Challenge</i> Now Live</strong></a></div>
+</div>
+<div class="topbar-right">
+<div class="topBarRightInfo"><a href="https://enterprise.indiegogo.com/motomod/" style="background-color:#EB1D77;padding:0px 10px;margin:5px;color:#ffffff;font-weight:700;" target="_blank">TAKE THE CHALLENGE</a></div>
+</div>
+</div>
+</div>
+  </section>
+  </div>
+            <div class="navbar-header">
+          <div class="region region-navigation">
+          <a class="logo navbar-btn pull-left" href="/" title="Home" rel="home">
+      <img src="../../sites/default/files/logo.png" alt="Home"/>
+    </a>
+        <a class="name navbar-brand" href="/" title="Home" rel="home">Motorola Developer Portal</a>
+    <nav role="navigation" aria-labelledby="block-motorola-main-menu-menu" id="block-motorola-main-menu">
+            <h2 class="sr-only" id="block-motorola-main-menu-menu">Main navigation</h2>
+              <ul class="menu nav navbar-nav">
+                            <li>
+        <a href="../../documentation/" data-drupal-link-system-path="node/109">Documentation</a>
+                  </li>
+                        <li>
+        <a href="../../tools-kits/" data-drupal-link-system-path="node/110">Tools & Kits</a>
+                  </li>
+                        <li>
+        <a href="/" data-drupal-link-system-path="node/108">Support</a>
+                  </li>
+                        <li>
+        <a href="../../community/" data-drupal-link-system-path="node/126">Community</a>
+                  </li>
+                        <li>
+        <a href="../../partner/" data-drupal-link-system-path="node/106">Partner with Moto</a>
+                  </li>
+        </ul>
+  </nav>
+<div class="search-block-form block block-search block-search-form-block" data-drupal-selector="search-block-form" id="block-motorola-search" role="search">
+      <h2 class="visually-hidden">Search</h2>
+      <form action="/" method="get" id="search-block-form" accept-charset="UTF-8">
+  <div class="form-item js-form-item form-type-search js-form-type-search form-item-keys js-form-item-keys form-no-label form-group">
+      <label for="edit-keys" class="control-label sr-only">Search</label>
+  <div class="input-group"><input title="Enter the terms you wish to search for." data-drupal-selector="edit-keys" class="form-search form-control" placeholder="Search" type="search" id="edit-keys" name="keys" value="" size="15" maxlength="128" data-toggle="tooltip"/><span class="input-group-btn"><button type="submit" value="Search" class="button js-form-submit form-submit btn-primary btn icon-only" name=""><span class="sr-only">Search</span><span class="icon glyphicon glyphicon-search" aria-hidden="true"></span></button></span></div>
+  </div>
+<div class="form-actions form-group js-form-wrapper form-wrapper" data-drupal-selector="edit-actions" id="edit-actions"></div>
+</form>
+  </div>
+<section id="block-mobilebutton" class="block block-block-content block-block-contentee461971-1c7b-46d8-8e1e-0c56d5500c6e clearfix">
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div><button class="mobile_button"><span>Menu</span></button></div></div>
+  </section>
+  </div>
+                      </div>
+    </header>
+  <div role="main" class="main-container container js-quickedit-main-content">
+    <div class="row">
+                              <aside class="col-sm-3" role="complementary">
+              <div class="region region-sidebar-first">
+    <section id="block-categoriesblock" class="block block-custom clearfix">
+      <ul class="categories-tree"><li class="parent"><span></span><a href="#main-content" data-drupal-link-system-path="<front>">Documentation</a><ul><li><a href="#main-content" data-drupal-link-system-path="<front>">Overview</a><ul><li><a href="../../documentation/system-architecture/" data-drupal-link-system-path="node/118">System Architecture</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="<front>">Software</a><ul><li><a href="/" data-drupal-link-system-path="node/46">Android SDK Overview</a><a href="/" data-drupal-link-system-path="node/41">Mod Management</a><a href="/" data-drupal-link-system-path="node/43">Mod Raw Devices</a><a href="/" data-drupal-link-system-path="node/53">Mod Display</a><a href="/" data-drupal-link-system-path="node/56">Mod Battery</a><a href="/" data-drupal-link-system-path="node/58">Mod Audio</a><a href="../../documentation/mod-hid/" data-drupal-link-system-path="node/61">Mod HID</a><a href="../../documentation/mod-usb/" data-drupal-link-system-path="node/64">Mod USB</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="<front>">Firmware</a><ul><li><a href="/" data-drupal-link-system-path="node/55">Firmware Overview</a><a href="/" data-drupal-link-system-path="node/84">Mod Management</a><a href="/" data-drupal-link-system-path="node/60">Raw Protocol</a><a href="/" data-drupal-link-system-path="node/63">Display Protocol</a><a href="/" data-drupal-link-system-path="node/69">Battery Protocol</a><a href="/" data-drupal-link-system-path="node/75">Audio Protocol</a><a href="/" data-drupal-link-system-path="node/77">HID Protocol</a><a href="/" data-drupal-link-system-path="node/42">USB-Ext Protocol</a><a href="/" data-drupal-link-system-path="node/66">Lights Protocol</a><a href="/" data-drupal-link-system-path="node/72">Power Transfer Protocol</a><a href="/" data-drupal-link-system-path="node/80">Camera-Ext Protocol</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="<front>">Developer Tools</a><ul><li><a href="/" data-drupal-link-system-path="node/67">Developer Tools Overview</a><a href="/" data-drupal-link-system-path="node/70">Setup Environment</a><a href="/" data-drupal-link-system-path="node/73">Build from Source</a><a href="/" data-drupal-link-system-path="node/76">Starting a New Project</a><a href="../../documentation/flashing-firmware/" data-drupal-link-system-path="node/78">Flashing Firmware</a><a href="../../documentation/debug-and-log/" data-drupal-link-system-path="node/79">Debug and Log</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="<front>">MDK</a><ul><li><a href="../../documentation/mdk-overview-0/" data-drupal-link-system-path="node/147" class="is-active">MDK Overview</a><a href="/" data-drupal-link-system-path="node/122">Reference Moto Mod</a><a href="../../documentation/perforated-board/" data-drupal-link-system-path="node/50">Perforated Board</a><a href="/" data-drupal-link-system-path="node/47">HAT Adapter Board</a><a href="/" data-drupal-link-system-path="node/49">Custom Circuit Board</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="<front>">Examples</a><ul><li><a href="../../documentation/examples-overview/" data-drupal-link-system-path="node/44">Examples Overview</a><a href="../../documentation/mdk-utility/" data-drupal-link-system-path="node/54">MDK Utility</a><a href="/" data-drupal-link-system-path="node/57">Hello World!</a><a href="/" data-drupal-link-system-path="node/59">Sensor</a><a href="/" data-drupal-link-system-path="node/62">Battery</a><a href="/" data-drupal-link-system-path="node/123">Audio</a><a href="/" data-drupal-link-system-path="node/68">Display</a><a href="/" data-drupal-link-system-path="node/71">Camera</a><a href="/" data-drupal-link-system-path="node/74">Miscellaneous</a></li></ul></li><li><a href="../../documentation/all-downloads/" data-drupal-link-system-path="documentation/all-downloads">Downloads</a></li></ul></li></ul>
+  </section>
+  </div>
+          </aside>
+                  <section class="main-content col-sm-9">
+                                      <div class="highlighted">  <div class="region region-highlighted">
+  </div>
+</div>
+                          <a id="main-content"></a>
+            <div class="region region-content">
+        <ol class="breadcrumb">
+          <li>
+                  <a href="../../documentation/">Overview</a>
+              </li>
+          <li class="active">
+                  MDK Overview
+              </li>
+      </ol>
+    <h1 class="page-header"><span>MDK Overview</span>
+</h1>
+  <article data-history-node-id="147" role="article" about="/documentation/mdk-overview-0" class="documentation full clearfix">
+  <div class="content">
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><h2>Introduction</h2>
+<p>The Moto Mods Development Kit (MDK) abstracts complex areas of the Moto Mod architecture so you can focus on your design, create a prototype and refine your concepts quickly and efficiently. To get your projects up and running quickly, the MDK includes a Reference Moto Mod that you attach to your Moto Z device along with a Perforated Board that you can use to solder your custom components and create your first prototype.</p>
+<img alt="hw-overview-1" data-entity-type="file" data-entity-uuid="9493cbd8-e65c-431e-a440-b6dbd61c4dce" src="../../sites/default/files/inline-images/hw-overview-diagram-3_0.png" class="align-center"/><hr/><h2>Reference Moto Mod Architecture</h2>
+<p>The Reference MotoMod translates the Moto Mod interface into industry standard busses and GPIO while also providing power and control for your project. It connects to Moto Z just like commercial Moto Mods.  Through the onboard MuC and Moto Bridge, the Reference Moto Mod supports all of the device peripherals defined by the Moto Mod platform. </p>
+<img alt="hw-overview-2" data-entity-type="file" data-entity-uuid="f3f03628-4e06-4e2b-9ef2-623d2d44eae9" src="../../sites/default/files/inline-images/hw-overview-diagram-1.png" class="align-center"/><h3>Moto Mod Micro Controller (MuC)</h3>
+<p>This is the target for your custom firmware. The MuC provides compute and control, GPIO, and various standard interfaces to use in the realization of your project. The MuC is the main point of communication between the Moto Z and includes the Greybus abstraction layer.</p>
+<h3>Moto High Speed Bridge (Moto Bridge)</h3>
+<p>Industry standard CSI and DSI interfaces are supplied through the Moto Bridge. It also used for audio device connection on devices that utilize these camera and display interfaces.</p>
+<h3>Power and Charging Block</h3>
+<p>Contains the control, regulated and unregulated power control, and charging paths for entire Moto Mod system</p>
+<h3>USB Ports</h3>
+<p>Onboard connectors enable connection of USB devices and MyDP enabled displays Micro B and a USB type C connector for USB 3.0 devices are provided. A USB Type C port provides Serial Wire Debug (SWD) access to the MuC and MHB as well as Serial Port Consoles for each (MHB is monitor only).</p>
+<h3>Personality Board Connector</h3>
+<p>80 pin board to board connector to direct connection of personality cards to Reference Moto Mod. Provides access to GPIO, power, and multiple standard busses. DIP switches are provided to configure the source and destination of the available connectors and pins.</p>
+<hr/><h2>Personality Card Architecture</h2>
+<p>The 80-pin connector on the Reference Moto Mod provides access to the interfaces required by projects involving more than USB or MyDP. To assist in your development, the MDK comes with a Perforated Board that directly connects to this connector. The Perforated Board exposes these signals to easy-to-solder pads to make custom hardware development simple and inexpensive. When you have finished your first project, and want to start on your next simply purchase another Perforated Board.</p>
+<p>If you prefer, you can also purchase the same connector as used the Perforated Board, enabling you to build and attach a custom PCB to the <a href="/">Reference Moto Mod</a>. Instructions on the size and location of the connector are provided. A <a href="/">HAT Adapter Board</a> is also available, enabling you to create a prototype using any existing Pi HAT.</p>
+<p>We have also built several <a href="../../documentation/examples-overview/">example Personality Cards</a> that you can use as the basis of your design. Schematics, Moto Mod software and relevant Android software is available for each of these.</p>
+</div>
+  </div>
+</article>
+<section id="block-backtotop" class="block block-block-content block-block-content041966f5-0fe1-4320-8eee-cdeaf244dc88 clearfix">
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><button><i class="fa fa-chevron-circle-up"></i></button></div>
+  </section>
+  </div>
+              </section>
+                </div>
+  </div>
+            <section class="above_footer container" role="contentinfo">
+              <div class="region region-above-footer">
+    <section id="block-helpblock" class="block block-block-content block-block-content532cffc6-7ce7-4d4f-9e9f-e0d60194d4b8 clearfix">
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="footer-help">
+<div class="header">
+<h2>Looking for help?</h2>
+</div>
+<div class="buttons"><a class="go" href="/">Go to FAQ</a> <span>or</span> <a class="ask" href="../../community/">Ask the community</a></div>
+</div>
+</div>
+  </section>
+  </div>
+        </section>
+      <footer class="footer container" role="contentinfo">
+        <div class="region region-footer">
+    <section id="block-footerlogo" class="block block-block-content block-block-contentede1d594-0667-4d58-82ab-50e38daccec8 clearfix">
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="footer-logo-wrap"><a href="https://www.moto.com/"><img alt="Motorola" src="../../themes/motorola/images/footer-logo.png"/></a></div>
+<p>©2017 Motorola<br/>
+All rights reserved.</p>
+</div>
+  </section>
+<nav role="navigation" aria-labelledby="block-support-menu" id="block-support">
+  <h2 class="visually-hidden" id="block-support-menu">Footer menu</h2>
+              <ul class="menu nav">
+                            <li>
+        <a href="/" data-drupal-link-system-path="node/108">FAQ</a>
+                  </li>
+                        <li>
+        <a href="https://www.motorola.com/us/legal/privacy-policy">Privacy Policy</a>
+                  </li>
+        </ul>
+  </nav>
+<nav role="navigation" aria-labelledby="block-footermenu2-menu" id="block-footermenu2">
+  <h2 class="visually-hidden" id="block-footermenu2-menu">Footer menu 2</h2>
+              <ul class="menu nav">
+                            <li>
+        <a href="mailto:mdk-help@motorola.com">Ask MDK Help</a>
+                  </li>
+        </ul>
+  </nav>
+<section id="block-footersocials" class="block block-block-content block-block-content5d7a0a23-4c63-49b5-8680-e7e7e5a9ac14 clearfix">
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><ul><li><a class="facebook" href="https://www.facebook.com/moto/" target="_blank">Facebook</a></li>
+	<li><a class="twitter" href="https://twitter.com/moto" target="_blank">Twitter</a></li>
+	<li><a class="youtube" href="https://www.youtube.com/user/motorola" target="_blank">Youtube</a></li>
+</ul></div>
+  </section>
+  </div>
+    </footer>
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","scriptPath":null,"pathPrefix":"","currentPath":"node\/147","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","bootstrap":{"forms_has_error_value_toggle":1,"modal_animation":1,"modal_backdrop":"true","modal_keyboard":1,"modal_show":1,"modal_size":"","popover_enabled":1,"popover_animation":1,"popover_container":"body","popover_content":"","popover_delay":"0","popover_html":0,"popover_placement":"right","popover_selector":"","popover_title":"","popover_trigger":"click","popover_trigger_autoclose":1,"tooltip_enabled":1,"tooltip_animation":1,"tooltip_container":"body","tooltip_delay":"0","tooltip_html":0,"tooltip_placement":"auto left","tooltip_selector":"","tooltip_trigger":"hover"},"ajaxTrustedUrl":{"\/search\/node":true},"user":{"uid":0,"permissionsHash":"08a43bd0e8ec4c73d93f574eaa23fbdc9bc9ccb4f4e2fc3399bdb61c76cc3671"}}</script>
+<script src="../../sites/default/files/js/js_P2JgBj1zz7Hwbr7d44diJFz9rFR_eWB8wiQPEqiAkZU.js"></script>
+  </body>
+</html>

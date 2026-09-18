@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html  lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+    <meta charset="utf-8" />
+<meta name="title" content="Debug and Log | Motorola Developer Portal" />
+<meta name="description" content="Overview
+
+Debugging an embedded system can be done in multiple ways.  For Moto Mod basic logging can be done along with using a Joint Test Action Group (JTAG) or Serial Wire Debug (SWD) debugger.  For convenience and to keep development costs low the MDK comes with an integrated FTDI4232 which can be used for both JTAG and SWD as well as UART logging." />
+<meta name="Generator" content="Drupal 8 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/sites/default/files/favicon.png" type="image/png" />
+<link rel="canonical" href="/documentation/debug-and-log" />
+<link rel="shortlink" href="/node/79" />
+<link rel="revision" href="/documentation/debug-and-log" />
+
+    <title>Debug and Log | Motorola Developer Portal</title>
+    <link rel="stylesheet" href="/sites/default/files/css/css_DwGtwBiZC0vlzKcGpRugXvj0W5vxr3GO0mzT1HUOQd8.css?qgsn5s" media="all" />
+<link rel="stylesheet" href="/sites/default/files/css/css_xJirtWXj_cO3XOmFun1diM4WbO4k-JyVBEY94xOF2Us.css?qgsn5s" media="all" />
+
+    
+<!--[if lte IE 8]>
+<script src="/sites/default/files/js/js_VtafjXmRvoUgAzqzYTA3Wrjkx9wcWhjP0G4ZnnqRamA.js"></script>
+<![endif]-->
+
+  </head>
+  <body class="node-79 path-node page-node-type-documentation has-glyphicons">
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+          <header class="navbar navbar-default container" id="navbar" role="banner">
+        <div class="region region-top-notification">
+    <section id="block-indiegogocampaign" class="block block-block-content block-block-contentb3767c65-684a-49c5-8d10-99e6ab84eab6 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="topbar">
+<div class="topbar-left">
+<div class="backToMotorola"><a href="https://motorola.com" style="margin:5px 0px;">motorola.com</a></div>
+</div>
+
+<div class="topbar-center"></div>
+</div>
+
+<div class="topbar-right"></div>
+
+
+</div>
+      
+  </section>
+
+
+  </div>
+
+
+            <div class="navbar-header">
+          <div class="region region-navigation">
+          <a class="logo navbar-btn pull-left" href="/" title="Home" rel="home">
+      <img src="/sites/default/files/logo.png" alt="Home" />
+    </a>
+        <a class="name navbar-brand" href="/" title="Home" rel="home">Motorola Developer Portal</a>
+    <nav role="navigation" aria-labelledby="block-motorola-main-menu-menu" id="block-motorola-main-menu">
+            <h2 class="sr-only" id="block-motorola-main-menu-menu">Main navigation</h2>
+
+      
+              <ul class="menu nav navbar-nav">
+                            <li>
+        <a href="/documentation" data-drupal-link-system-path="node/109">Documentation</a>
+                  </li>
+                        <li>
+        <a href="/tools-kits" data-drupal-link-system-path="node/110">Tools &amp; Kits</a>
+                  </li>
+                        <li>
+        <a href="/faq" data-drupal-link-system-path="node/108">Support</a>
+                  </li>
+                        <li>
+        <a href="/community" data-drupal-link-system-path="node/126">Community</a>
+                  </li>
+                        <li>
+        <a href="/partner" data-drupal-link-system-path="node/106">Partner with Moto</a>
+                  </li>
+        </ul>
+  
+
+
+  </nav>
+<div class="search-block-form block block-search block-search-form-block" data-drupal-selector="search-block-form" id="block-motorola-search" role="search">
+  
+      <h2 class="visually-hidden">Search</h2>
+    
+      <form action="/search/node" method="get" id="search-block-form" accept-charset="UTF-8">
+  <div class="form-item js-form-item form-type-search js-form-type-search form-item-keys js-form-item-keys form-no-label form-group">
+      <label for="edit-keys" class="control-label sr-only">Search</label>
+  
+  
+  <div class="input-group"><input title="Enter the terms you wish to search for." data-drupal-selector="edit-keys" class="form-search form-control" placeholder="Search" type="search" id="edit-keys" name="keys" value="" size="15" maxlength="128" data-toggle="tooltip" /><span class="input-group-btn"><button type="submit" value="Search" class="button js-form-submit form-submit btn-primary btn icon-only" name=""><span class="sr-only">Search</span><span class="icon glyphicon glyphicon-search" aria-hidden="true"></span></button></span></div>
+
+  
+  
+  </div>
+<div class="form-actions form-group js-form-wrapper form-wrapper" data-drupal-selector="edit-actions" id="edit-actions"></div>
+
+</form>
+
+  </div>
+<section id="block-mobilebutton" class="block block-block-content block-block-contentee461971-1c7b-46d8-8e1e-0c56d5500c6e clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div><button class="mobile_button"><span>Menu</span></button></div></div>
+      
+  </section>
+
+
+  </div>
+
+                      </div>
+
+                  
+    </header>
+  
+
+  <div role="main" class="main-container container js-quickedit-main-content">
+    <div class="row">
+
+            
+                              <aside class="col-sm-3" role="complementary">
+              <div class="region region-sidebar-first">
+    <section id="block-categoriesblock" class="block block-custom clearfix">
+  
+    
+
+      <ul class="categories-tree"><li class="parent"><span></span><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">Documentation</a><ul><li><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">Overview</a><ul><li><a href="/documentation/system-architecture" data-drupal-link-system-path="node/118">System Architecture</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">Software</a><ul><li><a href="/documentation/software-overview" data-drupal-link-system-path="node/46">Android SDK Overview</a><a href="/documentation/mod-management" data-drupal-link-system-path="node/41">Mod Management</a><a href="/documentation/mod-raw-devices" data-drupal-link-system-path="node/43">Mod Raw Devices</a><a href="/documentation/mod-display" data-drupal-link-system-path="node/53">Mod Display</a><a href="/documentation/mod-battery" data-drupal-link-system-path="node/56">Mod Battery</a><a href="/documentation/mod-audio" data-drupal-link-system-path="node/58">Mod Audio</a><a href="/documentation/mod-hid" data-drupal-link-system-path="node/61">Mod HID</a><a href="/documentation/mod-usb" data-drupal-link-system-path="node/64">Mod USB</a><a href="/download-sdk" data-drupal-link-system-path="node/117">Moto Mods Android SDK</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">Firmware</a><ul><li><a href="/documentation/firmware-overview" data-drupal-link-system-path="node/55">Firmware Overview</a><a href="/documentation/mod-management-0" data-drupal-link-system-path="node/84">Mod Management</a><a href="/documentation/raw-protocol" data-drupal-link-system-path="node/60">Raw Protocol</a><a href="/documentation/display-protocol" data-drupal-link-system-path="node/63">Display Protocol</a><a href="/documentation/battery-protocol" data-drupal-link-system-path="node/69">Battery Protocol</a><a href="/documentation/audio-protocol" data-drupal-link-system-path="node/75">Audio Protocol</a><a href="/documentation/hid-protocol" data-drupal-link-system-path="node/77">HID Protocol</a><a href="/documentation/usb-ext-protocol" data-drupal-link-system-path="node/42">USB-Ext Protocol</a><a href="/documentation/lights-protocol" data-drupal-link-system-path="node/66">Lights Protocol</a><a href="/documentation/power-transfer-protocol" data-drupal-link-system-path="node/72">Power Transfer Protocol</a><a href="/documentation/camera-ext-protocol" data-drupal-link-system-path="node/80">Camera-Ext Protocol</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">Developer Tools</a><ul><li><a href="/documentation/developer-tools-overview" data-drupal-link-system-path="node/67">Developer Tools Overview</a><a href="/documentation/setup-environment" data-drupal-link-system-path="node/70">Setup Environment</a><a href="/documentation/build-source" data-drupal-link-system-path="node/73">Build from Source</a><a href="/documentation/starting-new-project" data-drupal-link-system-path="node/76">Starting a New Project</a><a href="/documentation/flashing-firmware" data-drupal-link-system-path="node/78">Flashing Firmware</a><a href="/documentation/debug-and-log" data-drupal-link-system-path="node/79" class="is-active">Debug and Log</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">MDK</a><ul><li><a href="/documentation/mdk-overview-0" data-drupal-link-system-path="node/147">MDK Overview</a><a href="/documentation/reference-moto-mod" data-drupal-link-system-path="node/122">Reference Moto Mod</a><a href="/documentation/perforated-board" data-drupal-link-system-path="node/50">Perforated Board</a><a href="/documentation/hat-adapter-board" data-drupal-link-system-path="node/47">HAT Adapter Board</a><a href="/documentation/custom-circuit-board" data-drupal-link-system-path="node/49">Custom Circuit Board</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">Examples</a><ul><li><a href="/documentation/examples-overview" data-drupal-link-system-path="node/44">Examples Overview</a><a href="/documentation/mdk-utility" data-drupal-link-system-path="node/54">MDK Utility</a><a href="/documentation/hello-world" data-drupal-link-system-path="node/57">Hello World!</a><a href="/documentation/sensor" data-drupal-link-system-path="node/59">Sensor</a><a href="/documentation/battery" data-drupal-link-system-path="node/62">Battery</a><a href="/documentation/audio-0" data-drupal-link-system-path="node/123">Audio</a><a href="/documentation/display" data-drupal-link-system-path="node/68">Display</a><a href="/documentation/camera" data-drupal-link-system-path="node/71">Camera</a><a href="/documentation/miscellaneous" data-drupal-link-system-path="node/74">Miscellaneous</a></li></ul></li><li><a href="/documentation/all-downloads" data-drupal-link-system-path="documentation/all-downloads">Downloads</a></li></ul></li></ul>
+  </section>
+
+
+  </div>
+
+          </aside>
+              
+                  <section class="main-content col-sm-9">
+
+                                      <div class="highlighted">  <div class="region region-highlighted">
+    
+
+  </div>
+</div>
+                  
+                
+                
+                
+                          <a id="main-content"></a>
+            <div class="region region-content">
+        <ol class="breadcrumb">
+          <li >
+                  <a href="/documentation">Overview</a>
+              </li>
+          <li  class="active">
+                  Debug and Log
+              </li>
+      </ol>
+
+    <h1 class="page-header"><span>Debug and Log</span>
+</h1>
+
+  <article data-history-node-id="79" role="article" about="/documentation/debug-and-log" class="documentation full clearfix">
+
+  
+    
+
+  
+  <div class="content">
+    
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><h2 id="yui_3_17_2_1_1494347262904_242">Overview</h2>
+
+<p>Debugging an embedded system can be done in multiple ways.  For Moto Mod basic logging can be done along with using a Joint Test Action Group (JTAG) or Serial Wire Debug (SWD) debugger.  For convenience and to keep development costs low the MDK comes with an integrated <a href="http://www.ftdichip.com/Products/ICs/FT4232H.htm">FTDI4232 </a>which can be used for both JTAG and SWD as well as UART logging.  This document will cover how to use this for JTAG to the Motorola High Speed Bridge (HSB) ARM Cortex M3 as well as SWD for the Mods Microcontroller (MuC) ARM Cortex M4.</p>
+
+<p>Using GNU DeBugger (GDB) with the FTDI via OpenOCD is covered in this document.  GDB will use a socket to communicate with OpenOCD, which will communicate with the target through the integrated FTDI4232.  The FTDI4232 will emulate JTAG for the Moto Bridge and emulate SWD for the MuC. </p>
+
+<p>Connecting to the FTDI for JTAG or SWD requires the following:</p>
+
+<ul><li>PC Running Linux</li>
+	<li>USB Type C cable</li>
+	<li>GDB ARM (See <a href="/documentation/setup-environment">Setup Your Development Environment</a> for installation)</li>
+	<li>OpenOCD (See <a href="/documentation/setup-environment">Setup Your Development Environment</a> for installation)</li>
+</ul><p>In order for the debug Type C connector to power the phone the DIP Switch B4 must be in the on position.  See the <a href="/documentation/reference-moto-mod">MDK User Guide</a> for more information on the hardware including the DIP switches.  The DIP Switch locations are called out in the figure below:</p>
+
+<p><img alt="hw-connector-diagram-1.png" data-image="https://developer.motorola.com/static/5715eee9b09f95a12b44e0ed/t/5756f430f699bb275527fece/1465316403953/hw-connector-diagram-1.png" data-image-dimensions="894x576" data-image-focal-point="0.5,0.5" data-image-id="5756f430f699bb275527fece" data-image-resolution="1000w" data-load="false" data-src="https://developer.motorola.com/static/5715eee9b09f95a12b44e0ed/t/5756f430f699bb275527fece/1465316403953/hw-connector-diagram-1.png" data-type="image" src="https://developer.motorola.com/static/5715eee9b09f95a12b44e0ed/t/5756f430f699bb275527fece/1465316403953/hw-connector-diagram-1.png?format=1000w" /></p>
+
+<hr /><h3 id="document-conventions"><br />
+Document Conventions</h3>
+
+<p>Commands are presented in text boxes within the document. The prompt within the box indicates which tool the command is to be used with.</p>
+
+<ul><li>The following box and command prompt is used for commands executed on the command line (in a terminal emulator):</li>
+</ul><pre>
+<code>$</code></pre>
+
+<ul><li>The following box is used for command issued within the OpenOCD telnet session:</li>
+</ul><pre>
+<code>&gt;</code></pre>
+
+<ul><li>The following box is used for commands issued within GDB:</li>
+</ul><pre>
+<code>(gdb)</code></pre>
+
+<ul><li>A hash mark (‘#’) within any of the command windows indicates a comment and does not need to be issued on the command line.</li>
+	<li>Filenames which need to be filled in when the command is executed are indicated as &lt;filename&gt;.</li>
+	<li>Commands and paths listed within the text will are in a <code>fixed width</code> font.</li>
+</ul><h2 id="debugger-usage">Debugger Usage</h2>
+
+<h3 id="connecting-to-the-target">Connecting to the Target</h3>
+
+<p>The procedure for connecting to the target is as follows:</p>
+
+<ol><li>Connect your host to debug port USB #1 with a USB Type-C cable</li>
+	<li>Start OpenOCD to communicate with the target</li>
+	<li>Start GDB and connect to the OpenOCD target interface of either the MuC or MHB</li>
+	<li>Configure hardware specifics for breakpoints and watchpoints</li>
+	<li>Load symbols into GDB</li>
+	<li>Optionally, load the code onto the target flash or RAM</li>
+</ol><p><strong>NOTE</strong>: Sleep mode on the MuC complicates the connection procedure because the internal debug hardware may be powered down. The simplest fix is to disable power management mode by disabling <code>CONFIG_PM</code> in the MuC <code>defconfig</code>file. If it cannot be disabled, the MuC will exit sleep mode when receiving characters over the MuC nuttx shell. The MuC nuttx shell is attached to Port C of the FTDI4232. Simply attach to the USB UART for Port C via a terminal emulator and send characters (“enter” works well) during the connection procedures. See the section <a href="#accessing-muc-shell">“Accessing the MuC nuttx Shell”</a> below for more details.</p>
+
+<h3 id="starting-openocd">Starting OpenOCD</h3>
+
+<p>The following commands are used to start OpenOCD:</p>
+
+<h4 id="starting-openocd-server-for-the-muc-without-resetting">Starting OpenOCD Server for the MuC without Resetting</h4>
+
+<pre>
+<code>$ openocd -f board/moto_mdk_muc.cfg &amp;</code></pre>
+
+<p>This procedure will attach to an already running MuC. You will need to be sure the MuC is not in low power sleep mode when attaching.</p>
+
+<h4 id="starting-openocd-server-for-the-muc-with-reset">Starting OpenOCD Server for the MuC with Reset</h4>
+
+<pre>
+<code>$ openocd -f board/moto_mdk_muc_reset.cfg &amp;</code></pre>
+
+<p>The reset configuration will reset the MuC during the connection phase of OpenOCD. The reset will guarantee the MuC is not in low power mode. The side effect of this is that the current MuC state will be lost.</p>
+
+<p>For the MuC the default OpenOCD port is <strong>3333</strong> for GDB and <strong>4444</strong> for Telnet.</p>
+
+<h4 id="starting-openocd-server-for-the-motorola-high-speed-bridge">Starting OpenOCD Server for the Motorola High-Speed Bridge</h4>
+
+<pre>
+<code>$ openocd -f board/moto_mdk_hsb.cfg &amp;</code></pre>
+
+<p>For the MHB the default OpenOCD port is <strong>3334</strong> for GDB and <strong>4445</strong> for Telnet.</p>
+
+<p>The following scripts are involved in the startup process for OpenOCD:</p>
+
+<table><thead><tr><td>Script</td>
+			<td>Location</td>
+			<td>Description</td>
+		</tr></thead><tbody><tr><td><code>moto_mdk_hsb.cfg</code></td>
+			<td><code>openocd/tcl/board</code></td>
+			<td>Main configuration for the Motorola High-Speed Bridge. Includes the dependant files. Changing port numbers can be done in this configuration file.</td>
+		</tr><tr><td><code>moto_mdk_muc.cfg</code></td>
+			<td><code>openocd/tcl/board</code></td>
+			<td>Main configuration for the MuC. Includes the dependant files. Changing port numbers can be done in this configuration file.</td>
+		</tr><tr><td><code>moto_mdk_muc_reset.cfg</code></td>
+			<td><code>openocd/tcl/board</code></td>
+			<td>Same as moto_mdk_muc.cfg except this script performs a reset of the MDK before SWD attach.</td>
+		</tr><tr><td><code>moto_mdk_muc_common.cfg</code></td>
+			<td><code>openocd/tcl/board</code></td>
+			<td>Contains the common code and defines for the normal and reset MuC configurations. This includes the routines needed to enable and disable TSB SPI flash.</td>
+		</tr><tr><td><code>hsb.cfg</code></td>
+			<td><code>openocd/tcl/chip/motorola</code></td>
+			<td>Configuration for the Motorola High-Speed Bridge.</td>
+		</tr><tr><td><code>moto_mdk_jtag.cfg</code></td>
+			<td><code>openocd/tcl/interface/ftdi</code></td>
+			<td>Configuration of how the onboard FTDI chip communicates over JTAG.</td>
+		</tr><tr><td><code>moto_mdk_swd.cfg</code></td>
+			<td><code>openocd/tcl/interface/ftdi</code></td>
+			<td>Configuration of how the onboard FTDI chip communicates over SWD.</td>
+		</tr><tr><td><code>moto_mdk_swd_reset.cfg</code></td>
+			<td><code>openocd/tcl/interface/ftdi</code></td>
+			<td>Same as moto_mdk_swd.cfg except this script performs an FTDI reset of the MDK during configuration.</td>
+		</tr><tr><td><code>stm32l4x.cfg</code></td>
+			<td><code>openocd/tcl/target</code></td>
+			<td>Configuration file for connection to an STM32L4x series ARM Cortex M4. Includes convenience function definitions.</td>
+		</tr></tbody></table><h3 id="starting-gdb">Starting GDB</h3>
+
+<p>Once OpenOCD is up and running, the next step is to start GDB:</p>
+
+<pre>
+<code>$ arm-none-eabi-gdb</code></pre>
+
+<p>After starting GDB you must connect to the remote target and configure hardware specifics for watchpoints and breakpoints. If you are running the debugger interface server (OpenOCD) on the same machine as the target, then you can simply connect to the correct port on the localhost. If you are running it on a different machine then you will have to specify that machine's name or ip address in instead of "localhost" below:</p>
+
+<h4 id="connecting-gdb-to-the-muc">Connecting GDB to the MuC</h4>
+
+<pre>
+<code>(gdb) target extended-remote localhost:3333
+(gdb) set can-use-hw-watchpoints 1</code></pre>
+
+<h4 id="connecting-gdb-to-the-motorola-high-speed-bridge">Connecting GDB to the Motorola High-Speed Bridge</h4>
+
+<pre>
+<code>(gdb) target extended-remote localhost:3334
+(gdb) set remote hardware-breakpoint-limit 6
+(gdb) set remote hardware-watchpoint-limit 4</code></pre>
+
+<h3 id="loading-the-code-and-symbols">Loading the Code and Symbols</h3>
+
+<p>For systems which have the code in flash memory, the symbol table must be loaded. It is also possible for the debugger to directly load the code into RAM or FLASH.</p>
+
+<h4 id="loading-symbol-table-only">Loading Symbol Table Only</h4>
+
+<p>Use the following command to load the symbols into the debugger manually:</p>
+
+<pre>
+<code>(gdb) file &lt;elf file&gt;</code></pre>
+
+<p>Where <code>&lt;elf file&gt;</code> will be either <code>nuttx</code>, or <code>boot_hdk.elf</code>.</p>
+
+<p>If you are developing your own Moto Mod, you may have created your own target. If so, use those files in place of the ones listed above.</p>
+
+<h4 id="loading-code">Loading Code</h4>
+
+<p>If you have not placed the code into the phone’s file system to be automatically loaded, it may be desirable to have the debugger load the code into the HSB RAM or the MuC flash. To do this in GDB, first run the file command as stated in “Load Symbol Table Only” section. Once symbols load, run the following command to load the code into RAM on the HSB or FLASH on the MuC:</p>
+
+<pre>
+<code>(gdb) load</code></pre>
+
+<h4 id="additional-gdb-setup">Additional GDB Setup</h4>
+
+<p>Once the code and/or symbols are loaded some additional steps may be required to debug the target. Use the following gdb commands as needed for your setup.</p>
+
+<p>The default OpenOCD configuration will connect to a target which is already running. This can be changed by adding a halt command to the end of the moto_mdk_hsb.cfg. However, in most cases leaving the target running until the problem being debugged happens may be the best option. In this case gdb needs to be told that the target is running after gdb is started:</p>
+
+<pre>
+<code>(gdb) continue</code></pre>
+
+<p>If breakpoints will be used, the watchdog timer on the HSB should be disabled. If it is not the target may reset itself when the watchdog timer expires. This must be done after the all initialization code on the HSB has run. If connecting to an already running target this initialization will most likely be completed once gdb attaches to OpenOCD. It is also recommended that a breakpoint be set at up_assert to allow for debugging of exceptions. To disable the watchdog and set a breakpoint at up_assert use the following sequence:</p>
+
+<pre>
+<code>(gdb) ^C
+(gdb) set *(unsigned int  *)0x40002008 = 0x00000000
+(gdb) break up_assert
+(gdb) continue</code></pre>
+
+<p>Please be aware the watchdog on the MuC will automatically stop when the MuC execution is halted, thus no disable code is needed.</p>
+
+<h3 id="python-enable-gdb">Python Enable GDB</h3>
+
+<p>GDB can be built with support for Python scripting. This is useful to add commands which cannot be handled with simple GDB scripting. A few commands to help with nuttx debugging are included in the file <code>$BUILD_TOP/nuttx/nuttx/tools/gdb_nuttx_data.py</code>. See “Useful GDB Commands” or take a look at the file for the commands supported.</p>
+
+<p>To see if Python is enabled in GDB run:</p>
+
+<pre>
+<code>(gdb) show configuration</code></pre>
+
+<p>If the line --with-python=<em> (where </em>is a path to Python) shows up, Python is enabled. To load the Python script run:</p>
+
+<pre>
+<code>(gdb) source -s &lt;hdk_root&gt;/nuttx/nuttx/tools/gdb_nuttx_data.py</code></pre>
+
+<h3 id="useful-gdb-commands">Useful GDB Commands</h3>
+
+<p>The table below lists useful GDB commands. For the Python based commands to work the <code>gdb_nuttx_data.py</code> script must be loaded. See “Python Enabled GDB for more details.</p>
+
+<table><thead><tr><td>Function</td>
+			<td>Command</td>
+			<td>Description</td>
+			<td>Location</td>
+		</tr></thead><tbody><tr><td rowspan="2" valign="top">Dump Memory</td>
+			<td valign="top"><code>dump<br />
+			&lt;hexb|hexh|hexw|hexl&gt;<br />
+			&lt;address&gt; &lt;size&gt;</code></td>
+			<td valign="top">Dumps size bytes from the address or symbol provided in both hex and character format.<br /><br />
+			Where:
+			<ul><li>address is the address or a variable name to be dumped</li>
+				<li>size is the size in bytes to be dumped</li>
+				<li>hexb formats the data in hex bytes (8 bits)</li>
+				<li>hexh formats the data in hex half words (16 bits)</li>
+				<li>hexw formats the data in hex words (32 bits)</li>
+				<li>hexl formats the data in long words (64 bits)</li>
+			</ul></td>
+			<td valign="top">Python</td>
+		</tr><tr><td valign="top"><code>x/&lt;n&gt;&lt;f&gt;&lt;s&gt;</code></td>
+			<td valign="top">Dump n memory units of size s with format x.<br /><br />
+			Where:
+			<ul><li>n - Is the number of bytes (prefix with 0x for hex)</li>
+				<li>f - Is the format of the data</li>
+				<li>x - Hex</li>
+				<li>c - Character</li>
+				<li>s - Is the memory unit size</li>
+				<li>b - Byte (8 bits)</li>
+				<li>h - Halfword (16 bit)</li>
+				<li>w - Word (32 bit)</li>
+				<li>l - Long word (64 bit)</li>
+			</ul></td>
+			<td valign="top">GDB</td>
+		</tr><tr><td valign="top">Dump Nuttx Log</td>
+			<td valign="top"><code>dump syslog</code></td>
+			<td valign="top">Prints the nuttx system log.</td>
+			<td valign="top">Python/Nuttx</td>
+		</tr><tr><td valign="top">Dump reglog</td>
+			<td valign="top"><code>dump reglog</code></td>
+			<td valign="top">Prints the register log if it is configured in the nuttx build.</td>
+			<td valign="top">Python/Nuttx</td>
+		</tr><tr><td valign="top">Dump HSB I2S Regs</td>
+			<td valign="top"><code>dump i2s</code></td>
+			<td valign="top">Prints the contents of the HSB I2S registers.</td>
+			<td valign="top">Python/HSB</td>
+		</tr><tr><td valign="top">Dump Registers</td>
+			<td valign="top"><code>info regs</code></td>
+			<td valign="top">Dumps all registers, Can specify which ones after the command.</td>
+			<td valign="top">GDB</td>
+		</tr><tr><td valign="top">Disassemble</td>
+			<td valign="top"><code>disassemble /m &lt;address&gt;</code></td>
+			<td valign="top">Disassembles the code and mixes in the high level source at address.<br /><br />
+			Where:
+			<ul><li>address is an address or symbol (function name)</li>
+			</ul></td>
+			<td valign="top">GDB</td>
+		</tr><tr><td valign="top">Heap Info</td>
+			<td valign="top"><code>print g_mmheap</code></td>
+			<td valign="top">Prints the raw nuttx heap data.</td>
+			<td valign="top">Nuttx</td>
+		</tr><tr><td valign="top">Stack Backtrace</td>
+			<td valign="top"><code>backtrace</code></td>
+			<td valign="top">Prints the stack backtrace with local variables included.</td>
+			<td valign="top">GDB</td>
+		</tr><tr><td valign="top">Dump Locals</td>
+			<td valign="top"><code>info locals</code></td>
+			<td valign="top">Prints the known local variables from the stack/registers.</td>
+			<td valign="top">GDB</td>
+		</tr><tr><td rowspan="2" valign="top">Symbol</td>
+			<td valign="top"><code>info symbol &lt;address&gt;</code></td>
+			<td valign="top">Gets the symbol name for the given address.</td>
+			<td valign="top">GDB</td>
+		</tr><tr><td valign="top"><code>info address &lt;symbol&gt;</code></td>
+			<td valign="top">Gets the address for a symbol.</td>
+			<td valign="top">GDB</td>
+		</tr><tr><td valign="top">Start Execution</td>
+			<td valign="top"><code>cont</code></td>
+			<td valign="top">Starts execution at the current program counter.</td>
+			<td>GDB</td>
+		</tr><tr><td valign="top">Set Breakpoint</td>
+			<td valign="top"><code>break &lt;address&gt;</code></td>
+			<td valign="top">Sets a breakpoint at the address or symbol provided.</td>
+			<td>GDB</td>
+		</tr><tr><td valign="top">Set Watchpoint</td>
+			<td valign="top"><code>watch &lt;address&gt;</code></td>
+			<td valign="top">Sets a watchpoint at the address provided. Please note if can-use-hardware-watchpoint is not set or too many watchpoints are in use this will be very slow.</td>
+			<td>GDB</td>
+		</tr><tr><td valign="top">Print Variable</td>
+			<td valign="top"><code>print/&lt;f&gt; &lt;address&gt;</code></td>
+			<td valign="top">Print a high level variable. The / is optional.</td>
+			<td>GDB</td>
+		</tr><tr><td valign="top">Display uC Memory Map</td>
+			<td valign="top"><code>info mem</code></td>
+			<td valign="top">Displays the memory map for the remote target.</td>
+			<td>GDB</td>
+		</tr><tr><td valign="top">Turn off press to continue</td>
+			<td valign="top"><code>set pagination off</code></td>
+			<td valign="top">Turn off the prompt to press any key to continue.</td>
+			<td>GDB</td>
+		</tr><tr><td valign="top">Array Printing</td>
+			<td valign="top"><code>set print array on<br />
+			set print elements &lt;size&gt;</code></td>
+			<td>Print arrays a little nicer.<br /><br />
+			Where:
+			<ul><li>size - Is the number of array elements to print.</li>
+			</ul></td>
+			<td>GDB</td>
+		</tr></tbody></table><blockquote>
+<p><strong>NOTE</strong>: When specifying addresses in gdb they must be prefixed with an ‘*’ for example to set a breakpoint at address 0x10000000 the command ‘break *0x10000000’ must be used.</p>
+</blockquote>
+
+<h3 id="standalone-openocd">Standalone OpenOCD</h3>
+
+<p>As mentioned previously, OpenOCD can be used in a standalone mode. To communicate with it you must open a telnet session:</p>
+
+<pre>
+<code># Start openocd for the MuC
+$ openocd -f board/moto_mdk_muc.cfg &amp;
+$ telnet localhost 4444
+
+# Start openocd for the HSB
+$ openocd -f board/moto_mdk_hsb.cfg &amp;
+$ telnet localhost 4445</code></pre>
+
+<p>Once attached, a full list of commands can be obtained using the help command. Some useful commands are listed below for quick reference. For a complete list with descriptions, please see the <a href="http://openocd.org/doc/html/General-Commands.html">OpenOCD online documentation</a>.</p>
+
+<table><thead><tr><td>Function</td>
+			<td>Command</td>
+			<td>Description</td>
+		</tr></thead><tbody><tr><td valign="top">Memory Display</td>
+			<td valign="top"><code>md&lt;size&gt; &lt;address&gt; &lt;count&gt;</code></td>
+			<td valign="top">Display the memory at &lt;address&gt; for &lt;count&gt; units of &lt;size&gt; where &lt;size&gt; is:
+			<ul><li>b - for byte (8 bits)</li>
+				<li>h - for half words (16 bits)</li>
+				<li>w - for words (32 bits)</li>
+			</ul></td>
+		</tr><tr><td valign="top">Memory Write</td>
+			<td valign="top"><code>mw&lt;size&gt; &lt;address&gt; &lt;data&gt;</code></td>
+			<td valign="top">Write &lt;data&gt; of &lt;size&gt; to the memory at &lt;address&gt; where &lt;size&gt; is:
+			<ul><li>b - for byte (8 bits)</li>
+				<li>h - for half words (16 bits)</li>
+				<li>w - for words (32 bits)</li>
+			</ul></td>
+		</tr><tr><td valign="top">Memory Modify</td>
+			<td valign="top"><code>mm&lt;size&gt; &lt;address&gt; &lt;set&gt; &lt;clear&gt;</code></td>
+			<td valign="top">Set the bits in &lt;set&gt; and clear the bits in &lt;clear&gt; at &lt;address&gt; where &lt;size&gt; is:
+			<ul><li>b - for byte (8 bits)</li>
+				<li>h - for half words (16 bits)</li>
+				<li>w - for words (32 bits)</li>
+			</ul></td>
+		</tr><tr><td valign="top">Erase MuC Flash</td>
+			<td valign="top"><code>stm32l4x mass_erase 0</code></td>
+			<td valign="top">Erase the entire MuC flash including the bootloader. Please note the last 0 is for bank 0, however all banks on the STM parts are mapped to page 0.</td>
+		</tr><tr><td valign="top">Program MuC Bootloader</td>
+			<td valign="top"><code>flash write_image erase unlock mods/bin/boot_hdk-p2_mhb.bin 0x08000000</code></td>
+			<td valign="top">Write the bootloader to the MuC.</td>
+		</tr><tr><td valign="top">Halt Execution</td>
+			<td valign="top"><code>halt</code></td>
+			<td valign="top">Stops the execution at it’s current location.</td>
+		</tr><tr><td valign="top">Resume Execution</td>
+			<td valign="top"><code>resume [address]</code></td>
+			<td valign="top">Resume execution at the current program counter or <code>address</code> if specified.</td>
+		</tr><tr><td valign="top">Breakpoint</td>
+			<td valign="top"><code>bp &lt;address&gt;</code></td>
+			<td valign="top">Set a breakpoint at &lt;address&gt;</td>
+		</tr></tbody></table><p>The following commands are defined in moto_mdk_muc_common.cfg and can be used when debugging the MuC only:</p>
+
+<table><thead><tr><td>Function</td>
+			<td>Command</td>
+			<td>Description</td>
+		</tr></thead><tbody><tr><td valign="top">Power HSB On</td>
+			<td valign="top"><code>hsb_pwr_on</code></td>
+			<td valign="top">Power up the HSB and take it out of reset.</td>
+		</tr><tr><td valign="top">Power HSB Off</td>
+			<td valign="top"><code>hsb_pwr_off</code></td>
+			<td valign="top">Power off the HSB and assert the reset line.</td>
+		</tr><tr><td valign="top">Enable HSB Flash</td>
+			<td valign="top"><code>hsb_flash_enable</code></td>
+			<td valign="top">Move the HSB SPI flash from HSB control to MuC control.</td>
+		</tr><tr><td valign="top">Disable HSB Flash</td>
+			<td valign="top"><code>hsb_flash_disable</code></td>
+			<td valign="top">Move the HSB SPI flash from MuC control to HSB control.</td>
+		</tr><tr><td valign="top">Reset the HSB</td>
+			<td valign="top"><code>hsb_reset_assert</code></td>
+			<td valign="top">Assert the HSB reset line.</td>
+		</tr><tr><td valign="top">Run the HSB</td>
+			<td valign="top"><code>hsb_reset_deassert</code></td>
+			<td valign="top">Take the HSB out of reset.</td>
+		</tr><tr><td valign="top">Read the HSB flash</td>
+			<td valign="top"><code>hsb_flash_read &lt;filename&gt;</code></td>
+			<td valign="top">Enables the HSB flash and reads it into a binary file <code>&lt;filename&gt;</code></td>
+		</tr><tr><td valign="top">Erase the HSB flash</td>
+			<td valign="top"><code>hsb_flash_erase</code></td>
+			<td valign="top">Erases the entire HSB flash.</td>
+		</tr><tr><td valign="top">Program the HSB flash</td>
+			<td valign="top"><code>hsb_flash_program &lt;filename&gt;</code></td>
+			<td valign="top">Enable the HSB flash and program it to the contents of the binary file <code>&lt;filename&gt;</code>.</td>
+		</tr></tbody></table><h3 id="flashing-via-openocd">Flashing via OpenOCD</h3>
+
+<h4 id="programming-the-muc-bootloader">Programming the MuC Bootloader</h4>
+
+<p>The Moto version of OpenOCD includes support for programming both the MuC internal flash and the HSB SPI flash. Programming of the bootloader in the MuC flash can be done with the following command run in the OpenOCD telnet session:</p>
+
+<pre>
+<code>&gt; halt
+&gt; flash write_image erase unlock out/boot_hdk.bin</code></pre>
+
+<h4 id="programming-the-hsb-from-the-muc">Programming the HSB from the MuC</h4>
+
+<p>Programming the HSB SPI flash is a bit more complicated. The SPI flash is connected to both the MuC and the HSB. This is done so that it can be reprogrammed through the MuC during normal operation. To complicate matters further JTAG support is disabled when the HSB boots and is enabled by the code in the SPI flash. As a result it cannot be flashed through JTAG on the HSB when the flash is blank or not booting correctly. To program the flash on the HSB through the MuC use the following series of commands from the MuC OpenOCD telnet session:</p>
+
+<pre>
+<code>&gt; halt
+&gt; hsb_flash_enable
+&gt; flash erase_sector 1 0 2047
+&gt; flash write_bank 1 $BUILD_TOP/nuttx/nuttx/nuttx.tftf 0
+&gt; hsb_flash_disable</code></pre>
+
+<p>A shortcut command to program the flash is also available in the MuC OpenOCD telnet session:</p>
+
+<pre>
+<code>&gt; halt
+&gt; hsb_flash_program $BUILD_TOP/nuttx/nuttx/nuttx.tftf</code></pre>
+
+<p>Programming the SPI flash from the MuC can take 2 minutes or longer. Reading can take 11 minutes or longer. If you are working with the HSB flash on the MuC, and you do not run hsb_flash_enable, the command may not flag an error, but the result will not be what is desired. For example you will be able to read the flash with flash read_bank, but all zeros will be returned.</p>
+
+<h4 id="programming-the-hsb-from-the-hsb">Programming the HSB from the HSB</h4>
+
+<p>To reprogram the HSB SPI flash via HSB JTAG the following commands can be used over the OpenOCD telnet session. As noted above, JTAG is enabled in the HSB SPI flash code, this cannot be done if the HSB has not fully booted or is blank.</p>
+
+<pre>
+<code>&gt; halt
+&gt; flash erase_sector 0 0 2047
+&gt; flash write_bank 0 $BUILD_TOP/nuttx/nuttx/nuttx.tftf 0</code></pre>
+
+<p>Depending on the firmware loaded into the MuC it may attempt to restart the HSB when debugging or flashing. To avoid this simply start an OpenOCD debugging session on the MuC and halt execution. It can then be resumed when the HSB debugging is completed.<br />
+ </p>
+
+<hr /><h2>Logging</h2>
+
+<h3><a id="accessing-muc-shell"></a>Accessing the MuC nuttx Shell</h3>
+
+<p>Logging done on both the Motorola High-Speed Bridge (MHB) and the MuC can be accessed through the nuttx shell running on the MuC. The MHB InterProcess Communication (IPC) is used between the MuC and the MHB to move log data from the MHB to the MuC. Since the serial port on the MHB is used for IPC, the serial port is not available for nuttx communication.</p>
+
+<p>The Reference Moto Mod includes an FTDI4232 to handle both JTAG/SWD debugging as well as UART to USB translation. The FTDI is attached to the debug USB Type C connector (USB #1) on the HDK. When it connects to a PC, the following will enumerate:</p>
+
+<table><thead><tr><td>Purpose</td>
+			<td>FTDI Port</td>
+			<td> </td>
+		</tr></thead><tbody><tr><td>MuC Serial Wire Debug</td>
+			<td>A (if00)</td>
+			<td>/dev/ttyUSB&lt;n&gt;</td>
+		</tr><tr><td>APBE JTAG</td>
+			<td>B (if01)</td>
+			<td>/dev/ttyUSB&lt;n+1&gt;</td>
+		</tr><tr><td>MuC nuttx Shell</td>
+			<td>C (if02)</td>
+			<td>/dev/ttyUSB&lt;n+2&gt;</td>
+		</tr><tr><td>APBE-MuC IPC</td>
+			<td>D (if03)</td>
+			<td>/dev/ttyUSB&lt;n+3&gt;</td>
+		</tr></tbody></table><p>To determine the value of <code>n</code> use <code>ls /dev/ttyUSB*</code> on linux and check for new entries after plugging in the device. The following command can also assist in determining which ttyUSB the FTDI ports are connected. Match the FTDI Port from the above table to the FTDI_Quad_RS232-HS-if??-port0 string produced by the following command:</p>
+
+<pre>
+<code>$ ls /dev/ttyUSB* | xargs -I{} bash -c 'echo -n {}": "; udevadm info --name={} |grep " serial/by-id" |tail --bytes +21'</code></pre>
+
+<p>For the MuC nuttx shell, communications parameters must be set up as:</p>
+
+<table><thead><tr><td>Parameter</td>
+			<td>Value</td>
+		</tr></thead><tbody><tr><td>Baudrate</td>
+			<td>115200</td>
+		</tr><tr><td>Data Bits</td>
+			<td>8</td>
+		</tr><tr><td>Parity</td>
+			<td>None</td>
+		</tr><tr><td>Start Bits</td>
+			<td>1</td>
+		</tr><tr><td>Stop Bits</td>
+			<td>1</td>
+		</tr></tbody></table><p>Before using a serial console on a Linux environment, you will need to provide your account access to the serial devices on your computer.</p>
+
+<pre>
+<code>$ sudo adduser &lt;username&gt; dialout</code></pre>
+
+<p>You will need to log out and log back in to apply the permissions. You will also need a terminal emulation program. Picocom is available on most Linux distributions and provides a simple interface. It is not installed by default. To install Picocom:</p>
+
+<pre>
+<code>$ sudo apt-get install picocom</code></pre>
+
+<p>After attaching the debug USB-C connector to the USB #1 port, you will have four additional tty devices added to your system. Start Picocom as follows replacing [ttyUSBx] with the appropriate interface from the above steps:</p>
+
+<pre>
+<code>$ picocom  -l -b 115200 /dev/[ttyUSBx]</code></pre>
+
+<h3 id="enabling-moto-high-speed-bridge-debugging">Enabling Moto High Speed Bridge Debugging</h3>
+
+<p>To access the HS Bridge’s debugging capabilities from the MuC Nuttx shell you need to enable the corresponding command-line app in the MuC's defconfig.</p>
+
+<p>To do this, use the menuconfig tool (<code>make menuconfig</code>) and navigate to:</p>
+
+<pre>
+<code>Application Configuration --&gt;
+   Mods --&gt;
+      [*] Mods MHB Client
+      (apbe) Program Name</code></pre>
+
+<p>This will add the following config items to your <code>.config</code> file:</p>
+
+<pre>
+<code>CONFIG_MODS_MHB_CLIENT=y
+CONFIG_MODS_MHB_CLIENT_PROGNAME="apbe"</code></pre>
+
+<h3 id="low-level-logging">Low Level Logging</h3>
+
+<p>The nuttx baseline comes with simple <code>printf</code>-like logging built in. The following functions can be used to log data with this method:</p>
+
+<table><thead><tr><td style="width: 168px;">Function</td>
+			<td style="width: 590px;">Notes</td>
+		</tr></thead><tbody><tr><td style="width: 168px;"><code>lldbg(fmt_str, …)</code></td>
+			<td style="width: 590px;">Logs the string using standard printf formats.</td>
+		</tr><tr><td style="width: 168px;"><code>llvdbg(fmt_str, …)</code></td>
+			<td style="width: 590px;">Logs the string using standard printf formats only if <code>CONFIG_DEBUG_VERBOSE</code> is defined in your defconfig file.</td>
+		</tr></tbody></table><p>Please be aware that it takes time to print the string and convert any numbers provided to ASCII. Please refrain for using these in an interrupt context.</p>
+
+<p>The method to retrieve the log depends on which system is in use. The following table outlines the procedure for retriving the logs through the debug connection:</p>
+
+<table><thead><tr><td>System</td>
+			<td>Log Retrieval Method</td>
+		</tr></thead><tbody><tr><td>Moto Bridge</td>
+			<td>On the MuC in the nuttx shell run:<br /><code>apbe log</code></td>
+		</tr><tr><td>MuC</td>
+			<td>On the MuC in the nuttx shell run:<br /><code>cat /dev/ramlog</code></td>
+		</tr><tr><td>GDB Python Enabled and Loaded (See JTAG/SWD documentation for more details)</td>
+			<td>On the GDB command line run:<br /><code>dump syslog</code></td>
+		</tr><tr><td>GDB Python Disabled (Will print the log out of order, but is better than nothing.)</td>
+			<td>On the GDB command line run:<br /><code>print g_sysdev.rl_buffer</code></td>
+		</tr></tbody></table><h3 id="advanced-reglog-logging">Advanced reglog Logging</h3>
+
+<p>Delays introduced through logging to a serial port can disrupt the realtime requirements of your code. To assist in these cases, the Moto Mods nuttx baseline includes a simple logging referred to as reglog. This was originally developed to log the time, address and value of register reads and writes and is very light-weight in processing. Reglog is also useful for general-purpose logging in time-critical code.</p>
+
+<p>To do this, use the menuconfig tool (<code>make menuconfig</code>) and navigate to:</p>
+
+<pre>
+<code>Device Drivers --&gt;
+        [*] Enable register logging to RAM for real time debugging</code></pre>
+
+<p>This will add the following config items to your <code>.config</code> file.</p>
+
+<pre>
+<code>CONFIG_REGLOG=y</code></pre>
+
+<p>Once it is enabled code can be instrumented with:</p>
+
+<pre>
+<code>reglog_log(address, value);</code></pre>
+
+<p>As mentioned previously address and value were originally intended to be register addresses and values, but they can be any <code>uint32_t</code> values. Only 3 <code>uint32_t</code> values will be added to the log:</p>
+
+<ol><li>48 MHz time value at the time of the call</li>
+	<li>The address value</li>
+	<li>The data value.</li>
+</ol><p>Depending on which processor is being used the method for retrieving the log differs. This is because the NuttX shell on the Moto Bridge cannot be directly accessed. For the Moto Bridge, MHB must be used to retrieve the values.</p>
+
+<table><thead><tr><td>System</td>
+			<td>reg log dump method</td>
+		</tr></thead><tbody><tr><td>Moto Bridge</td>
+			<td>In the MuC nuttx shell run:<br /><code>apbe diag reglog</code></td>
+		</tr><tr><td>MuC</td>
+			<td>In nuttx shell run:<br /><code>cat /dev/reglog</code></td>
+		</tr><tr><td>GDB Python Enabled and Loaded (See JTAG/SWD documentation for more details)</td>
+			<td>On the GDB command line run:<br /><code>dump reglog</code></td>
+		</tr><tr><td>GDB Python Disabled (This will output the array, which will not be in since it is a circular buffer.)</td>
+			<td>On the GDB command line run:<br /><code>print/x g_reglog</code></td>
+		</tr></tbody></table><p>The reglog code is capable of running in a Stack mode and a FIFO mode. By default it will startup in FIFO mode. In FIFO mode the code will treat the buffer as a circular buffer, so all calls to <code>reglog_log</code> will result in an entry being written. However, only the latest entries will be retained, due to the limited size of the buffer. If you need data at the start of a run Stack mode should be used. In this mode when the end of the buffer is reached <code>reglog_log</code> will stop adding entries. To switch between modes use the following commands:</p>
+
+<table><thead><tr><td>System</td>
+			<td>Stack Mode</td>
+			<td>FIFO Mode</td>
+		</tr></thead><tbody><tr><td>Moto Bridge</td>
+			<td>In the MuC nuttx shell run:<br />
+			   <code>apbe diagreglog_stack</code></td>
+			<td>In the MuC nuttx shell run:<br />
+			   <code>apbe diagreglog_fifo</code></td>
+		</tr><tr><td>MuC</td>
+			<td>In the MuC nuttx shell run:<br />
+			   <code>echo “stack” &gt; /dev/reglog</code></td>
+			<td>In the MuC nuttx shell run:<br />
+			   <code>echo “fifo” &gt; /dev/reglog</code></td>
+		</tr><tr><td>GDB</td>
+			<td>set var g_reglog.mode = 1<br />
+			set var g_relog.head = 0<br />
+			set var g_reglog.tail = 0</td>
+			<td>set var g_reglog.mode = 0<br />
+			set var g_relog.head = 0<br />
+			set var g_reglog.tail = 0</td>
+		</tr></tbody></table></div>
+      
+  </div>
+
+</article>
+
+<section id="block-backtotop" class="block block-block-content block-block-content041966f5-0fe1-4320-8eee-cdeaf244dc88 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><button><i class="fa fa-chevron-circle-up"></i></button></div>
+      
+  </section>
+
+
+  </div>
+
+              </section>
+
+        
+        
+                </div>
+  </div>
+
+            <section class="above_footer container" role="contentinfo">
+              <div class="region region-above-footer">
+    <section id="block-helpblock" class="block block-block-content block-block-content532cffc6-7ce7-4d4f-9e9f-e0d60194d4b8 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="footer-help">
+<div class="header">
+<h2>Looking for help?</h2>
+</div>
+
+<div class="buttons"><a class="go" href="/faq">Go to FAQ</a> <span>or</span> <a class="ask" href="/community">Ask the community</a></div>
+</div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+        </section>
+    
+      <footer class="footer container" role="contentinfo">
+        <div class="region region-footer">
+    <section id="block-footerlogo" class="block block-block-content block-block-contentede1d594-0667-4d58-82ab-50e38daccec8 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="footer-logo-wrap"><a href="https://www.moto.com/"><img alt="Motorola" src="/themes/motorola/images/footer-logo.png" /></a></div>
+
+<p>©2017 Motorola<br />
+All rights reserved.</p>
+</div>
+      
+  </section>
+
+<nav role="navigation" aria-labelledby="block-support-menu" id="block-support">
+            
+  <h2 class="visually-hidden" id="block-support-menu">Footer menu</h2>
+  
+
+        
+              <ul class="menu nav">
+                            <li>
+        <a href="/faq" data-drupal-link-system-path="node/108">FAQ</a>
+                  </li>
+                        <li>
+        <a href="https://www.motorola.com/us/legal/privacy-policy">Privacy Policy</a>
+                  </li>
+        </ul>
+  
+
+
+  </nav>
+<nav role="navigation" aria-labelledby="block-footermenu2-menu" id="block-footermenu2">
+            
+  <h2 class="visually-hidden" id="block-footermenu2-menu">Footer menu 2</h2>
+  
+
+        
+              <ul class="menu nav">
+                            <li>
+        <a href="mailto:mdk-help@motorola.com">Ask MDK Help</a>
+                  </li>
+        </ul>
+  
+
+
+  </nav>
+<section id="block-footersocials" class="block block-block-content block-block-content5d7a0a23-4c63-49b5-8680-e7e7e5a9ac14 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><ul><li><a class="facebook" href="https://www.facebook.com/moto/" target="_blank">Facebook</a></li>
+	<li><a class="twitter" href="https://twitter.com/moto" target="_blank">Twitter</a></li>
+	<li><a class="youtube" href="https://www.youtube.com/user/motorola" target="_blank">Youtube</a></li>
+</ul></div>
+      
+  </section>
+
+
+  </div>
+
+    </footer>
+  
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","scriptPath":null,"pathPrefix":"","currentPath":"node\/79","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","bootstrap":{"forms_has_error_value_toggle":1,"modal_animation":1,"modal_backdrop":"true","modal_keyboard":1,"modal_show":1,"modal_size":"","popover_enabled":1,"popover_animation":1,"popover_container":"body","popover_content":"","popover_delay":"0","popover_html":0,"popover_placement":"right","popover_selector":"","popover_title":"","popover_trigger":"click","popover_trigger_autoclose":1,"tooltip_enabled":1,"tooltip_animation":1,"tooltip_container":"body","tooltip_delay":"0","tooltip_html":0,"tooltip_placement":"auto left","tooltip_selector":"","tooltip_trigger":"hover"},"ajaxTrustedUrl":{"\/search\/node":true},"user":{"uid":0,"permissionsHash":"08a43bd0e8ec4c73d93f574eaa23fbdc9bc9ccb4f4e2fc3399bdb61c76cc3671"}}</script>
+<script src="/sites/default/files/js/js_8emfEOO9orRe8bF7M-RvCkUspYNAKLxey8G77d5ELaA.js"></script>
+
+  </body>
+</html>

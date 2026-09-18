@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html  lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+    <meta charset="utf-8" />
+<meta name="title" content="Mod USB | Motorola Developer Portal" />
+<meta name="description" content="Introduction
+
+USB 2.0 and USB 3.1 are available to the Moto Mod. On attach, the USB-ext protocol is enumerated and can be discovered by the ModManager.hasDeclaredProtocol(). Your firmware must notify the Moto Z when the actual USB device(s) is present on a Moto Mod, as described in the USB-Ext firmware page. After doing so, the USB device(s) present on a Moto Mod will appear to Android as standard USB devices or host." />
+<meta name="Generator" content="Drupal 8 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/sites/default/files/favicon.png" type="image/png" />
+<link rel="canonical" href="/documentation/mod-usb" />
+<link rel="shortlink" href="/node/64" />
+<link rel="revision" href="/documentation/mod-usb" />
+
+    <title>Mod USB | Motorola Developer Portal</title>
+    <link rel="stylesheet" href="/sites/default/files/css/css_DwGtwBiZC0vlzKcGpRugXvj0W5vxr3GO0mzT1HUOQd8.css?qgsn5s" media="all" />
+<link rel="stylesheet" href="/sites/default/files/css/css_xJirtWXj_cO3XOmFun1diM4WbO4k-JyVBEY94xOF2Us.css?qgsn5s" media="all" />
+
+    
+<!--[if lte IE 8]>
+<script src="/sites/default/files/js/js_VtafjXmRvoUgAzqzYTA3Wrjkx9wcWhjP0G4ZnnqRamA.js"></script>
+<![endif]-->
+
+  </head>
+  <body class="node-64 path-node page-node-type-documentation has-glyphicons">
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+          <header class="navbar navbar-default container" id="navbar" role="banner">
+        <div class="region region-top-notification">
+    <section id="block-indiegogocampaign" class="block block-block-content block-block-contentb3767c65-684a-49c5-8d10-99e6ab84eab6 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="topbar">
+<div class="topbar-left">
+<div class="backToMotorola"><a href="https://motorola.com" style="margin:5px 0px;">motorola.com</a></div>
+</div>
+
+<div class="topbar-center"></div>
+</div>
+
+<div class="topbar-right"></div>
+
+
+</div>
+      
+  </section>
+
+
+  </div>
+
+
+            <div class="navbar-header">
+          <div class="region region-navigation">
+          <a class="logo navbar-btn pull-left" href="/" title="Home" rel="home">
+      <img src="/sites/default/files/logo.png" alt="Home" />
+    </a>
+        <a class="name navbar-brand" href="/" title="Home" rel="home">Motorola Developer Portal</a>
+    <nav role="navigation" aria-labelledby="block-motorola-main-menu-menu" id="block-motorola-main-menu">
+            <h2 class="sr-only" id="block-motorola-main-menu-menu">Main navigation</h2>
+
+      
+              <ul class="menu nav navbar-nav">
+                            <li>
+        <a href="/documentation" data-drupal-link-system-path="node/109">Documentation</a>
+                  </li>
+                        <li>
+        <a href="/tools-kits" data-drupal-link-system-path="node/110">Tools &amp; Kits</a>
+                  </li>
+                        <li>
+        <a href="/faq" data-drupal-link-system-path="node/108">Support</a>
+                  </li>
+                        <li>
+        <a href="/community" data-drupal-link-system-path="node/126">Community</a>
+                  </li>
+                        <li>
+        <a href="/partner" data-drupal-link-system-path="node/106">Partner with Moto</a>
+                  </li>
+        </ul>
+  
+
+
+  </nav>
+<div class="search-block-form block block-search block-search-form-block" data-drupal-selector="search-block-form" id="block-motorola-search" role="search">
+  
+      <h2 class="visually-hidden">Search</h2>
+    
+      <form action="/search/node" method="get" id="search-block-form" accept-charset="UTF-8">
+  <div class="form-item js-form-item form-type-search js-form-type-search form-item-keys js-form-item-keys form-no-label form-group">
+      <label for="edit-keys" class="control-label sr-only">Search</label>
+  
+  
+  <div class="input-group"><input title="Enter the terms you wish to search for." data-drupal-selector="edit-keys" class="form-search form-control" placeholder="Search" type="search" id="edit-keys" name="keys" value="" size="15" maxlength="128" data-toggle="tooltip" /><span class="input-group-btn"><button type="submit" value="Search" class="button js-form-submit form-submit btn-primary btn icon-only" name=""><span class="sr-only">Search</span><span class="icon glyphicon glyphicon-search" aria-hidden="true"></span></button></span></div>
+
+  
+  
+  </div>
+<div class="form-actions form-group js-form-wrapper form-wrapper" data-drupal-selector="edit-actions" id="edit-actions"></div>
+
+</form>
+
+  </div>
+<section id="block-mobilebutton" class="block block-block-content block-block-contentee461971-1c7b-46d8-8e1e-0c56d5500c6e clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div><button class="mobile_button"><span>Menu</span></button></div></div>
+      
+  </section>
+
+
+  </div>
+
+                      </div>
+
+                  
+    </header>
+  
+
+  <div role="main" class="main-container container js-quickedit-main-content">
+    <div class="row">
+
+            
+                              <aside class="col-sm-3" role="complementary">
+              <div class="region region-sidebar-first">
+    <section id="block-categoriesblock" class="block block-custom clearfix">
+  
+    
+
+      <ul class="categories-tree"><li class="parent"><span></span><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">Documentation</a><ul><li><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">Overview</a><ul><li><a href="/documentation/system-architecture" data-drupal-link-system-path="node/118">System Architecture</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">Software</a><ul><li><a href="/documentation/software-overview" data-drupal-link-system-path="node/46">Android SDK Overview</a><a href="/documentation/mod-management" data-drupal-link-system-path="node/41">Mod Management</a><a href="/documentation/mod-raw-devices" data-drupal-link-system-path="node/43">Mod Raw Devices</a><a href="/documentation/mod-display" data-drupal-link-system-path="node/53">Mod Display</a><a href="/documentation/mod-battery" data-drupal-link-system-path="node/56">Mod Battery</a><a href="/documentation/mod-audio" data-drupal-link-system-path="node/58">Mod Audio</a><a href="/documentation/mod-hid" data-drupal-link-system-path="node/61">Mod HID</a><a href="/documentation/mod-usb" data-drupal-link-system-path="node/64" class="is-active">Mod USB</a><a href="/download-sdk" data-drupal-link-system-path="node/117">Moto Mods Android SDK</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">Firmware</a><ul><li><a href="/documentation/firmware-overview" data-drupal-link-system-path="node/55">Firmware Overview</a><a href="/documentation/mod-management-0" data-drupal-link-system-path="node/84">Mod Management</a><a href="/documentation/raw-protocol" data-drupal-link-system-path="node/60">Raw Protocol</a><a href="/documentation/display-protocol" data-drupal-link-system-path="node/63">Display Protocol</a><a href="/documentation/battery-protocol" data-drupal-link-system-path="node/69">Battery Protocol</a><a href="/documentation/audio-protocol" data-drupal-link-system-path="node/75">Audio Protocol</a><a href="/documentation/hid-protocol" data-drupal-link-system-path="node/77">HID Protocol</a><a href="/documentation/usb-ext-protocol" data-drupal-link-system-path="node/42">USB-Ext Protocol</a><a href="/documentation/lights-protocol" data-drupal-link-system-path="node/66">Lights Protocol</a><a href="/documentation/power-transfer-protocol" data-drupal-link-system-path="node/72">Power Transfer Protocol</a><a href="/documentation/camera-ext-protocol" data-drupal-link-system-path="node/80">Camera-Ext Protocol</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">Developer Tools</a><ul><li><a href="/documentation/developer-tools-overview" data-drupal-link-system-path="node/67">Developer Tools Overview</a><a href="/documentation/setup-environment" data-drupal-link-system-path="node/70">Setup Environment</a><a href="/documentation/build-source" data-drupal-link-system-path="node/73">Build from Source</a><a href="/documentation/starting-new-project" data-drupal-link-system-path="node/76">Starting a New Project</a><a href="/documentation/flashing-firmware" data-drupal-link-system-path="node/78">Flashing Firmware</a><a href="/documentation/debug-and-log" data-drupal-link-system-path="node/79">Debug and Log</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">MDK</a><ul><li><a href="/documentation/mdk-overview-0" data-drupal-link-system-path="node/147">MDK Overview</a><a href="/documentation/reference-moto-mod" data-drupal-link-system-path="node/122">Reference Moto Mod</a><a href="/documentation/perforated-board" data-drupal-link-system-path="node/50">Perforated Board</a><a href="/documentation/hat-adapter-board" data-drupal-link-system-path="node/47">HAT Adapter Board</a><a href="/documentation/custom-circuit-board" data-drupal-link-system-path="node/49">Custom Circuit Board</a></li></ul></li><li><a href="#main-content" data-drupal-link-system-path="&lt;front&gt;">Examples</a><ul><li><a href="/documentation/examples-overview" data-drupal-link-system-path="node/44">Examples Overview</a><a href="/documentation/mdk-utility" data-drupal-link-system-path="node/54">MDK Utility</a><a href="/documentation/hello-world" data-drupal-link-system-path="node/57">Hello World!</a><a href="/documentation/sensor" data-drupal-link-system-path="node/59">Sensor</a><a href="/documentation/battery" data-drupal-link-system-path="node/62">Battery</a><a href="/documentation/audio-0" data-drupal-link-system-path="node/123">Audio</a><a href="/documentation/display" data-drupal-link-system-path="node/68">Display</a><a href="/documentation/camera" data-drupal-link-system-path="node/71">Camera</a><a href="/documentation/miscellaneous" data-drupal-link-system-path="node/74">Miscellaneous</a></li></ul></li><li><a href="/documentation/all-downloads" data-drupal-link-system-path="documentation/all-downloads">Downloads</a></li></ul></li></ul>
+  </section>
+
+<section id="block-codeblock" class="block block-block-content block-block-content071e10d8-69be-4209-b478-084e01ef6d30 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><ul><li><a href="http://motorolamobilityllc.github.io/motomods_sdk" target="_blank">Moto Mods SDK for Android API Reference</a></li>
+	<li><span>• </span><a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html" target="_blank">Index</a></li>
+	<li><span>• </span><a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModListener.html" id="yui_3_17_2_1_1516649362190_261" target="_blank">ModListener</a></li>
+	<li><span>• </span><a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModBacklight.html" target="_blank">ModBacklight</a></li>
+	<li><span>• </span><a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModBattery.html" target="_blank">ModBattery</a></li>
+	<li><span>• </span><a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModConnection.html" target="_blank">ModConnection</a></li>
+	<li><span>• </span><a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModContract.html" target="_blank">ModContract</a></li>
+	<li><span>• </span><a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModDevice.html" target="_blank">ModDevice</a></li>
+	<li><span>• </span><a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModDisplay.html" target="_blank">ModDisplay</a></li>
+	<li><span>• </span><a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModInterfaceDelegation.html" target="_blank">ModInterfaceDelegation</a></li>
+	<li><span>• </span><a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModManager.html" target="_blank">ModManager</a></li>
+	<li><span>• </span><a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModProtocol.html" target="_blank">ModProtocol</a></li>
+</ul></div>
+      
+  </section>
+
+
+  </div>
+
+          </aside>
+              
+                  <section class="main-content col-sm-9">
+
+                                      <div class="highlighted">  <div class="region region-highlighted">
+    
+
+  </div>
+</div>
+                  
+                
+                
+                
+                          <a id="main-content"></a>
+            <div class="region region-content">
+        <ol class="breadcrumb">
+          <li >
+                  <a href="/documentation">Overview</a>
+              </li>
+          <li  class="active">
+                  Mod USB
+              </li>
+      </ol>
+
+    <h1 class="page-header"><span>Mod USB</span>
+</h1>
+
+  <article data-history-node-id="64" role="article" about="/documentation/mod-usb" class="documentation full clearfix">
+
+  
+    
+
+  
+  <div class="content">
+    
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><h2 id="introduction">Introduction</h2>
+
+<p>USB 2.0 and USB 3.1 are available to the Moto Mod. On attach, the USB-ext protocol is enumerated and can be discovered by the <code>ModManager.hasDeclaredProtocol()</code>. Your firmware must notify the Moto Z when the actual USB device(s) is present on a Moto Mod, as described in the <a href="/documentation/usb-ext-protocol">USB-Ext</a> firmware page. After doing so, the USB device(s) present on a Moto Mod will appear to Android as standard USB devices or host. The Moto Mod platform does not expose additional USB related API to access USB devices.</p>
+
+<p>An application will use the Android UsbManager to access and communicate with USB devices. The Moto Mod platform supports USB Devices, with the Moto Z acting as the USB host, over USB 2.0 and USB 3.1; a Moto Mod can also play the role of USB host, treating the Moto Z as an <a href="https://source.android.com/devices/accessories/protocol.html">Android Open Accessory</a>. USB 3.1 is only available over the enterprise port, and only if the interface is not used for the Motorola High-Speed Bridge or raw I2S.</p>
+
+<p>A developer interested in Moto Mod USB should have knowledge of the API defined in the <a href="http://developer.android.com/reference/android/hardware/usb/package-summary.html">android.hardware.usb</a> package.</p>
+
+<p><img alt="usb-1" data-entity-type="file" data-entity-uuid="682161fc-be28-4ebb-9a98-81431f14a285" src="/sites/default/files/inline-images/modusb-diagram-01.png" class="align-left" /></p>
+
+<p> </p>
+
+<hr /><h2>USB Moto Mod</h2>
+
+<p>The information below applies to the developer of a USB Moto Mod or applications which need to communicate to a Moto Mod over USB.<br />
+ </p>
+
+<hr /><h3 id="moto-mod-pid-vid-and-usb-pid-vid">Moto Mod PID/VID and USB PID/VID</h3>
+
+<p>A <code>UsbDevice</code> is identified by its USB Vendor ID and a USB Product ID; similar to the way a <code>ModDevice</code> is identified by its Moto Mod Vendor ID and Moto Mod Product ID. There are no guarantees that your Moto Mod VID (assigned by Moto) will be the same as the USB VID (assigned by the USB-IF) of your USB device.</p>
+
+<p>When working with USB hardware on a Moto Mod, it is important to understand that the VID/PID used by the <code>ModDevice</code>API refers to the Moto Mod itself and will be different from the USB VID/PIDs of the USB devices on your Moto Mod. In particular <code>ModDevice.getProductID()</code> will return the product ID of the Moto Mod; while <code>UsbDevice.getProductID()</code>will return the USB product ID of a single discreet USB device on the Moto Mod.<br />
+ </p>
+
+<hr /><h3 id="determining-if-a-moto-mod-supports-usb">Determining if a Moto Mod supports USB</h3>
+
+<p>If a Moto Mod enable support for USB-Ext, the USB device on the Moto Mod will be made available immediately when the Moto Mod is attached . Your application can query the ModManager service, via the <code>hasDeclaredProtocol()</code>function, to determine whether a ModDevice supports the <code>USB-Ext</code> protocol.</p>
+
+<pre>
+<code>if (device.hasDeclaredProtocol(ModProtocol.Protocol.USB) {
+    // This Mod declares USB in its manifest
+  }</code></pre>
+
+<p>While a Moto Mod might declare USB device support in its manifest, and while most Moto mods will enumerate their USB devices immediately, this behavior depends on the Moto Mod architecture and design.<br />
+ </p>
+
+<hr /><h3 id="moto-mod-usb-conflicts">Moto Mod USB Conflicts</h3>
+
+<p>As the Moto Z includes both a USB-C port, and support for USB over the Moto Mod interface, there are a few conflicts a developer should keep in mind when designing a USB capable Moto Mod.</p>
+
+<h4 id="the-on-device-usb-c-always-takes-precedence-over-a-moto-mod-usb">The on device USB-C <em>always</em> takes precedence over a Moto Mod USB</h4>
+
+<p>When a cable or host adapter is plugged into the USB-C port of the phone while USB is connected/enumerated to the Moto Mod, enumeration will be lost to the Moto Mod. Enumeration to the Mod will be lost regardless of the speed (“High-speed” or ”Super Speed”) supported by the data cable connected to the USB-C port of the phone.</p>
+
+<h4 id="the-moto-mod-usb-2-0-interface-only-supports-host-mode">The Moto Mod USB-2.0 Interface only supports host mode</h4>
+
+<p>The USB2 only supports host-mode.</p>
+
+<h4 id="the-moto-mod-usb-3-1-interface-operates-only-at-superspeed-">The Moto Mod USB-3.1 Interface operates only at Superspeed.</h4>
+
+<p>Upstream(host) or downstream (peripherals) connected to this interface should operate at Superspeed (Gen 1). The Moto Mod USB3.1 interface is not backwards compatible with devices that operate at only USB2.0 speeds.</p>
+
+<h4 id="the-motorola-high-speed-bridge-raw-i2s-and-usb-3-1-are-mutually-exclusive">The Motorola High-Speed Bridge, raw I2S and USB-3.1 are mutually exclusive</h4>
+
+<p>These interfaces cannot be active simultaneously over the Moto Mod interface.<br />
+ </p>
+
+<hr /><h3 id="handling-conflicts-with-android">Handling conflicts with Android</h3>
+
+<p>If USB-Ext is connected over the moto mod interface, and a new host is attached on the device USB-C port, the host on the moto mod will immediately cede control to the USB-C port host. An <strong><code>ACTION_USB_ACCESSORY_DETACHED</code></strong> intent will be broadcast by the USBManager to signal the Moto Mod host has detached, while an <strong><code>ACTION_USB_ACCESSORY_ATTACHED</code></strong>intent will be broadcast to indicate a new host has attached</p>
+
+<p>If a host is connected over the USB-C interface, and a new USB-Ext is attached on the moto mod interface, USB-Ext will not assert itself until the USB-C host is disconnected. When the USB-C host disconnects, a dormant Moto Mod host will connect and the USBManager service should broadcast an <strong><code>ACTION_USB_ACCESSORY_ATTACHED</code></strong> message as a result.<br />
+ </p>
+
+<hr /><h3 id="android-usb-manager">Android USB Manager</h3>
+
+<p>As mentioned above, there are no new USB related APIs introduced by the Moto Mod SDK. USB devices are accessible over the Moto Mod interface using Android’s standard USB APIs. We provide a short primer on Android USB management, but the reader should refer to the Android <code>USBManager</code>, <code>USBDevice</code> and Android Open Accessory protocol API provided by the Android SDK for further details.</p>
+
+<h3 id="detecting-and-communicating-with-a-usb-device">Detecting and communicating with a USB device</h3>
+
+<h4 id="intent-filter">Intent Filter</h4>
+
+<p>In addition to the permission required by the moto mod SDK, an application which needs to communicate with a USB device and be notified of USB device attach and detach can specify an <code>&lt;intent filter&gt;</code> for the <code>android.hardware.usb.action.USB_DEVICE_ATTACHED</code>, the <code>&lt;meta-data&gt;</code> for this intent filter should also content information about the <code>&lt;usb-device&gt;</code> your application wants to filter on in its res/xml/device_filter.xml, as described in the Android USB manager API.</p>
+
+<p>Your application’s Android manifest should declare the following intent filter:</p>
+
+<pre>
+<code>&lt;intent-filter&gt;
+      &lt;action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" /&gt;
+  &lt;/intent-filter&gt;
+
+  &lt;meta-data android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+        android:resource="@xml/device_filter" /&gt;
+  &lt;/activity&gt;</code></pre>
+
+<p>And the res/device_filter.xml file should contain the criteria you want to filter by</p>
+
+<pre>
+<code>&lt;resources&gt;
+    &lt;usb-device vendor-id="296" product-id="5461"/&gt;
+&lt;/resources&gt;</code></pre>
+
+<h4 id="usb-permissions">USB Permissions</h4>
+
+<p>To communicate with a USB device, your application must have permission from your users. If your application does not use an intent filter to discover USB devices as connection, it must check for permission to access a USB device before trying to access it, and it must call the <code>USBManager requestPermission()</code> API to specifically request permission to communicate with this USB device. These permissions, when granted to an application, allow it to communicate only to the corresponding Moto Mod USB device over USB APIs.</p>
+
+<pre>
+<code>mUsbManager.requestPermission(device, mPermissionIntent);</code></pre>
+
+<h4 id="communicating-with-a-usb-device">Communicating with a USB Device</h4>
+
+<p>To communicate with a USB device, you need to set up a <a href="http://developer.android.com/reference/android/hardware/usb/UsbInterface.html">UsbInterface</a> and <a href="http://developer.android.com/reference/android/hardware/usb/UsbEndpoint.html">UsbEndpoint</a> for the device. Once the <code>UsbEndpoint</code> is setup, your application can make requests to the device using a <a href="http://developer.android.com/reference/android/hardware/usb/UsbDeviceConnection.html">UsbDeviceConnection</a> on the Endpoint. The <code>bulkTransfer()</code> and <code>controlTransfer()</code> API let an application send data via the USBDevice Endpoint. Data can be sent to a USB Device on the Moto Mod, either synchronously or asynchronously, using the <code>requestWait()</code>API.</p>
+
+<h4 id="terminating-communication-with-a-device">Terminating communication with a device</h4>
+
+<p>When you are done communicating with a device or if receive notification that the device has detached, close the <a href="http://developer.android.com/reference/android/hardware/usb/UsbInterface.html">UsbInterface</a> and <a href="http://developer.android.com/reference/android/hardware/usb/UsbDeviceConnection.html">UsbDeviceConnection</a> by calling <a href="http://developer.android.com/reference/android/hardware/usb/UsbDeviceConnection.html#releaseInterface(android.hardware.usb.UsbInterface)(android.hardware.usb.UsbInterface)">releaseInterface()</a> and <a href="http://developer.android.com/reference/android/hardware/usb/UsbDeviceConnection.html#close()()">close()</a>. Your application should listen to the <code>ACTION_USB_DEVICE_DETACHED</code> intent for this reason: to determine when a USB device is detached and make sure the interfaces are properly released and closed at that time.</p>
+</div>
+      
+  </div>
+
+</article>
+
+<section id="block-backtotop" class="block block-block-content block-block-content041966f5-0fe1-4320-8eee-cdeaf244dc88 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><button><i class="fa fa-chevron-circle-up"></i></button></div>
+      
+  </section>
+
+
+  </div>
+
+              </section>
+
+        
+        
+                </div>
+  </div>
+
+            <section class="above_footer container" role="contentinfo">
+              <div class="region region-above-footer">
+    <section id="block-helpblock" class="block block-block-content block-block-content532cffc6-7ce7-4d4f-9e9f-e0d60194d4b8 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="footer-help">
+<div class="header">
+<h2>Looking for help?</h2>
+</div>
+
+<div class="buttons"><a class="go" href="/faq">Go to FAQ</a> <span>or</span> <a class="ask" href="/community">Ask the community</a></div>
+</div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+        </section>
+    
+      <footer class="footer container" role="contentinfo">
+        <div class="region region-footer">
+    <section id="block-footerlogo" class="block block-block-content block-block-contentede1d594-0667-4d58-82ab-50e38daccec8 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="footer-logo-wrap"><a href="https://www.moto.com/"><img alt="Motorola" src="/themes/motorola/images/footer-logo.png" /></a></div>
+
+<p>©2017 Motorola<br />
+All rights reserved.</p>
+</div>
+      
+  </section>
+
+<nav role="navigation" aria-labelledby="block-support-menu" id="block-support">
+            
+  <h2 class="visually-hidden" id="block-support-menu">Footer menu</h2>
+  
+
+        
+              <ul class="menu nav">
+                            <li>
+        <a href="/faq" data-drupal-link-system-path="node/108">FAQ</a>
+                  </li>
+                        <li>
+        <a href="https://www.motorola.com/us/legal/privacy-policy">Privacy Policy</a>
+                  </li>
+        </ul>
+  
+
+
+  </nav>
+<nav role="navigation" aria-labelledby="block-footermenu2-menu" id="block-footermenu2">
+            
+  <h2 class="visually-hidden" id="block-footermenu2-menu">Footer menu 2</h2>
+  
+
+        
+              <ul class="menu nav">
+                            <li>
+        <a href="mailto:mdk-help@motorola.com">Ask MDK Help</a>
+                  </li>
+        </ul>
+  
+
+
+  </nav>
+<section id="block-footersocials" class="block block-block-content block-block-content5d7a0a23-4c63-49b5-8680-e7e7e5a9ac14 clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><ul><li><a class="facebook" href="https://www.facebook.com/moto/" target="_blank">Facebook</a></li>
+	<li><a class="twitter" href="https://twitter.com/moto" target="_blank">Twitter</a></li>
+	<li><a class="youtube" href="https://www.youtube.com/user/motorola" target="_blank">Youtube</a></li>
+</ul></div>
+      
+  </section>
+
+
+  </div>
+
+    </footer>
+  
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","scriptPath":null,"pathPrefix":"","currentPath":"node\/64","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","bootstrap":{"forms_has_error_value_toggle":1,"modal_animation":1,"modal_backdrop":"true","modal_keyboard":1,"modal_show":1,"modal_size":"","popover_enabled":1,"popover_animation":1,"popover_container":"body","popover_content":"","popover_delay":"0","popover_html":0,"popover_placement":"right","popover_selector":"","popover_title":"","popover_trigger":"click","popover_trigger_autoclose":1,"tooltip_enabled":1,"tooltip_animation":1,"tooltip_container":"body","tooltip_delay":"0","tooltip_html":0,"tooltip_placement":"auto left","tooltip_selector":"","tooltip_trigger":"hover"},"ajaxTrustedUrl":{"\/search\/node":true},"user":{"uid":0,"permissionsHash":"08a43bd0e8ec4c73d93f574eaa23fbdc9bc9ccb4f4e2fc3399bdb61c76cc3671"}}</script>
+<script src="/sites/default/files/js/js_8emfEOO9orRe8bF7M-RvCkUspYNAKLxey8G77d5ELaA.js"></script>
+
+  </body>
+</html>

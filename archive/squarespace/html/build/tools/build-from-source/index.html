@@ -1,0 +1,1648 @@
+<!doctype html>
+<html xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:article="http://ogp.me/ns/article" lang="en-US" itemscope itemtype="http://schema.org/Article"  class="touch-styles">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- This is Squarespace. --><!-- leona-devs -->
+<base href="">
+<meta charset="utf-8" />
+<title>Developer Tools: Build from Source — Motorola Developer Portal</title>
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"/>
+<link rel="canonical" href="http://developer.motorola.com/build/tools/build-from-source"/>
+<meta property="og:site_name" content="Motorola Developer Portal"/>
+<meta property="og:title" content="Developer Tools: Build from Source"/>
+<meta property="og:latitude" content="40.7207559"/>
+<meta property="og:longitude" content="-74.00076130000002"/>
+<meta property="og:url" content="http://developer.motorola.com/build/tools/build-from-source"/>
+<meta property="og:type" content="article"/>
+<meta property="og:description" content="Developer Tools: Build from SourceBuild Firmware
+
+    NOTE: Before proceeding please ensure you have setup your development
+    environment.
+
+Download Source Code
+
+Choose a directory for your build environment.
+
+$ cd &lt;directory for your build&gt;
+$ export BUILD_TOP=`pwd`
+$ git clone https://github.com/MotorolaMobilityLLC/nuttx
+$ git clone https://github.com/MotorolaMobilityLLC/manifesto
+$ git clone https://github.com/MotorolaMobilityLLC/muc-loader
+$ git clone https://github.com/MotorolaMobilityLLC/bootrom-tools
+$ git clone https://github.com/MotorolaMobilityLLC/mdkutility
+
+    2016-08-04 Note: The mdkutility repo is now available on github!
+
+
+Build kconfig-mconf
+
+Nuttx uses the same configuration editor that is used to build the Linux 
+Kernel. To safely change any configurations in Nuttx (and therefore Moto 
+Mods), you will need to build this configuration editor.
+
+$ cd $BUILD_TOP/nuttx/misc/tools/kconfig-frontends
+$ ./configure --enable-mconf --disable-nconf --disable-gconf --disable-qconf
+$ make
+$ sudo make install
+$ sudo ldconfig
+
+
+Compile Nuttx
+
+$ export PATH=$PATH:$BUILD_TOP/manifesto:$BUILD_TOP/bootrom-tools
+$ cd $BUILD_TOP/nuttx/nuttx
+$ make distclean
+$ cd $BUILD_TOP/nuttx/nuttx/tools
+$ ./configure.sh hdk/muc/base_unpowered
+
+At this point the configs/hdk/muc/base_unpowered/defconfig will be copied 
+to $BUILD_TOP/nuttx/nuttx/.config and the setenv.sh and Make.defs file from 
+that same directory will be copied up to $BUILD_TOP/nuttx/nuttx.
+
+$ cd $BUILD_TOP/nuttx/nuttx
+$ make
+
+The firmware output is located in the nuttx.bin, nuttx.hex and nuttx.tftf 
+files in your current directory. See note about file formats below.
+
+Making Configuration Changes - menuconfig
+
+Nuttx relies heavily on compile time configuration. The standard Linux 
+menuconfig utility is used to generate this configuration.
+
+$ cd $BUILD_TOP/nuttx/nuttx
+$ make menuconfig
+
+You will then be presented with a text based menu system that allows you to 
+edit the configuration. This edits the local copy of the .config file. If 
+you want to return to the base configuration just go back into the tools 
+directory and rerun the configure.sh script as described above. On the 
+other hand, if you do want to save your changes in version control, don’t 
+forget to copy .config back to the configs directory for your product.
+
+
+Compile bootloader
+
+$ cd $BUILD_TOP/muc-loader
+$ ./configure hdk/developer
+$ make
+
+This tool is a little less sophisticated than Nuttx. If you want to change 
+any configurations you just edit the .config file by hand. As before, copy 
+the .config back over your defconfig to preserve the changes for future 
+builds.
+
+    Quick Note about File Formats
+    There are three generated firmware image formats: ELF, bin, and TFTF.
+    Each of these will be useful at some time. The generated bin file
+    contains the output data and instructions for your firmware. This is
+    what executes on the Moto Mod. Debuggers like GDB, require extra
+    information to know the meaning and location of sections and symbols
+    which the generated ELF files contain in a standard format. TFTF files
+    are a small wrapper for the bin file, that provides information about
+    where to install the binary code, and an optional signature block to
+    allow the bootloader to validate the firmware. With the Reference Moto
+    Mod Bootloader, it is expected that the TFTF header is located in the
+    first 512 bytes before the main code binary.
+
+
+
+Build Android Application
+
+Android Manifest changes
+    * As not all Android powered smartphones support the Moto Mods APIs,
+      include &lt;uses-feature android:name=&quot;com.motorola.hardware.mods&quot;/&gt; 
+      element in your application AndroidManifest.xml
+    * We recommend that you design your application to function correctly
+      on smartphones without this feature, and indicate 
+      android:required=&quot;false&quot; for this use feature &lt;uses-feature
+      android:name=&quot;com.motorola.hardware.mods&quot; android:required=&quot;false&quot; /&gt;
+    * Set the minimum SDK of the application to API Level 23 or higher. The
+      Moto Mods API are not present on any smartphones with an earlier API
+      level.
+    * Add &lt;meta-data android:name=&quot;com.motorola.mod.version&quot;
+      android:value=&quot;@integer/moto_mod_services_version&quot; / &gt; in the Android
+      Manifest. Also copy the version.xml from the SDK into res/values/
+    * If your application uses any of functionality of the ModManager, it
+      needs to declare use of the PERMISSION_MOD_ACCESS_INFO permission, 
+      &lt;uses-permission android:name=&quot;PERMISSION_MOD_ACCESS_INFO&quot; /&gt;
+    * If your application needs access to the RAW interface, your manifest
+      should declare that your application needs the 
+      PERMISSION_USE_RAW_PROTOCOL permission. Your code also needs to check
+      for this permission grant at runtime, and prompt the user to grant
+      this permission to your application if needed.
+    * Protect all your application’s receivers that handle intents from
+      ModManager by requiring that all senders of those intents require the 
+      PERMISSION_MOD_INTERNAL.
+Android Manifest Example
+
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    package=&quot;com.motorola.samplemodapp&quot; &gt;
+
+    &lt;uses-permission android:name=&quot;com.motorola.mod.permission.MOD_ACCESS_INFO&quot; /&gt;
+
+
+    &lt;application
+        android:allowBackup=&quot;true&quot;
+        android:icon=&quot;@mipmap/ic_launcher&quot;
+        android:label=&quot;@string/app_name&quot;
+        android:supportsRtl=&quot;true&quot;
+        android:theme=&quot;@style/AppTheme&quot; &gt;
+
+        &lt;meta-data android:name=&quot;com.motorola.mod.version&quot;
+            android:value=&quot;@integer/moto_mod_services_version&quot; /&gt;
+
+        &lt;activity
+            android:name=&quot;com.motorola.samplemodapp.MainActivity&quot;
+            android:label=&quot;@string/app_name&quot;
+            android:theme=&quot;@style/AppTheme&quot; &gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;
+
+                &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;
+
+        &lt;receiver
+            android:name=&quot;com.motorola.samplemodapp.ModReceiver&quot;
+            android:enabled=&quot;true&quot;
+            android:exported=&quot;true&quot; &gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name=&quot;com.motorola.mod.action.MOD_ATTACH&quot; /&gt;
+                &lt;action android:name=&quot;com.motorola.mod.action.MOD_DETACH&quot; /&gt;
+                &lt;action android:name=&quot;com.motorola.mod.action.MOD_ENUMERATION_DONE&quot; /&gt;
+            &lt;/intent-filter&gt;
+        &lt;/receiver&gt;
+    &lt;/application&gt;
+
+&lt;/manifest&gt;
+
+For the initial release, the version.xml in your application res/values/ 
+file should contain:
+
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;resources&gt;
+    &lt;integer name=&quot;moto_mod_services_version&quot;&gt;0100000&lt;/integer&gt;
+&lt;/resources&gt;
+
+
+Building Support for All Android Devices
+
+If your application needs to support devices which have the Moto Mod 
+connector as well as generic Android devices with a single APK, you can use 
+the isModServiceAvailable() to determine at runtime whether a device 
+supports Moto Mods (and whether the version of the Moto Mods platform 
+needed by your APK is compatible with the device it is running on).
+
+    * Include modlib.jar in your application
+    * When your application is launched, use 
+      ModManager.isModServiceAvailable() to determine whether the device
+      the application is running on supports Moto Mods (or not)
+    * Make sure all your Moto Mods related code is only called when your
+      application is running on a device where 
+      ModManager.isModServiceAvailable() returns ModManager.SUCCESS.
+
+if(ModManager.isModServicesAvailable(MainActivity.this) == ModManager.SUCCESS)&#123;
+  //
+  // Handle the case where the ModMgr version is present and compatible
+  //
+  &#125; else &#123;
+  //
+  // Handle the case where the ModMgr version is not compatible
+  //  
+  &#125;
+
+
+Building a Sample Moto Mod aware Application
+
+The MDKUtility is an sample application which listens to ATTACH and DETACH 
+intents. The Android Studio project for the MDKUtility application is 
+available on GitHub.
+
+Follow these steps:
+
+Step 1
+
+Open Android Studio
+
+Step 2
+
+Download the Sample GitHub project by selecting “Check out project from 
+Version Control”, and clone the APK repo posted on the MotorolaMobilityLLC 
+GitHub account.
+
+Step 3
+
+Browse to the directory where you saved the sample code, select 
+&quot;MDKUtility&quot;.
+
+Step 4
+
+Select Menu &gt; Build / Menu &gt; Run to build and run MDKUtility app.
+
+Menu &gt; Run
+
+Menu &gt; Build
+
+Step 5
+
+You are all set!
+
+
+
+&lt; Previous Page
+Setup Environment
+
+Next Page &gt;
+Flashing Firmware"/>
+<meta property="og:image" content="http://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57572d1a8259b5740d348642/1465330983159/tools-prep-image-1.png?format=1000w"/>
+<meta itemprop="name" content="Developer Tools: Build from Source"/>
+<meta itemprop="url" content="http://developer.motorola.com/build/tools/build-from-source"/>
+<meta itemprop="description" content="Developer Tools: Build from SourceBuild Firmware
+
+    NOTE: Before proceeding please ensure you have setup your development
+    environment.
+
+Download Source Code
+
+Choose a directory for your build environment.
+
+$ cd &lt;directory for your build&gt;
+$ export BUILD_TOP=`pwd`
+$ git clone https://github.com/MotorolaMobilityLLC/nuttx
+$ git clone https://github.com/MotorolaMobilityLLC/manifesto
+$ git clone https://github.com/MotorolaMobilityLLC/muc-loader
+$ git clone https://github.com/MotorolaMobilityLLC/bootrom-tools
+$ git clone https://github.com/MotorolaMobilityLLC/mdkutility
+
+    2016-08-04 Note: The mdkutility repo is now available on github!
+
+
+Build kconfig-mconf
+
+Nuttx uses the same configuration editor that is used to build the Linux 
+Kernel. To safely change any configurations in Nuttx (and therefore Moto 
+Mods), you will need to build this configuration editor.
+
+$ cd $BUILD_TOP/nuttx/misc/tools/kconfig-frontends
+$ ./configure --enable-mconf --disable-nconf --disable-gconf --disable-qconf
+$ make
+$ sudo make install
+$ sudo ldconfig
+
+
+Compile Nuttx
+
+$ export PATH=$PATH:$BUILD_TOP/manifesto:$BUILD_TOP/bootrom-tools
+$ cd $BUILD_TOP/nuttx/nuttx
+$ make distclean
+$ cd $BUILD_TOP/nuttx/nuttx/tools
+$ ./configure.sh hdk/muc/base_unpowered
+
+At this point the configs/hdk/muc/base_unpowered/defconfig will be copied 
+to $BUILD_TOP/nuttx/nuttx/.config and the setenv.sh and Make.defs file from 
+that same directory will be copied up to $BUILD_TOP/nuttx/nuttx.
+
+$ cd $BUILD_TOP/nuttx/nuttx
+$ make
+
+The firmware output is located in the nuttx.bin, nuttx.hex and nuttx.tftf 
+files in your current directory. See note about file formats below.
+
+Making Configuration Changes - menuconfig
+
+Nuttx relies heavily on compile time configuration. The standard Linux 
+menuconfig utility is used to generate this configuration.
+
+$ cd $BUILD_TOP/nuttx/nuttx
+$ make menuconfig
+
+You will then be presented with a text based menu system that allows you to 
+edit the configuration. This edits the local copy of the .config file. If 
+you want to return to the base configuration just go back into the tools 
+directory and rerun the configure.sh script as described above. On the 
+other hand, if you do want to save your changes in version control, don’t 
+forget to copy .config back to the configs directory for your product.
+
+
+Compile bootloader
+
+$ cd $BUILD_TOP/muc-loader
+$ ./configure hdk/developer
+$ make
+
+This tool is a little less sophisticated than Nuttx. If you want to change 
+any configurations you just edit the .config file by hand. As before, copy 
+the .config back over your defconfig to preserve the changes for future 
+builds.
+
+    Quick Note about File Formats
+    There are three generated firmware image formats: ELF, bin, and TFTF.
+    Each of these will be useful at some time. The generated bin file
+    contains the output data and instructions for your firmware. This is
+    what executes on the Moto Mod. Debuggers like GDB, require extra
+    information to know the meaning and location of sections and symbols
+    which the generated ELF files contain in a standard format. TFTF files
+    are a small wrapper for the bin file, that provides information about
+    where to install the binary code, and an optional signature block to
+    allow the bootloader to validate the firmware. With the Reference Moto
+    Mod Bootloader, it is expected that the TFTF header is located in the
+    first 512 bytes before the main code binary.
+
+
+
+Build Android Application
+
+Android Manifest changes
+    * As not all Android powered smartphones support the Moto Mods APIs,
+      include &lt;uses-feature android:name=&quot;com.motorola.hardware.mods&quot;/&gt; 
+      element in your application AndroidManifest.xml
+    * We recommend that you design your application to function correctly
+      on smartphones without this feature, and indicate 
+      android:required=&quot;false&quot; for this use feature &lt;uses-feature
+      android:name=&quot;com.motorola.hardware.mods&quot; android:required=&quot;false&quot; /&gt;
+    * Set the minimum SDK of the application to API Level 23 or higher. The
+      Moto Mods API are not present on any smartphones with an earlier API
+      level.
+    * Add &lt;meta-data android:name=&quot;com.motorola.mod.version&quot;
+      android:value=&quot;@integer/moto_mod_services_version&quot; / &gt; in the Android
+      Manifest. Also copy the version.xml from the SDK into res/values/
+    * If your application uses any of functionality of the ModManager, it
+      needs to declare use of the PERMISSION_MOD_ACCESS_INFO permission, 
+      &lt;uses-permission android:name=&quot;PERMISSION_MOD_ACCESS_INFO&quot; /&gt;
+    * If your application needs access to the RAW interface, your manifest
+      should declare that your application needs the 
+      PERMISSION_USE_RAW_PROTOCOL permission. Your code also needs to check
+      for this permission grant at runtime, and prompt the user to grant
+      this permission to your application if needed.
+    * Protect all your application’s receivers that handle intents from
+      ModManager by requiring that all senders of those intents require the 
+      PERMISSION_MOD_INTERNAL.
+Android Manifest Example
+
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    package=&quot;com.motorola.samplemodapp&quot; &gt;
+
+    &lt;uses-permission android:name=&quot;com.motorola.mod.permission.MOD_ACCESS_INFO&quot; /&gt;
+
+
+    &lt;application
+        android:allowBackup=&quot;true&quot;
+        android:icon=&quot;@mipmap/ic_launcher&quot;
+        android:label=&quot;@string/app_name&quot;
+        android:supportsRtl=&quot;true&quot;
+        android:theme=&quot;@style/AppTheme&quot; &gt;
+
+        &lt;meta-data android:name=&quot;com.motorola.mod.version&quot;
+            android:value=&quot;@integer/moto_mod_services_version&quot; /&gt;
+
+        &lt;activity
+            android:name=&quot;com.motorola.samplemodapp.MainActivity&quot;
+            android:label=&quot;@string/app_name&quot;
+            android:theme=&quot;@style/AppTheme&quot; &gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;
+
+                &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;
+
+        &lt;receiver
+            android:name=&quot;com.motorola.samplemodapp.ModReceiver&quot;
+            android:enabled=&quot;true&quot;
+            android:exported=&quot;true&quot; &gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name=&quot;com.motorola.mod.action.MOD_ATTACH&quot; /&gt;
+                &lt;action android:name=&quot;com.motorola.mod.action.MOD_DETACH&quot; /&gt;
+                &lt;action android:name=&quot;com.motorola.mod.action.MOD_ENUMERATION_DONE&quot; /&gt;
+            &lt;/intent-filter&gt;
+        &lt;/receiver&gt;
+    &lt;/application&gt;
+
+&lt;/manifest&gt;
+
+For the initial release, the version.xml in your application res/values/ 
+file should contain:
+
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;resources&gt;
+    &lt;integer name=&quot;moto_mod_services_version&quot;&gt;0100000&lt;/integer&gt;
+&lt;/resources&gt;
+
+
+Building Support for All Android Devices
+
+If your application needs to support devices which have the Moto Mod 
+connector as well as generic Android devices with a single APK, you can use 
+the isModServiceAvailable() to determine at runtime whether a device 
+supports Moto Mods (and whether the version of the Moto Mods platform 
+needed by your APK is compatible with the device it is running on).
+
+    * Include modlib.jar in your application
+    * When your application is launched, use 
+      ModManager.isModServiceAvailable() to determine whether the device
+      the application is running on supports Moto Mods (or not)
+    * Make sure all your Moto Mods related code is only called when your
+      application is running on a device where 
+      ModManager.isModServiceAvailable() returns ModManager.SUCCESS.
+
+if(ModManager.isModServicesAvailable(MainActivity.this) == ModManager.SUCCESS)&#123;
+  //
+  // Handle the case where the ModMgr version is present and compatible
+  //
+  &#125; else &#123;
+  //
+  // Handle the case where the ModMgr version is not compatible
+  //  
+  &#125;
+
+
+Building a Sample Moto Mod aware Application
+
+The MDKUtility is an sample application which listens to ATTACH and DETACH 
+intents. The Android Studio project for the MDKUtility application is 
+available on GitHub.
+
+Follow these steps:
+
+Step 1
+
+Open Android Studio
+
+Step 2
+
+Download the Sample GitHub project by selecting “Check out project from 
+Version Control”, and clone the APK repo posted on the MotorolaMobilityLLC 
+GitHub account.
+
+Step 3
+
+Browse to the directory where you saved the sample code, select 
+&quot;MDKUtility&quot;.
+
+Step 4
+
+Select Menu &gt; Build / Menu &gt; Run to build and run MDKUtility app.
+
+Menu &gt; Run
+
+Menu &gt; Build
+
+Step 5
+
+You are all set!
+
+
+
+&lt; Previous Page
+Setup Environment
+
+Next Page &gt;
+Flashing Firmware"/>
+<meta itemprop="thumbnailUrl" content="http://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57572d1a8259b5740d348642/1465330983159/tools-prep-image-1.png?format=1000w"/>
+<link rel="image_src" href="http://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57572d1a8259b5740d348642/1465330983159/tools-prep-image-1.png?format=1000w" />
+<meta itemprop="image" content="http://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57572d1a8259b5740d348642/1465330983159/tools-prep-image-1.png?format=1000w"/>
+<meta name="twitter:title" content="Developer Tools: Build from Source"/>
+<meta name="twitter:image" content="http://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57572d1a8259b5740d348642/1465330983159/tools-prep-image-1.png?format=1000w"/>
+<meta name="twitter:url" content="http://developer.motorola.com/build/tools/build-from-source"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:description" content="Developer Tools: Build from SourceBuild Firmware
+
+    NOTE: Before proceeding please ensure you have setup your development
+    environment.
+
+Download Source Code
+
+Choose a directory for your build environment.
+
+$ cd &lt;directory for your build&gt;
+$ export BUILD_TOP=`pwd`
+$ git clone https://github.com/MotorolaMobilityLLC/nuttx
+$ git clone https://github.com/MotorolaMobilityLLC/manifesto
+$ git clone https://github.com/MotorolaMobilityLLC/muc-loader
+$ git clone https://github.com/MotorolaMobilityLLC/bootrom-tools
+$ git clone https://github.com/MotorolaMobilityLLC/mdkutility
+
+    2016-08-04 Note: The mdkutility repo is now available on github!
+
+
+Build kconfig-mconf
+
+Nuttx uses the same configuration editor that is used to build the Linux 
+Kernel. To safely change any configurations in Nuttx (and therefore Moto 
+Mods), you will need to build this configuration editor.
+
+$ cd $BUILD_TOP/nuttx/misc/tools/kconfig-frontends
+$ ./configure --enable-mconf --disable-nconf --disable-gconf --disable-qconf
+$ make
+$ sudo make install
+$ sudo ldconfig
+
+
+Compile Nuttx
+
+$ export PATH=$PATH:$BUILD_TOP/manifesto:$BUILD_TOP/bootrom-tools
+$ cd $BUILD_TOP/nuttx/nuttx
+$ make distclean
+$ cd $BUILD_TOP/nuttx/nuttx/tools
+$ ./configure.sh hdk/muc/base_unpowered
+
+At this point the configs/hdk/muc/base_unpowered/defconfig will be copied 
+to $BUILD_TOP/nuttx/nuttx/.config and the setenv.sh and Make.defs file from 
+that same directory will be copied up to $BUILD_TOP/nuttx/nuttx.
+
+$ cd $BUILD_TOP/nuttx/nuttx
+$ make
+
+The firmware output is located in the nuttx.bin, nuttx.hex and nuttx.tftf 
+files in your current directory. See note about file formats below.
+
+Making Configuration Changes - menuconfig
+
+Nuttx relies heavily on compile time configuration. The standard Linux 
+menuconfig utility is used to generate this configuration.
+
+$ cd $BUILD_TOP/nuttx/nuttx
+$ make menuconfig
+
+You will then be presented with a text based menu system that allows you to 
+edit the configuration. This edits the local copy of the .config file. If 
+you want to return to the base configuration just go back into the tools 
+directory and rerun the configure.sh script as described above. On the 
+other hand, if you do want to save your changes in version control, don’t 
+forget to copy .config back to the configs directory for your product.
+
+
+Compile bootloader
+
+$ cd $BUILD_TOP/muc-loader
+$ ./configure hdk/developer
+$ make
+
+This tool is a little less sophisticated than Nuttx. If you want to change 
+any configurations you just edit the .config file by hand. As before, copy 
+the .config back over your defconfig to preserve the changes for future 
+builds.
+
+    Quick Note about File Formats
+    There are three generated firmware image formats: ELF, bin, and TFTF.
+    Each of these will be useful at some time. The generated bin file
+    contains the output data and instructions for your firmware. This is
+    what executes on the Moto Mod. Debuggers like GDB, require extra
+    information to know the meaning and location of sections and symbols
+    which the generated ELF files contain in a standard format. TFTF files
+    are a small wrapper for the bin file, that provides information about
+    where to install the binary code, and an optional signature block to
+    allow the bootloader to validate the firmware. With the Reference Moto
+    Mod Bootloader, it is expected that the TFTF header is located in the
+    first 512 bytes before the main code binary.
+
+
+
+Build Android Application
+
+Android Manifest changes
+    * As not all Android powered smartphones support the Moto Mods APIs,
+      include &lt;uses-feature android:name=&quot;com.motorola.hardware.mods&quot;/&gt; 
+      element in your application AndroidManifest.xml
+    * We recommend that you design your application to function correctly
+      on smartphones without this feature, and indicate 
+      android:required=&quot;false&quot; for this use feature &lt;uses-feature
+      android:name=&quot;com.motorola.hardware.mods&quot; android:required=&quot;false&quot; /&gt;
+    * Set the minimum SDK of the application to API Level 23 or higher. The
+      Moto Mods API are not present on any smartphones with an earlier API
+      level.
+    * Add &lt;meta-data android:name=&quot;com.motorola.mod.version&quot;
+      android:value=&quot;@integer/moto_mod_services_version&quot; / &gt; in the Android
+      Manifest. Also copy the version.xml from the SDK into res/values/
+    * If your application uses any of functionality of the ModManager, it
+      needs to declare use of the PERMISSION_MOD_ACCESS_INFO permission, 
+      &lt;uses-permission android:name=&quot;PERMISSION_MOD_ACCESS_INFO&quot; /&gt;
+    * If your application needs access to the RAW interface, your manifest
+      should declare that your application needs the 
+      PERMISSION_USE_RAW_PROTOCOL permission. Your code also needs to check
+      for this permission grant at runtime, and prompt the user to grant
+      this permission to your application if needed.
+    * Protect all your application’s receivers that handle intents from
+      ModManager by requiring that all senders of those intents require the 
+      PERMISSION_MOD_INTERNAL.
+Android Manifest Example
+
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    package=&quot;com.motorola.samplemodapp&quot; &gt;
+
+    &lt;uses-permission android:name=&quot;com.motorola.mod.permission.MOD_ACCESS_INFO&quot; /&gt;
+
+
+    &lt;application
+        android:allowBackup=&quot;true&quot;
+        android:icon=&quot;@mipmap/ic_launcher&quot;
+        android:label=&quot;@string/app_name&quot;
+        android:supportsRtl=&quot;true&quot;
+        android:theme=&quot;@style/AppTheme&quot; &gt;
+
+        &lt;meta-data android:name=&quot;com.motorola.mod.version&quot;
+            android:value=&quot;@integer/moto_mod_services_version&quot; /&gt;
+
+        &lt;activity
+            android:name=&quot;com.motorola.samplemodapp.MainActivity&quot;
+            android:label=&quot;@string/app_name&quot;
+            android:theme=&quot;@style/AppTheme&quot; &gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;
+
+                &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;
+
+        &lt;receiver
+            android:name=&quot;com.motorola.samplemodapp.ModReceiver&quot;
+            android:enabled=&quot;true&quot;
+            android:exported=&quot;true&quot; &gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name=&quot;com.motorola.mod.action.MOD_ATTACH&quot; /&gt;
+                &lt;action android:name=&quot;com.motorola.mod.action.MOD_DETACH&quot; /&gt;
+                &lt;action android:name=&quot;com.motorola.mod.action.MOD_ENUMERATION_DONE&quot; /&gt;
+            &lt;/intent-filter&gt;
+        &lt;/receiver&gt;
+    &lt;/application&gt;
+
+&lt;/manifest&gt;
+
+For the initial release, the version.xml in your application res/values/ 
+file should contain:
+
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;resources&gt;
+    &lt;integer name=&quot;moto_mod_services_version&quot;&gt;0100000&lt;/integer&gt;
+&lt;/resources&gt;
+
+
+Building Support for All Android Devices
+
+If your application needs to support devices which have the Moto Mod 
+connector as well as generic Android devices with a single APK, you can use 
+the isModServiceAvailable() to determine at runtime whether a device 
+supports Moto Mods (and whether the version of the Moto Mods platform 
+needed by your APK is compatible with the device it is running on).
+
+    * Include modlib.jar in your application
+    * When your application is launched, use 
+      ModManager.isModServiceAvailable() to determine whether the device
+      the application is running on supports Moto Mods (or not)
+    * Make sure all your Moto Mods related code is only called when your
+      application is running on a device where 
+      ModManager.isModServiceAvailable() returns ModManager.SUCCESS.
+
+if(ModManager.isModServicesAvailable(MainActivity.this) == ModManager.SUCCESS)&#123;
+  //
+  // Handle the case where the ModMgr version is present and compatible
+  //
+  &#125; else &#123;
+  //
+  // Handle the case where the ModMgr version is not compatible
+  //  
+  &#125;
+
+
+Building a Sample Moto Mod aware Application
+
+The MDKUtility is an sample application which listens to ATTACH and DETACH 
+intents. The Android Studio project for the MDKUtility application is 
+available on GitHub.
+
+Follow these steps:
+
+Step 1
+
+Open Android Studio
+
+Step 2
+
+Download the Sample GitHub project by selecting “Check out project from 
+Version Control”, and clone the APK repo posted on the MotorolaMobilityLLC 
+GitHub account.
+
+Step 3
+
+Browse to the directory where you saved the sample code, select 
+&quot;MDKUtility&quot;.
+
+Step 4
+
+Select Menu &gt; Build / Menu &gt; Run to build and run MDKUtility app.
+
+Menu &gt; Run
+
+Menu &gt; Build
+
+Step 5
+
+You are all set!
+
+
+
+&lt; Previous Page
+Setup Environment
+
+Next Page &gt;
+Flashing Firmware"/>
+<meta name="description" content="" />
+<script type="text/javascript" src="//use.typekit.net/ik/-i291jc6M6LqtTkmhOssWokMjOs1BX59oH1MjpqFKGCfe7vIfFHN4UJLFRbh52jhWD9awQm8ZA9ojRMoZRqujQIkjRbXZQg8Zg7PMPG0demzdcIlZemhSkoDSWmyScmDSeBRZPoRdhXCZemhZAUzSemkOcuzieNkdhUyOcFzdPUCZAN0jPuqZWZDO1FUiABkZWF3jAF8OcFzdPUCdhFydeyzSabCiaiaOcs8icmCdag8SKoldaszScNCjPoRdhXCiaiaOcU8dhoyOAs8i1w0SaBujW48Sagyjh90jhNlJ6U3ScNt-AuyOAozicIKghFydeUudcIKgcmuScN3jPG4fHCgIMMjMPMfH6qJnMIbMg6OJMJ7fbRKHyMMeMw6MKG4f5w7IMMj2PMfH6qJn3IbMg6IJMJ7fbK3MsMMeMt6MKGHfO2IMsMMeM96MKGHfOYIMsMMeMv6MKG4fHXgIMMjgKMfH6qJn6IbMg6bJMJ7fbKOMsMMeMS6MKG4fJ3gIMMjIPMfH6qJ7bIbMg6JJMJ7fbK7MsMMegJ6MKG4fJqgIMMjfPMfH6qJK6IbMg6QJMJ7fbKbwgMgeMw6MKG4fwXVIMIjgfMfH6qJD6vbMs65JMJ7fbRK2UMgeMj6MKG4f5IVIMIjIfMfH6qJD3vbMs6YJMJ7fbRb2UMgegI6MKG4f4CbIMIjfPMfH6qJ7WqbMy62JMJ7f6RRy6IbMy6FJMJ7fbK7psMfeMb6MKGHf5PeMsMfeMt6MKG4fHyoIMJjgkMfH6GJojjgIMJjIPMfqMY2q05Egb.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:600,300,300italic,700normal,700italic,700"/>
+<script type="text/javascript">SQUARESPACE_ROLLUPS = {};</script>
+<script>(function(rollups, name) { if (!rollups[name]) { rollups[name] = {}; } rollups[name].js = ["//static.squarespace.com/universal/scripts-compressed/common-a3142a17a94db943a281-min.js"]; })(SQUARESPACE_ROLLUPS, 'squarespace-common');</script>
+<script>(function(rollups, name) { if (!rollups[name]) { rollups[name] = {}; } rollups[name].js = ["//static.squarespace.com/universal/scripts-compressed/commerce-97bc4c324b1ca7b93ec2-min.js"]; })(SQUARESPACE_ROLLUPS, 'squarespace-commerce');</script>
+<script>(function(rollups, name) { if (!rollups[name]) { rollups[name] = {}; } rollups[name].css = ["//static.squarespace.com/universal/styles-compressed/commerce-5ff3a810469d9b1346052dcaf72c56ae-min.css"]; })(SQUARESPACE_ROLLUPS, 'squarespace-commerce');</script>
+<script type="text/javascript" data-sqs-type="dynamic-assets-loader">(function() {(function(a){function e(b){-1!==b.indexOf(".js")?document.write("<script "+f+'crossorigin="anonymous" src="'+b+'">\x3c/script>'):document.write('<link rel="stylesheet" type="text/css" href="'+b+'" />')}var g=function(){var b=window.location.search,a=b.indexOf("exclude=");return-1<a&&(b=b.substr(a+8).split("&")[0])?b.split(","):[]}(),f;f=window.__beta_flag_should_defer?'defer="defer" ':"";try{if(window.top!=window&&window.top.Squarespace&&window.top.Squarespace.frameAvailable){window.top.Squarespace.frameAvailable(window,
+SQUARESPACE_ROLLUPS);return}}catch(h){console.error(h)}for(var c in a)if(!(-1<g.indexOf(c))){if(a[c].js)for(var d=0;d<a[c].js.length;d++)e(a[c].js[d]);if(a[c].css)for(d=0;d<a[c].css.length;d++)e(a[c].css[d])}})(SQUARESPACE_ROLLUPS);
+})();</script><script type="text/javascript" data-sqs-type="imageloader">(function() {var EXCLUDED_SIZES=function(){var a=window.location.search,b=a.indexOf("exclude_imageloader_sizes=");return-1<b&&(a=a.substr(b+26).split("&")[0])?a.split(",").map(function(a){return parseInt(a,10)}):[]}(),SQUARESPACE_SIZES=[2500,1500,1E3,750,500,300,100].filter(function(a){return-1===EXCLUDED_SIZES.indexOf(a)}),IMAGE_LOADING_CLASS="loading",ImageLoader=new function(){this.load=function(a,b){function d(a,b,c){var d=new Image;d.onload=b;d.onerror=c;d.src=a}a.getDOMNode&&(a=a.getDOMNode());var c=this._getDataFromNode(a,
+b),e=!(!c.dimensions||!c.dimensions.width||!c.dimensions.height),g=c.load+"";if("false"===g)return!1;var h=c.mode;if(e&&("fit"===h||"fill"===h)){h=a.parentNode;if(!h)return console.error("Not doing anything, parentNode not found."),!1;if(!this.refresh(a,b,h))return!1}var n=this._intendToLoad(a,c);if("string"===typeof n&&"viewport"!==g){var m=this.getUrl(n,c),g=a.getAttribute("data-image-resolution");a.getAttribute("src")!==m&&this.isValidResolution(n,g)&&(a.onload=function(){a.className=a.className.replace(IMAGE_LOADING_CLASS,
+" ").trim();a.setAttribute("data-image-resolution",n)},!a.getAttribute("src")&&-1===a.className.indexOf(IMAGE_LOADING_CLASS)&&(a.className+=(a.className?" ":"")+IMAGE_LOADING_CLASS),!a.getAttribute("src")&&e?(a.setAttribute("src",m),c.useBgImage&&(a.parentNode.style.backgroundImage="url("+m+")")):d(m,function(){e?a.setAttribute("src",m):(a.setAttribute("data-image-dimensions",this.width+"x"+this.height),ImageLoader.load(a,b))},function(){a.className=a.className.replace(IMAGE_LOADING_CLASS," ").trim();
+a.setAttribute("src",m)}));return!0}return n};this.refresh=function(a,b,d){a.getDOMNode&&(a=a.getDOMNode());d&&d.getDOMNode&&(d=d.getDOMNode());d=d||a.parentNode;if(!d)return console.error("Not doing anything, parentNode not found."),!1;var c=this._getDataFromNode(a,b),e=d.offsetWidth,g=d.offsetHeight;b=c.mode;if("none"!==b){var h=c.dimensions.width,n=c.dimensions.height,m=h/n,q=e/g;if(c.useBgImage&&"fill"===b&&"backgroundSize"in document.documentElement.style)return a.style.display="none",d.style.backgroundSize=
+"cover",d.style.backgroundPosition=100*c.focalPoint.x+"% "+100*c.focalPoint.y+"%",!0;if(c.fixedRatio)"fill"==b&&q>m||"fit"==b&&q<m?(k=100,l=100*(q/m),r=(100-l)*c.focalPoint.y,p=0):(k=100*(m/q),l=100,r=0,p=(100-k)*c.focalPoint.x),a.style.top=r+"%",a.style.left=p+"%",a.style.width=k+"%",a.style.height=l+"%";else{var f;"fill"===b?f=m>q?g/n:e/h:"fit"===b&&(f=m<q?g/n:e/h);!c.stretch&&"fit"==b&&1<f&&(f=1);var k=Math.ceil(h*f),l=Math.ceil(n*f);if(0===k||0===l)return!1;var p,r;"fill"===b?(p=Math.min(Math.max(e/
+2-k*c.focalPoint.x,e-k),0),r=Math.min(Math.max(g/2-l*c.focalPoint.y,g-l),0)):"fit"===b&&(f=c.fitAlignment,p=f.left?0:f.right?e-k:k<e?(e-k)/2:0,r=f.top?0:f.bottom?g-l:l<g?(g-l)/2:0,"inline"==this._getStyle(a,"display")&&(a.style.fontSize="0px"),this._resetAlt(a,function(){k-=a.offsetHeight-a.clientHeight;l-=a.offsetWidth-a.clientWidth}));a.style.top=Math.ceil(r)+"px";a.style.left=Math.ceil(p)+"px";a.style.width=Math.ceil(k)+"px";a.style.height=Math.ceil(l)+"px"}p=this._getStyle(d,"position");a.style.position=
+"relative"==p?"absolute":"relative";if("fill"==b&&(b=this._getStyle(d,"overflow"),!b||"hidden"!=b))d.style.overflow="hidden";return!0}};this._intendToLoad=function(a,b){function d(c,d){"none"===b.mode&&(a.style.width=null,a.style.height=null);var e=parseFloat(a.getAttribute(c)),f=parseFloat(e);if(!f||isNaN(f))e=h._getStyle(a,c),f=parseFloat(e);if(!f||isNaN(f))e=h._getStyle(a,"max-"+c,"max"+(c.substr(0,1).toUpperCase()+c.substr(1))),f=parseFloat(e);if(0===d||e)switch(h._stringType(e)){case "percentage":d=
+parseInt(e,10)/100*g["offset"+c.substr(0,1).toUpperCase()+c.substr(1)];break;case "number":d=parseInt(e,10)}!f&&0!==d&&!a.getAttribute("src")&&(d=0);return d}b=b||this._getDataFromNode(a);if(!b.source)return!1;var c=a.offsetWidth,e=a.offsetHeight,g=a.parentNode,h=this;this._resetAlt(a,function(){c=d("width",c);e=d("height",e)});0===c&&0===e?(c=b.dimensions.width,e=b.dimensions.height):0===c?c=this.getDimensionForValue("width",e,b):0===e&&(e=this.getDimensionForValue("height",c,b));"viewport"===b.load&&
+(a.style.width=Math.floor(c)+"px",a.style.height=Math.floor(e)+"px");return this.getSquarespaceSize(c,e,b)};this._getDataFromNode=function(a,b){b=b||{};var d={focalPoint:{x:0.5,y:0.5},dimensions:{width:null,height:null},mode:"none",fitAlignment:{center:!0},load:"true",stretch:!0,fixedRatio:!1};if(b.focalPoint)d.focalPoint=b.focalPoint;else{var c=a.getAttribute("data-image-focal-point");if(c&&(c=c.split(","))&&2==c.length)d.focalPoint={x:parseFloat(c[0]),y:parseFloat(c[1])}}if(b.dimensions)d.dimensions=
+b.dimensions;else if((c=a.getAttribute("data-image-dimensions"))&&(c=c.split("x"))&&2==c.length)d.dimensions={width:parseInt(c[0],10),height:parseInt(c[1],10)};b.mode?d.mode=b.mode:a.parentNode&&(c=a.parentNode.className,-1!==c.indexOf("content-fill")?d.mode="fill":-1!==c.indexOf("content-fit")&&(d.mode="fit"));if("fit"===d.mode&&a.parentNode&&(c=b.fitAlignment||a.getAttribute("data-alignment")||a.parentNode.getAttribute("data-alignment")))d.fitAlignment={top:-1!==c.indexOf("top"),left:-1!==c.indexOf("left"),
+center:-1!==c.indexOf("center"),right:-1!==c.indexOf("right"),bottom:-1!==c.indexOf("bottom")};b.load?d.load=b.load:(c=a.getAttribute("data-load"))&&(d.load=c);if("undefined"!==typeof b.stretch)d.stretch=b.stretch;else if(c=a.getAttribute("data-image-stretch"))d.stretch="true"===c?!0:!1;d.source=b.source?b.source:a.getAttribute("data-src");d.source&&this.isSquarespaceUrl(d.source)&&("http:"===d.source.substr(0,5)&&"https"===window.location.protocol.substr(0,5))&&(d.source=d.source.replace("http://",
+"https://"));if(b.fixedRatio)d.fixedRatio=b.fixedRatio;else if(c=a.getAttribute("data-fixed-ratio"))d.fixedRatio="true"==c;b.useBgImage?d.useBgImage=b.useBgImage:(c=a.getAttribute("data-use-bg-image"),d.useBgImage="true"===c||!0===c?!0:!1);return d};this._stringType=function(a){return"string"===typeof a&&-1!==a.indexOf("%")?"percentage":isNaN(parseInt(a,10))?NaN:"number"};this._getStyle=function(a,b,d){var c;a.currentStyle?c=a.currentStyle[d||b]:window.getComputedStyle&&(c=document.defaultView.getComputedStyle(a,
+null).getPropertyValue(b));return c};this._isVisible=function(a){a=a.getBoundingClientRect();return 0<=a.left&&0<=a.top||0<=a.bottom&&0<=a.right||0<=a.left&&0<=a.bottom||0<=a.right&&0<=a.top};this.getSquarespaceSize=function(a,b,d){a=Math.max(b/(d.dimensions.height/d.dimensions.width),a);"undefined"===typeof app&&"number"===typeof window.devicePixelRatio&&(a*=window.devicePixelRatio);for(b=1;b<SQUARESPACE_SIZES.length&&!(a>SQUARESPACE_SIZES[b]);b++);return SQUARESPACE_SIZES[b-1]+"w"};this.getDimensionForValue=
+function(a,b,d){var c=d.dimensions.width;d=d.dimensions.height;return"width"==a?c/d*b:"height"==a?d/c*b:NaN};this.getUrl=function(a,b){var d=b.source;return a&&("/"==d[0]||this.isSquarespaceUrl(d))?(-1===d.indexOf("format="+a)&&(d=d+(-1!==d.indexOf("?")?"&":"?")+"format="+a),d):b.source};this.isSquarespaceUrl=function(a){return-1!==a.indexOf("squarespace.com")||-1!==a.indexOf("squarespace.net")||-1!==a.indexOf("sqsp.net")};this.isValidResolution=function(a,b){a=parseInt(a,10);b=parseInt(b,10);return isNaN(a)||
+isNaN(b)?!0:a>b};this._resetAlt=function(a,b){var d=a.getAttribute("alt"),c=d&&0<d.length&&!a.getAttribute("src");if(c){var e=a.style.display;a.removeAttribute("alt");a.style.display="none";a.offsetHeight+0;a.style.display=e}b.call(this);c&&a.setAttribute("alt",d)};this.bootstrap=function(){var a=document.images;if(0<a.length)for(var b=0,d=a.length;b<d;b++)((a[b].hasAttribute?a[b].hasAttribute("data-image"):a[b].attributes["data-image"])||(a[b].hasAttribute?a[b].hasAttribute("data-src"):a[b].attributes["data-src"]))&&
+"false"!==(a[b].getAttribute?a[b].getAttribute("data-load"):a[b].attributes["data-load"])+""&&ImageLoader.load(a[b])}};window.ImageLoader=ImageLoader;window.YUI&&YUI.add("squarespace-imageloader",function(a){},"1.0",{requires:[]});
+})();</script>
+<script>Static.SQUARESPACE_CONTEXT = {"facebookAppId":"314192535267336","rollups":{"squarespace-announcement-bar":{"css":"//static.squarespace.com/universal/styles-compressed/announcement-bar-d41d8cd98f00b204e9800998ecf8427e-min.css","js":"//static.squarespace.com/universal/scripts-compressed/announcement-bar-d346ff88c2cd4f3849e9-min.js"},"squarespace-audio-player":{"css":"//static.squarespace.com/universal/styles-compressed/audio-player-76e4bfcc3f9830beb388bae2002fbe6c-min.css","js":"//static.squarespace.com/universal/scripts-compressed/audio-player-cd6e7b45df2bb1dfbe08-min.js"},"squarespace-blog-collection-list":{"css":"//static.squarespace.com/universal/styles-compressed/blog-collection-list-d41d8cd98f00b204e9800998ecf8427e-min.css","js":"//static.squarespace.com/universal/scripts-compressed/blog-collection-list-93a9030cb3002a1fee16-min.js"},"squarespace-calendar-block-renderer":{"css":"//static.squarespace.com/universal/styles-compressed/calendar-block-renderer-032634519fa160b1d2da6986dce0cdae-min.css","js":"//static.squarespace.com/universal/scripts-compressed/calendar-block-renderer-7a21a86ac11ff0116b7e-min.js"},"squarespace-chartjs-helpers":{"css":"//static.squarespace.com/universal/styles-compressed/chartjs-helpers-9935a41d63cf08ca108505d288c1712e-min.css","js":"//static.squarespace.com/universal/scripts-compressed/chartjs-helpers-9461e5d5004c9d480fba-min.js"},"squarespace-comments":{"css":"//static.squarespace.com/universal/styles-compressed/comments-db79f121099c10e9346733da5bc6bb10-min.css","js":"//static.squarespace.com/universal/scripts-compressed/comments-f6a9345d77ab3347683d-min.js"},"squarespace-dialog":{"css":"//static.squarespace.com/universal/styles-compressed/dialog-41403d1f0d87846c1b05baa36a8d7c38-min.css","js":"//static.squarespace.com/universal/scripts-compressed/dialog-727ed569316e4a21c17c-min.js"},"squarespace-events-collection":{"css":"//static.squarespace.com/universal/styles-compressed/events-collection-032634519fa160b1d2da6986dce0cdae-min.css","js":"//static.squarespace.com/universal/scripts-compressed/events-collection-8ce67c17f96d1db5d7e1-min.js"},"squarespace-gallery-collection-list":{"css":"//static.squarespace.com/universal/styles-compressed/gallery-collection-list-d41d8cd98f00b204e9800998ecf8427e-min.css","js":"//static.squarespace.com/universal/scripts-compressed/gallery-collection-list-6b27e63c1bf4bc6c3dc1-min.js"},"squarespace-image-zoom":{"css":"//static.squarespace.com/universal/styles-compressed/image-zoom-ae974921915aeccaff8ad60c60e19c31-min.css","js":"//static.squarespace.com/universal/scripts-compressed/image-zoom-bf7ffa475e857ea2b231-min.js"},"squarespace-pinterest":{"css":"//static.squarespace.com/universal/styles-compressed/pinterest-d41d8cd98f00b204e9800998ecf8427e-min.css","js":"//static.squarespace.com/universal/scripts-compressed/pinterest-93a3ce392b99fbc11234-min.js"},"squarespace-product-quick-view":{"css":"//static.squarespace.com/universal/styles-compressed/product-quick-view-eb4b900ac0155bed2f175aa82e2a7c17-min.css","js":"//static.squarespace.com/universal/scripts-compressed/product-quick-view-dd66893b62aff618ed23-min.js"},"squarespace-products-collection-item-v2":{"css":"//static.squarespace.com/universal/styles-compressed/products-collection-item-v2-ae974921915aeccaff8ad60c60e19c31-min.css","js":"//static.squarespace.com/universal/scripts-compressed/products-collection-item-v2-e8eac4491039e39debe9-min.js"},"squarespace-products-collection-list-v2":{"css":"//static.squarespace.com/universal/styles-compressed/products-collection-list-v2-ae974921915aeccaff8ad60c60e19c31-min.css","js":"//static.squarespace.com/universal/scripts-compressed/products-collection-list-v2-ef9a98282811c9a235ad-min.js"},"squarespace-search-page":{"css":"//static.squarespace.com/universal/styles-compressed/search-page-9e3daa07ec7490c2f0be98a39351cb63-min.css","js":"//static.squarespace.com/universal/scripts-compressed/search-page-510ecd6ef61d766f0bf3-min.js"},"squarespace-share-buttons":{"js":"//static.squarespace.com/universal/scripts-compressed/share-buttons-8799ac2c7bf579e69292-min.js"},"squarespace-simple-liking":{"css":"//static.squarespace.com/universal/styles-compressed/simple-liking-09fa291ec2800c97714f0d157fd0a6ca-min.css","js":"//static.squarespace.com/universal/scripts-compressed/simple-liking-7d08f27fe6e43e9b3e58-min.js"},"squarespace-social-buttons":{"css":"//static.squarespace.com/universal/styles-compressed/social-buttons-7a696232d1cd101fd62b5f174f9ae6ff-min.css","js":"//static.squarespace.com/universal/scripts-compressed/social-buttons-0d44a9e44037d7ede7e0-min.js"},"squarespace-tourdates":{"css":"//static.squarespace.com/universal/styles-compressed/tourdates-d41d8cd98f00b204e9800998ecf8427e-min.css","js":"//static.squarespace.com/universal/scripts-compressed/tourdates-8a512a3ba78d6e74f460-min.js"}},"pageType":50,"website":{"id":"5715eee9b09f95a12b44e0ed","identifier":"leona-devs","websiteType":1,"contentModifiedOn":1477524345353,"cloneable":false,"developerMode":true,"siteStatus":{},"language":"en-US","timeZone":"America/Chicago","machineTimeZoneOffset":-18000000,"timeZoneOffset":-18000000,"timeZoneAbbr":"CDT","siteTitle":"Motorola Developer Portal","siteTagLine":"Dream. Make. Ship.","siteDescription":"<p><span style=\"font-size:15.4px\">Everything you need to learn about the Moto Mods\u2122 platform, create your own Moto Mod, and take it to market.&nbsp;</span></p>","logoImageId":"5757c416c6fc08b36227de80","socialLogoImageId":"5755264307eaa05442bdf5e8","shareButtonOptions":{"4":true,"5":true,"6":true,"7":true,"1":true,"8":true,"2":true,"3":true},"logoImageUrl":"//static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/5757c416c6fc08b36227de80/1477524345353/","socialLogoImageUrl":"//static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/5755264307eaa05442bdf5e8/1477524345353/","authenticUrl":"http://developer.motorola.com","internalUrl":"http://leona-devs.squarespace.com","baseUrl":"http://developer.motorola.com","primaryDomain":"developer.motorola.com","socialAccounts":[{"serviceId":11,"userId":"UCF5CbIqtNedOBHYhCgaVo5w","screenname":"Josh Wu","addedOn":1465372026418,"profileUrl":"https://www.youtube.com/user/motorola","iconUrl":"https://yt3.ggpht.com/-aiajjcTcxW8/AAAAAAAAAAI/AAAAAAAAAAA/F25Fwkym5Yg/s88-c-k-no-rj-c0xffffff/photo.jpg","iconEnabled":true,"serviceName":"youtube"},{"serviceId":2,"userId":"10100700593422275","screenname":"Josh Wu","addedOn":1465370177239,"profileUrl":"https://www.facebook.com/MotoUSA/","iconUrl":"http://graph.facebook.com/10100700593422275/picture?type=square","metaData":{"service":"facebook"},"iconEnabled":true,"serviceName":"facebook"},{"serviceId":4,"userId":"193778334","userName":"xjoshwu","screenname":"Josh Wu","addedOn":1465371811769,"profileUrl":"https://twitter.com/moto","iconUrl":"http://abs.twimg.com/sticky/default_profile_images/default_profile_1_normal.png","collectionId":"5757cca3ab48de05c0e6df61","iconEnabled":true,"serviceName":"twitter"},{"serviceId":21,"userId":"103148786619544125119","screenname":"Josh Wu","addedOn":1465371948049,"profileUrl":"https://plus.google.com/communities/116517178872973348174","iconUrl":"https://lh4.googleusercontent.com/-aiajjcTcxW8/AAAAAAAAAAI/AAAAAAAAAng/vXUrMPokc1s/photo.jpg","iconEnabled":true,"serviceName":"google"}],"typekitId":"","statsMigrated":false,"imageMetadataProcessingEnabled":false},"websiteSettings":{"id":"5715eee9b09f95a12b44e0f0","websiteId":"5715eee9b09f95a12b44e0ed","subjects":[],"country":"US","state":"IL","markdownMode":true,"simpleLikingEnabled":true,"mobileInfoBarSettings":{"isContactEmailEnabled":false,"isContactPhoneNumberEnabled":false,"isLocationEnabled":false,"isBusinessHoursEnabled":false},"lastAgreedTermsOfService":2,"defaultPostFormat":"%y/%m/%d/%t","commentLikesAllowed":true,"commentAnonAllowed":true,"commentThreaded":true,"commentApprovalRequired":false,"commentAvatarsOn":true,"commentSortType":2,"commentFlagThreshold":0,"commentFlagsAllowed":true,"commentEnableByDefault":true,"commentDisableAfterDaysDefault":0,"disqusShortname":"","homepageTitleFormat":"%s","collectionTitleFormat":"%c \u2014 %s","itemTitleFormat":"%i \u2014 %s","commentsEnabled":false,"contactPhoneNumber":"","allowSquarespacePromotion":false,"storeSettings":{"returnPolicy":null,"termsOfService":null,"privacyPolicy":null,"paymentSettings":{},"expressCheckout":false,"useLightCart":false,"showNoteField":false,"shippingCountryDefaultValue":"US","billToShippingDefaultValue":false,"showShippingPhoneNumber":true,"isShippingPhoneRequired":false,"showBillingPhoneNumber":true,"isBillingPhoneRequired":false,"currenciesSupported":["USD","CAD","GBP","AUD","EUR","CHF","NOK","SEK","DKK"],"defaultCurrency":"USD","selectedCurrency":"USD","measurementStandard":1,"orderConfirmationInjectCode":"<style>\n/* <link rel=\"stylesheet\" href=\"style.css\">\n  img .footer-inner {\n  \tmax-width: 80px;\n  }\n  img.thumb-image.loaded {\n  \tleft: 0 !important;\n    max-height: 100% !important;\n  }*/\n  \n</style>","showCustomCheckoutForm":false,"enableMailingListOptInByDefault":true,"sameAsRetailLocation":false,"stripeConnected":false,"isLive":false,"storeState":3},"useEscapeKeyToLogin":false,"ssBadgeType":1,"ssBadgePosition":4,"ssBadgeVisibility":1,"ssBadgeDevices":1,"pinterestOverlayOptions":{"mode":"disabled"},"ampEnabled":false},"websiteCloneable":false,"collection":{"title":"Moto Mods Developer: Build Prototype","id":"573979d0a3360ce2541b0a08","fullUrl":"/build/","type":1},"item":{"title":"Developer Tools: Build from Source","id":"574620e9e707eb50c570210e","fullUrl":"/build/tools/build-from-source","publicCommentCount":0,"commentState":2,"recordType":1},"subscribed":false,"appDomain":"squarespace.com","templateTweakable":true,"tweakJSON":{"aspect-ratio":"Auto","banner-slideshow-controls":"Arrows","gallery-arrow-style":"No Background","gallery-aspect-ratio":"3:2 Standard","gallery-auto-crop":"true","gallery-autoplay":"false","gallery-design":"Grid","gallery-info-overlay":"Show on Hover","gallery-loop":"false","gallery-navigation":"Bullets","gallery-show-arrows":"true","gallery-transitions":"Fade","galleryArrowBackground":"rgba(34,34,34,1)","galleryArrowColor":"rgba(255,255,255,1)","galleryAutoplaySpeed":"3","galleryCircleColor":"rgba(255,255,255,1)","galleryInfoBackground":"rgba(0, 0, 0, .7)","galleryThumbnailSize":"100px","gridSize":"280px","gridSpacing":"10px","logoContainerWidth":"200px","product-gallery-auto-crop":"false","product-image-auto-crop":"true","siteTitleContainerWidth":"235px"},"templateId":"5715f8f91d07c0429e184ea4","pageFeatures":[1,2,4],"impersonatedSession":false,"isFacebookTab":false,"tzData":{"zones":[[-360,"US","C%sT",null]],"rules":{"US":[[1967,2006,null,"Oct","lastSun","2:00","0","S"],[1987,2006,null,"Apr","Sun>=1","2:00","1:00","D"],[2007,"max",null,"Mar","Sun>=8","2:00","1:00","D"],[2007,"max",null,"Nov","Sun>=1","2:00","0","S"]]}}};</script><script type="text/javascript"> SquarespaceFonts.loadViaContext(); Squarespace.load(window);</script><script type="application/ld+json">{"@context":"http://schema.org","@type":"WebSite","url":"http://developer.motorola.com","name":"Motorola Developer Portal","description":"<p><span style=\"font-size:15.4px\">Everything you need to learn about the Moto Mods\u2122 platform, create your own Moto Mod, and take it to market.&nbsp;</span></p>","image":"//static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/5757c416c6fc08b36227de80/1477524345353/"}</script><!--[if gte IE 9]> <link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/955-05142015/1476892065314/site.css?&filterFeatures=false&part=1"/><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/955-05142015/1476892065314/site.css?&filterFeatures=false&part=2"/><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/955-05142015/1476892065314/site.css?&filterFeatures=false&part=3"/><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/955-05142015/1476892065314/site.css?&filterFeatures=false&part=4"/><![endif]-->
+<!--[if lt IE 9]><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/955-05142015/1476892065314/site.css?&filterFeatures=false&noMedia=true&part=1"/><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/955-05142015/1476892065314/site.css?&filterFeatures=false&noMedia=true&part=2"/><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/955-05142015/1476892065314/site.css?&filterFeatures=false&noMedia=true&part=3"/><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/955-05142015/1476892065314/site.css?&filterFeatures=false&noMedia=true&part=4"/><![endif]-->
+<!--[if !IE]> --><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/955-05142015/1476892065314/site.css?&filterFeatures=false"/><!-- <![endif]-->
+<!-- create adrum.js script timestamp -->
+<script>window['adrum-start-time'] = new Date().getTime();</script>
+<!--run adrum.js -->
+<script src="/scripts/adrum.js"></script>
+<!-- run page redirects -->
+<script id="redirect" type="text/javascript">	
+    // DEFINE HERE WHICH HERO PAGES SHOULD AUTOMATICALLY LOOK TO REDIRECT
+    // SUBPAGES THAT FOLLOW THE SLUG NAMING CONVENTION OF BASE_URL.COM/AAA-BBB-#  
+	var redirects = {
+     // "/index-page-url": "redirect-target"
+        "/home": "/",
+      	"/buy": "/buy",
+      	"/get-started": "/get-started",
+        "/partner": "/partner",
+        "/support": "/support",
+    };
+  
+  	// DON'T TOUCH ANYTHING BELOW THIS LINE
+  	// UNLESS YOU KNOW JAVASCRIPT
+    (function redirect_page() {
+      	//console.log('Window pathname:', window.location);
+        // store pathname because we have to use it a bunch
+        var pathname = window.location.pathname,
+            redirect_url;
+
+        for (var $key in redirects) {
+            // look to see if the pathname matches a targeted redirect
+            // index at the start of the string
+            if (new RegExp(('^').concat($key), 'i').test(pathname)) {
+                console.log('This window URL pathname matches a specified redirect path!\nWindow URL pathname:', pathname, '\nProceding to analyze...');
+                // because we store otherwise random numbers in intelligble
+                // variables, create an index and offset
+                var index = 0,
+                    offset = 1;
+                // clean up the pathname: if there's a final / at the *end* of the URL,
+                // get rid of it, since it will prevent us from identifying pages to redirect
+                pathname = (pathname.charAt(pathname.length - offset) === '/') ? pathname.substr(0, pathname.length - offset) : pathname;
+                // after cleaning up the pathname, check to see if the match is an exact one
+                // if it is, don't redirect
+                if (pathname === $key) {
+                    return console.log('Pathname is evaluated as the same page as the potential redirect -- not processing further');
+                } 
+                // check to see if the match corresponds to a subfolder/page URL
+                // rather than a hero card -- if it is, ignore it
+                else if (pathname.match(/\//g).length > offset) {
+                    return console.log('Pathname is evaluated as a subpage -- not applying redirects');
+                } 
+              	// redirect here!
+              	else {
+                    console.log('Pathname should be redirected to', redirects[$key]);
+                    return window.location = redirects[$key];
+                }
+            }
+        }	
+    }());
+</script>
+
+<!-- Google Tag Manager -->
+<noscript>
+  <iframe src="//www.googletagmanager.com/ns.html?id=GTM-5HBTJV"
+height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5HBTJV');</script>
+<!-- End Google Tag Manager -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script src="//cdn.optimizely.com/js/324186689.js"></script><link rel="stylesheet" href="/assets/css/documentation-styles.css">
+<!-- <style>
+  #header-info-1 {
+  	color: #dbbc8e !important;
+    font-weight: bold !important;
+  }
+  h2 {
+  	color: #5e2862 !important;
+  }
+</style> -->
+
+<script type="text/javascript">
+      $(window).bind("load", function() {
+
+
+        // GA Data Layer Push Events
+
+        $(".sqs-block-content a:contains('MDK Architecture Overview')").click(function(e){ dataLayer.push({'event' : 'event', 'category' : 'Mods: Build Page Interaction', 'action' : 'Click', 'label' : 'Build: Body: MDK Architecture Overview: Link'}); console.log(' click'); });
+
+        $(".sqs-block-content a[href*='/products/perforated-board']").click(function(e){ dataLayer.push({'event' : 'event', 'category' : 'Mods: Build Page Interaction', 'action' : 'Click', 'label' : 'Build: Body: Perforated Board: Link'}); console.log(' click'); });
+        $(".sqs-block-content a[href*='/products/hat-adapter-board']").click(function(e){ dataLayer.push({'event' : 'event', 'category' : 'Mods: Build Page Interaction', 'action' : 'Click', 'label' : 'Build: Body: HAT Adapter Board: Link'}); console.log(' click'); });
+        $(".sqs-block-content a[href*='/products/temperature-sensor-personality-card']").click(function(e){ dataLayer.push({'event' : 'event', 'category' : 'Mods: Build Page Interaction', 'action' : 'Click', 'label' : 'Build: Body: Temperature Sensor Personality Card: Link'}); console.log(' click'); });
+        $(".sqs-block-content a[href*='/products/battery-personality-card']").click(function(e){ dataLayer.push({'event' : 'event', 'category' : 'Mods: Build Page Interaction', 'action' : 'Click', 'label' : 'Build: Body: Battery Personality Card: Link'}); console.log(' click'); });
+        $(".sqs-block-content a[href*='/products/display-personality-card']").click(function(e){ dataLayer.push({'event' : 'event', 'category' : 'Mods: Build Page Interaction', 'action' : 'Click', 'label' : 'Build: Body: Display Personality Card: Link'}); console.log(' click'); });
+        $(".sqs-block-content a[href*='/products/audio-personality-card']").click(function(e){ dataLayer.push({'event' : 'event', 'category' : 'Mods: Build Page Interaction', 'action' : 'Click', 'label' : 'Build: Body: Audio Personality Card: Link'}); console.log(' click'); });
+        $(".sqs-block-content a[href*='/partner']").click(function(e){ dataLayer.push({'event' : 'event', 'category' : 'Mods: Build Page Interaction', 'action' : 'Click', 'label' : 'Build: Body: Partner Page: Link'}); console.log(' click'); });
+
+        $("a[href*='https://pages.motorola-mail.com/moto-mods-developer-us-en']").click(function(e){ dataLayer.push({'event' : 'event', 'category' : 'Mods: Get Started Page Interaction', 'action' : 'Click', 'label' : 'Get Started: Body: Register For Updates: Button'}); console.log('updates click'); });
+
+        
+      });
+    </script><script type="text/javascript"> var _gaq = _gaq || []; _gaq.push(['_setAccount', 'UA-76664929-4']); _gaq.push(['_trackPageview']); (function() { var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s); })(); </script><!-- End of Squarespace Headers -->
+    <script>/* Must be below squarespace-headers */(function(){var e='ontouchstart'in window||navigator.msMaxTouchPoints;var t=document.documentElement;if(!e&&t){t.className=t.className.replace(/touch-styles/,'')}})()
+    </script>
+  </head>
+
+  <body id="item-574620e9e707eb50c570210e" class="enable-nav-button nav-button-style-solid nav-button-corner-style-square banner-button-style-solid banner-button-corner-style-square banner-slideshow-controls-arrows meta-priority-date  hide-entry-author hide-list-entry-footer    hide-blog-sidebar center-navigation--info  gallery-design-grid aspect-ratio-auto lightbox-style-light gallery-navigation-bullets gallery-info-overlay-show-on-hover gallery-aspect-ratio-32-standard gallery-arrow-style-no-background gallery-transitions-fade gallery-show-arrows gallery-auto-crop      event-thumbnails event-thumbnail-size-32-standard event-date-label event-date-label-time event-list-show-cats event-list-date event-list-time event-list-address   event-icalgcal-links  event-excerpts  event-item-back-link    product-list-titles-under product-list-alignment-center product-item-size-11-square product-image-auto-crop product-gallery-size-11-square  show-product-price show-product-item-nav product-social-sharing  opentable-style-light newsletter-style-light small-button-style-solid small-button-shape-square medium-button-style-outline medium-button-shape-square large-button-style-outline large-button-shape-square button-style-solid button-corner-style-square tweak-product-quick-view-button-style-floating tweak-product-quick-view-button-position-bottom tweak-product-quick-view-lightbox-excerpt-display-truncate tweak-product-quick-view-lightbox-show-arrows tweak-product-quick-view-lightbox-show-close-button tweak-product-quick-view-lightbox-controls-weight-light native-currency-code-usd collection-573979d0a3360ce2541b0a08 view-item collection-layout-default collection-type-build mobile-style-available">
+    <input type="checkbox" name="mobile-nav-toggle" id="mobileNavToggle" class="mobile-nav-toggle-box hidden" /><a href="#" class="body-overlay"></a>
+    <div class="sqs-announcement-bar-dropzone"></div>
+    <div id="sidecarNav">
+      
+
+
+<div id="mobileNavWrapper" class="nav-wrapper" data-content-field="navigation-mobileNav">
+  <nav id="mobileNavigation">
+    
+      
+        
+        <div class="mobile-fullurl- index homepage">
+          <a href="/">
+            Home
+          </a>
+        </div>
+        
+      
+
+    
+      
+        
+        <div class="mobile-fullurl-get-started index">
+          <a href="/get-started/">
+            Get Started
+          </a>
+        </div>
+        
+      
+
+    
+      
+        
+	        <div class="external outside-folder explore-dropdown">
+	          <a href="/explore">
+	            Explore
+	          </a>
+	          
+	          
+			  	<div id="subNavMobile">
+
+    
+        
+        <div class="external" data-url="/explore/system-architecture" >
+          <a  href="/explore/system-architecture">
+            System Architecture
+          </a>
+        </div>
+        
+    
+        
+        <div class="external" data-url="/explore/software" >
+          <a  href="/explore/software">
+            Moto Mods SDK for Android
+          </a>
+        </div>
+        
+    
+        
+        <div class="external" data-url="/explore/firmware" >
+          <a  href="/explore/firmware">
+            Moto Mods Firmware
+          </a>
+        </div>
+        
+    
+
+
+</div>
+			  
+			  
+			  
+	        </div>
+	
+
+        
+
+      
+
+    
+      
+        
+	        <div class="external outside-folder build-dropdown">
+	          <a href="/build">
+	            Build
+	          </a>
+	          
+	          
+			  
+			  
+			  	<div id="subNavMobile">
+
+    
+        
+        <div class="external" data-url="/build/overview" >
+          <a  href="/build/overview">
+            Overview
+          </a>
+        </div>
+        
+    
+        
+        <div class="external" data-url="/build/mdk-user-guide" >
+          <a  href="/build/mdk-user-guide">
+            MDK User Guide
+          </a>
+        </div>
+        
+    
+        
+        <div class="external" data-url="/build/tools" >
+          <a  href="/build/tools">
+            Developer Tools
+          </a>
+        </div>
+        
+    
+        
+        <div class="external" data-url="/build/examples" >
+          <a  href="/build/examples">
+            Examples
+          </a>
+        </div>
+        
+    
+
+
+</div>
+			  
+	        </div>
+	
+
+        
+
+      
+
+    
+      
+        
+        <div class="mobile-fullurl-partner index">
+          <a href="/partner/">
+            Partner
+          </a>
+        </div>
+        
+      
+
+    
+      
+        
+        <div class="mobile-fullurl-support index">
+          <a href="/support/">
+            Support
+          </a>
+        </div>
+        
+      
+
+    
+      
+        
+        <div class="mobile-fullurl-buy index">
+          <a href="/buy/">
+            Buy
+          </a>
+        </div>
+        
+      
+
+    
+    <!--<div id="lateral-nav">
+		<div class="button-shop">
+  			<a>Lorem Ipsum</a>
+  		</div>
+  	</div>-->
+  </nav>
+</div>
+
+
+
+
+
+    </div>
+    
+    <div id="siteWrapper" class="clearfix">
+
+      <div class="sqs-cart-dropzone"></div>
+	  
+      <header id="header" class="show-on-scroll" data-offset-el=".index-section" data-offset-behavior="bottom" role="banner">
+        <div class="header-inner">
+	        <div id="second-logo">
+			    
+			    	<img src="https://static1.squarespace.com/static/ta/5715eee9b09f95a12b44e0ed/936/assets/images/logos/lenovo.png" alt="Lenovo" style="max-width:25px"/>
+				
+		      </div>
+	      <div class="main-header">
+		      
+	          <div id="logoWrapper" class="wrapper" data-content-field="site-title">
+	            
+	              <h1 id="logoImage"><a href="/"><img src="//static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/5757c416c6fc08b36227de80/1477524345353/?format=1500w" alt="Motorola Developer Portal" /></a></h1>
+	            
+	          </div><!-- comment the linebreak between these two elements because science
+	          --><label for="mobileNavToggle" class="mobile-nav-toggle-label"><div class="top-bar"></div><div class="middle-bar"></div><div class="bottom-bar"></div></label><label for="mobileNavToggle" class="mobile-nav-toggle-label fixed-nav-toggle-label"><div class="top-bar"></div><div class="middle-bar"></div><div class="bottom-bar"></div></label><!-- comment the linebreak between these two elements because science
+	          -->
+	          <div id="headerNav"><div id="mainNavWrapper" class="nav-wrapper" data-content-field="navigation-mainNav">
+  <nav id="mainNavigation" data-content-field="navigation-mainNav">
+    
+      
+        
+        <div class="fullurl- index homepage">
+          <a href="/">
+            Home
+          </a>
+        </div>
+        
+      
+
+    
+      
+        
+        <div class="fullurl-get-started index">
+          <a href="/get-started/">
+            Get Started
+          </a>
+        </div>
+        
+      
+
+    
+      
+        
+		        <div class="external" id="tab-explore" >
+		          <a href="/explore">
+		            Explore
+		          </a>
+		        </div>
+        
+
+      
+
+    
+      
+        
+		        <div class="external" id="tab-build" >
+		          <a href="/build">
+		            Build
+		          </a>
+		        </div>
+        
+
+      
+
+    
+      
+        
+        <div class="fullurl-partner index">
+          <a href="/partner/">
+            Partner
+          </a>
+        </div>
+        
+      
+
+    
+      
+        
+        <div class="fullurl-support index">
+          <a href="/support/">
+            Support
+          </a>
+        </div>
+        
+      
+
+    
+      
+        
+        <div class="fullurl-buy index">
+          <a href="/buy/">
+            Buy
+          </a>
+        </div>
+        
+      
+
+    
+	<!--<div id="lateral-nav">
+		<div class="button-shop">
+  			<a>Lorem Ipsum</a>
+  		</div>
+  	</div>-->
+  </nav>
+
+</div>
+<!-- style below blocks out the mobile nav toggle only when nav is loaded -->
+<style>.mobile-nav-toggle-label { display: inline-block !important; }</style>
+
+</div>
+	      </div>
+          
+          <!-- Display subnav only if we are in type name collection -->
+          
+                
+		  
+		  
+          
+                
+					<div id="subHeaderNav">
+<div id="mainNavWrapper" class="nav-wrapper" data-content-field="navigation-mainNav">
+  <nav id="subNavigation" data-content-field="navigation-mainNav">
+    
+    
+        
+        <div class="external" data-url="/build/overview" >
+          <a  href="/build/overview">
+            Overview
+          </a>
+        </div>
+        
+
+
+    
+    
+        
+        <div class="external" data-url="/build/mdk-user-guide" >
+          <a  href="/build/mdk-user-guide">
+            MDK User Guide
+          </a>
+        </div>
+        
+
+
+    
+    
+        
+        <div class="external" data-url="/build/tools" >
+          <a  href="/build/tools">
+            Developer Tools
+          </a>
+        </div>
+        
+
+
+    
+    
+        
+        <div class="external" data-url="/build/examples" >
+          <a  href="/build/examples">
+            Examples
+          </a>
+        </div>
+        
+
+
+    
+  </nav>
+</div>
+<!-- style below blocks out the mobile nav toggle only when nav is loaded -->
+<style>.mobile-nav-toggle-label { display: inline-block !important; }</style>
+
+
+</div>
+				
+		  		  
+		  
+		  
+        </div>
+      </header>
+
+      
+        
+          
+            
+              
+            
+          
+        
+      
+
+
+      
+      
+      
+
+      <main id="page" role="main">
+        
+        <!-- comment the linebreak between these two elements because science
+        --><!-- comment the linebreak between these two elements because science
+        --><div id="content" class="main-content" data-content-field="main-content" data-collection-id="573979d0a3360ce2541b0a08" data-edit-main-image="Banner">
+         <div class="sidebar" data-tag-selected="Build from Source"> 
+
+<!-- Here you can modify the query so it matches the slug of the collection to retrieve the tags -->
+<ol>
+   	
+<li><a href="/build/tools" data-tag="Overview">Overview</a></li>
+
+<li><a href="/build/tools/setup-environment" data-tag="Setup Environment">Setup Environment</a></li>
+
+<li><a href="/build/tools/build-from-source" data-tag="Build from Source">Build from Source</a></li>
+
+<li><a href="/build/tools/flashing-firmware" data-tag="Flashing Firmware">Flashing Firmware</a></li>
+
+<li><a href="/build/tools/debug-and-log" data-tag="Debug and Log">Debug and Log</a></li>
+
+</ol>
+<div class="external-links">
+<div class="sqs-layout sqs-grid-12 columns-12 empty" data-type="block-field" id="blockField-external-links-574620e9e707eb50c570210e"><div class="row sqs-row"><div class="col sqs-col-12 span-12"></div></div></div>
+
+</div>
+</div>
+
+
+<div class="entry-content e-content">
+     
+       <div class="sqs-layout sqs-grid-12 columns-12" data-layout-label="Post Body" data-type="item" data-updated-on="1464213781549" id="item-574620e9e707eb50c570210e"><div class="row sqs-row"><div class="col sqs-col-12 span-12"><div class="sqs-block html-block sqs-block-html" data-block-type="2" id="block-1f284de74931bc42b3a7"><div class="sqs-block-content"><h1>Developer Tools: Build from Source</h1></div></div><div class="sqs-block markdown-block sqs-block-markdown" data-block-type="44" id="block-yui_3_17_2_1_1465243615569_74006"><div class="sqs-block-content"><h2 data-preserve-html-node="true" id="build-firmware">Build Firmware</h2>
+
+<blockquote>
+<p><strong>NOTE:</strong> Before proceeding please ensure you have <a href="/build/tools/setup-environment">setup your development environment</a>.</p>
+</blockquote>
+<h3 id="download-source-code">Download Source Code</h3>
+<p>Choose a directory for your build environment.</p>
+<pre><code>$ cd &lt;directory for your build&gt;
+$ export BUILD_TOP=`pwd`
+$ git clone https://github.com/MotorolaMobilityLLC/nuttx
+$ git clone https://github.com/MotorolaMobilityLLC/manifesto
+$ git clone https://github.com/MotorolaMobilityLLC/muc-loader
+$ git clone https://github.com/MotorolaMobilityLLC/bootrom-tools
+$ git clone https://github.com/MotorolaMobilityLLC/mdkutility</code></pre><blockquote>
+<p><strong>2016-08-04 Note:</strong> The <a href="https://github.com/MotorolaMobilityLLC/mdkutility">mdkutility repo</a> is now available on github!</p>
+</blockquote>
+<hr>
+<h3 id="build-kconfig-mconf">Build kconfig-mconf</h3>
+<p>Nuttx uses the same configuration editor that is used to build the Linux Kernel.  To safely change any configurations in Nuttx (and therefore Moto Mods), you will need to build this configuration editor.</p>
+<pre><code>$ cd $BUILD_TOP/nuttx/misc/tools/kconfig-frontends
+$ ./configure --enable-mconf --disable-nconf --disable-gconf --disable-qconf
+$ make
+$ sudo make install
+$ sudo ldconfig</code></pre><hr>
+<h3 id="compile-nuttx">Compile Nuttx</h3>
+<pre><code>$ export PATH=$PATH:$BUILD_TOP/manifesto:$BUILD_TOP/bootrom-tools
+$ cd $BUILD_TOP/nuttx/nuttx
+$ make distclean
+$ cd $BUILD_TOP/nuttx/nuttx/tools
+$ ./configure.sh hdk/muc/base_unpowered</code></pre><p>At this point the <code>configs/hdk/muc/base_unpowered/defconfig</code> will be copied to <code>$BUILD_TOP/nuttx/nuttx/.config</code> and the <code>setenv.sh</code> and <code>Make.defs</code> file from that same directory will be copied up to <code>$BUILD_TOP/nuttx/nuttx</code>.</p>
+<pre><code>$ cd $BUILD_TOP/nuttx/nuttx
+$ make</code></pre><p>The firmware output is located in the nuttx.bin, nuttx.hex and nuttx.tftf files in your current directory. See note about file formats below.</p>
+<h3 id="making-configuration-changes-menuconfig">Making Configuration Changes - menuconfig</h3>
+<p>Nuttx relies heavily on compile time configuration.  The standard Linux menuconfig utility is used to generate this configuration.</p>
+<pre><code>$ cd $BUILD_TOP/nuttx/nuttx
+$ make menuconfig</code></pre><p>You will then be presented with a text based menu system that allows you to edit the configuration.  This edits the local copy of the <code>.config</code> file.  If you want to return to the base configuration just go back into the tools directory and rerun the configure.sh script as described above.  On the other hand, if you do want to save your changes in version control, don’t forget to copy <code>.config</code> back to the configs directory for your product.</p>
+<hr>
+<h3 id="compile-bootloader">Compile bootloader</h3>
+<pre><code>$ cd $BUILD_TOP/muc-loader
+$ ./configure hdk/developer
+$ make</code></pre><p>This tool is a little less sophisticated than Nuttx.  If you want to change any configurations you just edit the .config file by hand.  As before, copy the .config back over your defconfig to preserve the changes for future builds.</p>
+<blockquote>
+<p><strong>Quick Note about File Formats</strong><br>There are three generated firmware image formats:  ELF, bin, and TFTF.  Each of these will be useful at some time. The generated bin file contains the output data and instructions for your firmware.  This is what executes on the Moto Mod.  Debuggers like GDB, require extra information to know the meaning and location of sections and symbols which the generated <a href="https://en.wikipedia.org/wiki/Executable_and_Linkable_Format">ELF</a> files contain in a standard format.  TFTF files are a small wrapper for the bin file, that provides information about where to install the binary code, and an optional signature block to allow the bootloader to validate the firmware.  With the Reference Moto Mod Bootloader, it is expected that the TFTF header is located in the first 512 bytes before the main code binary.  </p>
+</blockquote>
+</div></div><div class="sqs-block horizontalrule-block sqs-block-horizontalrule" data-block-type="47" id="block-yui_3_17_2_1_1465243615569_91162"><div class="sqs-block-content"><hr /></div></div><div class="sqs-block markdown-block sqs-block-markdown" data-block-type="44" id="block-yui_3_17_2_1_1465243615569_91518"><div class="sqs-block-content"><p></p><h2 data-preserve-html-node="true" id="build-android-application">Build Android Application</h2><p></p>
+<h3 id="android-manifest-changes">Android Manifest changes</h3>
+<ul>
+<li>As not all Android powered smartphones support the Moto Mods APIs, include <code>&lt;uses-feature android:name="com.motorola.hardware.mods"/&gt;</code> element in your application <code>AndroidManifest.xml</code></li>
+<li>We recommend that you design your application to function correctly on smartphones without this feature, and  indicate <code>android:required="false"</code> for this use feature <code>&lt;uses-feature android:name="com.motorola.hardware.mods" android:required="false" /&gt;</code></li>
+<li>Set the minimum SDK of the application to API Level 23 or higher. The Moto Mods API are not present on any smartphones with an earlier API level.</li>
+<li>Add <code>&lt;meta-data android:name="com.motorola.mod.version" android:value="@integer/moto_mod_services_version" / &gt;</code> in the Android Manifest. Also copy the <code>version.xml</code> from the SDK into <code>res/values/</code> </li>
+<li>If your application uses any of functionality of the ModManager, it needs to declare use of the <code>PERMISSION_MOD_ACCESS_INFO</code> permission, <code>&lt;uses-permission android:name="PERMISSION_MOD_ACCESS_INFO" /&gt;</code></li>
+<li>If your application needs access to the RAW interface, your manifest should declare that your application needs the <code>PERMISSION_USE_RAW_PROTOCOL</code> permission. Your code also needs to check for this permission grant at runtime, and prompt the user to grant this permission to your application if needed.</li>
+<li>Protect all your application’s receivers that handle intents from ModManager by requiring that all senders of those intents require the <code>PERMISSION_MOD_INTERNAL</code>.</li>
+</ul>
+<h4 id="android-manifest-example">Android Manifest Example</h4>
+<pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.motorola.samplemodapp" &gt;
+
+    &lt;uses-permission android:name="com.motorola.mod.permission.MOD_ACCESS_INFO" /&gt;
+
+
+    &lt;application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme" &gt;
+
+        &lt;meta-data android:name="com.motorola.mod.version"
+            android:value="@integer/moto_mod_services_version" /&gt;
+
+        &lt;activity
+            android:name="com.motorola.samplemodapp.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme" &gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name="android.intent.action.MAIN" /&gt;
+
+                &lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;
+
+        &lt;receiver
+            android:name="com.motorola.samplemodapp.ModReceiver"
+            android:enabled="true"
+            android:exported="true" &gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name="com.motorola.mod.action.MOD_ATTACH" /&gt;
+                &lt;action android:name="com.motorola.mod.action.MOD_DETACH" /&gt;
+                &lt;action android:name="com.motorola.mod.action.MOD_ENUMERATION_DONE" /&gt;
+            &lt;/intent-filter&gt;
+        &lt;/receiver&gt;
+    &lt;/application&gt;
+
+&lt;/manifest&gt;</code></pre><p>For the initial release, the <code>version.xml</code> in your application res/values/ file should contain:</p>
+<pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;resources&gt;
+    &lt;integer name="moto_mod_services_version"&gt;0100000&lt;/integer&gt;
+&lt;/resources&gt;</code></pre><hr>
+<h3 id="building-support-for-all-android-devices">Building Support for All Android Devices</h3>
+<p>If your application needs to support devices which have the Moto Mod connector <strong>as well as</strong> generic Android devices with a single APK, you can use the <code>isModServiceAvailable()</code> to determine at runtime whether a device supports Moto Mods (and whether the version of the Moto Mods platform needed by your APK is compatible with the device it is running on).</p>
+<ul>
+<li>Include <code>modlib.jar</code> in your application</li>
+<li>When your application is launched, use <code>ModManager.isModServiceAvailable()</code> to determine whether the device the application is running on supports Moto Mods (or not)</li>
+<li>Make sure all your Moto Mods related code is only called when your application is running on a device where <code>ModManager.isModServiceAvailable()</code> returns <code>ModManager.SUCCESS</code>.</li>
+</ul>
+<pre><code>if(ModManager.isModServicesAvailable(MainActivity.this) == ModManager.SUCCESS){
+  //
+  // Handle the case where the ModMgr version is present and compatible
+  //
+  } else {
+  //
+  // Handle the case where the ModMgr version is not compatible
+  //  
+  }</code></pre><hr>
+<h3 id="building-a-sample-moto-mod-aware-application">Building a Sample Moto Mod aware Application</h3>
+<p>The <code>MDKUtility</code> is an sample application which listens to ATTACH and DETACH intents. The Android Studio project for the MDKUtility application is available on GitHub.</p>
+<p>Follow these steps:</p>
+<h4 id="step-1">Step 1</h4>
+<p>Open Android Studio</p>
+</div></div><div class="sqs-block image-block sqs-block-image" data-block-type="5" id="block-yui_3_17_2_1_1465243615569_108319"><div class="sqs-block-content">
+	<div class="image-block-outer-wrapper layout-caption-below ">
+	
+		<div class="intrinsic" style="max-width:1778.0px;">
+			
+				<div style="padding-bottom:64.34195709228516%;" class="image-block-wrapper lightbox  has-aspect-ratio" data-description=""  data-lightbox-theme="light" >
+					<noscript><img src="https://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57572d1a8259b5740d348642/1465330983159/tools-prep-image-1.png"  alt="tools-prep-image-1.png"  /></noscript><img class="thumb-image" alt="tools-prep-image-1.png" data-src="https://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57572d1a8259b5740d348642/1465330983159/tools-prep-image-1.png" data-image="https://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57572d1a8259b5740d348642/1465330983159/tools-prep-image-1.png" data-image-dimensions="1778x1144" data-image-focal-point="0.5,0.5" data-load="false" data-image-id="57572d1a8259b5740d348642" data-type="image" />
+				</div>
+			
+
+			
+
+		</div>
+	
+	</div>
+
+</div></div><div class="sqs-block markdown-block sqs-block-markdown" data-block-type="44" id="block-yui_3_17_2_1_1465243615569_119650"><div class="sqs-block-content"><h4 id="step-2">Step 2</h4>
+<p>Download the Sample GitHub project by selecting “Check out project from Version Control”, and clone the APK repo posted on the <a href="http://github.com/motorolamobilityllc">MotorolaMobilityLLC GitHub account</a>.</p>
+</div></div><div class="sqs-block image-block sqs-block-image" data-block-type="5" id="block-yui_3_17_2_1_1465243615569_112198"><div class="sqs-block-content">
+	<div class="image-block-outer-wrapper layout-caption-below ">
+	
+		<div class="intrinsic" style="max-width:1722.0px;">
+			
+				<div style="padding-bottom:63.18234634399414%;" class="image-block-wrapper lightbox  has-aspect-ratio" data-description=""  data-lightbox-theme="light" >
+					<noscript><img src="https://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57572cfcb654f973c0419f75/1465330952802/tools-prep-image-2.png"  alt="tools-prep-image-2.png"  /></noscript><img class="thumb-image" alt="tools-prep-image-2.png" data-src="https://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57572cfcb654f973c0419f75/1465330952802/tools-prep-image-2.png" data-image="https://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57572cfcb654f973c0419f75/1465330952802/tools-prep-image-2.png" data-image-dimensions="1722x1088" data-image-focal-point="0.5,0.5" data-load="false" data-image-id="57572cfcb654f973c0419f75" data-type="image" />
+				</div>
+			
+
+			
+
+		</div>
+	
+	</div>
+
+</div></div><div class="sqs-block markdown-block sqs-block-markdown" data-block-type="44" id="block-yui_3_17_2_1_1465243615569_123310"><div class="sqs-block-content"><h4 id="step-3">Step 3</h4>
+<p>Browse to the directory where you saved the sample code, select "MDKUtility".</p>
+</div></div><div class="sqs-block image-block sqs-block-image" data-block-type="5" id="block-yui_3_17_2_1_1465243615569_114416"><div class="sqs-block-content">
+	<div class="image-block-outer-wrapper layout-caption-below ">
+	
+		<div class="intrinsic" style="max-width:2932.0px;">
+			
+				<div style="padding-bottom:61.800819396972656%;" class="image-block-wrapper lightbox  has-aspect-ratio" data-description=""  data-lightbox-theme="light" >
+					<noscript><img src="https://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57572cd3b654f973c0419de8/1465330920004/tools-prep-image-3.png"  alt="tools-prep-image-3.png"  /></noscript><img class="thumb-image" alt="tools-prep-image-3.png" data-src="https://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57572cd3b654f973c0419de8/1465330920004/tools-prep-image-3.png" data-image="https://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57572cd3b654f973c0419de8/1465330920004/tools-prep-image-3.png" data-image-dimensions="2932x1812" data-image-focal-point="0.5,0.5" data-load="false" data-image-id="57572cd3b654f973c0419de8" data-type="image" />
+				</div>
+			
+
+			
+
+		</div>
+	
+	</div>
+
+</div></div><div class="sqs-block markdown-block sqs-block-markdown" data-block-type="44" id="block-yui_3_17_2_1_1465243615569_124477"><div class="sqs-block-content"><h4 id="step-4">Step 4</h4><p>Select <strong>Menu &gt; Build</strong> / <strong>Menu &gt; Run</strong> to build and run MDKUtility app.</p></div></div><div class="row sqs-row"><div class="col sqs-col-6 span-6"><div class="sqs-block html-block sqs-block-html" data-block-type="2" id="block-yui_3_17_2_1_1465329679393_124138"><div class="sqs-block-content"><p><strong>Menu &gt; Run</strong></p></div></div><div class="sqs-block image-block sqs-block-image" data-block-type="5" id="block-yui_3_17_2_1_1465243615569_116632"><div class="sqs-block-content">
+	<div class="image-block-outer-wrapper layout-caption-below ">
+	
+		<div class="intrinsic" style="max-width:620.0px;">
+			
+				<div style="padding-bottom:93.2258071899414%;" class="image-block-wrapper lightbox  has-aspect-ratio" data-description=""  data-lightbox-theme="light" >
+					<noscript><img src="https://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57572c79b654f973c0419a02/1465330928932/tools-prep-image-4.png"  alt="tools-prep-image-4.png"  /></noscript><img class="thumb-image" alt="tools-prep-image-4.png" data-src="https://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57572c79b654f973c0419a02/1465330928932/tools-prep-image-4.png" data-image="https://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57572c79b654f973c0419a02/1465330928932/tools-prep-image-4.png" data-image-dimensions="620x578" data-image-focal-point="0.5,0.5" data-load="false" data-image-id="57572c79b654f973c0419a02" data-type="image" />
+				</div>
+			
+
+			
+
+		</div>
+	
+	</div>
+
+</div></div></div><div class="col sqs-col-6 span-6"><div class="sqs-block html-block sqs-block-html" data-block-type="2" id="block-yui_3_17_2_1_1465329679393_122853"><div class="sqs-block-content"><p><strong>Menu &gt; Build</strong></p></div></div><div class="sqs-block image-block sqs-block-image" data-block-type="5" id="block-yui_3_17_2_1_1465329679393_105539"><div class="sqs-block-content">
+	<div class="image-block-outer-wrapper layout-caption-below ">
+	
+		<div class="intrinsic" style="max-width:728.0px;">
+			
+				<div style="padding-bottom:206.31869506835938%;" class="image-block-wrapper lightbox  has-aspect-ratio" data-description=""  data-lightbox-theme="light" >
+					<noscript><img src="https://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57572c21a3360cd6b794ea86/1465330933755/tools-prep-image-5.png"  alt="tools-prep-image-5.png"  /></noscript><img class="thumb-image" alt="tools-prep-image-5.png" data-src="https://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57572c21a3360cd6b794ea86/1465330933755/tools-prep-image-5.png" data-image="https://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57572c21a3360cd6b794ea86/1465330933755/tools-prep-image-5.png" data-image-dimensions="728x1502" data-image-focal-point="0.5,0.5" data-load="false" data-image-id="57572c21a3360cd6b794ea86" data-type="image" />
+				</div>
+			
+
+			
+
+		</div>
+	
+	</div>
+
+</div></div></div></div><div class="sqs-block markdown-block sqs-block-markdown" data-block-type="44" id="block-yui_3_17_2_1_1465329679393_104510"><div class="sqs-block-content"><h4 id="step-5">Step 5</h4>
+<p>You are all set!</p>
+</div></div><div class="sqs-block horizontalrule-block sqs-block-horizontalrule" data-block-type="47" id="block-yui_3_17_2_1_1472048355951_26359"><div class="sqs-block-content"><hr /></div></div><div class="sqs-block html-block sqs-block-html sqs-col-6 span-6 float float-left" data-block-type="2" id="block-yui_3_17_2_1_1472048355951_27942"><div class="sqs-block-content"><p><a href="/build/tools/setup-environment">&lt; Previous Page<br /><strong>Setup Environment</strong></a></p></div></div><div class="sqs-block html-block sqs-block-html" data-block-type="2" id="block-yui_3_17_2_1_1472048355951_29241"><div class="sqs-block-content"><p class="text-align-right"><a href="/build/tools/flashing-firmware">Next Page &gt;<br /><strong>Flashing Firmware</strong></a></p></div></div></div></div></div>
+     
+</div>
+
+
+<div class="anchor-links">
+<div class="sqs-layout sqs-grid-12 columns-12" data-type="block-field" data-updated-on="1465341664607" id="blockField-574620e9e707eb50c570210e"><div class="row sqs-row"><div class="col sqs-col-12 span-12"><div class="sqs-block html-block sqs-block-html" data-block-type="2" id="block-9c0911dd7c81652b7dc7"><div class="sqs-block-content"><p>In this page:</p><p><a href="#build-firmware">Build Firmware</a></p><p><a href="#build-android-application">Build Android Application</a></p></div></div></div></div></div>
+
+</div>
+        </div><!-- comment the linebreak between these two elements because science
+        -->
+        
+      </main>
+
+      <div id="preFooter">
+        <div class="pre-footer-inner">
+          <div class="sqs-layout sqs-grid-12 columns-12 empty" data-layout-label="Pre-Footer Content" data-type="block-field" data-updated-on="1465359668358" id="preFooterBlocks"><div class="row sqs-row"><div class="col sqs-col-12 span-12"></div></div></div>
+        </div>
+      </div>
+
+      <footer id="footer" role="contentinfo">
+        <div class="footer-inner">
+          <div class="nav-wrapper back-to-top-nav"><nav><div class="back-to-top"><a href="#header">Back to Top</a></div></nav></div>
+          
+
+
+          
+          <div class="sqs-layout sqs-grid-12 columns-12" data-layout-label="Footer Content" data-type="block-field" data-updated-on="1476297975826" id="footerBlocks"><div class="row sqs-row"><div class="col sqs-col-2 span-2"><div class="sqs-block image-block sqs-block-image" data-aspect-ratio="31.06382978723404" data-block-type="5" id="block-yui_3_17_2_2_1464950070491_16892"><div class="sqs-block-content">
+	<div class="image-block-outer-wrapper layout-caption-hidden ">
+	
+		<div class="intrinsic" style="max-width:940.0px;">
+			
+				<a href="http://motorola.com" >
+			
+				<div style="padding-bottom:31.06382942199707%;" class="image-block-wrapper   has-aspect-ratio" data-description="" >
+					<noscript><img src="https://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57fe81b96b8f5b8742b2e94a/1476297968771/"  /></noscript><img class="thumb-image" data-src="https://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57fe81b96b8f5b8742b2e94a/1476297968771/" data-image="https://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57fe81b96b8f5b8742b2e94a/1476297968771/" data-image-dimensions="940x292" data-image-focal-point="0.5,0.5" data-load="false" data-image-id="57fe81b96b8f5b8742b2e94a" data-type="image" />
+				</div>
+			
+				</a>
+			
+
+			
+
+		</div>
+	
+	</div>
+
+</div></div></div><div class="col sqs-col-7 span-7"><div class="sqs-block code-block sqs-block-code" data-block-type="23" id="block-yui_3_17_2_2_1463061836809_10948"><div class="sqs-block-content"><div id="footers-blocks" style="position: relative; z-index:999 !important;">
+    
+  <div id="footer-block-1">
+	<h2 id="footer-title-1" class="footer-title">Motorola</h2>
+	<ul class="footer-block footer-block-1">
+      <li><a href="http://motorola-blog.blogspot.com">Blog</a></li>
+      <li><a href="http://motorola-blog.blogspot.com/p/press-contacts.html
+">Press</a></li>
+      <li><a href="https://pages.motorola-mail.com/moto-mods-developer-us-en/">Get Updates</a></li>
+    </ul>
+    <br />
+	<h2 id="footer-title-1" class="footer-title"><a href="/support">Support</a></h2>
+	<ul class="footer-block footer-block-1">
+      <li><a href="/support/faq">FAQ</a></li>
+      <li><a href="https://www.element14.com/community/groups/moto-mods">Forums</a></li>
+      <li><a href="/support">Contact Us</a></li>
+    </ul>
+  </div>
+  
+  <div id="footer-block-2">
+    <h2 id="footer-title-2" class="footer-title">Developers</h2>
+  	<ul class="footer-block footer-block-2">
+     	<li><a href="/">Home</a></li>
+     	<li><a href="/get-started">Get Started</a></li>
+      	<li><a href="/build">Build</a></li>
+		<li><a href="/explore">Explore</a></li>
+		<li><a href="/partner">Partner</a></li>
+		<li><a href="/buy">Buy</a></li>
+    </ul>
+  </div>
+  
+  <div id="footer-block-3">
+    <h2 id="footer-title-3" class="footer-title">Legal</h2>
+  	<ul class="footer-block footer-block-3">
+      <li><a href="http://www.motorola.com/us/legal/privacy-policy">Privacy Policy</a></li>
+      <li><a href="http://www.motorola.com/us/About_Motorola-Legal-Extended-Warranty-terms/About_Motorola-Legal-Extended-Warranty-terms.html">Terms of use</a></li></ul>
+ </div>
+ </div></div></div></div><div class="col sqs-col-3 span-3"><div class="sqs-block socialaccountlinks-v2-block sqs-block-socialaccountlinks-v2" data-block-type="54" id="block-yui_3_17_2_16_1461744171869_5573"><div class="sqs-block-content"><div class="sqs-svg-icon--outer social-icon-alignment-right social-icons-color-white social-icons-size-small social-icons-shape-rounded social-icons-style-knockout">
+  <nav class="sqs-svg-icon--list">
+    <a href="https://www.youtube.com/user/motorola" target="_blank" class="sqs-svg-icon--wrapper youtube">
+      <div>
+        <svg class="sqs-svg-icon--social" viewBox="0 0 64 64">
+          <use class="sqs-use--icon" xlink:href="/universal/svg/social-accounts.svg#youtube-icon"></use>
+          <use class="sqs-use--mask" xlink:href="/universal/svg/social-accounts.svg#youtube-mask"></use>
+        </svg>
+      </div>
+    </a><a href="https://www.facebook.com/MotoUSA/" target="_blank" class="sqs-svg-icon--wrapper facebook">
+      <div>
+        <svg class="sqs-svg-icon--social" viewBox="0 0 64 64">
+          <use class="sqs-use--icon" xlink:href="/universal/svg/social-accounts.svg#facebook-icon"></use>
+          <use class="sqs-use--mask" xlink:href="/universal/svg/social-accounts.svg#facebook-mask"></use>
+        </svg>
+      </div>
+    </a><a href="https://twitter.com/moto" target="_blank" class="sqs-svg-icon--wrapper twitter">
+      <div>
+        <svg class="sqs-svg-icon--social" viewBox="0 0 64 64">
+          <use class="sqs-use--icon" xlink:href="/universal/svg/social-accounts.svg#twitter-icon"></use>
+          <use class="sqs-use--mask" xlink:href="/universal/svg/social-accounts.svg#twitter-mask"></use>
+        </svg>
+      </div>
+    </a><a href="https://plus.google.com/communities/116517178872973348174" target="_blank" class="sqs-svg-icon--wrapper google">
+      <div>
+        <svg class="sqs-svg-icon--social" viewBox="0 0 64 64">
+          <use class="sqs-use--icon" xlink:href="/universal/svg/social-accounts.svg#google-icon"></use>
+          <use class="sqs-use--mask" xlink:href="/universal/svg/social-accounts.svg#google-mask"></use>
+        </svg>
+      </div>
+    </a>
+  </nav>
+</div></div></div></div></div><div class="row sqs-row"><div class="col sqs-col-12 span-12"><div class="sqs-block spacer-block sqs-block-spacer sized vsize-1" data-block-type="21" id="block-yui_3_17_2_36_1465340537626_42856"><div class="sqs-block-content">&nbsp;</div></div><div class="row sqs-row"><div class="col sqs-col-6 span-6"><div class="sqs-block html-block sqs-block-html" data-block-type="2" id="block-yui_3_17_2_2_1464882852937_11444"><div class="sqs-block-content"><p>© 2016 Motorola Mobility LLC. All Rights Reserved</p><p>MOTOROLA and the Stylized M Logo are registered trademarks of Motorola Trademark Holdings, LLC</p><p>Android, Google, Google Play, Nexus and other marks are trademarks of Google Inc. The Android robot is reproduced or modified from work created and shared by Google and used according to terms described in the Creative Commons 3.0 Attribution License.</p></div></div></div><div class="col sqs-col-6 span-6"><div class="sqs-block spacer-block sqs-block-spacer sized vsize-1" data-block-type="21" id="block-yui_3_17_2_36_1465340537626_33415"><div class="sqs-block-content">&nbsp;</div></div></div></div></div></div></div>
+        </div>
+      </footer>
+
+    </div>
+
+    <script src="https://static1.squarespace.com/static/ta/5715eee9b09f95a12b44e0ed/955/scripts/site.js" type="text/javascript"></script>
+    <script type="text/javascript" src="https://static1.squarespace.com/static/ta/5715eee9b09f95a12b44e0ed/955/scripts/combo/?helpers.js&sticky.js&jquery.js"></script>
+    
+    
+    <script src="https://static1.squarespace.com/static/ta/5715eee9b09f95a12b44e0ed/955/scripts/custom.js" type="text/javascript"></script>
+    
+    
+    <script type="text/javascript" data-sqs-type="imageloader-bootstraper">(function() {if(window.ImageLoader) { window.ImageLoader.bootstrap(); }})();</script>
+<script>Squarespace.afterBodyLoad(Y);</script>
+
+  </body>
+</html>

@@ -1,0 +1,1668 @@
+<!doctype html>
+<html xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:article="http://ogp.me/ns/article" lang="en-US" itemscope itemtype="http://schema.org/Article"  class="touch-styles">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- This is Squarespace. --><!-- leona-devs -->
+<base href="">
+<meta charset="utf-8" />
+<title>Software: Mod Battery — Motorola Developer Portal</title>
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"/>
+<link rel="canonical" href="http://developer.motorola.com/explore/software/mod-battery"/>
+<meta property="og:site_name" content="Motorola Developer Portal"/>
+<meta property="og:title" content="Software: Mod Battery"/>
+<meta property="og:latitude" content="40.7207559"/>
+<meta property="og:longitude" content="-74.00076130000002"/>
+<meta property="og:url" content="http://developer.motorola.com/explore/software/mod-battery"/>
+<meta property="og:type" content="article"/>
+<meta property="og:description" content="Moto Z Software: Mod BatteryIntroduction
+
+Support for Battery and power-providing Moto Mod is integrated natively 
+with the Moto Mod platform. Your Moto Z will automatically leverage an 
+attached Moto Mod battery, based on its declared type, without requiring 
+you to provide an application or use the ModBattery Android API.
+
+The Moto Mod Android SDK enables a developer which needs additional 
+information about an attached Moto Mod battery to recognize when an 
+attached Moto Mod has a battery, determine the type of this battery, query 
+the battery capacity and get topical information about its this Moto Mod 
+battery charge level and charging status.
+
+An application can obtain information about a Moto Mod battery through the 
+methods exposed by the Moto Mod SDK’s ModBattery class.
+
+
+Prerequisites Android Prerequisites Development environment
+
+Before using the classes described below in your application, you must have 
+installed the Moto Mod Android SDK on your development device as described 
+in the tool section.
+
+Familiarity with the Android BatteryManager
+
+You should be familiar with the Android BatteryManager API, as the Moto Mod 
+specific battery information returned by the ModBattery class closely 
+follows the conventions of Android’s BatteryManager.
+
+Familiarity with the PTP and Battery Firmware documentation
+
+The Power Transfer and Battery firmware developer documentation provide 
+fine-grain control over battery and power-provider configuration. The 
+behavior of a Moto Mod battery will vary based on its PTP configuration and 
+the Moto Mod developer interesting in issuing, or building a 
+power-providing Moto Mod should gain a solid understanding of these 
+protocols first.
+
+Hardware Prerequisites
+
+Battery specific functions exposed through the Moto Mod Android SDK will 
+only be available if a Moto Mod is attached to your smartphone, if the 
+attached Moto Mod has a well-formed hardware manifest, and if it declares 
+support for the battery and power-transfer-protocol Greybus class.
+
+
+Supported Mod Battery type
+
+A Moto Mod can embed its own battery. When a Moto Mod is attached to a 
+smartphone, the charge and discharge behavior of the Moto Mod battery is 
+controlled by its firmware Battery and Power-transfer protocol 
+configuration, as described in the Power Transfer and Battery firmware 
+developer documentation.
+
+The platform supports different Moto Mod power-provider/battery profiles. A 
+Moto Mod battery must declare its supported profile in the firmware. The 
+device will automatically make optimal use of the battery based on this 
+profile declaration. The supported battery profiles are:
+
+    * The Moto Mod declares its battery as a SUPPLEMENTAL battery. Your
+      Moto Mod should use this profile when it hosts a battery which 
+      primary function is to keep your Moto Z powered (e.g: the Moto Mod is
+      a battery pack).
+
+    * The Moto Mod declares its battery as a REMOTE (or ‘NEVER‘ as defined
+      at the Power Transfer firmware page) battery. Your Moto Mod should
+      use this profile when it hosts a battery which sole function is to
+      provide power to the Moto Mod, and never to a Moto Z.
+
+    * The Moto Mod declares its battery as a REMOTE EMERGENCY (or ‘LOW
+      POWER SAVER’ at the Power Transfer firmware page) battery. Your Moto
+      Mod should use this profile when it hosts a battery which primary
+      function is to provide power to the Moto Mod but could be used to
+      power a Moto Z when the smartphone battery gets low.
+
+The Moto Mod could also elect, through its Power-Transfer protocol 
+definition, to not receive or provide power to the attached Moto Z. The 
+Moto Mod will need to include its own charging apparatus. The functionality 
+of a Moto Mod battery is automatically controlled by the Moto Z software 
+and based on the battery type declared by the Moto Mod firmware upon 
+attach, an application can not change the advertised battery type of a Moto 
+Mod. The Moto Mod SDK only enables any application to track charge, 
+discharge and information about a Moto Mod battery.
+
+
+Standard Battery behavior 
+
+The user experience on a Moto Z will vary slightly based on the declared 
+battery profile. This section provides a short overview of the behavioral 
+differences experienced on a Moto Z when different types of Moto Mod 
+batteries are attached.
+
+A Moto Mod battery provides power to Moto Z A charging Moto Z can charge 
+the Moto Mod battery The status bar indicates when Moto Mod is providing 
+power to Moto Z Moto Z Settings and Quick settings show the charge level of 
+the Moto Mod battery SUPPLEMENTAL Yes, to keep the Moto Z charged Yes Yes 
+Yes REMOTE (‘NEVER’) No Yes No Yes EMERGENCY (‘Low power saver’) Yes, buy 
+only when the Moto Z battery is Low Yes Yes Yes
+
+Top-Off vs. Efficiency mode
+
+Under the Moto Mod settings for a battery, the user can choose to set a 
+supplemental battery usage policy to “top-off” or “efficiency” through Moto 
+Mod settings. 
+
+    * In the default mode (the default usage policy of a battery), your
+      Moto Z will use a supplemental battery to always stay fully charged
+      (100%) as long as the Moto Mod battery can provide power.
+    * In EFFICIENCY mode, your Moto Z will leverage the attached
+      supplemental battery optimally, and will stay charged at 80% (not
+      100%) as long as the Moto Mod battery can provide power
+
+Working with a Moto Mod Battery: Added ModBattery Class
+
+The Moto Mod SDK provides an additional ModBattery class which enables an 
+application to know what the declared battery profile of the attached Moto 
+Mod battery is, query the capacity, charge level and charging status of a 
+Moto Mod battery.
+
+Determining whether the attached ModDevice embeds a battery
+
+To detect when a Moto Mod is attached, your application should listen on 
+Moto Mod ACTION_MOD_ATTACH and ACTION_MOD_DETACH intents - or register a 
+ModListener - as described at the Mod Management page. Once a Moto Mod is 
+attached to your device, an application can use the 
+ModDevice.hasDeclaredProtocol() function to check whether the attached 
+ModDevice declares the BATTERY and PTP (power transfer) protocol.
+
+if (device.hasDeclaredProtocol(ModProtocol.Protocol.BATTERY)) &#123;
+    // We know this device has a battery and supports battery metering
+    &#125;
+
+if (device.hasDeclaredProtocol(ModProtocol.Protocol.PTP)) &#123;
+    // We know this device can provide or receive power to the Moto Z
+    &#125;
+
+The state and level of this Moto Mod battery will be automatically reported 
+by the ModBattery class and its associated method. ModBattery will only be 
+available when a battery device is present and has enumerated successfully. 
+As the power transfer logic between the Moto Mod and and the Moto Z is 
+automatically controlled by the Moto Z, there are no exposed functions for 
+an application to change this predefined behavior.
+
+Working with the ModBattery Class
+
+If an attached Moto Mod supports the BATTERY protocol, and your application 
+wants to get information about this Moto Mod battery, it must first acquire 
+a ModBattery object by calling the ModManager.getClassManager() function, 
+after your application verified that a ModDevice is attached and that this 
+ModDevice supports the battery protocol.
+
+The code sample below shows how to get access to the ModBattery class from 
+the ModManager. Your application should first confirm that the attached 
+Moto Mod declares support for the PTP and BATTERY protocols, as shown 
+above.
+
+if (device.hasDeclaredProtocol(ModProtocol.Protocol.BATTERY)) &#123;
+    ModBattery mb = (ModBattery)mManager.getClassManager(modDev,
+    ModProtocol.Protocol.BATTERY);
+    ...
+    &#125;
+
+Getting the Moto Mod Battery Capacity
+
+When a battery Moto Mod is attached, an Android application can determine 
+the maximum capacity of the attached Moto Mod battery by calling the 
+ModBattery.getBatteryCapacity() method. This method will return the 
+capacity of the attached battery in mAH, or Long.MIN_VALUE if the Moto Mod 
+did not return its capacity through greybus.
+
+The code sample below shows how to retrieve the Moto Mod battery capacity.
+
+if (device.hasDeclaredProtocol(ModProtocol.Protocol.BATTERY)) &#123;
+    ModBattery mb = (ModBattery)mManager.getClassManager(modDev,
+    ModProtocol.Protocol.BATTERY);
+    if (mb != null) &#123;
+      modbatterycapacity = mb.getBatteryCapacity();
+
+Getting the Moto Mod Battery Level
+
+When a battery Moto Mod is attached, an Android application can track 
+changes in the battery charge level by using the 
+ModBattery.getBatteryLevel() method. This method will return the charge 
+level of the attached battery as a percentage (0-100).
+
+The code sample below shows how to retrieve the Moto Mod battery level.
+
+if (device.hasDeclaredProtocol(ModProtocol.Protocol.BATTERY)) &#123;
+    ModBattery mb = (ModBattery)mManager.getClassManager(modDev,
+    ModProtocol.Protocol.BATTERY);
+    if (mb != null) &#123;
+      modbatterylevel = mb.getBatteryLevel(); 
+      // we know what the battery level is
+
+Determining the declared type of the attached Moto Mod battery
+
+The ModBattery.getBatteryType() method returns the type of the battery on 
+the Moto Mod. ModBattery.getBatteryType() will return either 
+BATTERY_USAGE_TYPE_SUPPLEMENTAL, BATTERY_USAGE_TYPE_REMOTE, 
+BATTERY_USAGE_TYPE_EMERGENCY or BATTERY_USAGE_TYPE_UNKNOWN.
+
+The code sample below shows how to retrieve the Moto Mod battery type.
+
+if (device.hasDeclaredProtocol(ModProtocol.Protocol.BATTERY)) &#123;
+    ModBattery mb = (ModBattery)mManager.getClassManager(modDev,
+    ModProtocol.Protocol.BATTERY);
+    if (mb != null) &#123;
+      modbatterytype = mb.getBatteryType();
+
+Determining whether a ModBattery is charging or discharging
+
+The ModBattery.getBatteryStatus() method enables your application to 
+determine whether the battery on the Moto Mod is charging or discharging. A 
+Moto Mod battery could be charging when your Moto Z is plugged in a USB-C 
+charger, or when the Moto Mod itself has its own charging apparatus and is 
+attached to a charger.
+
+The value returned by ModBattery.getBatteryStatus() follows the convention 
+set forth by Android for reporting device battery charge status. An 
+application can use this value to determine whether the Moto Mod battery is 
+charging, discharging or full.
+
+if (device.hasDeclaredProtocol(ModProtocol.Protocol.BATTERY)) &#123;
+    ModBattery mb = (ModBattery)mManager.getClassManager(modDev,
+    ModProtocol.Protocol.BATTERY);
+    if (mb != null) &#123;
+      modbatterystatus = mb.getBatteryStatus();
+
+Returned Constant Value Details BATTERY_STATUS_UNKNOWN 1 The Mod Battery 
+status is not known BATTERY_STATUS_CHARGING 2 The Mod Battery is charging 
+BATTERY_STATUS_DISCHARGING 3 The Mod Battery is discharging 
+BATTERY_STATUS_NOT_CHARGING 4 The Mod Battery is not charging 
+BATTERY_STATUS_FULL 5 The Mod Battery is full Determining whether your Moto 
+Z is charging from an attached Moto Mod
+
+The ModBattery.isPlugTypeMod() method enables your application to determine 
+whether the attached Moto Mod can charge the phone. 
+ModManager.isPlugTypeMod() will return true if no external charger is 
+attached and the device can be charged from the Moto Mod battery.
+
+
+When a battery reports issues
+
+If a Moto Mod embeds a battery, the Moto Mod is responsible for thermal 
+mitigation and reporting errors to the smartphone. Motorola has defined a 
+vendor specific channel to report asynchronous Moto Mod errors, including 
+thermal, current and oem specific data.
+
+An application which needs to listen for these sudden capabilities change 
+(as an example, a thermal incident on the Moto Mod causing the Moto Mod to 
+report it is operating in a reduced state) can register a ModListener (as 
+described below).
+
+This listener onCapabilityChanged() function will be called back when the 
+Moto Mod reports a capability change event. An application can then use the 
+ModManager.getCapabilityLevel() and ModManager.getCapabilityReason() to 
+determine the cause of this capability change, as described in the Mod 
+Management software and Mod Management firmware documents.
+
+An application which needs to be immediately informed of capability change 
+on an attached battery should register a listener with the 
+com.motorola.mod.ModManager.registerModListener() API.
+
+mManager.registerModListener(MainActivity.this, new int[] &#123;ModProtocol.BATTERY&#125;);
+
+
+More Information
+
+For more information, see the ModBattery Javadoc API.
+
+
+
+&lt; Previous Page
+Mod Display
+
+Next Page &gt;
+Mod Audio"/>
+<meta property="og:image" content="http://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/5755264307eaa05442bdf5e8/1476372480238/?format=1000w"/>
+<meta itemprop="name" content="Software: Mod Battery"/>
+<meta itemprop="url" content="http://developer.motorola.com/explore/software/mod-battery"/>
+<meta itemprop="description" content="Moto Z Software: Mod BatteryIntroduction
+
+Support for Battery and power-providing Moto Mod is integrated natively 
+with the Moto Mod platform. Your Moto Z will automatically leverage an 
+attached Moto Mod battery, based on its declared type, without requiring 
+you to provide an application or use the ModBattery Android API.
+
+The Moto Mod Android SDK enables a developer which needs additional 
+information about an attached Moto Mod battery to recognize when an 
+attached Moto Mod has a battery, determine the type of this battery, query 
+the battery capacity and get topical information about its this Moto Mod 
+battery charge level and charging status.
+
+An application can obtain information about a Moto Mod battery through the 
+methods exposed by the Moto Mod SDK’s ModBattery class.
+
+
+Prerequisites Android Prerequisites Development environment
+
+Before using the classes described below in your application, you must have 
+installed the Moto Mod Android SDK on your development device as described 
+in the tool section.
+
+Familiarity with the Android BatteryManager
+
+You should be familiar with the Android BatteryManager API, as the Moto Mod 
+specific battery information returned by the ModBattery class closely 
+follows the conventions of Android’s BatteryManager.
+
+Familiarity with the PTP and Battery Firmware documentation
+
+The Power Transfer and Battery firmware developer documentation provide 
+fine-grain control over battery and power-provider configuration. The 
+behavior of a Moto Mod battery will vary based on its PTP configuration and 
+the Moto Mod developer interesting in issuing, or building a 
+power-providing Moto Mod should gain a solid understanding of these 
+protocols first.
+
+Hardware Prerequisites
+
+Battery specific functions exposed through the Moto Mod Android SDK will 
+only be available if a Moto Mod is attached to your smartphone, if the 
+attached Moto Mod has a well-formed hardware manifest, and if it declares 
+support for the battery and power-transfer-protocol Greybus class.
+
+
+Supported Mod Battery type
+
+A Moto Mod can embed its own battery. When a Moto Mod is attached to a 
+smartphone, the charge and discharge behavior of the Moto Mod battery is 
+controlled by its firmware Battery and Power-transfer protocol 
+configuration, as described in the Power Transfer and Battery firmware 
+developer documentation.
+
+The platform supports different Moto Mod power-provider/battery profiles. A 
+Moto Mod battery must declare its supported profile in the firmware. The 
+device will automatically make optimal use of the battery based on this 
+profile declaration. The supported battery profiles are:
+
+    * The Moto Mod declares its battery as a SUPPLEMENTAL battery. Your
+      Moto Mod should use this profile when it hosts a battery which 
+      primary function is to keep your Moto Z powered (e.g: the Moto Mod is
+      a battery pack).
+
+    * The Moto Mod declares its battery as a REMOTE (or ‘NEVER‘ as defined
+      at the Power Transfer firmware page) battery. Your Moto Mod should
+      use this profile when it hosts a battery which sole function is to
+      provide power to the Moto Mod, and never to a Moto Z.
+
+    * The Moto Mod declares its battery as a REMOTE EMERGENCY (or ‘LOW
+      POWER SAVER’ at the Power Transfer firmware page) battery. Your Moto
+      Mod should use this profile when it hosts a battery which primary
+      function is to provide power to the Moto Mod but could be used to
+      power a Moto Z when the smartphone battery gets low.
+
+The Moto Mod could also elect, through its Power-Transfer protocol 
+definition, to not receive or provide power to the attached Moto Z. The 
+Moto Mod will need to include its own charging apparatus. The functionality 
+of a Moto Mod battery is automatically controlled by the Moto Z software 
+and based on the battery type declared by the Moto Mod firmware upon 
+attach, an application can not change the advertised battery type of a Moto 
+Mod. The Moto Mod SDK only enables any application to track charge, 
+discharge and information about a Moto Mod battery.
+
+
+Standard Battery behavior 
+
+The user experience on a Moto Z will vary slightly based on the declared 
+battery profile. This section provides a short overview of the behavioral 
+differences experienced on a Moto Z when different types of Moto Mod 
+batteries are attached.
+
+A Moto Mod battery provides power to Moto Z A charging Moto Z can charge 
+the Moto Mod battery The status bar indicates when Moto Mod is providing 
+power to Moto Z Moto Z Settings and Quick settings show the charge level of 
+the Moto Mod battery SUPPLEMENTAL Yes, to keep the Moto Z charged Yes Yes 
+Yes REMOTE (‘NEVER’) No Yes No Yes EMERGENCY (‘Low power saver’) Yes, buy 
+only when the Moto Z battery is Low Yes Yes Yes
+
+Top-Off vs. Efficiency mode
+
+Under the Moto Mod settings for a battery, the user can choose to set a 
+supplemental battery usage policy to “top-off” or “efficiency” through Moto 
+Mod settings. 
+
+    * In the default mode (the default usage policy of a battery), your
+      Moto Z will use a supplemental battery to always stay fully charged
+      (100%) as long as the Moto Mod battery can provide power.
+    * In EFFICIENCY mode, your Moto Z will leverage the attached
+      supplemental battery optimally, and will stay charged at 80% (not
+      100%) as long as the Moto Mod battery can provide power
+
+Working with a Moto Mod Battery: Added ModBattery Class
+
+The Moto Mod SDK provides an additional ModBattery class which enables an 
+application to know what the declared battery profile of the attached Moto 
+Mod battery is, query the capacity, charge level and charging status of a 
+Moto Mod battery.
+
+Determining whether the attached ModDevice embeds a battery
+
+To detect when a Moto Mod is attached, your application should listen on 
+Moto Mod ACTION_MOD_ATTACH and ACTION_MOD_DETACH intents - or register a 
+ModListener - as described at the Mod Management page. Once a Moto Mod is 
+attached to your device, an application can use the 
+ModDevice.hasDeclaredProtocol() function to check whether the attached 
+ModDevice declares the BATTERY and PTP (power transfer) protocol.
+
+if (device.hasDeclaredProtocol(ModProtocol.Protocol.BATTERY)) &#123;
+    // We know this device has a battery and supports battery metering
+    &#125;
+
+if (device.hasDeclaredProtocol(ModProtocol.Protocol.PTP)) &#123;
+    // We know this device can provide or receive power to the Moto Z
+    &#125;
+
+The state and level of this Moto Mod battery will be automatically reported 
+by the ModBattery class and its associated method. ModBattery will only be 
+available when a battery device is present and has enumerated successfully. 
+As the power transfer logic between the Moto Mod and and the Moto Z is 
+automatically controlled by the Moto Z, there are no exposed functions for 
+an application to change this predefined behavior.
+
+Working with the ModBattery Class
+
+If an attached Moto Mod supports the BATTERY protocol, and your application 
+wants to get information about this Moto Mod battery, it must first acquire 
+a ModBattery object by calling the ModManager.getClassManager() function, 
+after your application verified that a ModDevice is attached and that this 
+ModDevice supports the battery protocol.
+
+The code sample below shows how to get access to the ModBattery class from 
+the ModManager. Your application should first confirm that the attached 
+Moto Mod declares support for the PTP and BATTERY protocols, as shown 
+above.
+
+if (device.hasDeclaredProtocol(ModProtocol.Protocol.BATTERY)) &#123;
+    ModBattery mb = (ModBattery)mManager.getClassManager(modDev,
+    ModProtocol.Protocol.BATTERY);
+    ...
+    &#125;
+
+Getting the Moto Mod Battery Capacity
+
+When a battery Moto Mod is attached, an Android application can determine 
+the maximum capacity of the attached Moto Mod battery by calling the 
+ModBattery.getBatteryCapacity() method. This method will return the 
+capacity of the attached battery in mAH, or Long.MIN_VALUE if the Moto Mod 
+did not return its capacity through greybus.
+
+The code sample below shows how to retrieve the Moto Mod battery capacity.
+
+if (device.hasDeclaredProtocol(ModProtocol.Protocol.BATTERY)) &#123;
+    ModBattery mb = (ModBattery)mManager.getClassManager(modDev,
+    ModProtocol.Protocol.BATTERY);
+    if (mb != null) &#123;
+      modbatterycapacity = mb.getBatteryCapacity();
+
+Getting the Moto Mod Battery Level
+
+When a battery Moto Mod is attached, an Android application can track 
+changes in the battery charge level by using the 
+ModBattery.getBatteryLevel() method. This method will return the charge 
+level of the attached battery as a percentage (0-100).
+
+The code sample below shows how to retrieve the Moto Mod battery level.
+
+if (device.hasDeclaredProtocol(ModProtocol.Protocol.BATTERY)) &#123;
+    ModBattery mb = (ModBattery)mManager.getClassManager(modDev,
+    ModProtocol.Protocol.BATTERY);
+    if (mb != null) &#123;
+      modbatterylevel = mb.getBatteryLevel(); 
+      // we know what the battery level is
+
+Determining the declared type of the attached Moto Mod battery
+
+The ModBattery.getBatteryType() method returns the type of the battery on 
+the Moto Mod. ModBattery.getBatteryType() will return either 
+BATTERY_USAGE_TYPE_SUPPLEMENTAL, BATTERY_USAGE_TYPE_REMOTE, 
+BATTERY_USAGE_TYPE_EMERGENCY or BATTERY_USAGE_TYPE_UNKNOWN.
+
+The code sample below shows how to retrieve the Moto Mod battery type.
+
+if (device.hasDeclaredProtocol(ModProtocol.Protocol.BATTERY)) &#123;
+    ModBattery mb = (ModBattery)mManager.getClassManager(modDev,
+    ModProtocol.Protocol.BATTERY);
+    if (mb != null) &#123;
+      modbatterytype = mb.getBatteryType();
+
+Determining whether a ModBattery is charging or discharging
+
+The ModBattery.getBatteryStatus() method enables your application to 
+determine whether the battery on the Moto Mod is charging or discharging. A 
+Moto Mod battery could be charging when your Moto Z is plugged in a USB-C 
+charger, or when the Moto Mod itself has its own charging apparatus and is 
+attached to a charger.
+
+The value returned by ModBattery.getBatteryStatus() follows the convention 
+set forth by Android for reporting device battery charge status. An 
+application can use this value to determine whether the Moto Mod battery is 
+charging, discharging or full.
+
+if (device.hasDeclaredProtocol(ModProtocol.Protocol.BATTERY)) &#123;
+    ModBattery mb = (ModBattery)mManager.getClassManager(modDev,
+    ModProtocol.Protocol.BATTERY);
+    if (mb != null) &#123;
+      modbatterystatus = mb.getBatteryStatus();
+
+Returned Constant Value Details BATTERY_STATUS_UNKNOWN 1 The Mod Battery 
+status is not known BATTERY_STATUS_CHARGING 2 The Mod Battery is charging 
+BATTERY_STATUS_DISCHARGING 3 The Mod Battery is discharging 
+BATTERY_STATUS_NOT_CHARGING 4 The Mod Battery is not charging 
+BATTERY_STATUS_FULL 5 The Mod Battery is full Determining whether your Moto 
+Z is charging from an attached Moto Mod
+
+The ModBattery.isPlugTypeMod() method enables your application to determine 
+whether the attached Moto Mod can charge the phone. 
+ModManager.isPlugTypeMod() will return true if no external charger is 
+attached and the device can be charged from the Moto Mod battery.
+
+
+When a battery reports issues
+
+If a Moto Mod embeds a battery, the Moto Mod is responsible for thermal 
+mitigation and reporting errors to the smartphone. Motorola has defined a 
+vendor specific channel to report asynchronous Moto Mod errors, including 
+thermal, current and oem specific data.
+
+An application which needs to listen for these sudden capabilities change 
+(as an example, a thermal incident on the Moto Mod causing the Moto Mod to 
+report it is operating in a reduced state) can register a ModListener (as 
+described below).
+
+This listener onCapabilityChanged() function will be called back when the 
+Moto Mod reports a capability change event. An application can then use the 
+ModManager.getCapabilityLevel() and ModManager.getCapabilityReason() to 
+determine the cause of this capability change, as described in the Mod 
+Management software and Mod Management firmware documents.
+
+An application which needs to be immediately informed of capability change 
+on an attached battery should register a listener with the 
+com.motorola.mod.ModManager.registerModListener() API.
+
+mManager.registerModListener(MainActivity.this, new int[] &#123;ModProtocol.BATTERY&#125;);
+
+
+More Information
+
+For more information, see the ModBattery Javadoc API.
+
+
+
+&lt; Previous Page
+Mod Display
+
+Next Page &gt;
+Mod Audio"/>
+<meta itemprop="thumbnailUrl" content="http://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/5755264307eaa05442bdf5e8/1476372480238/?format=1000w"/>
+<link rel="image_src" href="http://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/5755264307eaa05442bdf5e8/1476372480238/?format=1000w" />
+<meta itemprop="image" content="http://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/5755264307eaa05442bdf5e8/1476372480238/?format=1000w"/>
+<meta name="twitter:title" content="Software: Mod Battery"/>
+<meta name="twitter:image" content="http://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/5755264307eaa05442bdf5e8/1476372480238/?format=1000w"/>
+<meta name="twitter:url" content="http://developer.motorola.com/explore/software/mod-battery"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:description" content="Moto Z Software: Mod BatteryIntroduction
+
+Support for Battery and power-providing Moto Mod is integrated natively 
+with the Moto Mod platform. Your Moto Z will automatically leverage an 
+attached Moto Mod battery, based on its declared type, without requiring 
+you to provide an application or use the ModBattery Android API.
+
+The Moto Mod Android SDK enables a developer which needs additional 
+information about an attached Moto Mod battery to recognize when an 
+attached Moto Mod has a battery, determine the type of this battery, query 
+the battery capacity and get topical information about its this Moto Mod 
+battery charge level and charging status.
+
+An application can obtain information about a Moto Mod battery through the 
+methods exposed by the Moto Mod SDK’s ModBattery class.
+
+
+Prerequisites Android Prerequisites Development environment
+
+Before using the classes described below in your application, you must have 
+installed the Moto Mod Android SDK on your development device as described 
+in the tool section.
+
+Familiarity with the Android BatteryManager
+
+You should be familiar with the Android BatteryManager API, as the Moto Mod 
+specific battery information returned by the ModBattery class closely 
+follows the conventions of Android’s BatteryManager.
+
+Familiarity with the PTP and Battery Firmware documentation
+
+The Power Transfer and Battery firmware developer documentation provide 
+fine-grain control over battery and power-provider configuration. The 
+behavior of a Moto Mod battery will vary based on its PTP configuration and 
+the Moto Mod developer interesting in issuing, or building a 
+power-providing Moto Mod should gain a solid understanding of these 
+protocols first.
+
+Hardware Prerequisites
+
+Battery specific functions exposed through the Moto Mod Android SDK will 
+only be available if a Moto Mod is attached to your smartphone, if the 
+attached Moto Mod has a well-formed hardware manifest, and if it declares 
+support for the battery and power-transfer-protocol Greybus class.
+
+
+Supported Mod Battery type
+
+A Moto Mod can embed its own battery. When a Moto Mod is attached to a 
+smartphone, the charge and discharge behavior of the Moto Mod battery is 
+controlled by its firmware Battery and Power-transfer protocol 
+configuration, as described in the Power Transfer and Battery firmware 
+developer documentation.
+
+The platform supports different Moto Mod power-provider/battery profiles. A 
+Moto Mod battery must declare its supported profile in the firmware. The 
+device will automatically make optimal use of the battery based on this 
+profile declaration. The supported battery profiles are:
+
+    * The Moto Mod declares its battery as a SUPPLEMENTAL battery. Your
+      Moto Mod should use this profile when it hosts a battery which 
+      primary function is to keep your Moto Z powered (e.g: the Moto Mod is
+      a battery pack).
+
+    * The Moto Mod declares its battery as a REMOTE (or ‘NEVER‘ as defined
+      at the Power Transfer firmware page) battery. Your Moto Mod should
+      use this profile when it hosts a battery which sole function is to
+      provide power to the Moto Mod, and never to a Moto Z.
+
+    * The Moto Mod declares its battery as a REMOTE EMERGENCY (or ‘LOW
+      POWER SAVER’ at the Power Transfer firmware page) battery. Your Moto
+      Mod should use this profile when it hosts a battery which primary
+      function is to provide power to the Moto Mod but could be used to
+      power a Moto Z when the smartphone battery gets low.
+
+The Moto Mod could also elect, through its Power-Transfer protocol 
+definition, to not receive or provide power to the attached Moto Z. The 
+Moto Mod will need to include its own charging apparatus. The functionality 
+of a Moto Mod battery is automatically controlled by the Moto Z software 
+and based on the battery type declared by the Moto Mod firmware upon 
+attach, an application can not change the advertised battery type of a Moto 
+Mod. The Moto Mod SDK only enables any application to track charge, 
+discharge and information about a Moto Mod battery.
+
+
+Standard Battery behavior 
+
+The user experience on a Moto Z will vary slightly based on the declared 
+battery profile. This section provides a short overview of the behavioral 
+differences experienced on a Moto Z when different types of Moto Mod 
+batteries are attached.
+
+A Moto Mod battery provides power to Moto Z A charging Moto Z can charge 
+the Moto Mod battery The status bar indicates when Moto Mod is providing 
+power to Moto Z Moto Z Settings and Quick settings show the charge level of 
+the Moto Mod battery SUPPLEMENTAL Yes, to keep the Moto Z charged Yes Yes 
+Yes REMOTE (‘NEVER’) No Yes No Yes EMERGENCY (‘Low power saver’) Yes, buy 
+only when the Moto Z battery is Low Yes Yes Yes
+
+Top-Off vs. Efficiency mode
+
+Under the Moto Mod settings for a battery, the user can choose to set a 
+supplemental battery usage policy to “top-off” or “efficiency” through Moto 
+Mod settings. 
+
+    * In the default mode (the default usage policy of a battery), your
+      Moto Z will use a supplemental battery to always stay fully charged
+      (100%) as long as the Moto Mod battery can provide power.
+    * In EFFICIENCY mode, your Moto Z will leverage the attached
+      supplemental battery optimally, and will stay charged at 80% (not
+      100%) as long as the Moto Mod battery can provide power
+
+Working with a Moto Mod Battery: Added ModBattery Class
+
+The Moto Mod SDK provides an additional ModBattery class which enables an 
+application to know what the declared battery profile of the attached Moto 
+Mod battery is, query the capacity, charge level and charging status of a 
+Moto Mod battery.
+
+Determining whether the attached ModDevice embeds a battery
+
+To detect when a Moto Mod is attached, your application should listen on 
+Moto Mod ACTION_MOD_ATTACH and ACTION_MOD_DETACH intents - or register a 
+ModListener - as described at the Mod Management page. Once a Moto Mod is 
+attached to your device, an application can use the 
+ModDevice.hasDeclaredProtocol() function to check whether the attached 
+ModDevice declares the BATTERY and PTP (power transfer) protocol.
+
+if (device.hasDeclaredProtocol(ModProtocol.Protocol.BATTERY)) &#123;
+    // We know this device has a battery and supports battery metering
+    &#125;
+
+if (device.hasDeclaredProtocol(ModProtocol.Protocol.PTP)) &#123;
+    // We know this device can provide or receive power to the Moto Z
+    &#125;
+
+The state and level of this Moto Mod battery will be automatically reported 
+by the ModBattery class and its associated method. ModBattery will only be 
+available when a battery device is present and has enumerated successfully. 
+As the power transfer logic between the Moto Mod and and the Moto Z is 
+automatically controlled by the Moto Z, there are no exposed functions for 
+an application to change this predefined behavior.
+
+Working with the ModBattery Class
+
+If an attached Moto Mod supports the BATTERY protocol, and your application 
+wants to get information about this Moto Mod battery, it must first acquire 
+a ModBattery object by calling the ModManager.getClassManager() function, 
+after your application verified that a ModDevice is attached and that this 
+ModDevice supports the battery protocol.
+
+The code sample below shows how to get access to the ModBattery class from 
+the ModManager. Your application should first confirm that the attached 
+Moto Mod declares support for the PTP and BATTERY protocols, as shown 
+above.
+
+if (device.hasDeclaredProtocol(ModProtocol.Protocol.BATTERY)) &#123;
+    ModBattery mb = (ModBattery)mManager.getClassManager(modDev,
+    ModProtocol.Protocol.BATTERY);
+    ...
+    &#125;
+
+Getting the Moto Mod Battery Capacity
+
+When a battery Moto Mod is attached, an Android application can determine 
+the maximum capacity of the attached Moto Mod battery by calling the 
+ModBattery.getBatteryCapacity() method. This method will return the 
+capacity of the attached battery in mAH, or Long.MIN_VALUE if the Moto Mod 
+did not return its capacity through greybus.
+
+The code sample below shows how to retrieve the Moto Mod battery capacity.
+
+if (device.hasDeclaredProtocol(ModProtocol.Protocol.BATTERY)) &#123;
+    ModBattery mb = (ModBattery)mManager.getClassManager(modDev,
+    ModProtocol.Protocol.BATTERY);
+    if (mb != null) &#123;
+      modbatterycapacity = mb.getBatteryCapacity();
+
+Getting the Moto Mod Battery Level
+
+When a battery Moto Mod is attached, an Android application can track 
+changes in the battery charge level by using the 
+ModBattery.getBatteryLevel() method. This method will return the charge 
+level of the attached battery as a percentage (0-100).
+
+The code sample below shows how to retrieve the Moto Mod battery level.
+
+if (device.hasDeclaredProtocol(ModProtocol.Protocol.BATTERY)) &#123;
+    ModBattery mb = (ModBattery)mManager.getClassManager(modDev,
+    ModProtocol.Protocol.BATTERY);
+    if (mb != null) &#123;
+      modbatterylevel = mb.getBatteryLevel(); 
+      // we know what the battery level is
+
+Determining the declared type of the attached Moto Mod battery
+
+The ModBattery.getBatteryType() method returns the type of the battery on 
+the Moto Mod. ModBattery.getBatteryType() will return either 
+BATTERY_USAGE_TYPE_SUPPLEMENTAL, BATTERY_USAGE_TYPE_REMOTE, 
+BATTERY_USAGE_TYPE_EMERGENCY or BATTERY_USAGE_TYPE_UNKNOWN.
+
+The code sample below shows how to retrieve the Moto Mod battery type.
+
+if (device.hasDeclaredProtocol(ModProtocol.Protocol.BATTERY)) &#123;
+    ModBattery mb = (ModBattery)mManager.getClassManager(modDev,
+    ModProtocol.Protocol.BATTERY);
+    if (mb != null) &#123;
+      modbatterytype = mb.getBatteryType();
+
+Determining whether a ModBattery is charging or discharging
+
+The ModBattery.getBatteryStatus() method enables your application to 
+determine whether the battery on the Moto Mod is charging or discharging. A 
+Moto Mod battery could be charging when your Moto Z is plugged in a USB-C 
+charger, or when the Moto Mod itself has its own charging apparatus and is 
+attached to a charger.
+
+The value returned by ModBattery.getBatteryStatus() follows the convention 
+set forth by Android for reporting device battery charge status. An 
+application can use this value to determine whether the Moto Mod battery is 
+charging, discharging or full.
+
+if (device.hasDeclaredProtocol(ModProtocol.Protocol.BATTERY)) &#123;
+    ModBattery mb = (ModBattery)mManager.getClassManager(modDev,
+    ModProtocol.Protocol.BATTERY);
+    if (mb != null) &#123;
+      modbatterystatus = mb.getBatteryStatus();
+
+Returned Constant Value Details BATTERY_STATUS_UNKNOWN 1 The Mod Battery 
+status is not known BATTERY_STATUS_CHARGING 2 The Mod Battery is charging 
+BATTERY_STATUS_DISCHARGING 3 The Mod Battery is discharging 
+BATTERY_STATUS_NOT_CHARGING 4 The Mod Battery is not charging 
+BATTERY_STATUS_FULL 5 The Mod Battery is full Determining whether your Moto 
+Z is charging from an attached Moto Mod
+
+The ModBattery.isPlugTypeMod() method enables your application to determine 
+whether the attached Moto Mod can charge the phone. 
+ModManager.isPlugTypeMod() will return true if no external charger is 
+attached and the device can be charged from the Moto Mod battery.
+
+
+When a battery reports issues
+
+If a Moto Mod embeds a battery, the Moto Mod is responsible for thermal 
+mitigation and reporting errors to the smartphone. Motorola has defined a 
+vendor specific channel to report asynchronous Moto Mod errors, including 
+thermal, current and oem specific data.
+
+An application which needs to listen for these sudden capabilities change 
+(as an example, a thermal incident on the Moto Mod causing the Moto Mod to 
+report it is operating in a reduced state) can register a ModListener (as 
+described below).
+
+This listener onCapabilityChanged() function will be called back when the 
+Moto Mod reports a capability change event. An application can then use the 
+ModManager.getCapabilityLevel() and ModManager.getCapabilityReason() to 
+determine the cause of this capability change, as described in the Mod 
+Management software and Mod Management firmware documents.
+
+An application which needs to be immediately informed of capability change 
+on an attached battery should register a listener with the 
+com.motorola.mod.ModManager.registerModListener() API.
+
+mManager.registerModListener(MainActivity.this, new int[] &#123;ModProtocol.BATTERY&#125;);
+
+
+More Information
+
+For more information, see the ModBattery Javadoc API.
+
+
+
+&lt; Previous Page
+Mod Display
+
+Next Page &gt;
+Mod Audio"/>
+<meta name="description" content="" />
+<script type="text/javascript" src="//use.typekit.net/ik/-i291jc6M6LqtTkmhOssWokMjOs1BX59oH1MjpqFKGCfe7vIfFHN4UJLFRbh52jhWD9awQm8ZA9ojRMoZRqujQIkjRbXZQg8Zg7PMPG0demzdcIlZemhSkoDSWmyScmDSeBRZPoRdhXCZemhZAUzSemkOcuzieNkdhUyOcFzdPUCZAN0jPuqZWZDO1FUiABkZWF3jAF8OcFzdPUCdhFydeyzSabCiaiaOcs8icmCdag8SKoldaszScNCjPoRdhXCiaiaOcU8dhoyOAs8i1w0SaBujW48Sagyjh90jhNlJ6U3ScNt-AuyOAozicIKghFydeUudcIKgcmuScN3jPG4fHCgIMMjMPMfH6qJnMIbMg6OJMJ7fbRKHyMMeMw6MKG4f5w7IMMj2PMfH6qJn3IbMg6IJMJ7fbK3MsMMeMt6MKGHfO2IMsMMeM96MKGHfOYIMsMMeMv6MKG4fHXgIMMjgKMfH6qJn6IbMg6bJMJ7fbKOMsMMeMS6MKG4fJ3gIMMjIPMfH6qJ7bIbMg6JJMJ7fbK7MsMMegJ6MKG4fJqgIMMjfPMfH6qJK6IbMg6QJMJ7fbKbwgMgeMw6MKG4fwXVIMIjgfMfH6qJD6vbMs65JMJ7fbRK2UMgeMj6MKG4f5IVIMIjIfMfH6qJD3vbMs6YJMJ7fbRb2UMgegI6MKG4f4CbIMIjfPMfH6qJ7WqbMy62JMJ7f6RRy6IbMy6FJMJ7fbK7psMfeMb6MKGHf5PeMsMfeMt6MKG4fHyoIMJjgkMfH6GJojjgIMJjIPMfqMY2q05Egb.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:600,300,300italic,700normal,700italic,700"/>
+<script type="text/javascript">SQUARESPACE_ROLLUPS = {};</script>
+<script>(function(rollups, name) { if (!rollups[name]) { rollups[name] = {}; } rollups[name].js = ["//static.squarespace.com/universal/scripts-compressed/common-5e94507f3c0e453d11a0-min.js"]; })(SQUARESPACE_ROLLUPS, 'squarespace-common');</script>
+<script>(function(rollups, name) { if (!rollups[name]) { rollups[name] = {}; } rollups[name].js = ["//static.squarespace.com/universal/scripts-compressed/commerce-fd3acaef8c84f878af54-min.js"]; })(SQUARESPACE_ROLLUPS, 'squarespace-commerce');</script>
+<script>(function(rollups, name) { if (!rollups[name]) { rollups[name] = {}; } rollups[name].css = ["//static.squarespace.com/universal/styles-compressed/commerce-dc2994bcf5b857ab140663df3a2d20aa-min.css"]; })(SQUARESPACE_ROLLUPS, 'squarespace-commerce');</script>
+<script type="text/javascript" data-sqs-type="dynamic-assets-loader">(function() {(function(a){function e(b){-1!==b.indexOf(".js")?document.write("<script "+f+'crossorigin="anonymous" src="'+b+'">\x3c/script>'):document.write('<link rel="stylesheet" type="text/css" href="'+b+'" />')}var g=function(){var b=window.location.search,a=b.indexOf("exclude=");return-1<a&&(b=b.substr(a+8).split("&")[0])?b.split(","):[]}(),f;f=window.__beta_flag_should_defer?'defer="defer" ':"";try{if(window.top!=window&&window.top.Squarespace&&window.top.Squarespace.frameAvailable){window.top.Squarespace.frameAvailable(window,
+SQUARESPACE_ROLLUPS);return}}catch(h){console.error(h)}for(var c in a)if(!(-1<g.indexOf(c))){if(a[c].js)for(var d=0;d<a[c].js.length;d++)e(a[c].js[d]);if(a[c].css)for(d=0;d<a[c].css.length;d++)e(a[c].css[d])}})(SQUARESPACE_ROLLUPS);
+})();</script><script type="text/javascript" data-sqs-type="imageloader">(function() {var EXCLUDED_SIZES=function(){var a=window.location.search,b=a.indexOf("exclude_imageloader_sizes=");return-1<b&&(a=a.substr(b+26).split("&")[0])?a.split(",").map(function(a){return parseInt(a,10)}):[]}(),SQUARESPACE_SIZES=[2500,1500,1E3,750,500,300,100].filter(function(a){return-1===EXCLUDED_SIZES.indexOf(a)}),IMAGE_LOADING_CLASS="loading",ImageLoader=new function(){this.load=function(a,b){function d(a,b,c){var d=new Image;d.onload=b;d.onerror=c;d.src=a}a.getDOMNode&&(a=a.getDOMNode());var c=this._getDataFromNode(a,
+b),e=!(!c.dimensions||!c.dimensions.width||!c.dimensions.height),g=c.load+"";if("false"===g)return!1;var h=c.mode;if(e&&("fit"===h||"fill"===h)){h=a.parentNode;if(!h)return console.error("Not doing anything, parentNode not found."),!1;if(!this.refresh(a,b,h))return!1}var n=this._intendToLoad(a,c);if("string"===typeof n&&"viewport"!==g){var m=this.getUrl(n,c),g=a.getAttribute("data-image-resolution");a.getAttribute("src")!==m&&this.isValidResolution(n,g)&&(a.onload=function(){a.className=a.className.replace(IMAGE_LOADING_CLASS,
+" ").trim();a.setAttribute("data-image-resolution",n)},!a.getAttribute("src")&&-1===a.className.indexOf(IMAGE_LOADING_CLASS)&&(a.className+=(a.className?" ":"")+IMAGE_LOADING_CLASS),!a.getAttribute("src")&&e?(a.setAttribute("src",m),c.useBgImage&&(a.parentNode.style.backgroundImage="url("+m+")")):d(m,function(){e?a.setAttribute("src",m):(a.setAttribute("data-image-dimensions",this.width+"x"+this.height),ImageLoader.load(a,b))},function(){a.className=a.className.replace(IMAGE_LOADING_CLASS," ").trim();
+a.setAttribute("src",m)}));return!0}return n};this.refresh=function(a,b,d){a.getDOMNode&&(a=a.getDOMNode());d&&d.getDOMNode&&(d=d.getDOMNode());d=d||a.parentNode;if(!d)return console.error("Not doing anything, parentNode not found."),!1;var c=this._getDataFromNode(a,b),e=d.offsetWidth,g=d.offsetHeight;b=c.mode;if("none"!==b){var h=c.dimensions.width,n=c.dimensions.height,m=h/n,q=e/g;if(c.useBgImage&&"fill"===b&&"backgroundSize"in document.documentElement.style)return a.style.display="none",d.style.backgroundSize=
+"cover",d.style.backgroundPosition=100*c.focalPoint.x+"% "+100*c.focalPoint.y+"%",!0;if(c.fixedRatio)"fill"==b&&q>m||"fit"==b&&q<m?(k=100,l=100*(q/m),r=(100-l)*c.focalPoint.y,p=0):(k=100*(m/q),l=100,r=0,p=(100-k)*c.focalPoint.x),a.style.top=r+"%",a.style.left=p+"%",a.style.width=k+"%",a.style.height=l+"%";else{var f;"fill"===b?f=m>q?g/n:e/h:"fit"===b&&(f=m<q?g/n:e/h);!c.stretch&&"fit"==b&&1<f&&(f=1);var k=Math.ceil(h*f),l=Math.ceil(n*f);if(0===k||0===l)return!1;var p,r;"fill"===b?(p=Math.min(Math.max(e/
+2-k*c.focalPoint.x,e-k),0),r=Math.min(Math.max(g/2-l*c.focalPoint.y,g-l),0)):"fit"===b&&(f=c.fitAlignment,p=f.left?0:f.right?e-k:k<e?(e-k)/2:0,r=f.top?0:f.bottom?g-l:l<g?(g-l)/2:0,"inline"==this._getStyle(a,"display")&&(a.style.fontSize="0px"),this._resetAlt(a,function(){k-=a.offsetHeight-a.clientHeight;l-=a.offsetWidth-a.clientWidth}));a.style.top=Math.ceil(r)+"px";a.style.left=Math.ceil(p)+"px";a.style.width=Math.ceil(k)+"px";a.style.height=Math.ceil(l)+"px"}p=this._getStyle(d,"position");a.style.position=
+"relative"==p?"absolute":"relative";if("fill"==b&&(b=this._getStyle(d,"overflow"),!b||"hidden"!=b))d.style.overflow="hidden";return!0}};this._intendToLoad=function(a,b){function d(c,d){"none"===b.mode&&(a.style.width=null,a.style.height=null);var e=parseFloat(a.getAttribute(c)),f=parseFloat(e);if(!f||isNaN(f))e=h._getStyle(a,c),f=parseFloat(e);if(!f||isNaN(f))e=h._getStyle(a,"max-"+c,"max"+(c.substr(0,1).toUpperCase()+c.substr(1))),f=parseFloat(e);if(0===d||e)switch(h._stringType(e)){case "percentage":d=
+parseInt(e,10)/100*g["offset"+c.substr(0,1).toUpperCase()+c.substr(1)];break;case "number":d=parseInt(e,10)}!f&&0!==d&&!a.getAttribute("src")&&(d=0);return d}b=b||this._getDataFromNode(a);if(!b.source)return!1;var c=a.offsetWidth,e=a.offsetHeight,g=a.parentNode,h=this;this._resetAlt(a,function(){c=d("width",c);e=d("height",e)});0===c&&0===e?(c=b.dimensions.width,e=b.dimensions.height):0===c?c=this.getDimensionForValue("width",e,b):0===e&&(e=this.getDimensionForValue("height",c,b));"viewport"===b.load&&
+(a.style.width=Math.floor(c)+"px",a.style.height=Math.floor(e)+"px");return this.getSquarespaceSize(c,e,b)};this._getDataFromNode=function(a,b){b=b||{};var d={focalPoint:{x:0.5,y:0.5},dimensions:{width:null,height:null},mode:"none",fitAlignment:{center:!0},load:"true",stretch:!0,fixedRatio:!1};if(b.focalPoint)d.focalPoint=b.focalPoint;else{var c=a.getAttribute("data-image-focal-point");if(c&&(c=c.split(","))&&2==c.length)d.focalPoint={x:parseFloat(c[0]),y:parseFloat(c[1])}}if(b.dimensions)d.dimensions=
+b.dimensions;else if((c=a.getAttribute("data-image-dimensions"))&&(c=c.split("x"))&&2==c.length)d.dimensions={width:parseInt(c[0],10),height:parseInt(c[1],10)};b.mode?d.mode=b.mode:a.parentNode&&(c=a.parentNode.className,-1!==c.indexOf("content-fill")?d.mode="fill":-1!==c.indexOf("content-fit")&&(d.mode="fit"));if("fit"===d.mode&&a.parentNode&&(c=b.fitAlignment||a.getAttribute("data-alignment")||a.parentNode.getAttribute("data-alignment")))d.fitAlignment={top:-1!==c.indexOf("top"),left:-1!==c.indexOf("left"),
+center:-1!==c.indexOf("center"),right:-1!==c.indexOf("right"),bottom:-1!==c.indexOf("bottom")};b.load?d.load=b.load:(c=a.getAttribute("data-load"))&&(d.load=c);if("undefined"!==typeof b.stretch)d.stretch=b.stretch;else if(c=a.getAttribute("data-image-stretch"))d.stretch="true"===c?!0:!1;d.source=b.source?b.source:a.getAttribute("data-src");d.source&&this.isSquarespaceUrl(d.source)&&("http:"===d.source.substr(0,5)&&"https"===window.location.protocol.substr(0,5))&&(d.source=d.source.replace("http://",
+"https://"));if(b.fixedRatio)d.fixedRatio=b.fixedRatio;else if(c=a.getAttribute("data-fixed-ratio"))d.fixedRatio="true"==c;b.useBgImage?d.useBgImage=b.useBgImage:(c=a.getAttribute("data-use-bg-image"),d.useBgImage="true"===c||!0===c?!0:!1);return d};this._stringType=function(a){return"string"===typeof a&&-1!==a.indexOf("%")?"percentage":isNaN(parseInt(a,10))?NaN:"number"};this._getStyle=function(a,b,d){var c;a.currentStyle?c=a.currentStyle[d||b]:window.getComputedStyle&&(c=document.defaultView.getComputedStyle(a,
+null).getPropertyValue(b));return c};this._isVisible=function(a){a=a.getBoundingClientRect();return 0<=a.left&&0<=a.top||0<=a.bottom&&0<=a.right||0<=a.left&&0<=a.bottom||0<=a.right&&0<=a.top};this.getSquarespaceSize=function(a,b,d){a=Math.max(b/(d.dimensions.height/d.dimensions.width),a);"undefined"===typeof app&&"number"===typeof window.devicePixelRatio&&(a*=window.devicePixelRatio);for(b=1;b<SQUARESPACE_SIZES.length&&!(a>SQUARESPACE_SIZES[b]);b++);return SQUARESPACE_SIZES[b-1]+"w"};this.getDimensionForValue=
+function(a,b,d){var c=d.dimensions.width;d=d.dimensions.height;return"width"==a?c/d*b:"height"==a?d/c*b:NaN};this.getUrl=function(a,b){var d=b.source;return a&&("/"==d[0]||this.isSquarespaceUrl(d))?(-1===d.indexOf("format="+a)&&(d=d+(-1!==d.indexOf("?")?"&":"?")+"format="+a),d):b.source};this.isSquarespaceUrl=function(a){return-1!==a.indexOf("squarespace.com")||-1!==a.indexOf("squarespace.net")||-1!==a.indexOf("sqsp.net")};this.isValidResolution=function(a,b){a=parseInt(a,10);b=parseInt(b,10);return isNaN(a)||
+isNaN(b)?!0:a>b};this._resetAlt=function(a,b){var d=a.getAttribute("alt"),c=d&&0<d.length&&!a.getAttribute("src");if(c){var e=a.style.display;a.removeAttribute("alt");a.style.display="none";a.offsetHeight+0;a.style.display=e}b.call(this);c&&a.setAttribute("alt",d)};this.bootstrap=function(){var a=document.images;if(0<a.length)for(var b=0,d=a.length;b<d;b++)((a[b].hasAttribute?a[b].hasAttribute("data-image"):a[b].attributes["data-image"])||(a[b].hasAttribute?a[b].hasAttribute("data-src"):a[b].attributes["data-src"]))&&
+"false"!==(a[b].getAttribute?a[b].getAttribute("data-load"):a[b].attributes["data-load"])+""&&ImageLoader.load(a[b])}};window.ImageLoader=ImageLoader;window.YUI&&YUI.add("squarespace-imageloader",function(a){},"1.0",{requires:[]});
+})();</script>
+<script>Static.SQUARESPACE_CONTEXT = {"facebookAppId":"314192535267336","rollups":{"squarespace-announcement-bar":{"css":"//static.squarespace.com/universal/styles-compressed/announcement-bar-d41d8cd98f00b204e9800998ecf8427e-min.css","js":"//static.squarespace.com/universal/scripts-compressed/announcement-bar-953ed1cd99cc9b87f7a2-min.js"},"squarespace-audio-player":{"css":"//static.squarespace.com/universal/styles-compressed/audio-player-76e4bfcc3f9830beb388bae2002fbe6c-min.css","js":"//static.squarespace.com/universal/scripts-compressed/audio-player-98a9173c9d0ffd51f2ba-min.js"},"squarespace-blog-collection-list":{"css":"//static.squarespace.com/universal/styles-compressed/blog-collection-list-d41d8cd98f00b204e9800998ecf8427e-min.css","js":"//static.squarespace.com/universal/scripts-compressed/blog-collection-list-e3f0e3c96f9f77c0fa8a-min.js"},"squarespace-calendar-block-renderer":{"css":"//static.squarespace.com/universal/styles-compressed/calendar-block-renderer-edb9ea58c015fca447b97a2948a5c589-min.css","js":"//static.squarespace.com/universal/scripts-compressed/calendar-block-renderer-39cca1f2e4e0f96a6ad5-min.js"},"squarespace-chartjs-helpers":{"css":"//static.squarespace.com/universal/styles-compressed/chartjs-helpers-9935a41d63cf08ca108505d288c1712e-min.css","js":"//static.squarespace.com/universal/scripts-compressed/chartjs-helpers-ac72687dc63de36835c1-min.js"},"squarespace-comments":{"css":"//static.squarespace.com/universal/styles-compressed/comments-54d9a235556bd6d2c4429d030a5b72af-min.css","js":"//static.squarespace.com/universal/scripts-compressed/comments-a6afc8f75ac78d98ea0a-min.js"},"squarespace-dialog":{"css":"//static.squarespace.com/universal/styles-compressed/dialog-c88f372c40a33112d5ee06509be7e7d8-min.css","js":"//static.squarespace.com/universal/scripts-compressed/dialog-7533bc02eb401e051c14-min.js"},"squarespace-events-collection":{"css":"//static.squarespace.com/universal/styles-compressed/events-collection-edb9ea58c015fca447b97a2948a5c589-min.css","js":"//static.squarespace.com/universal/scripts-compressed/events-collection-b653d5aa26179e6ac6c8-min.js"},"squarespace-gallery-collection-list":{"css":"//static.squarespace.com/universal/styles-compressed/gallery-collection-list-d41d8cd98f00b204e9800998ecf8427e-min.css","js":"//static.squarespace.com/universal/scripts-compressed/gallery-collection-list-46bf412970dc140b6d72-min.js"},"squarespace-image-zoom":{"css":"//static.squarespace.com/universal/styles-compressed/image-zoom-ae974921915aeccaff8ad60c60e19c31-min.css","js":"//static.squarespace.com/universal/scripts-compressed/image-zoom-f6cd9050c5d8c057ace4-min.js"},"squarespace-pinterest":{"css":"//static.squarespace.com/universal/styles-compressed/pinterest-d41d8cd98f00b204e9800998ecf8427e-min.css","js":"//static.squarespace.com/universal/scripts-compressed/pinterest-e9b8f9d6b857f360efb3-min.js"},"squarespace-product-quick-view":{"css":"//static.squarespace.com/universal/styles-compressed/product-quick-view-eb4b900ac0155bed2f175aa82e2a7c17-min.css","js":"//static.squarespace.com/universal/scripts-compressed/product-quick-view-385bcf122538af11172a-min.js"},"squarespace-products-collection-item-v2":{"css":"//static.squarespace.com/universal/styles-compressed/products-collection-item-v2-ae974921915aeccaff8ad60c60e19c31-min.css","js":"//static.squarespace.com/universal/scripts-compressed/products-collection-item-v2-3486dc9b8dbd99755e7d-min.js"},"squarespace-products-collection-list-v2":{"css":"//static.squarespace.com/universal/styles-compressed/products-collection-list-v2-ae974921915aeccaff8ad60c60e19c31-min.css","js":"//static.squarespace.com/universal/scripts-compressed/products-collection-list-v2-4cd969ff0438e7ef97a3-min.js"},"squarespace-search-page":{"css":"//static.squarespace.com/universal/styles-compressed/search-page-9e3daa07ec7490c2f0be98a39351cb63-min.css","js":"//static.squarespace.com/universal/scripts-compressed/search-page-87a4e5e16a12647eda19-min.js"},"squarespace-share-buttons":{"js":"//static.squarespace.com/universal/scripts-compressed/share-buttons-ca50e441efae95c3b149-min.js"},"squarespace-simple-liking":{"css":"//static.squarespace.com/universal/styles-compressed/simple-liking-09fa291ec2800c97714f0d157fd0a6ca-min.css","js":"//static.squarespace.com/universal/scripts-compressed/simple-liking-9a2140e20ef2f503a19f-min.js"},"squarespace-social-buttons":{"css":"//static.squarespace.com/universal/styles-compressed/social-buttons-7a696232d1cd101fd62b5f174f9ae6ff-min.css","js":"//static.squarespace.com/universal/scripts-compressed/social-buttons-0730f331e9d8376edc18-min.js"},"squarespace-tourdates":{"css":"//static.squarespace.com/universal/styles-compressed/tourdates-d41d8cd98f00b204e9800998ecf8427e-min.css","js":"//static.squarespace.com/universal/scripts-compressed/tourdates-c7794d87ff1cec0a657f-min.js"}},"pageType":50,"website":{"id":"5715eee9b09f95a12b44e0ed","identifier":"leona-devs","websiteType":1,"contentModifiedOn":1476372480238,"cloneable":false,"developerMode":true,"siteStatus":{},"language":"en-US","timeZone":"America/Chicago","machineTimeZoneOffset":-18000000,"timeZoneOffset":-18000000,"timeZoneAbbr":"CDT","siteTitle":"Motorola Developer Portal","siteTagLine":"Dream. Make. Ship.","siteDescription":"<p><span style=\"font-size:15.4px\">Everything you need to learn about the Moto Mods\u2122 platform, create your own Moto Mod, and take it to market.&nbsp;</span></p>","logoImageId":"5757c416c6fc08b36227de80","socialLogoImageId":"5755264307eaa05442bdf5e8","shareButtonOptions":{"6":true,"1":true,"7":true,"3":true,"4":true,"5":true,"2":true,"8":true},"logoImageUrl":"//static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/5757c416c6fc08b36227de80/1476372480238/","socialLogoImageUrl":"//static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/5755264307eaa05442bdf5e8/1476372480238/","authenticUrl":"http://developer.motorola.com","internalUrl":"http://leona-devs.squarespace.com","baseUrl":"http://developer.motorola.com","primaryDomain":"developer.motorola.com","socialAccounts":[{"serviceId":11,"userId":"UCF5CbIqtNedOBHYhCgaVo5w","screenname":"Josh Wu","addedOn":1465372026418,"profileUrl":"https://www.youtube.com/user/motorola","iconUrl":"https://yt3.ggpht.com/-aiajjcTcxW8/AAAAAAAAAAI/AAAAAAAAAAA/F25Fwkym5Yg/s88-c-k-no-rj-c0xffffff/photo.jpg","iconEnabled":true,"serviceName":"youtube"},{"serviceId":2,"userId":"10100700593422275","screenname":"Josh Wu","addedOn":1465370177239,"profileUrl":"https://www.facebook.com/MotoUSA/","iconUrl":"http://graph.facebook.com/10100700593422275/picture?type=square","metaData":{"service":"facebook"},"iconEnabled":true,"serviceName":"facebook"},{"serviceId":4,"userId":"193778334","userName":"xjoshwu","screenname":"Josh Wu","addedOn":1465371811769,"profileUrl":"https://twitter.com/moto","iconUrl":"http://abs.twimg.com/sticky/default_profile_images/default_profile_1_normal.png","collectionId":"5757cca3ab48de05c0e6df61","iconEnabled":true,"serviceName":"twitter"},{"serviceId":21,"userId":"103148786619544125119","screenname":"Josh Wu","addedOn":1465371948049,"profileUrl":"https://plus.google.com/communities/116517178872973348174","iconUrl":"https://lh4.googleusercontent.com/-aiajjcTcxW8/AAAAAAAAAAI/AAAAAAAAAng/vXUrMPokc1s/photo.jpg","iconEnabled":true,"serviceName":"google"}],"typekitId":"","statsMigrated":false,"imageMetadataProcessingEnabled":false},"websiteSettings":{"id":"5715eee9b09f95a12b44e0f0","websiteId":"5715eee9b09f95a12b44e0ed","subjects":[],"country":"US","state":"IL","markdownMode":true,"simpleLikingEnabled":true,"mobileInfoBarSettings":{"isContactEmailEnabled":false,"isContactPhoneNumberEnabled":false,"isLocationEnabled":false,"isBusinessHoursEnabled":false},"lastAgreedTermsOfService":2,"defaultPostFormat":"%y/%m/%d/%t","commentLikesAllowed":true,"commentAnonAllowed":true,"commentThreaded":true,"commentApprovalRequired":false,"commentAvatarsOn":true,"commentSortType":2,"commentFlagThreshold":0,"commentFlagsAllowed":true,"commentEnableByDefault":true,"commentDisableAfterDaysDefault":0,"disqusShortname":"","homepageTitleFormat":"%s","collectionTitleFormat":"%c \u2014 %s","itemTitleFormat":"%i \u2014 %s","commentsEnabled":false,"contactPhoneNumber":"","allowSquarespacePromotion":false,"storeSettings":{"returnPolicy":null,"termsOfService":null,"privacyPolicy":null,"paymentSettings":{},"expressCheckout":false,"useLightCart":false,"showNoteField":false,"shippingCountryDefaultValue":"US","billToShippingDefaultValue":false,"showShippingPhoneNumber":true,"isShippingPhoneRequired":false,"showBillingPhoneNumber":true,"isBillingPhoneRequired":false,"currenciesSupported":["USD","CAD","GBP","AUD","EUR","CHF","NOK","SEK","DKK"],"defaultCurrency":"USD","selectedCurrency":"USD","measurementStandard":1,"orderConfirmationInjectCode":"<style>\n/* <link rel=\"stylesheet\" href=\"style.css\">\n  img .footer-inner {\n  \tmax-width: 80px;\n  }\n  img.thumb-image.loaded {\n  \tleft: 0 !important;\n    max-height: 100% !important;\n  }*/\n  \n</style>","showCustomCheckoutForm":false,"enableMailingListOptInByDefault":true,"sameAsRetailLocation":false,"stripeConnected":false,"isLive":false,"storeState":3},"useEscapeKeyToLogin":false,"ssBadgeType":1,"ssBadgePosition":4,"ssBadgeVisibility":1,"ssBadgeDevices":1,"pinterestOverlayOptions":{"mode":"disabled"},"ampEnabled":false},"websiteCloneable":false,"collection":{"title":"Moto Mods Developer: Explore Platform","id":"57397c50c2ea512278d32978","fullUrl":"/explore/","type":1},"item":{"title":"Software: Mod Battery","id":"5745e6db37013b9d0a630f64","fullUrl":"/explore/software/mod-battery","publicCommentCount":0,"commentState":2,"recordType":1},"subscribed":false,"appDomain":"squarespace.com","templateTweakable":true,"tweakJSON":{"aspect-ratio":"Auto","banner-slideshow-controls":"Arrows","gallery-arrow-style":"No Background","gallery-aspect-ratio":"3:2 Standard","gallery-auto-crop":"true","gallery-autoplay":"false","gallery-design":"Grid","gallery-info-overlay":"Show on Hover","gallery-loop":"false","gallery-navigation":"Bullets","gallery-show-arrows":"true","gallery-transitions":"Fade","galleryArrowBackground":"rgba(34,34,34,1)","galleryArrowColor":"rgba(255,255,255,1)","galleryAutoplaySpeed":"3","galleryCircleColor":"rgba(255,255,255,1)","galleryInfoBackground":"rgba(0, 0, 0, .7)","galleryThumbnailSize":"100px","gridSize":"280px","gridSpacing":"10px","logoContainerWidth":"200px","product-gallery-auto-crop":"false","product-image-auto-crop":"true","siteTitleContainerWidth":"235px"},"templateId":"5715f8f91d07c0429e184ea4","pageFeatures":[1,2,4],"impersonatedSession":false,"isFacebookTab":false,"tzData":{"zones":[[-360,"US","C%sT",null]],"rules":{"US":[[1967,2006,null,"Oct","lastSun","2:00","0","S"],[1987,2006,null,"Apr","Sun>=1","2:00","1:00","D"],[2007,"max",null,"Mar","Sun>=8","2:00","1:00","D"],[2007,"max",null,"Nov","Sun>=1","2:00","0","S"]]}}};</script><script type="text/javascript"> SquarespaceFonts.loadViaContext(); Squarespace.load(window);</script><script type="application/ld+json">{"@context":"http://schema.org","@type":"WebSite","url":"http://developer.motorola.com","name":"Motorola Developer Portal","description":"<p><span style=\"font-size:15.4px\">Everything you need to learn about the Moto Mods\u2122 platform, create your own Moto Mod, and take it to market.&nbsp;</span></p>","image":"//static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/5757c416c6fc08b36227de80/1476372480238/"}</script><!--[if gte IE 9]> <link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/955-05142015/1476298698666/site.css?&filterFeatures=false&part=1"/><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/955-05142015/1476298698666/site.css?&filterFeatures=false&part=2"/><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/955-05142015/1476298698666/site.css?&filterFeatures=false&part=3"/><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/955-05142015/1476298698666/site.css?&filterFeatures=false&part=4"/><![endif]-->
+<!--[if lt IE 9]><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/955-05142015/1476298698666/site.css?&filterFeatures=false&noMedia=true&part=1"/><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/955-05142015/1476298698666/site.css?&filterFeatures=false&noMedia=true&part=2"/><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/955-05142015/1476298698666/site.css?&filterFeatures=false&noMedia=true&part=3"/><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/955-05142015/1476298698666/site.css?&filterFeatures=false&noMedia=true&part=4"/><![endif]-->
+<!--[if !IE]> --><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/5715eee9b09f95a12b44e0ed/481/5715f8f91d07c0429e184ea4/5715f8fd1d07c0429e184ecd/955-05142015/1476298698666/site.css?&filterFeatures=false"/><!-- <![endif]-->
+<!-- create adrum.js script timestamp -->
+<script>window['adrum-start-time'] = new Date().getTime();</script>
+<!--run adrum.js -->
+<script src="/scripts/adrum.js"></script>
+<!-- run page redirects -->
+<script id="redirect" type="text/javascript">	
+    // DEFINE HERE WHICH HERO PAGES SHOULD AUTOMATICALLY LOOK TO REDIRECT
+    // SUBPAGES THAT FOLLOW THE SLUG NAMING CONVENTION OF BASE_URL.COM/AAA-BBB-#  
+	var redirects = {
+     // "/index-page-url": "redirect-target"
+        "/home": "/",
+      	"/buy": "/buy",
+      	"/get-started": "/get-started",
+        "/partner": "/partner",
+        "/support": "/support",
+    };
+  
+  	// DON'T TOUCH ANYTHING BELOW THIS LINE
+  	// UNLESS YOU KNOW JAVASCRIPT
+    (function redirect_page() {
+      	//console.log('Window pathname:', window.location);
+        // store pathname because we have to use it a bunch
+        var pathname = window.location.pathname,
+            redirect_url;
+
+        for (var $key in redirects) {
+            // look to see if the pathname matches a targeted redirect
+            // index at the start of the string
+            if (new RegExp(('^').concat($key), 'i').test(pathname)) {
+                console.log('This window URL pathname matches a specified redirect path!\nWindow URL pathname:', pathname, '\nProceding to analyze...');
+                // because we store otherwise random numbers in intelligble
+                // variables, create an index and offset
+                var index = 0,
+                    offset = 1;
+                // clean up the pathname: if there's a final / at the *end* of the URL,
+                // get rid of it, since it will prevent us from identifying pages to redirect
+                pathname = (pathname.charAt(pathname.length - offset) === '/') ? pathname.substr(0, pathname.length - offset) : pathname;
+                // after cleaning up the pathname, check to see if the match is an exact one
+                // if it is, don't redirect
+                if (pathname === $key) {
+                    return console.log('Pathname is evaluated as the same page as the potential redirect -- not processing further');
+                } 
+                // check to see if the match corresponds to a subfolder/page URL
+                // rather than a hero card -- if it is, ignore it
+                else if (pathname.match(/\//g).length > offset) {
+                    return console.log('Pathname is evaluated as a subpage -- not applying redirects');
+                } 
+              	// redirect here!
+              	else {
+                    console.log('Pathname should be redirected to', redirects[$key]);
+                    return window.location = redirects[$key];
+                }
+            }
+        }	
+    }());
+</script>
+
+<!-- Google Tag Manager -->
+<noscript>
+  <iframe src="//www.googletagmanager.com/ns.html?id=GTM-5HBTJV"
+height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5HBTJV');</script>
+<!-- End Google Tag Manager -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script src="//cdn.optimizely.com/js/324186689.js"></script><link rel="stylesheet" href="/assets/css/documentation-styles.css">
+<!-- <style>
+  #header-info-1 {
+  	color: #dbbc8e !important;
+    font-weight: bold !important;
+  }
+  h2 {
+  	color: #5e2862 !important;
+  }
+</style> -->
+
+<script type="text/javascript">
+      $(window).bind("load", function() {
+
+
+        // GA Data Layer Push Events
+
+        $(".sqs-block-button-element a[href*='/explore/software']").click(function(e){ dataLayer.push({'event' : 'event', 'category' : 'Mods: Explore Page Interaction', 'action' : 'Click', 'label' : 'Explore: Body: Learn More (Moto Z): Button'}); console.log('software click'); });
+        $(".sqs-block-button-element a[href*='/explore/firmware']").click(function(e){ dataLayer.push({'event' : 'event', 'category' : 'Mods: Explore Page Interaction', 'action' : 'Click', 'label' : 'Explore: Body: Learn More (Moto Mods): Button'}); console.log('firmware click'); });
+        $(".sqs-block-button-element a[href*='/build']").click(function(e){ dataLayer.push({'event' : 'event', 'category' : 'Mods: Explore Page Interaction', 'action' : 'Click', 'label' : 'Explore: Body: Learn More (MDK): Button'}); console.log('build click'); });
+        $("a[href*='https://pages.motorola-mail.com/moto-mods-developer-us-en']").click(function(e){ dataLayer.push({'event' : 'event', 'category' : 'Mods: Get Started Page Interaction', 'action' : 'Click', 'label' : 'Get Started: Body: Register For Updates: Button'}); console.log('updates click'); });
+
+        
+      });
+    </script><script type="text/javascript"> var _gaq = _gaq || []; _gaq.push(['_setAccount', 'UA-76664929-4']); _gaq.push(['_trackPageview']); (function() { var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s); })(); </script><!-- End of Squarespace Headers -->
+    <script>/* Must be below squarespace-headers */(function(){var e='ontouchstart'in window||navigator.msMaxTouchPoints;var t=document.documentElement;if(!e&&t){t.className=t.className.replace(/touch-styles/,'')}})()
+    </script>
+  </head>
+
+  <body id="item-5745e6db37013b9d0a630f64" class="enable-nav-button nav-button-style-solid nav-button-corner-style-square banner-button-style-solid banner-button-corner-style-square banner-slideshow-controls-arrows meta-priority-date  hide-entry-author hide-list-entry-footer    hide-blog-sidebar center-navigation--info  gallery-design-grid aspect-ratio-auto lightbox-style-light gallery-navigation-bullets gallery-info-overlay-show-on-hover gallery-aspect-ratio-32-standard gallery-arrow-style-no-background gallery-transitions-fade gallery-show-arrows gallery-auto-crop      event-thumbnails event-thumbnail-size-32-standard event-date-label event-date-label-time event-list-show-cats event-list-date event-list-time event-list-address   event-icalgcal-links  event-excerpts  event-item-back-link    product-list-titles-under product-list-alignment-center product-item-size-11-square product-image-auto-crop product-gallery-size-11-square  show-product-price show-product-item-nav product-social-sharing  opentable-style-light newsletter-style-light small-button-style-solid small-button-shape-square medium-button-style-outline medium-button-shape-square large-button-style-outline large-button-shape-square button-style-solid button-corner-style-square tweak-product-quick-view-button-style-floating tweak-product-quick-view-button-position-bottom tweak-product-quick-view-lightbox-excerpt-display-truncate tweak-product-quick-view-lightbox-show-arrows tweak-product-quick-view-lightbox-show-close-button tweak-product-quick-view-lightbox-controls-weight-light native-currency-code-usd view-item collection-layout-default collection-type-explore collection-57397c50c2ea512278d32978 mobile-style-available">
+    <input type="checkbox" name="mobile-nav-toggle" id="mobileNavToggle" class="mobile-nav-toggle-box hidden" /><a href="#" class="body-overlay"></a>
+    <div class="sqs-announcement-bar-dropzone"></div>
+    <div id="sidecarNav">
+      
+
+
+<div id="mobileNavWrapper" class="nav-wrapper" data-content-field="navigation-mobileNav">
+  <nav id="mobileNavigation">
+    
+      
+        
+        <div class="mobile-fullurl- index homepage">
+          <a href="/">
+            Home
+          </a>
+        </div>
+        
+      
+
+    
+      
+        
+        <div class="mobile-fullurl-get-started index">
+          <a href="/get-started/">
+            Get Started
+          </a>
+        </div>
+        
+      
+
+    
+      
+        
+	        <div class="external outside-folder explore-dropdown">
+	          <a href="/explore">
+	            Explore
+	          </a>
+	          
+	          
+			  	<div id="subNavMobile">
+
+    
+        
+        <div class="external" data-url="/explore/system-architecture" >
+          <a  href="/explore/system-architecture">
+            System Architecture
+          </a>
+        </div>
+        
+    
+        
+        <div class="external" data-url="/explore/software" >
+          <a  href="/explore/software">
+            Moto Mods SDK for Android
+          </a>
+        </div>
+        
+    
+        
+        <div class="external" data-url="/explore/firmware" >
+          <a  href="/explore/firmware">
+            Moto Mods Firmware
+          </a>
+        </div>
+        
+    
+
+
+</div>
+			  
+			  
+			  
+	        </div>
+	
+
+        
+
+      
+
+    
+      
+        
+	        <div class="external outside-folder build-dropdown">
+	          <a href="/build">
+	            Build
+	          </a>
+	          
+	          
+			  
+			  
+			  	<div id="subNavMobile">
+
+    
+        
+        <div class="external" data-url="/build/overview" >
+          <a  href="/build/overview">
+            Overview
+          </a>
+        </div>
+        
+    
+        
+        <div class="external" data-url="/build/mdk-user-guide" >
+          <a  href="/build/mdk-user-guide">
+            MDK User Guide
+          </a>
+        </div>
+        
+    
+        
+        <div class="external" data-url="/build/tools" >
+          <a  href="/build/tools">
+            Developer Tools
+          </a>
+        </div>
+        
+    
+        
+        <div class="external" data-url="/build/examples" >
+          <a  href="/build/examples">
+            Examples
+          </a>
+        </div>
+        
+    
+
+
+</div>
+			  
+	        </div>
+	
+
+        
+
+      
+
+    
+      
+        
+        <div class="mobile-fullurl-partner index">
+          <a href="/partner/">
+            Partner
+          </a>
+        </div>
+        
+      
+
+    
+      
+        
+        <div class="mobile-fullurl-support index">
+          <a href="/support/">
+            Support
+          </a>
+        </div>
+        
+      
+
+    
+      
+        
+        <div class="mobile-fullurl-buy index">
+          <a href="/buy/">
+            Buy
+          </a>
+        </div>
+        
+      
+
+    
+    <!--<div id="lateral-nav">
+		<div class="button-shop">
+  			<a>Lorem Ipsum</a>
+  		</div>
+  	</div>-->
+  </nav>
+</div>
+
+
+
+
+
+    </div>
+    
+    <div id="siteWrapper" class="clearfix">
+
+      <div class="sqs-cart-dropzone"></div>
+	  
+      <header id="header" class="show-on-scroll" data-offset-el=".index-section" data-offset-behavior="bottom" role="banner">
+        <div class="header-inner">
+	        <div id="second-logo">
+			    
+			    	<img src="https://static1.squarespace.com/static/ta/5715eee9b09f95a12b44e0ed/936/assets/images/logos/lenovo.png" alt="Lenovo" style="max-width:25px"/>
+				
+		      </div>
+	      <div class="main-header">
+		      
+	          <div id="logoWrapper" class="wrapper" data-content-field="site-title">
+	            
+	              <h1 id="logoImage"><a href="/"><img src="//static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/5757c416c6fc08b36227de80/1476372480238/?format=1500w" alt="Motorola Developer Portal" /></a></h1>
+	            
+	          </div><!-- comment the linebreak between these two elements because science
+	          --><label for="mobileNavToggle" class="mobile-nav-toggle-label"><div class="top-bar"></div><div class="middle-bar"></div><div class="bottom-bar"></div></label><label for="mobileNavToggle" class="mobile-nav-toggle-label fixed-nav-toggle-label"><div class="top-bar"></div><div class="middle-bar"></div><div class="bottom-bar"></div></label><!-- comment the linebreak between these two elements because science
+	          -->
+	          <div id="headerNav"><div id="mainNavWrapper" class="nav-wrapper" data-content-field="navigation-mainNav">
+  <nav id="mainNavigation" data-content-field="navigation-mainNav">
+    
+      
+        
+        <div class="fullurl- index homepage">
+          <a href="/">
+            Home
+          </a>
+        </div>
+        
+      
+
+    
+      
+        
+        <div class="fullurl-get-started index">
+          <a href="/get-started/">
+            Get Started
+          </a>
+        </div>
+        
+      
+
+    
+      
+        
+		        <div class="external" id="tab-explore" >
+		          <a href="/explore">
+		            Explore
+		          </a>
+		        </div>
+        
+
+      
+
+    
+      
+        
+		        <div class="external" id="tab-build" >
+		          <a href="/build">
+		            Build
+		          </a>
+		        </div>
+        
+
+      
+
+    
+      
+        
+        <div class="fullurl-partner index">
+          <a href="/partner/">
+            Partner
+          </a>
+        </div>
+        
+      
+
+    
+      
+        
+        <div class="fullurl-support index">
+          <a href="/support/">
+            Support
+          </a>
+        </div>
+        
+      
+
+    
+      
+        
+        <div class="fullurl-buy index">
+          <a href="/buy/">
+            Buy
+          </a>
+        </div>
+        
+      
+
+    
+	<!--<div id="lateral-nav">
+		<div class="button-shop">
+  			<a>Lorem Ipsum</a>
+  		</div>
+  	</div>-->
+  </nav>
+
+</div>
+<!-- style below blocks out the mobile nav toggle only when nav is loaded -->
+<style>.mobile-nav-toggle-label { display: inline-block !important; }</style>
+
+</div>
+	      </div>
+          
+          <!-- Display subnav only if we are in type name collection -->
+          
+                
+					<div id="subHeaderNav">
+<div id="mainNavWrapper" class="nav-wrapper" data-content-field="navigation-mainNav">
+  <nav id="subNavigation" data-content-field="navigation-mainNav">
+    
+    
+        
+        <div class="external" data-url="/explore/system-architecture" >
+          <a  href="/explore/system-architecture">
+            System Architecture
+          </a>
+        </div>
+        
+
+
+    
+    
+        
+        <div class="external" data-url="/explore/software" >
+          <a  href="/explore/software">
+            Moto Mods SDK for Android
+          </a>
+        </div>
+        
+
+
+    
+    
+        
+        <div class="external" data-url="/explore/firmware" >
+          <a  href="/explore/firmware">
+            Moto Mods Firmware
+          </a>
+        </div>
+        
+
+
+    
+  </nav>
+</div>
+<!-- style below blocks out the mobile nav toggle only when nav is loaded -->
+<style>.mobile-nav-toggle-label { display: inline-block !important; }</style>
+
+
+</div>
+				
+		  
+		  
+          
+                
+		  		  
+		  
+		  
+        </div>
+      </header>
+
+      
+        
+          
+            
+              
+            
+          
+        
+      
+
+
+      
+      
+      
+
+      <main id="page" role="main">
+        
+        <!-- comment the linebreak between these two elements because science
+        --><!-- comment the linebreak between these two elements because science
+        --><div id="content" class="main-content" data-content-field="main-content" data-collection-id="57397c50c2ea512278d32978" data-edit-main-image="Banner">
+         <div class="sidebar" data-tag-selected="Mod Battery"> 
+
+<!-- Here you can modify the query so it matches the slug of the collection to retrieve the tags -->
+<!-- original code is below this line
+<squarespace:query collection="explore" limit="10" category="Software">
+-->
+<!-- modified code starts here -->
+<ol>
+   	
+<li><a href="/explore/software" data-tag="Overview">Overview</a></li>
+
+<li><a href="/explore/software/mod-management" data-tag="Mod Management">Mod Management</a></li>
+
+<li><a href="/explore/software/mod-raw-devices" data-tag="Mod Raw Devices">Mod Raw Devices</a></li>
+
+<li><a href="/explore/software/mod-display" data-tag="Mod Display">Mod Display</a></li>
+
+<li><a href="/explore/software/mod-battery" data-tag="Mod Battery">Mod Battery</a></li>
+
+<li><a href="/explore/software/mod-audio" data-tag="Mod Audio">Mod Audio</a></li>
+
+<li><a href="/explore/software/mod-hid" data-tag="Mod HID">Mod HID</a></li>
+
+<li><a href="/explore/software/mod-usb" data-tag="Mod USB">Mod USB</a></li>
+
+</ol>
+<div class="external-links">
+<div class="sqs-layout sqs-grid-12 columns-12" data-type="block-field" data-updated-on="1472248247082" id="blockField-external-links-5745e6db37013b9d0a630f64"><div class="row sqs-row"><div class="col sqs-col-12 span-12"><div class="sqs-block code-block sqs-block-code" data-block-type="23" id="block-yui_3_17_2_12_1465399098503_6230"><div class="sqs-block-content"><div class="desktop-hide">
+<p><a href="http://motorolamobilityllc.github.io/motomods_sdk/com/motorola/mod/package-summary.html" target="_blank">Moto Mods SDK for Android API Reference <img src="/assets/images/open-in-new-window.png" width="12" /></a><br /></p>
+</div>
+
+<div class="mobile-hide">
+<br /><hr class="subsplit" /><br />
+<p><a href="http://motorolamobilityllc.github.io/motomods_sdk" target="_blank">Moto Mods SDK for Android API Reference <img src="/assets/images/open-in-new-window.png" width="12" /></a></p>
+<p>• <a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html" target="_blank">Index <img src="/assets/images/open-in-new-window.png" width="12" /></a></p>
+<p>• <a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModListener.html" target="_blank">ModListener <img src="/assets/images/open-in-new-window.png" width="12" /></a></p>
+<p>• <a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModBacklight.html" target="_blank">ModBacklight <img src="/assets/images/open-in-new-window.png" width="12" /></a></p>
+<p>• <a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModBattery.html" target="_blank">ModBattery <img src="/assets/images/open-in-new-window.png" width="12" /></a></p>
+<p>• <a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModConnection.html" target="_blank">ModConnection <img src="/assets/images/open-in-new-window.png" width="12" /></a></p>
+<p>• <a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModContract.html" target="_blank">ModContract <img src="/assets/images/open-in-new-window.png" width="12" /></a></p>
+<p>• <a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModDevice.html" target="_blank">ModDevice <img src="/assets/images/open-in-new-window.png" width="12" /></a></p>
+<p>• <a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModDisplay.html" target="_blank">ModDisplay <img src="/assets/images/open-in-new-window.png" width="12" /></a></p>
+<p>• <a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModInterfaceDelegation.html" target="_blank">ModInterfaceDelegation <img src="/assets/images/open-in-new-window.png" width="12" /></a></p>
+<p>• <a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModManager.html" target="_blank">ModManager <img src="/assets/images/open-in-new-window.png" width="12" /></a></p>
+<p>• <a href="http://motorolamobilityllc.github.io/motomods_sdk/index.html?com/motorola/mod/ModProtocol.html" target="_blank">ModProtocol <img src="/assets/images/open-in-new-window.png" width="12" /></a></p>
+</div></div></div></div></div></div>
+
+</div>
+</div>
+
+
+<div class="entry-content e-content">
+     
+       <div class="sqs-layout sqs-grid-12 columns-12" data-layout-label="Post Body" data-type="item" data-updated-on="1464198937467" id="item-5745e6db37013b9d0a630f64"><div class="row sqs-row"><div class="col sqs-col-12 span-12"><div class="sqs-block html-block sqs-block-html" data-block-type="2" id="block-74285782f58b06291929"><div class="sqs-block-content"><h1>Moto Z Software: Mod Battery</h1></div></div><div class="sqs-block markdown-block sqs-block-markdown" data-block-type="44" id="block-yui_3_17_2_1_1464771335995_32220"><div class="sqs-block-content"><h2 id="introduction">Introduction</h2>
+<p>Support for Battery and power-providing Moto Mod is integrated natively with the Moto Mod platform. Your Moto Z will automatically leverage an attached Moto Mod battery, based on its declared type, without requiring you to provide an application or use the <code>ModBattery</code> Android API.</p>
+<p>The Moto Mod Android SDK enables a developer which needs additional information about an attached Moto Mod battery to recognize when an attached Moto Mod has a battery, determine the type of this battery, query the battery capacity and get topical information about its this Moto Mod battery charge level and charging status. </p>
+<p>An application can obtain information about a Moto Mod battery through the methods exposed by the Moto Mod SDK’s <code>ModBattery</code> class.</p>
+</div></div><div class="sqs-block horizontalrule-block sqs-block-horizontalrule" data-block-type="47" id="block-yui_3_17_2_1_1464771335995_33591"><div class="sqs-block-content"><hr /></div></div><div class="sqs-block markdown-block sqs-block-markdown" data-block-type="44" id="block-yui_3_17_2_1_1464771335995_33978"><div class="sqs-block-content"><h2 id="prerequisites">Prerequisites</h2>
+<h3 id="android-prerequisites">Android Prerequisites</h3>
+<h4 id="development-environment">Development environment</h4>
+<p>Before using the classes described below in your application, you must have installed the Moto Mod Android SDK on your development device as described in the tool section.</p>
+<h4 id="familiarity-with-the-android-batterymanager">Familiarity with the Android BatteryManager</h4>
+<p>You should be familiar with the <a href="https://developer.android.com/reference/android/os/BatteryManager.html">Android BatteryManager API</a>, as the Moto Mod specific battery information returned by the <code>ModBattery</code> class closely follows the conventions of Android’s <code>BatteryManager</code>. </p>
+<h4 id="familiarity-with-the-ptp-and-battery-firmware-documentation">Familiarity with the PTP and Battery Firmware documentation</h4>
+<p>The <a href="/explore/firmware/power-transfer"><code>Power Transfer</code></a> and <a href="/explore/firmware/battery"><code>Battery</code></a> firmware developer documentation provide fine-grain control over battery and power-provider configuration. The behavior of a Moto Mod battery will vary based on its PTP configuration and the Moto Mod developer interesting in issuing, or building a power-providing Moto Mod should gain a solid understanding of these protocols first.</p>
+<h3 id="hardware-prerequisites">Hardware Prerequisites</h3>
+<p>Battery specific functions exposed through the Moto Mod Android SDK  will only be available if a Moto Mod is attached to your smartphone, if the attached Moto Mod has a well-formed hardware manifest, and if it declares support for the <code>battery</code> and <code>power-transfer-protocol</code> Greybus class.</p>
+</div></div><div class="sqs-block horizontalrule-block sqs-block-horizontalrule" data-block-type="47" id="block-yui_3_17_2_1_1464771335995_37923"><div class="sqs-block-content"><hr /></div></div><div class="sqs-block markdown-block sqs-block-markdown" data-block-type="44" id="block-yui_3_17_2_1_1464771335995_38282"><div class="sqs-block-content"><h2 id="supported-mod-battery-type">Supported Mod Battery type</h2>
+<p>A Moto Mod can embed its own battery. When a Moto Mod is attached to a smartphone, the charge and discharge behavior of the Moto Mod battery is controlled by its firmware <code>Battery</code> and <code>Power-transfer</code> protocol configuration, as described in the <a href="/explore/firmware/power-transfer"><code>Power Transfer</code></a> and <a href="/explore/firmware/battery"><code>Battery</code></a> firmware developer documentation. </p>
+<p>The platform supports different Moto Mod power-provider/battery profiles. A Moto Mod battery must declare its supported profile in the firmware. The device will automatically make optimal use of the battery based on this profile declaration. The supported battery profiles are:</p>
+<ul>
+<li><p>The Moto Mod declares its battery as a <strong>SUPPLEMENTAL</strong> battery. Your Moto Mod should use this profile when it hosts a battery which <strong>primary function</strong> is to keep your Moto Z powered  (e.g: the Moto Mod is a battery pack).</p>
+</li>
+<li><p>The Moto Mod declares its battery as a <strong>REMOTE</strong> (or ‘<strong>NEVER</strong>‘ as defined at the <a href="/explore/firmware/power-transfer">Power Transfer</a> firmware page) battery. Your Moto Mod should use this profile when it hosts a battery which sole function is to provide power to the Moto Mod, and never to a Moto Z. </p>
+</li>
+</ul>
+<ul>
+<li>The Moto Mod declares its battery as a <strong>REMOTE EMERGENCY</strong> (or ‘<strong>LOW POWER SAVER</strong>’ at the <a href="/explore/firmware/power-transfer">Power Transfer</a> firmware page) battery. Your Moto Mod should use this profile when it hosts a battery which primary function is to provide power to the Moto Mod but could be used to power a Moto Z when the smartphone battery gets low.</li>
+</ul>
+<p>The Moto Mod could also elect, through its <code>Power-Transfer</code> protocol definition, to not receive or provide power to the attached Moto Z. The Moto Mod will need to include its own charging apparatus. The functionality of a Moto Mod battery is automatically controlled by the Moto Z software and based on the battery type declared by the Moto Mod firmware upon attach, an application <strong>can not</strong> change the advertised battery type of a Moto Mod.  The Moto Mod SDK only enables any application to track charge, discharge and information about a Moto Mod battery.</p>
+</div></div><div class="sqs-block horizontalrule-block sqs-block-horizontalrule" data-block-type="47" id="block-yui_3_17_2_1_1464771335995_42257"><div class="sqs-block-content"><hr /></div></div><div class="sqs-block html-block sqs-block-html" data-block-type="2" id="block-yui_3_17_2_1_1464771335995_42629"><div class="sqs-block-content"><h2>Standard Battery behavior&nbsp;</h2><p>The user experience on a Moto Z will vary slightly based on the declared battery profile. This section provides a short overview of the behavioral differences experienced on a Moto Z when different types of Moto Mod batteries are attached.</p></div></div><div class="sqs-block code-block sqs-block-code" data-block-type="23" id="block-yui_3_17_2_1_1464970389348_124946"><div class="sqs-block-content"><table class="pure-table pure-table-bordered">
+<thead>
+  <tr>
+    <td width="100px"></td>
+    <td>A Moto Mod battery provides power to Moto Z</td>
+    <td>A charging Moto Z can charge the Moto Mod battery</td>
+    <td>The status bar indicates when Moto Mod is providing power to Moto Z</td>
+    <td>Moto Z Settings and Quick settings show the charge level of the Moto Mod battery</td>
+  </tr>
+</thead>
+  <tr>
+    <td><strong>SUPPLEMENTAL</strong></td>
+    <td>Yes, to keep the Moto Z charged</td>
+    <td>Yes</td>
+    <td>Yes</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td><strong>REMOTE (‘NEVER’)</strong></td>
+    <td>No</td>
+    <td>Yes</td>
+    <td>No</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td><strong>EMERGENCY (‘Low power saver’)</strong></td>
+    <td>Yes, buy only when the Moto Z battery is Low</td>
+    <td>Yes</td>
+    <td>Yes</td>
+    <td>Yes</td>
+  </tr>
+</table></div></div><div class="sqs-block horizontalrule-block sqs-block-horizontalrule" data-block-type="47" id="block-yui_3_17_2_1_1464771335995_46183"><div class="sqs-block-content"><hr /></div></div><div class="sqs-block html-block sqs-block-html" data-block-type="2" id="block-yui_3_17_2_1_1464771335995_46552"><div class="sqs-block-content"><h2>Top-Off vs. Efficiency mode</h2><p>Under the Moto Mod settings for a battery, the user can choose to set a supplemental battery usage policy to “top-off” or “efficiency” through Moto Mod settings.&nbsp;</p><ul dir="ltr"><li>In the <strong>default mode</strong> (the default usage policy of a battery), your Moto Z will use a supplemental battery to always stay <strong>fully</strong> charged (100%) as long as the Moto Mod battery can provide power.</li><li>In <strong>EFFICIENCY</strong> mode, your Moto Z will leverage the attached supplemental battery optimally, and will stay charged at 80% (not 100%) as long as the Moto Mod battery can provide power</li></ul></div></div><div class="sqs-block horizontalrule-block sqs-block-horizontalrule" data-block-type="47" id="block-yui_3_17_2_1_1464771335995_47347"><div class="sqs-block-content"><hr /></div></div><div class="sqs-block markdown-block sqs-block-markdown" data-block-type="44" id="block-yui_3_17_2_1_1464771335995_58531"><div class="sqs-block-content"><h2 id="working-with-a-moto-mod-battery-added-modbattery-class">Working with a Moto Mod Battery: Added ModBattery Class</h2>
+<p>The Moto Mod SDK provides an additional <code>ModBattery</code> class which enables an application to know what the declared battery profile of the attached Moto Mod battery is, query the capacity, charge level and charging status of a Moto Mod battery. </p>
+<h3 id="determining-whether-the-attached-moddevice-embeds-a-battery">Determining whether the attached ModDevice embeds a battery</h3>
+<p>To detect when a Moto Mod is attached, your application should listen on Moto Mod <code>ACTION_MOD_ATTACH</code> and <code>ACTION_MOD_DETACH</code> intents - or register a <code>ModListener</code> - as described at the Mod Management page. Once a Moto Mod is attached to your device, an application can use the <code>ModDevice.hasDeclaredProtocol()</code> function to check whether the attached <code>ModDevice</code> declares the <code>BATTERY</code> and <code>PTP</code> (power transfer) protocol.</p>
+<pre><code>if (device.hasDeclaredProtocol(ModProtocol.Protocol.BATTERY)) {
+    // We know this device has a battery and supports battery metering
+    }
+
+if (device.hasDeclaredProtocol(ModProtocol.Protocol.PTP)) {
+    // We know this device can provide or receive power to the Moto Z
+    }</code></pre><p>The state and level of this Moto Mod battery will be automatically reported by the <code>ModBattery</code> class and its associated method. <code>ModBattery</code> will only be available when a battery device is present and has enumerated successfully. As the power transfer logic between the Moto Mod and and the Moto Z is automatically controlled by the Moto Z, there are no exposed functions for an application to change this predefined behavior.</p>
+<h3 id="working-with-the-modbattery-class">Working with the ModBattery Class</h3>
+<p>If an attached Moto Mod supports the BATTERY protocol, and your application wants to get information about this Moto Mod battery, it <strong>must</strong> first acquire a <code>ModBattery</code> object by calling the <code>ModManager.getClassManager()</code> function, after your application verified that a <code>ModDevice</code> is attached and that this <code>ModDevice</code> supports the battery protocol.</p>
+<p>The code sample below shows how to get access to the <code>ModBattery</code> class from the <code>ModManager</code>. Your application should first confirm that the attached Moto Mod declares support for the <code>PTP</code> and <code>BATTERY</code> protocols, as shown above.</p>
+<pre><code>if (device.hasDeclaredProtocol(ModProtocol.Protocol.BATTERY)) {
+    ModBattery mb = (ModBattery)mManager.getClassManager(modDev,
+    ModProtocol.Protocol.BATTERY);
+    ...
+    }</code></pre><h3 id="getting-the-moto-mod-battery-capacity">Getting the Moto Mod Battery Capacity</h3>
+<p>When a battery Moto Mod is attached, an Android application can determine the maximum capacity of the attached Moto Mod battery by calling the <code>ModBattery.getBatteryCapacity()</code> method. This method will return the capacity of the attached battery in mAH, or <code>Long.MIN_VALUE</code> if the Moto Mod did not return its capacity through greybus.</p>
+<p>The code sample below shows how to retrieve the Moto Mod battery capacity.</p>
+<pre><code>if (device.hasDeclaredProtocol(ModProtocol.Protocol.BATTERY)) {
+    ModBattery mb = (ModBattery)mManager.getClassManager(modDev,
+    ModProtocol.Protocol.BATTERY);
+    if (mb != null) {
+      modbatterycapacity = mb.getBatteryCapacity();</code></pre><h3 id="getting-the-moto-mod-battery-level">Getting the Moto Mod Battery Level</h3>
+<p>When a battery Moto Mod is attached, an Android application can track changes in the battery charge level by using the <code>ModBattery.getBatteryLevel()</code> method. This method will return the charge level of the attached battery as a percentage (0-100).  </p>
+<p>The code sample below shows how to retrieve the Moto Mod battery level.</p>
+<pre><code>if (device.hasDeclaredProtocol(ModProtocol.Protocol.BATTERY)) {
+    ModBattery mb = (ModBattery)mManager.getClassManager(modDev,
+    ModProtocol.Protocol.BATTERY);
+    if (mb != null) {
+      modbatterylevel = mb.getBatteryLevel(); 
+      // we know what the battery level is</code></pre><h3 id="determining-the-declared-type-of-the-attached-moto-mod-battery">Determining the declared type of the attached Moto Mod battery</h3>
+<p>The <code>ModBattery.getBatteryType()</code> method returns the type of the battery on the Moto Mod. <code>ModBattery.getBatteryType()</code> will return either <code>BATTERY_USAGE_TYPE_SUPPLEMENTAL</code>, <code>BATTERY_USAGE_TYPE_REMOTE</code>, <code>BATTERY_USAGE_TYPE_EMERGENCY</code> or <code>BATTERY_USAGE_TYPE_UNKNOWN</code>. </p>
+<p>The code sample below shows how to retrieve the Moto Mod battery type.</p>
+<pre><code>if (device.hasDeclaredProtocol(ModProtocol.Protocol.BATTERY)) {
+    ModBattery mb = (ModBattery)mManager.getClassManager(modDev,
+    ModProtocol.Protocol.BATTERY);
+    if (mb != null) {
+      modbatterytype = mb.getBatteryType();</code></pre><h3 id="determining-whether-a-modbattery-is-charging-or-discharging">Determining whether a ModBattery is charging or discharging</h3>
+<p>The <code>ModBattery.getBatteryStatus()</code> method enables your application to determine whether the battery on the Moto Mod is charging or discharging.  A Moto Mod battery could be charging when your Moto Z is plugged in a USB-C charger, or when the Moto Mod itself has its own charging apparatus and is attached to a charger. </p>
+<p>The value returned by <code>ModBattery.getBatteryStatus()</code> follows the convention set forth by Android for reporting device battery charge status. An application can use this value to determine whether the Moto Mod battery is charging, discharging or full. </p>
+<pre><code>if (device.hasDeclaredProtocol(ModProtocol.Protocol.BATTERY)) {
+    ModBattery mb = (ModBattery)mManager.getClassManager(modDev,
+    ModProtocol.Protocol.BATTERY);
+    if (mb != null) {
+      modbatterystatus = mb.getBatteryStatus();</code></pre></div></div><div class="sqs-block code-block sqs-block-code" data-block-type="23" id="block-yui_3_17_2_1_1464970389348_126735"><div class="sqs-block-content"><table class="pure-table pure-table-bordered">
+<thead>
+  <tr>
+    <td width="100px">Returned Constant</td>
+    <td>Value</td>
+    <td>Details</td>
+  </tr>
+</thead>
+  <tr>
+    <td><code>BATTERY_STATUS_UNKNOWN</code></td>
+    <td>1</td>
+    <td>The Mod Battery status is not known</td>
+  </tr>
+  <tr>
+    <td><code>BATTERY_STATUS_CHARGING</code></td>
+    <td>2</td>
+    <td>The Mod Battery is charging </td>
+  </tr>
+  <tr>
+    <td><code>BATTERY_STATUS_DISCHARGING</code></td>
+    <td>3</td>
+    <td>The Mod Battery is discharging</td>
+  </tr>
+  <tr>
+    <td><code>BATTERY_STATUS_NOT_CHARGING</code></td>
+    <td>4</td>
+    <td>The Mod Battery is not charging</td>
+  </tr>
+  <tr>
+    <td><code>BATTERY_STATUS_FULL</code></td>
+    <td>5</td>
+    <td>The Mod Battery is full</td>
+  </tr>
+</table></div></div><div class="sqs-block markdown-block sqs-block-markdown" data-block-type="44" id="block-yui_3_17_2_1_1464771335995_77831"><div class="sqs-block-content"><h3 id="determining-whether-your-moto-z-is-charging-from-an-attached-moto-mod">Determining whether your Moto Z is charging from an attached Moto Mod</h3>
+<p>The <code>ModBattery.isPlugTypeMod()</code> method enables your application to determine whether the attached Moto Mod can charge the phone.  <code>ModManager.isPlugTypeMod()</code> will return true if no external charger is attached and the device can be charged from the Moto Mod battery.</p>
+</div></div><div class="sqs-block horizontalrule-block sqs-block-horizontalrule" data-block-type="47" id="block-yui_3_17_2_1_1464771335995_79031"><div class="sqs-block-content"><hr /></div></div><div class="sqs-block markdown-block sqs-block-markdown" data-block-type="44" id="block-yui_3_17_2_1_1464771335995_79391"><div class="sqs-block-content"><h2 id="when-a-battery-reports-issues">When a battery reports issues</h2>
+<p>If a Moto Mod embeds a battery, the Moto Mod is responsible for thermal mitigation and reporting errors to the smartphone.  Motorola has defined a vendor specific channel to report asynchronous Moto Mod errors, including thermal, current and oem specific data.</p>
+<p>An application which needs to listen for these sudden capabilities change  (as an example, a thermal incident on the Moto Mod causing the Moto Mod to report it is operating in a reduced state) can register a <a href="/explore/software/mod-management"><code>ModListener</code></a> (as described below). </p>
+<p>This listener <code>onCapabilityChanged()</code> function will be called back when the Moto Mod reports a capability change event. An application can then use the  <code>ModManager.getCapabilityLevel()</code> and <code>ModManager.getCapabilityReason()</code> to determine the cause of this capability change, as described in the <a href="/explore/software/mod-management">Mod Management software</a> and <a href="/explore/firmware/mod-management">Mod Management firmware</a> documents.</p>
+<p>An application which needs to be immediately informed of capability change on an attached battery should register a listener with the <code>com.motorola.mod.ModManager.registerModListener()</code> API.</p>
+<pre><code>mManager.registerModListener(MainActivity.this, new int[] {ModProtocol.BATTERY});</code></pre></div></div><div class="sqs-block horizontalrule-block sqs-block-horizontalrule" data-block-type="47" id="block-yui_3_17_2_1_1464771335995_82224"><div class="sqs-block-content"><hr /></div></div><div class="sqs-block html-block sqs-block-html" data-block-type="2" id="block-yui_3_17_2_1_1464771335995_82596"><div class="sqs-block-content"><h2>More Information</h2><p>For more information, see the <a href="http://motorolamobilityllc.github.io/motomods_sdk/com/motorola/mod/ModBattery.html">ModBattery Javadoc API</a>.</p></div></div><div class="sqs-block horizontalrule-block sqs-block-horizontalrule" data-block-type="47" id="block-yui_3_17_2_1_1466196228195_626119"><div class="sqs-block-content"><hr /></div></div><div class="sqs-block html-block sqs-block-html sqs-col-6 span-6 float float-left" data-block-type="2" id="block-yui_3_17_2_1_1466196228195_626482"><div class="sqs-block-content"><p><a href="/explore/software/mod-display">&lt; Previous Page<br /><strong>Mod Display</strong></a></p></div></div><div class="sqs-block html-block sqs-block-html" data-block-type="2" id="block-yui_3_17_2_1_1466196228195_627127"><div class="sqs-block-content"><p class="text-align-right"><a href="/explore/software/mod-audio">Next Page &gt;<br /><strong>Mod Audio</strong></a></p></div></div></div></div></div>
+     
+</div>
+
+
+<div class="anchor-links">
+<div class="sqs-layout sqs-grid-12 columns-12 empty" data-type="block-field" id="blockField-5745e6db37013b9d0a630f64"><div class="row sqs-row"><div class="col sqs-col-12 span-12"></div></div></div>
+
+</div>
+        </div><!-- comment the linebreak between these two elements because science
+        -->
+        
+      </main>
+
+      <div id="preFooter">
+        <div class="pre-footer-inner">
+          <div class="sqs-layout sqs-grid-12 columns-12 empty" data-layout-label="Pre-Footer Content" data-type="block-field" data-updated-on="1465359668358" id="preFooterBlocks"><div class="row sqs-row"><div class="col sqs-col-12 span-12"></div></div></div>
+        </div>
+      </div>
+
+      <footer id="footer" role="contentinfo">
+        <div class="footer-inner">
+          <div class="nav-wrapper back-to-top-nav"><nav><div class="back-to-top"><a href="#header">Back to Top</a></div></nav></div>
+          
+
+
+          
+          <div class="sqs-layout sqs-grid-12 columns-12" data-layout-label="Footer Content" data-type="block-field" data-updated-on="1476297975826" id="footerBlocks"><div class="row sqs-row"><div class="col sqs-col-2 span-2"><div class="sqs-block image-block sqs-block-image" data-aspect-ratio="31.06382978723404" data-block-type="5" id="block-yui_3_17_2_2_1464950070491_16892"><div class="sqs-block-content">
+	<div class="image-block-outer-wrapper layout-caption-hidden ">
+	
+		<div class="intrinsic" style="max-width:940.0px;">
+			
+				<a href="http://motorola.com" >
+			
+				<div style="padding-bottom:31.06382942199707%;" class="image-block-wrapper   has-aspect-ratio" data-description="" >
+					<noscript><img src="https://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57fe81b96b8f5b8742b2e94a/1476297968771/"  /></noscript><img class="thumb-image" data-src="https://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57fe81b96b8f5b8742b2e94a/1476297968771/" data-image="https://static1.squarespace.com/static/5715eee9b09f95a12b44e0ed/t/57fe81b96b8f5b8742b2e94a/1476297968771/" data-image-dimensions="940x292" data-image-focal-point="0.5,0.5" data-load="false" data-image-id="57fe81b96b8f5b8742b2e94a" data-type="image" />
+				</div>
+			
+				</a>
+			
+
+			
+
+		</div>
+	
+	</div>
+
+</div></div></div><div class="col sqs-col-7 span-7"><div class="sqs-block code-block sqs-block-code" data-block-type="23" id="block-yui_3_17_2_2_1463061836809_10948"><div class="sqs-block-content"><div id="footers-blocks" style="position: relative; z-index:999 !important;">
+    
+  <div id="footer-block-1">
+	<h2 id="footer-title-1" class="footer-title">Motorola</h2>
+	<ul class="footer-block footer-block-1">
+      <li><a href="http://motorola-blog.blogspot.com">Blog</a></li>
+      <li><a href="http://motorola-blog.blogspot.com/p/press-contacts.html
+">Press</a></li>
+      <li><a href="https://pages.motorola-mail.com/moto-mods-developer-us-en/">Get Updates</a></li>
+    </ul>
+    <br />
+	<h2 id="footer-title-1" class="footer-title"><a href="/support">Support</a></h2>
+	<ul class="footer-block footer-block-1">
+      <li><a href="/support/faq">FAQ</a></li>
+      <li><a href="https://www.element14.com/community/groups/moto-mods">Forums</a></li>
+      <li><a href="/support">Contact Us</a></li>
+    </ul>
+  </div>
+  
+  <div id="footer-block-2">
+    <h2 id="footer-title-2" class="footer-title">Developers</h2>
+  	<ul class="footer-block footer-block-2">
+     	<li><a href="/">Home</a></li>
+     	<li><a href="/get-started">Get Started</a></li>
+      	<li><a href="/build">Build</a></li>
+		<li><a href="/explore">Explore</a></li>
+		<li><a href="/partner">Partner</a></li>
+		<li><a href="/buy">Buy</a></li>
+    </ul>
+  </div>
+  
+  <div id="footer-block-3">
+    <h2 id="footer-title-3" class="footer-title">Legal</h2>
+  	<ul class="footer-block footer-block-3">
+      <li><a href="http://www.motorola.com/us/legal/privacy-policy">Privacy Policy</a></li>
+      <li><a href="http://www.motorola.com/us/About_Motorola-Legal-Extended-Warranty-terms/About_Motorola-Legal-Extended-Warranty-terms.html">Terms of use</a></li></ul>
+ </div>
+ </div></div></div></div><div class="col sqs-col-3 span-3"><div class="sqs-block socialaccountlinks-v2-block sqs-block-socialaccountlinks-v2" data-block-type="54" id="block-yui_3_17_2_16_1461744171869_5573"><div class="sqs-block-content"><nav class="sqs-svg-icon--list social-icon-alignment-right social-icons-color-white social-icons-size-small social-icons-shape-rounded social-icons-style-knockout"><a href="https://www.youtube.com/user/motorola" target="_blank" class="sqs-svg-icon--wrapper youtube" style=""><div><svg class="sqs-svg-icon--social" viewBox="0 0 64 64"><use class="sqs-use--background" xlink:href="/universal/svg/social-accounts.svg#background"></use><use class="sqs-use--icon" xlink:href="/universal/svg/social-accounts.svg#youtube-icon"></use><use class="sqs-use--mask" xlink:href="/universal/svg/social-accounts.svg#youtube-mask"></use></svg></div></a><a href="https://www.facebook.com/MotoUSA/" target="_blank" class="sqs-svg-icon--wrapper facebook" style=""><div><svg class="sqs-svg-icon--social" viewBox="0 0 64 64"><use class="sqs-use--background" xlink:href="/universal/svg/social-accounts.svg#background"></use><use class="sqs-use--icon" xlink:href="/universal/svg/social-accounts.svg#facebook-icon"></use><use class="sqs-use--mask" xlink:href="/universal/svg/social-accounts.svg#facebook-mask"></use></svg></div></a><a href="https://twitter.com/moto" target="_blank" class="sqs-svg-icon--wrapper twitter" style=""><div><svg class="sqs-svg-icon--social" viewBox="0 0 64 64"><use class="sqs-use--background" xlink:href="/universal/svg/social-accounts.svg#background"></use><use class="sqs-use--icon" xlink:href="/universal/svg/social-accounts.svg#twitter-icon"></use><use class="sqs-use--mask" xlink:href="/universal/svg/social-accounts.svg#twitter-mask"></use></svg></div></a><a href="https://plus.google.com/communities/116517178872973348174" target="_blank" class="sqs-svg-icon--wrapper google" style=""><div><svg class="sqs-svg-icon--social" viewBox="0 0 64 64"><use class="sqs-use--background" xlink:href="/universal/svg/social-accounts.svg#background"></use><use class="sqs-use--icon" xlink:href="/universal/svg/social-accounts.svg#google-icon"></use><use class="sqs-use--mask" xlink:href="/universal/svg/social-accounts.svg#google-mask"></use></svg></div></a></nav></div></div></div></div><div class="row sqs-row"><div class="col sqs-col-12 span-12"><div class="sqs-block spacer-block sqs-block-spacer sized vsize-1" data-block-type="21" id="block-yui_3_17_2_36_1465340537626_42856"><div class="sqs-block-content">&nbsp;</div></div><div class="row sqs-row"><div class="col sqs-col-6 span-6"><div class="sqs-block html-block sqs-block-html" data-block-type="2" id="block-yui_3_17_2_2_1464882852937_11444"><div class="sqs-block-content"><p>© 2016 Motorola Mobility LLC. All Rights Reserved</p><p>MOTOROLA and the Stylized M Logo are registered trademarks of Motorola Trademark Holdings, LLC</p><p>Android, Google, Google Play, Nexus and other marks are trademarks of Google Inc. The Android robot is reproduced or modified from work created and shared by Google and used according to terms described in the Creative Commons 3.0 Attribution License.</p></div></div></div><div class="col sqs-col-6 span-6"><div class="sqs-block spacer-block sqs-block-spacer sized vsize-1" data-block-type="21" id="block-yui_3_17_2_36_1465340537626_33415"><div class="sqs-block-content">&nbsp;</div></div></div></div></div></div></div>
+        </div>
+      </footer>
+
+    </div>
+
+    <script src="https://static1.squarespace.com/static/ta/5715eee9b09f95a12b44e0ed/955/scripts/site.js" type="text/javascript"></script>
+    <script type="text/javascript" src="https://static1.squarespace.com/static/ta/5715eee9b09f95a12b44e0ed/955/scripts/combo/?helpers.js&sticky.js&jquery.js"></script>
+    
+    
+    <script src="https://static1.squarespace.com/static/ta/5715eee9b09f95a12b44e0ed/955/scripts/custom.js" type="text/javascript"></script>
+    
+    
+    <script type="text/javascript" data-sqs-type="imageloader-bootstraper">(function() {if(window.ImageLoader) { window.ImageLoader.bootstrap(); }})();</script>
+<script>Squarespace.afterBodyLoad(Y);</script>
+
+  </body>
+</html>
