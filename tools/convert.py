@@ -394,6 +394,9 @@ def to_markdown(node):
 
 def tidy(md):
     md = md.replace('\xa0', ' ')
+    # The downloads page put each file size in a span right after the link,
+    # with no whitespace between them.
+    md = re.sub(r'\)(\d+(?:\.\d+)?\s*(?:KB|MB|GB)\b)', r') \1', md)
     md = re.sub(r'[ \t]+\n', '\n', md)
     md = re.sub(r'\n{3,}', '\n\n', md)
     md = re.sub(r'^\s*\n', '', md)
