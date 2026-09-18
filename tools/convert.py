@@ -42,6 +42,7 @@ DROP_SELECTORS = [
 assets = {}      # local docs-relative path -> {'sources': [...], 'origin': url}
 warnings = []
 unmapped = set()  # internal paths with no page in the rebuild
+repairs = {}      # page -> links recovered from an alternate capture
 
 
 # --------------------------------------------------------------------------- #
@@ -235,6 +236,52 @@ def rebuild_product_grid(node):
         markup.append(f'<li><a href="{href}">{img_html}<span>{title}</span></a></li>')
     markup.append('</ul>')
     grid.replace_with(BeautifulSoup('\n'.join(markup), 'lxml').find('ul'))
+
+
+def repair_root_links(body, entry, gen):
+    """Restore links that a capture collapsed to the site root.
+
+    HTTrack sometimes rewrote a link as href="/" instead of localising it,
+    losing the destination. It did this to different links in each capture, so
+    neither snapshot is reliably better — but the pages are otherwise
+    identical, so a link lost in one can be recovered from another by matching
+    its text.
+    """
+    broken = [a for a in body.find_all('a', href=True)
+              if a['href'].strip() in ('/', '') and a.get_text(strip=True)]
+    if not broken:
+        return 0
+    chosen = entry['best']
+    alternates = {}
+    for source in entry['sources']:
+        if (source['snapshot'], source['file']) == (chosen['snapshot'], chosen['file']):
+            continue
+        path = os.path.join(OLD, source['snapshot'], source['file'])
+        try:
+            other = BeautifulSoup(open(path, encoding='utf-8',
+                                       errors='replace').read(), 'lxml')
+        except OSError:
+            continue
+        node, _, _ = content_region(other, gen)
+        if node is None:
+            continue
+        for a in node.find_all('a', href=True):
+            href = a['href'].strip()
+            text = re.sub(r'\s+', ' ', a.get_text(' ', strip=True)).lower()
+            if text and href not in ('/', ''):
+                alternates.setdefault(text, href)
+
+    repaired = 0
+    for a in broken:
+        text = re.sub(r'\s+', ' ', a.get_text(' ', strip=True)).lower()
+        href = alternates.get(text)
+        if href:
+            a['href'] = href
+            repaired += 1
+        else:
+            warnings.append(f'{entry["path"]}: link "{a.get_text(" ", strip=True)[:60]}" '
+                            f'collapsed to the site root in every capture')
+    return repaired
 
 
 def clean(node):
@@ -450,6 +497,9 @@ def convert_page(entry, out_md, nav_title):
                 if label:
                     refs.append((label, a['href']))
 
+    repaired = repair_root_links(body, entry, entry['gen'])
+    if repaired:
+        repairs[entry['path']] = repaired
     body = clean(body)
     depth = out_md.count('/')
 
@@ -604,6 +654,11 @@ def main():
           f'{len(assets) - have} to fetch')
     for w in warnings:
         print('WARN', w)
+    if repairs:
+        print(f'\nrecovered {sum(repairs.values())} root-collapsed link(s) from '
+              f'alternate captures, across {len(repairs)} page(s):')
+        for path, n in sorted(repairs.items()):
+            print(f'  {path}: {n}')
     if unmapped:
         print(f'\n{len(unmapped)} internal path(s) fall back to the Wayback '
               f'Machine — add a REDIRECTS entry if the rebuild covers them:')

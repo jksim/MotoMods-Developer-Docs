@@ -369,7 +369,7 @@ Download and install the MDK Utility sample APK - see [MDK Utility app on Google
 
 The source code of the MDK Utility sample APK is published at <https://github.com/MotorolaMobilityLLC/mdkutility>.
 
-To build the sample APK from source code, please [download and install Android Studio from Android Developer Site](http://developer.android.com/sdk/index.html), then import the [mdkutility project](https://github.com/MotorolaMobilityLLC/mdkutility) into Android Studio. See [Developer Tools: Setup Your Development Environment](../../index.md) for more info.
+To build the sample APK from source code, please [download and install Android Studio from Android Developer Site](http://developer.android.com/sdk/index.html), then import the [mdkutility project](https://github.com/MotorolaMobilityLLC/mdkutility) into Android Studio. See [Developer Tools: Setup Your Development Environment](../tools/setup-environment.md) for more info.
 
 #### Sequence Diagram {#sequence-diagram}
 
