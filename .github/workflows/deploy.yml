@@ -32,6 +32,12 @@ jobs:
       - name: Build site
         run: mkdocs build --strict
 
+      # mkdocs --strict validates Markdown links; this also checks the
+      # published HTML, where a link inside a raw HTML block can ship
+      # pointing at a .md file the server does not serve.
+      - name: Check links
+        run: python3 tools/check_links.py
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site

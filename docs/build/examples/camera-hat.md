@@ -241,7 +241,7 @@ Device Drivers > Mods High-Speed Bus (MHB) driver Support
   [ ]   MHB USB Tunneling
 ```
 
-Once MHB is configured, the next step is to configure greybus camera_ext driver described in the [Explore > Firmware > Camera-Ext](https://web.archive.org/web/2017/http://developer.motorola.com/explore/firmware/camera-ext) section. There are a few config items to be enabled along with camera_ext support.
+Once MHB is configured, the next step is to configure greybus camera_ext driver described in the [Explore > Firmware > Camera-Ext](../../explore/firmware/camera-controls.md) section. There are a few config items to be enabled along with camera_ext support.
 
 ```
 Device Drivers --->

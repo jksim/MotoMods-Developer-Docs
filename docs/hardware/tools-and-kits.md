@@ -19,7 +19,7 @@ The Reference Moto Mod includes:
 - Moto High Speed Bridge
 - 80 pin connector exposing all developer interfaces
 
-[Documentation](https://web.archive.org/web/2017/http://developer.motorola.com/documentation/reference-moto-mod)
+[Documentation](../build/mdk-user-guide/reference-moto-mod.md)
 
 [Buy](https://www.element14.com/community/docs/DOC-82858?ICID=Moto-Mods-Featured-Product)
 
@@ -37,7 +37,7 @@ This plugs into the 80 pin connector that comes with the Reference Moto Mod and 
 
 As a developer, you can use this as a reference when designing and building your own Moto Mod prototype that needs a custom sensor. The source code for both the Moto Mod firmware and companion Android application is also available for your review and use.
 
-[Documentation](https://web.archive.org/web/2017/http://developer.motorola.com/documentation/sensor)
+[Documentation](../build/examples/sensor.md)
 
 [Buy](https://www.element14.com/community/docs/DOC-82912/l/moto-mods-temperature-sensor-personality-card )
 
@@ -51,7 +51,7 @@ This card plugs into the 80 pin connector that comes with the Reference Moto Mod
 
 As a developer, you can use this as a reference when designing and building your own Moto Mod prototype that needs it’s own battery connection. The source code for both the Moto Mod firmware and companion Android application is also available for your review and use.
 
-[Documentation](https://web.archive.org/web/2017/http://developer.motorola.com/documentation/battery)
+[Documentation](../build/examples/battery.md)
 
 [Buy](https://www.element14.com/community/docs/DOC-82910/l/moto-mods-battery-personality-card )
 
@@ -65,6 +65,6 @@ This card plugs into the 80 pin connector that comes with the Reference Moto Mod
 
 As a developer, you can use this as a reference when designing and building your own Moto Mod prototype that needs it’s own audio connection. The source code for both the Moto Mod firmware and companion Android application is also available for your review and use.
 
-[Documentation](https://web.archive.org/web/2017/http://developer.motorola.com/documentation/audio-0)
+[Documentation](../build/examples/audio.md)
 
 [Buy](https://www.element14.com/community/docs/DOC-82892/l/moto-mods-audio-personality-card )

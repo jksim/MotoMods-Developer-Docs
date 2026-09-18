@@ -16,10 +16,10 @@ Connecting to the FTDI for JTAG or SWD requires the following:
 
 - PC Running Linux
 - USB Type C cable
-- GDB ARM (See [Setup Your Development Environment](https://web.archive.org/web/2017/http://developer.motorola.com/documentation/setup-environment) for installation)
-- OpenOCD (See [Setup Your Development Environment](https://web.archive.org/web/2017/http://developer.motorola.com/documentation/setup-environment) for installation)
+- GDB ARM (See [Setup Your Development Environment](setup-environment.md) for installation)
+- OpenOCD (See [Setup Your Development Environment](setup-environment.md) for installation)
 
-In order for the debug Type C connector to power the phone the DIP Switch B4 must be in the on position.  See the [MDK User Guide](https://web.archive.org/web/2017/http://developer.motorola.com/documentation/reference-moto-mod) for more information on the hardware including the DIP switches.  The DIP Switch locations are called out in the figure below:
+In order for the debug Type C connector to power the phone the DIP Switch B4 must be in the on position.  See the [MDK User Guide](../mdk-user-guide/reference-moto-mod.md) for more information on the hardware including the DIP switches.  The DIP Switch locations are called out in the figure below:
 
 ![hw-connector-diagram-1.png](../../assets/img/hw-connector-diagram-1-8875dd.png)
 

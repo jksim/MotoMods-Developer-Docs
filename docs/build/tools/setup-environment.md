@@ -20,7 +20,7 @@ To develop a Moto Z application that interacts with Moto Mods, you must be famil
 
 Next, you’ll need to download the Moto Mods SDK Library.
 
-*Before downloading, please read through the [Moto Mods Development Kit Terms & Conditions](https://web.archive.org/web/2017/http://developer.motorola.com/assets/html/moto-mods-dev-kit-terms-and-conditions.html):*
+*Before downloading, please read through the [Moto Mods Development Kit Terms & Conditions](../../legal/mdk-terms-and-conditions.md):*
 
 ### Step 3) Place the Moto Mods SDK Library For Use In Your App
 

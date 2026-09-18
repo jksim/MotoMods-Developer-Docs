@@ -41,6 +41,7 @@ DROP_SELECTORS = [
 
 assets = {}      # local docs-relative path -> {'sources': [...], 'origin': url}
 warnings = []
+unmapped = set()  # internal paths with no page in the rebuild
 
 
 # --------------------------------------------------------------------------- #
@@ -352,6 +353,26 @@ def detect_language(code):
     return ''
 
 
+def render_card_grid(grid):
+    """Emit the card grid as md_in_html so MkDocs rewrites its links.
+
+    A raw HTML block is passed through untouched, which leaves `href="mdk.md"`
+    in the published page pointing at a file that is not served. Marking the
+    list up for md_in_html puts the links back under Markdown, so MkDocs maps
+    them to real page URLs and --strict validates them.
+    """
+    items = []
+    for a in grid.select('a[href]'):
+        img = a.find('img')
+        label = a.find('span')
+        label = label.get_text(' ', strip=True) if label else a.get_text(' ', strip=True)
+        inner = f'![{label}]({img["src"]})' if img is not None else ''
+        items.append(f'<li markdown="span">[{inner}'
+                     f'<span>{label}</span>]({a["href"]})</li>')
+    return ('<ul class="mm-cards" markdown="block">\n'
+            + '\n'.join(items) + '\n</ul>')
+
+
 def stash_blocks(node):
     """Swap tables and code blocks for placeholders so Markdown can't mangle them.
 
@@ -372,7 +393,7 @@ def stash_blocks(node):
             fence += '`'
         placeholder(pre, f'{fence}{lang}\n{code.strip()}\n{fence}')
     for grid in node.select('ul.mm-cards'):
-        placeholder(grid, grid.decode())
+        placeholder(grid, render_card_grid(grid))
     for table in node.find_all('table'):
         for tag in table.find_all(True):
             for attr in list(tag.attrs):
@@ -462,6 +483,10 @@ def convert_page(entry, out_md, nav_title):
         if new:
             a['href'] = new
         elif local:
+            # Nothing in the rebuild covers this path. Fall back to the live
+            # archive, and report it: a link that leaves the site is usually a
+            # gap in the manifest rather than a page that truly never existed.
+            unmapped.add(local.split('#')[0].split('?')[0].rstrip('/'))
             a['href'] = ('https://web.archive.org/web/2017/'
                          'http://developer.motorola.com' + local)
 
@@ -579,6 +604,11 @@ def main():
           f'{len(assets) - have} to fetch')
     for w in warnings:
         print('WARN', w)
+    if unmapped:
+        print(f'\n{len(unmapped)} internal path(s) fall back to the Wayback '
+              f'Machine — add a REDIRECTS entry if the rebuild covers them:')
+        for path in sorted(unmapped):
+            print(f'  {path}')
 
 
 if __name__ == '__main__':

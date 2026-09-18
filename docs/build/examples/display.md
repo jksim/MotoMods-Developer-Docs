@@ -498,4 +498,4 @@ Attach Display card to phone, then install and launch Display card sample apk, c
 
 This section contains the downloadable files associated with this example.
 
-Before downloading, please read through the [Moto Mods Development Kit Terms & Conditions](https://web.archive.org/web/2017/http://developer.motorola.com/assets/html/moto-mods-dev-kit-terms-and-conditions.html):
+Before downloading, please read through the [Moto Mods Development Kit Terms & Conditions](../../legal/mdk-terms-and-conditions.md):

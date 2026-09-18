@@ -108,6 +108,21 @@ REDIRECTS = {
     'build/overview': 'build/mdk-user-guide/index.md',
     'home': 'index.md',
     '': 'index.md',
+
+    # Pages the 2017 portal linked to that were never captured, pointed at the
+    # 2016 page holding the same material.
+    'documentation/setup-environment': 'build/tools/setup-environment.md',
+    'documentation/reference-moto-mod': 'build/mdk-user-guide/reference-moto-mod.md',
+    'documentation/sensor': 'build/examples/sensor.md',
+    'documentation/battery': 'build/examples/battery.md',
+    'documentation/audio-0': 'build/examples/audio.md',
+    'partner/guidelines': 'partner/certification-guidelines.md',
+    # The camera-ext section index was not captured; its one surviving child is.
+    'explore/firmware/camera-ext': 'explore/firmware/camera-controls.md',
+    # Served as a bare HTML file rather than a portal page, so it is converted
+    # outside PAGES and has to be registered as a link target here.
+    'assets/html/moto-mods-dev-kit-terms-and-conditions.html':
+        'legal/mdk-terms-and-conditions.md',
 }
 
 NAV = [

@@ -16,4 +16,4 @@ source_capture: 2016 Squarespace portal
 
 Ready to Partner with Moto? Fill out the form below.
 
-Be sure you’ve read through our [Partner Certification Program overview](index.md) and [guidelines](https://web.archive.org/web/2017/http://developer.motorola.com/partner/guidelines) pages.
+Be sure you’ve read through our [Partner Certification Program overview](index.md) and [guidelines](certification-guidelines.md) pages.
