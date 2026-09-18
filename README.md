@@ -38,7 +38,9 @@ $ pip install -r requirements.txt
 $ mkdocs serve
 ```
 
-Then open <http://127.0.0.1:8000>.
+Then open <http://127.0.0.1:8000/moto-mods-developer-docs/> — note the path.
+`site_url` points at the GitHub Pages subdirectory, and `mkdocs serve` mirrors
+it, so the bare root redirects.
 
 ## Regenerating from the captures
 
