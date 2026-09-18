@@ -44,9 +44,10 @@ it, so the bare root redirects.
 
 ## Regenerating from the captures
 
-The conversion is reproducible but needs the raw captures, which are too large
-to version here (`old_website/`, several GB, mostly unrelated MOTODEV-era
-pages). With them in place:
+The conversion is reproducible but needs the raw captures in `old_website/`,
+which are not versioned here. They have been pruned to the Moto Mods material
+(~84 MB); the several GB of unrelated MOTODEV-era pages the same Wayback grabs
+contained have been removed. With the captures in place:
 
 ```console
 $ python3 tools/discover.py build/inventory.json   # find every Moto Mods page

@@ -187,7 +187,7 @@ def apply_renames(renames):
     """Point the Markdown at assets whose real type differed from the guess."""
     pages = [os.path.join(dp, f)
              for dp, _, fs in os.walk(DOCS) for f in fs if f.endswith('.md')]
-    for old, new in renames.items():
+    for old, new in sorted(renames.items()):
         old_name, new_name = os.path.basename(old), os.path.basename(new)
         for page in pages:
             text = open(page, encoding='utf-8').read()
@@ -200,31 +200,38 @@ def apply_renames(renames):
 IMAGE_EXTS = ('.png', '.jpg', '.jpeg', '.gif', '.webp')
 
 
-def already_have(target):
-    """True if this asset is on disk, including under a corrected extension.
+def on_disk(target):
+    """Where this asset actually is, allowing for a corrected extension.
 
     Squarespace served images from extensionless URLs, so the converter has to
     guess `.png`; when a download turns out to be a JPEG it is filed under the
-    real extension instead. Without this check the guessed name looks missing
-    on every later run, and the asset is re-fetched — landing on whichever
-    rendition the Wayback Machine happens to serve, which is how a 1000px
-    diagram quietly became a 500px one.
+    real extension instead. Returning the path that exists lets a run both skip
+    the re-fetch (which would land on whichever rendition the Wayback Machine
+    happened to serve) and still repoint the Markdown, without depending on
+    state left behind by an earlier run.
     """
     stem, ext = os.path.splitext(target)
     candidates = [target]
     if ext.lower() in IMAGE_EXTS:
-        candidates += [stem + e for e in IMAGE_EXTS]
-    return any(os.path.isfile(os.path.join(DOCS, c)) and
-               os.path.getsize(os.path.join(DOCS, c)) > 0 for c in candidates)
+        candidates += [stem + e for e in IMAGE_EXTS if e != ext.lower()]
+    for c in candidates:
+        full = os.path.join(DOCS, c)
+        if os.path.isfile(full) and os.path.getsize(full) > 0:
+            return c
+    return None
 
 
 def main():
     manifest = json.load(open(MANIFEST))
     copied = fetched = 0
     todo = []
+    renames = {}
     for target, info in sorted(manifest.items()):
         dest = os.path.join(DOCS, target)
-        if already_have(target):
+        found = on_disk(target)
+        if found:
+            if found != target:
+                renames[target] = found      # re-assert it for the Markdown
             continue
         os.makedirs(os.path.dirname(dest), exist_ok=True)
         if info['local']:
@@ -235,8 +242,10 @@ def main():
 
     print(f'copied {copied} assets from the snapshots; '
           f'fetching {len(todo)} from the Wayback Machine')
+    if renames:
+        print(f'{len(renames)} asset(s) already filed under a corrected extension')
     index = load_cdx_index() if todo else []
-    misses, renames = [], {}
+    misses = []
     # The Wayback Machine throttles hard; two workers keeps it answering.
     with futures.ThreadPoolExecutor(max_workers=2) as pool:
         jobs = {pool.submit(fetch_archived, t, o, index): (t, o, d)
