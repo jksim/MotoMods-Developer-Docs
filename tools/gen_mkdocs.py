@@ -81,6 +81,10 @@ markdown_extensions:
       permalink: true
       toc_depth: 3
   - pymdownx.details
+  # Renders the :material-*: icon shortcodes used on the home page cards.
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite

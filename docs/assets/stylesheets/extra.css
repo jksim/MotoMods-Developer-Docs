@@ -112,6 +112,14 @@ ul.mm-cards img {
   border-color: var(--md-accent-fg-color);
 }
 
+/* The card title's Material icon, now rendered as inline SVG. */
+.md-typeset .mm-home-card .twemoji {
+  width: 1.05em;
+  height: 1.05em;
+  vertical-align: -0.15em;
+  color: var(--md-primary-fg-color);
+}
+
 .md-typeset .mm-home-card small {
   display: block;
   margin-top: 0.35rem;
