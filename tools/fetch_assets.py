@@ -197,13 +197,34 @@ def apply_renames(renames):
         print(f'  renamed {old} -> {new} (content was {os.path.splitext(new)[1]})')
 
 
+IMAGE_EXTS = ('.png', '.jpg', '.jpeg', '.gif', '.webp')
+
+
+def already_have(target):
+    """True if this asset is on disk, including under a corrected extension.
+
+    Squarespace served images from extensionless URLs, so the converter has to
+    guess `.png`; when a download turns out to be a JPEG it is filed under the
+    real extension instead. Without this check the guessed name looks missing
+    on every later run, and the asset is re-fetched — landing on whichever
+    rendition the Wayback Machine happens to serve, which is how a 1000px
+    diagram quietly became a 500px one.
+    """
+    stem, ext = os.path.splitext(target)
+    candidates = [target]
+    if ext.lower() in IMAGE_EXTS:
+        candidates += [stem + e for e in IMAGE_EXTS]
+    return any(os.path.isfile(os.path.join(DOCS, c)) and
+               os.path.getsize(os.path.join(DOCS, c)) > 0 for c in candidates)
+
+
 def main():
     manifest = json.load(open(MANIFEST))
     copied = fetched = 0
     todo = []
     for target, info in sorted(manifest.items()):
         dest = os.path.join(DOCS, target)
-        if os.path.isfile(dest) and os.path.getsize(dest) > 0:
+        if already_have(target):
             continue
         os.makedirs(os.path.dirname(dest), exist_ok=True)
         if info['local']:
