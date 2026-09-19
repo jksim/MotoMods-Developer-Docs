@@ -14,7 +14,8 @@ from markdownify import MarkdownConverter
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from manifest import (PAGES, ARCHIVE_ONLY, REDIRECTS, MIRROR_OWNER,
-                      MIRRORED_REPOS, UPSTREAM_OWNER)
+                      MIRRORED_REPOS, UPSTREAM_OWNER, SDK_REFERENCE_FROM,
+                      SDK_REFERENCE_TO)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OLD = os.path.join(ROOT, 'old_website')
@@ -45,6 +46,7 @@ warnings = []
 unmapped = set()  # internal paths with no page in the rebuild
 repairs = {}      # page -> links recovered from an alternate capture
 mirrored = set()  # repositories whose links were repointed at the mirrors
+sdk_repointed = []  # SDK javadoc links sent to the preserved copy
 
 
 # --------------------------------------------------------------------------- #
@@ -170,6 +172,17 @@ GITHUB_IN_TEXT = re.compile(
     re.I)
 
 
+SDK_REF = re.compile(r'https?://' + re.escape(SDK_REFERENCE_FROM), re.I)
+
+
+def repoint_sdk(url):
+    """Send the SDK javadoc links at the preserved copy."""
+    if not SDK_REF.search(url):
+        return url
+    sdk_repointed.append(1)
+    return SDK_REF.sub('https://' + SDK_REFERENCE_TO, url)
+
+
 def repoint_text(text):
     """Repoint repository URLs inside code blocks.
 
@@ -183,7 +196,7 @@ def repoint_text(text):
             return m.group(0)
         mirrored.add(repo)
         return f'{m.group(1)}{MIRROR_OWNER}/{repo}'
-    return GITHUB_IN_TEXT.sub(sub, text)
+    return repoint_sdk(GITHUB_IN_TEXT.sub(sub, text))
 
 
 def to_site_path(href):
@@ -540,7 +553,10 @@ def convert_page(entry, out_md, nav_title):
             for a in links.find_all('a', href=True):
                 label = a.get_text(' ', strip=True)
                 if label:
-                    refs.append((label, a['href']))
+                    # These are collected before the link pass runs, so they
+                    # need the same repointing applied.
+                    href = repoint_sdk(repoint_to_mirror(a['href']))
+                    refs.append((repoint_sdk(label), href))
 
     repaired = repair_root_links(body, entry, entry['gen'])
     if repaired:
@@ -568,6 +584,13 @@ def convert_page(entry, out_md, nav_title):
             a.unwrap()          # accordion toggles from the FAQ page
             continue
         if href.startswith(('mailto:', 'tel:', '#')):
+            continue
+        if SDK_REF.search(href):
+            a['href'] = repoint_sdk(href)
+            for text_node in a.find_all(string=True):
+                moved = repoint_sdk(str(text_node))
+                if moved != str(text_node):
+                    text_node.replace_with(NavigableString(moved))
             continue
         if GITHUB_REPO.match(href):
             a['href'] = repoint_to_mirror(href)
@@ -712,6 +735,9 @@ def main():
         print(f'\nrepointed source links to {MIRROR_OWNER}/ for '
               f'{len(mirrored)} repositor{"y" if len(mirrored) == 1 else "ies"}: '
               + ', '.join(sorted(mirrored)))
+    if sdk_repointed:
+        print(f'repointed {len(sdk_repointed)} SDK reference link(s) to '
+              f'{SDK_REFERENCE_TO}')
     if repairs:
         print(f'\nrecovered {sum(repairs.values())} root-collapsed link(s) from '
               f'alternate captures, across {len(repairs)} page(s):')

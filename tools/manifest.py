@@ -226,3 +226,9 @@ MIRRORED_REPOS = {
     'mdksensor',
 }
 UPSTREAM_OWNER = 'MotorolaMobilityLLC'
+
+# The Moto Mods SDK javadoc was published from a subdirectory of Motorola's
+# GitHub Pages site. The preserved copy holds it at the repository root, so a
+# project Pages site serves it at the same path and only the host changes.
+SDK_REFERENCE_FROM = 'motorolamobilityllc.github.io/motomods_sdk'
+SDK_REFERENCE_TO = 'jksim.github.io/motomods_sdk'

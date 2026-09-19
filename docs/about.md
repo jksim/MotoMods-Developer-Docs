@@ -74,10 +74,10 @@ archives all survived and are on the [Downloads](downloads.md) page.
 
 Beyond assets, some things were never static pages and so could not be
 captured: the developer forums (hosted by element14), the login-gated partner
-material, the contact and registration forms, and the Moto Mods SDK for Android
-API reference, which lived on GitHub Pages at
-`motorolamobilityllc.github.io/motomods_sdk`. Links to all of these are
-preserved as they were written.
+material, and the contact and registration forms. Links to those are preserved
+as they were written, and no longer lead anywhere.
+
+The Moto Mods SDK for Android API reference was not lost — see below.
 
 ## How it was rebuilt
 
@@ -128,9 +128,13 @@ The originals were:
 | `jksim/mdkdisplay` | `MotorolaMobilityLLC/mdkdisplay` |
 | `jksim/mdksensor` | `MotorolaMobilityLLC/mdksensor` |
 
-The Moto Mods SDK for Android API reference, linked from every page under
-Android Software, is still served by Motorola at
-`motorolamobilityllc.github.io/motomods_sdk`; those links are unchanged.
+The Moto Mods SDK for Android API reference — the javadoc for
+`com.motorola.mod`, linked from every page under Android Software — was
+published from a subdirectory of Motorola's GitHub Pages site. It is preserved
+at [jksim/motomods_sdk](https://github.com/jksim/motomods_sdk) and served at
+[jksim.github.io/motomods_sdk](https://jksim.github.io/motomods_sdk/), with the
+files unchanged and at the same paths, so only the host differs from the URLs
+the documentation originally used.
 
 ## Corrections
 
