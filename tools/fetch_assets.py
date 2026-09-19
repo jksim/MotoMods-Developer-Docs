@@ -136,19 +136,21 @@ def cdx_key(url):
 def cdx_candidates(index, origin):
     """Archived captures of an asset, largest rendition first.
 
-    Squarespace variants carry a `?format=NNNw` width, so preferring the
-    biggest keeps the diagrams readable.
+    Squarespace served resized variants at `?format=NNNw` alongside the
+    original at the bare URL. The original is the biggest, so it goes first;
+    the width-limited variants follow in descending order, since a 500px
+    diagram beats a 100px one when the original was never captured.
     """
     key = cdx_key(origin)
     if not key:
         return []
     hits = [r for r in index if len(r) >= 4 and key in r[0] and r[3] in ('200', '301')]
 
-    def width(row):
+    def rank(row):
         m = re.search(r'format=(\d+)w', row[0])
-        return int(m.group(1)) if m else 0
+        return (0, 0) if not m else (1, -int(m.group(1)))
 
-    hits.sort(key=lambda r: (-width(r), r[1]))
+    hits.sort(key=lambda r: (rank(r), r[1]))
     return [(r[0], r[1]) for r in hits]
 
 
