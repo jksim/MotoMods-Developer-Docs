@@ -107,14 +107,16 @@ firmware stack, the MuC loader, the boot ROM tooling, the manifest compiler, a
 patched OpenOCD, and the example projects for each personality card — and the
 build instructions tell you to clone them.
 
-Those links, including the `git clone` commands, have been repointed to
-mirrors under [github.com/jksim](https://github.com/jksim), so that following
-the instructions does not depend on the original account surviving. This is
-the one place the text has been changed rather than reproduced.
+Those links, including the `git clone` commands, have been repointed to copies
+under [github.com/jksim](https://github.com/jksim), so that following the
+instructions does not depend on the original account surviving. The copies are
+standalone repositories rather than forks — pushed from verified local mirrors,
+with full history, independent of the upstream fork network. This is the one
+place the text has been changed rather than reproduced.
 
 The originals were:
 
-| Mirror | Original |
+| Preserved copy | Original |
 | --- | --- |
 | `jksim/nuttx` | `MotorolaMobilityLLC/nuttx` |
 | `jksim/muc-loader` | `MotorolaMobilityLLC/muc-loader` |
