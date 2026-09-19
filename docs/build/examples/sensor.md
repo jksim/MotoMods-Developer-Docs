@@ -24,10 +24,10 @@ See the [Build > Tools](../tools/index.md) section to set up your development en
 
 #### Download Example Source Code {#download-example-source-code}
 
-- **Open source application code** for the MDK Sensor App is available at <https://github.com/MotorolaMobilityLLC/mdksensor>.
-- **Open source firmware code** for this example is located at <https://github.com/MotorolaMobilityLLC/nuttx> - specifically:
-  - Build Target: <https://github.com/MotorolaMobilityLLC/nuttx/tree/master/nuttx/configs/hdk/muc/temperature>
-  - Source Directory: <https://github.com/MotorolaMobilityLLC/nuttx/tree/master/nuttx/configs/hdk/muc/src>
+- **Open source application code** for the MDK Sensor App is available at <https://github.com/jksim/mdksensor>.
+- **Open source firmware code** for this example is located at <https://github.com/jksim/nuttx> - specifically:
+  - Build Target: <https://github.com/jksim/nuttx/tree/master/nuttx/configs/hdk/muc/temperature>
+  - Source Directory: <https://github.com/jksim/nuttx/tree/master/nuttx/configs/hdk/muc/src>
 
 #### Download Schematics & More {#download-schematics-more}
 
@@ -484,9 +484,9 @@ Download and install the Temperature card sample app - see MDK Sensor app on Goo
 
 #### Source code {#source-code}
 
-The source code of the MDK Sensor APK is published at <https://github.com/MotorolaMobilityLLC/mdksensor>.
+The source code of the MDK Sensor APK is published at <https://github.com/jksim/mdksensor>.
 
-To build the sample APK from source code, please [download and install Android Studio from Android Developer Site](http://developer.android.com/sdk/index.html), then import the [mdksensor project](https://github.com/MotorolaMobilityLLC/mdksensor) into Android Studio. See [Developer Tools: Setup Your Development Environment for more info](../tools/setup-environment.md).
+To build the sample APK from source code, please [download and install Android Studio from Android Developer Site](http://developer.android.com/sdk/index.html), then import the [mdksensor project](https://github.com/jksim/mdksensor) into Android Studio. See [Developer Tools: Setup Your Development Environment for more info](../tools/setup-environment.md).
 
 #### Sequence Diagram {#sequence-diagram}
 

@@ -28,10 +28,10 @@ See the [Build > Tools](../tools/index.md) section to set up your development en
 
 #### Download Example Source Code {#download-example-source-code}
 
-- **Open source application code** for the MDK Battery App is available at <https://github.com/MotorolaMobilityLLC/mdkbattery>.
-- **Open source firmware code** for this example is located at <https://github.com/MotorolaMobilityLLC/nuttx> - specifically:
-  - Build Target: <https://github.com/MotorolaMobilityLLC/nuttx/tree/master/nuttx/configs/hdk/muc/battery>
-  - Source Directory: <https://github.com/MotorolaMobilityLLC/nuttx/tree/master/nuttx/configs/hdk/muc/src>
+- **Open source application code** for the MDK Battery App is available at <https://github.com/jksim/mdkbattery>.
+- **Open source firmware code** for this example is located at <https://github.com/jksim/nuttx> - specifically:
+  - Build Target: <https://github.com/jksim/nuttx/tree/master/nuttx/configs/hdk/muc/battery>
+  - Source Directory: <https://github.com/jksim/nuttx/tree/master/nuttx/configs/hdk/muc/src>
 
 #### Download Schematics & More {#download-schematics-more}
 
@@ -709,9 +709,9 @@ Download and install the Battery card sample APK - see [MDK Battery app on Googl
 
 #### Source code {#source-code}
 
-The source code of the MDK Battery APK is published at <https://github.com/MotorolaMobilityLLC/mdkbattery>.
+The source code of the MDK Battery APK is published at <https://github.com/jksim/mdkbattery>.
 
-To build the sample APK from source code, please [download and install Android Studio from Android Developer Site](http://developer.android.com/sdk/index.html), then import the [mdkbattery](https://github.com/MotorolaMobilityLLC/mdkbattery) project into Android Studio. See [Developer Tools: Setup Your Development Environment](../tools/setup-environment.md) for more info.
+To build the sample APK from source code, please [download and install Android Studio from Android Developer Site](http://developer.android.com/sdk/index.html), then import the [mdkbattery](https://github.com/jksim/mdkbattery) project into Android Studio. See [Developer Tools: Setup Your Development Environment](../tools/setup-environment.md) for more info.
 
 #### Reference for ModManager interface & query Mod statues: {#reference-for-modmanager-interface-query-mod-statues-}
 

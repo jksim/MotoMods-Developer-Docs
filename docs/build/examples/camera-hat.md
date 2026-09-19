@@ -24,9 +24,9 @@ See the [Build > Tools](../tools/index.md) section to set up your development en
 
 #### Download Example Source Code {#download-example-source-code}
 
-- **Open source firmware code** for the Camera example is located at <https://github.com/MotorolaMobilityLLC/nuttx>. Specifically:
-  - Build Target: <https://github.com/MotorolaMobilityLLC/nuttx/tree/master/nuttx/configs/hdk/muc/picamera>
-  - Source Directory: <https://github.com/MotorolaMobilityLLC/nuttx/tree/master/nuttx/configs/hdk/muc/src>
+- **Open source firmware code** for the Camera example is located at <https://github.com/jksim/nuttx>. Specifically:
+  - Build Target: <https://github.com/jksim/nuttx/tree/master/nuttx/configs/hdk/muc/picamera>
+  - Source Directory: <https://github.com/jksim/nuttx/tree/master/nuttx/configs/hdk/muc/src>
 - **Camera Application**
   - There is no special application necessary to run the Camera Mod with Moto Z. Once the Moto Mod is attached, just launch the camera application of your choice.
   - You may find the quality of the image is much worse than what you normally see with the Moto Z’s camera. It is due to the post-processing pipe on Moto Z is only performing color conversion for the RAW sensor stream comes out of the Pi module. If your Moto Mod aims for photography, you should consider adding own ISP so you can control the image quality captured on your Moto Mod.
@@ -303,9 +303,9 @@ Application Configuration --->
 In this example, we refer to the camera drivers already implemented. These are available at the following link.
 
 For Raspberry Pi Module v2 (8 megapixel):
-    [camera_ext_mhb_imx219_pi.c](https://github.com/MotorolaMobilityLLC/nuttx/blob/master/nuttx/drivers/camera/camera_ext_mhb_imx219_pi.c) (Format/Resolution setting, camera_ext protocol support)
-    [camera_ext_ctrls_imx219_pi.c](https://github.com/MotorolaMobilityLLC/nuttx/blob/master/nuttx/drivers/camera/camera_ext_ctrls_imx219_pi.c) (Camera Control implementations)
+    [camera_ext_mhb_imx219_pi.c](https://github.com/jksim/nuttx/blob/master/nuttx/drivers/camera/camera_ext_mhb_imx219_pi.c) (Format/Resolution setting, camera_ext protocol support)
+    [camera_ext_ctrls_imx219_pi.c](https://github.com/jksim/nuttx/blob/master/nuttx/drivers/camera/camera_ext_ctrls_imx219_pi.c) (Camera Control implementations)
 
 For Raspberry Pi Module v1 (5 megapixel):
-    [camera_ext_mhb_ov5647_pi.c](https://github.com/MotorolaMobilityLLC/nuttx/blob/master/nuttx/drivers/camera/camera_ext_mhb_ov5647_pi.c) (Format/Resolution setting, camera_ext protocol support)
-    [camera_ext_ctrls_ov5647_pi.c](https://github.com/MotorolaMobilityLLC/nuttx/blob/master/nuttx/drivers/camera/camera_ext_ctrls_ov5647_pi.c) (Camera Control Implementation)
+    [camera_ext_mhb_ov5647_pi.c](https://github.com/jksim/nuttx/blob/master/nuttx/drivers/camera/camera_ext_mhb_ov5647_pi.c) (Format/Resolution setting, camera_ext protocol support)
+    [camera_ext_ctrls_ov5647_pi.c](https://github.com/jksim/nuttx/blob/master/nuttx/drivers/camera/camera_ext_ctrls_ov5647_pi.c) (Camera Control Implementation)

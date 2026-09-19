@@ -13,7 +13,8 @@ from bs4 import BeautifulSoup, NavigableString, Comment
 from markdownify import MarkdownConverter
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from manifest import PAGES, ARCHIVE_ONLY, REDIRECTS
+from manifest import (PAGES, ARCHIVE_ONLY, REDIRECTS, MIRROR_OWNER,
+                      MIRRORED_REPOS, UPSTREAM_OWNER)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OLD = os.path.join(ROOT, 'old_website')
@@ -43,6 +44,7 @@ assets = {}      # local docs-relative path -> {'sources': [...], 'origin': url}
 warnings = []
 unmapped = set()  # internal paths with no page in the rebuild
 repairs = {}      # page -> links recovered from an alternate capture
+mirrored = set()  # repositories whose links were repointed at the mirrors
 
 
 # --------------------------------------------------------------------------- #
@@ -139,6 +141,49 @@ def rewrite_asset_url(url, depth):
 # --------------------------------------------------------------------------- #
 PATH_TO_DOC = {orig: out for orig, out, _ in PAGES}
 PATH_TO_DOC.update(REDIRECTS)
+
+
+GITHUB_REPO = re.compile(
+    r'^(https?://github\.com/)' + re.escape(UPSTREAM_OWNER) + r'/([A-Za-z0-9_.-]+)',
+    re.I)
+
+
+def repoint_to_mirror(href):
+    """Send a source-code link to the preserved copy, path and all.
+
+    The documentation links deep into these repositories — individual drivers,
+    board configs — so only the owner is swapped; everything after the repo
+    name is left alone.
+    """
+    m = GITHUB_REPO.match(href)
+    if not m:
+        return href
+    repo = m.group(2)
+    if repo.lower() not in {r.lower() for r in MIRRORED_REPOS}:
+        return href
+    mirrored.add(repo)
+    return f'{m.group(1)}{MIRROR_OWNER}/{repo}' + href[m.end():]
+
+
+GITHUB_IN_TEXT = re.compile(
+    r'(https?://github\.com/)' + re.escape(UPSTREAM_OWNER) + r'/([A-Za-z0-9_.-]+)',
+    re.I)
+
+
+def repoint_text(text):
+    """Repoint repository URLs inside code blocks.
+
+    The build instructions tell the reader to `git clone` these repositories,
+    so a link that only works while the upstream account survives is the one
+    place durability matters most.
+    """
+    def sub(m):
+        repo = m.group(2)
+        if repo.lower() not in {r.lower() for r in MIRRORED_REPOS}:
+            return m.group(0)
+        mirrored.add(repo)
+        return f'{m.group(1)}{MIRROR_OWNER}/{repo}'
+    return GITHUB_IN_TEXT.sub(sub, text)
 
 
 def to_site_path(href):
@@ -433,7 +478,7 @@ def stash_blocks(node):
         el.replace_with(NavigableString(f'\n\nMMDOCSBLOCK{len(blocks) - 1}ENDBLOCK\n\n'))
 
     for pre in node.find_all('pre'):
-        code = pre.get_text()
+        code = repoint_text(pre.get_text())
         lang = detect_language(code)
         fence = '```'
         while fence in code:
@@ -523,6 +568,15 @@ def convert_page(entry, out_md, nav_title):
             a.unwrap()          # accordion toggles from the FAQ page
             continue
         if href.startswith(('mailto:', 'tel:', '#')):
+            continue
+        if GITHUB_REPO.match(href):
+            a['href'] = repoint_to_mirror(href)
+            # Many of these links are labelled with the URL itself, so the
+            # visible text has to move with the target.
+            for text_node in a.find_all(string=True):
+                moved = repoint_text(str(text_node))
+                if moved != str(text_node):
+                    text_node.replace_with(NavigableString(moved))
             continue
         local = to_site_path(href)
         if ASSET_EXT.search((local or href).split('?')[0]) and (
@@ -654,6 +708,10 @@ def main():
           f'{len(assets) - have} to fetch')
     for w in warnings:
         print('WARN', w)
+    if mirrored:
+        print(f'\nrepointed source links to {MIRROR_OWNER}/ for '
+              f'{len(mirrored)} repositor{"y" if len(mirrored) == 1 else "ies"}: '
+              + ', '.join(sorted(mirrored)))
     if repairs:
         print(f'\nrecovered {sum(repairs.values())} root-collapsed link(s) from '
               f'alternate captures, across {len(repairs)} page(s):')

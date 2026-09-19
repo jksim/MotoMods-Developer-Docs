@@ -17,13 +17,13 @@ Choose a directory for your build environment.
 ```console
 $ cd <directory for your build>
 $ export BUILD_TOP=`pwd`
-$ git clone https://github.com/MotorolaMobilityLLC/nuttx
-$ git clone https://github.com/MotorolaMobilityLLC/manifesto
-$ git clone https://github.com/MotorolaMobilityLLC/muc-loader
-$ git clone https://github.com/MotorolaMobilityLLC/bootrom-tools
-$ git clone https://github.com/MotorolaMobilityLLC/mdkutility
+$ git clone https://github.com/jksim/nuttx
+$ git clone https://github.com/jksim/manifesto
+$ git clone https://github.com/jksim/muc-loader
+$ git clone https://github.com/jksim/bootrom-tools
+$ git clone https://github.com/jksim/mdkutility
 ```
-> **2016-08-04 Note:** The [mdkutility repo](https://github.com/MotorolaMobilityLLC/mdkutility) is now available on github!
+> **2016-08-04 Note:** The [mdkutility repo](https://github.com/jksim/mdkutility) is now available on github!
 
 ---
 

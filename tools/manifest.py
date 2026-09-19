@@ -214,3 +214,15 @@ NAV = [
     ]),
     ('About This Archive', 'about.md'),
 ]
+
+
+# Source repositories the documentation links to, mirrored so the code outlives
+# the upstream account. Links are rewritten to these copies; the originals are
+# recorded in docs/about.md.
+MIRROR_OWNER = 'jksim'
+MIRRORED_REPOS = {
+    'nuttx', 'muc-loader', 'bootrom-tools', 'manifesto', 'openocd',
+    'mdk_examples', 'mdkutility', 'mdkaudio', 'mdkbattery', 'mdkdisplay',
+    'mdksensor',
+}
+UPSTREAM_OWNER = 'MotorolaMobilityLLC'

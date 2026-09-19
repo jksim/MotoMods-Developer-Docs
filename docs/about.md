@@ -100,6 +100,38 @@ the repository.
 Text was not edited. Headings, typos and all — *Software: Mod Mangement* is
 spelled that way because it was spelled that way — the words are Motorola's.
 
+## Source code links
+
+The documentation links to the platform's source repositories — the NuttX
+firmware stack, the MuC loader, the boot ROM tooling, the manifest compiler, a
+patched OpenOCD, and the example projects for each personality card — and the
+build instructions tell you to clone them.
+
+Those links, including the `git clone` commands, have been repointed to
+mirrors under [github.com/jksim](https://github.com/jksim), so that following
+the instructions does not depend on the original account surviving. This is
+the one place the text has been changed rather than reproduced.
+
+The originals were:
+
+| Mirror | Original |
+| --- | --- |
+| `jksim/nuttx` | `MotorolaMobilityLLC/nuttx` |
+| `jksim/muc-loader` | `MotorolaMobilityLLC/muc-loader` |
+| `jksim/bootrom-tools` | `MotorolaMobilityLLC/bootrom-tools` |
+| `jksim/manifesto` | `MotorolaMobilityLLC/manifesto` |
+| `jksim/openocd` | `MotorolaMobilityLLC/openocd` |
+| `jksim/mdk_examples` | `MotorolaMobilityLLC/mdk_examples` |
+| `jksim/mdkutility` | `MotorolaMobilityLLC/mdkutility` |
+| `jksim/mdkaudio` | `MotorolaMobilityLLC/mdkaudio` |
+| `jksim/mdkbattery` | `MotorolaMobilityLLC/mdkbattery` |
+| `jksim/mdkdisplay` | `MotorolaMobilityLLC/mdkdisplay` |
+| `jksim/mdksensor` | `MotorolaMobilityLLC/mdksensor` |
+
+The Moto Mods SDK for Android API reference, linked from every page under
+Android Software, is still served by Motorola at
+`motorolamobilityllc.github.io/motomods_sdk`; those links are unchanged.
+
 ## Corrections
 
 If you have a better capture of a missing diagram, spot a conversion error, or

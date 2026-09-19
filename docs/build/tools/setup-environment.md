@@ -58,7 +58,7 @@ OpenOCD is used for flashing and debugging. You will need to download and build 
 
 ```console
 $ sudo apt-get install -y libusb-1.0-0-dev libftdi-dev libtool autoconf texinfo
-$ git clone https://github.com/MotorolaMobilityLLC/openocd
+$ git clone https://github.com/jksim/openocd
 $ cd openocd
 $ git submodule init
 $ git submodule update

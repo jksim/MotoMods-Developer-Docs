@@ -34,7 +34,7 @@ See the [Build > Tools](../tools/index.md) section to set up your development en
 
 #### Download Example Source Code {#download-example-source-code}
 
-- **Source Code** for the MDK Utility App is available at <https://github.com/MotorolaMobilityLLC/mdkutility>.
+- **Source Code** for the MDK Utility App is available at <https://github.com/jksim/mdkutility>.
 
 #### Download MDK Utility App {#download-mdk-utility-app}
 
@@ -71,9 +71,9 @@ The final feature of the MDK Utility is an LED Control which requires the defaul
 
 #### Source code {#source-code}
 
-The source code of the MDK Utility sample APK is published at <https://github.com/MotorolaMobilityLLC/mdkutility>.
+The source code of the MDK Utility sample APK is published at <https://github.com/jksim/mdkutility>.
 
-To build the sample APK from source code, please [download and install Android Studio from Android Developer Site](http://developer.android.com/sdk/index.html), then import the [mdkutility project](https://github.com/MotorolaMobilityLLC/mdkutility) into Android Studio. See [Developer Tools: Setup Your Development Environment](../tools/setup-environment.md) for more info.
+To build the sample APK from source code, please [download and install Android Studio from Android Developer Site](http://developer.android.com/sdk/index.html), then import the [mdkutility project](https://github.com/jksim/mdkutility) into Android Studio. See [Developer Tools: Setup Your Development Environment](../tools/setup-environment.md) for more info.
 
 #### Reference for ModManager interface & query Mod statues: {#reference-for-modmanager-interface-query-mod-statues-}
 

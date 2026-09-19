@@ -16,7 +16,7 @@ The raw_stub example provides a starting point for firmware and applications usi
 Project: `configs/hdk/muc/raw_stub`
 Firmware:
       `configs/hdk/muc/src/stm32_modsraw_stub.c`
-APK: MDKRawStub, in the [mdk_examples repository](https://github.com/MotorolaMobilityLLC/mdk_examples)
+APK: MDKRawStub, in the [mdk_examples repository](https://github.com/jksim/mdk_examples)
 
 ### compute {#compute}
 
@@ -25,7 +25,7 @@ Project: `configs/hdk/muc/compute`
 Firmware:
       `drivers/hdmi_display.c`
       `drivers/fusb302.c`
-APK: MDKDisplay, in the [mdk_display repository](https://github.com/MotorolaMobilityLLC/mdkdisplay)
+APK: MDKDisplay, in the [mdk_display repository](https://github.com/jksim/mdkdisplay)
 
 ### hid {#hid}
 
@@ -49,7 +49,7 @@ This firmware and application combination is designed for quick and easy prototy
 Project: `configs/hdk/muc/termapp`
 Firmware:
       `configs/hdk/muc/src/stm32_modsraw_termapp.c`
-APK: MDKTerminal, in the [mdk_examples repository](https://github.com/MotorolaMobilityLLC/mdk_examples)
+APK: MDKTerminal, in the [mdk_examples repository](https://github.com/jksim/mdk_examples)
 
 ### flirapp {#flirapp}
 
@@ -64,4 +64,4 @@ The SDA and SDL pins can be left unconnected.
 Project: `configs/hdk/muc/flir`
 Firmware:
       `configs/hdk/muc/src/flir_raw.c`
-APK: FlirApp, in the [mdk_examples repository](https://github.com/MotorolaMobilityLLC/mdk_examples)
+APK: FlirApp, in the [mdk_examples repository](https://github.com/jksim/mdk_examples)

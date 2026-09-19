@@ -28,10 +28,10 @@ See the [Build > Tools](../tools/index.md) section to set up your development en
 
 #### Download Example Source Code {#download-example-source-code}
 
-- **Open source application code** for the MDK Utility App is available at <https://github.com/MotorolaMobilityLLC/mdkutility>.
-- **Open source firmware code** for this example is located at <https://github.com/MotorolaMobilityLLC/nuttx> - specifically:
-  - Build Target: <https://github.com/MotorolaMobilityLLC/nuttx/tree/master/nuttx/configs/hdk/muc/blinky>
-  - Source Directory: <https://github.com/MotorolaMobilityLLC/nuttx/tree/master/nuttx/configs/hdk/muc/src>
+- **Open source application code** for the MDK Utility App is available at <https://github.com/jksim/mdkutility>.
+- **Open source firmware code** for this example is located at <https://github.com/jksim/nuttx> - specifically:
+  - Build Target: <https://github.com/jksim/nuttx/tree/master/nuttx/configs/hdk/muc/blinky>
+  - Source Directory: <https://github.com/jksim/nuttx/tree/master/nuttx/configs/hdk/muc/src>
 
 #### ‘MDK Utility’ App {#-mdk-utility-app}
 
@@ -367,9 +367,9 @@ Download and install the MDK Utility sample APK - see [MDK Utility app on Google
 
 #### Source code {#source-code}
 
-The source code of the MDK Utility sample APK is published at <https://github.com/MotorolaMobilityLLC/mdkutility>.
+The source code of the MDK Utility sample APK is published at <https://github.com/jksim/mdkutility>.
 
-To build the sample APK from source code, please [download and install Android Studio from Android Developer Site](http://developer.android.com/sdk/index.html), then import the [mdkutility project](https://github.com/MotorolaMobilityLLC/mdkutility) into Android Studio. See [Developer Tools: Setup Your Development Environment](../tools/setup-environment.md) for more info.
+To build the sample APK from source code, please [download and install Android Studio from Android Developer Site](http://developer.android.com/sdk/index.html), then import the [mdkutility project](https://github.com/jksim/mdkutility) into Android Studio. See [Developer Tools: Setup Your Development Environment](../tools/setup-environment.md) for more info.
 
 #### Sequence Diagram {#sequence-diagram}
 
