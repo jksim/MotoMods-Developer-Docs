@@ -42,12 +42,11 @@ Then open <http://127.0.0.1:8000/MotoMods-Developer-Docs/> — note the path.
 `site_url` points at the GitHub Pages subdirectory, and `mkdocs serve` mirrors
 it, so the bare root redirects.
 
-## Regenerating from the captures
+## The conversion tooling
 
-The conversion is reproducible but needs the raw captures in `old_website/`,
-which are not versioned here. They have been pruned to the Moto Mods material
-(~84 MB); the several GB of unrelated MOTODEV-era pages the same Wayback grabs
-contained have been removed. With the captures in place:
+`tools/` holds the pipeline that produced `docs/`, kept so the reconstruction
+can be audited or redone. It reads local Wayback Machine captures of the
+original site:
 
 ```console
 $ python3 tools/discover.py build/inventory.json   # find every Moto Mods page
@@ -55,6 +54,7 @@ $ python3 tools/convert.py build/inventory.json    # HTML -> Markdown + asset li
 $ python3 tools/fetch_assets.py                    # localise images, fill gaps from Wayback
 $ python3 tools/make_archive.py build/inventory.json
 $ python3 tools/gen_mkdocs.py                      # nav from tools/manifest.py
+$ python3 tools/check_links.py                     # sources and published URLs
 ```
 
 `tools/manifest.py` is the single place that decides which captured page
