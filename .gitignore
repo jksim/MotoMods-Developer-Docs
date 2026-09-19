@@ -7,6 +7,9 @@
 # Local working copies of the source captures
 /old_website/
 
+# Mirror clones of the upstream repositories the documentation references
+/upstream/
+
 __pycache__/
 *.pyc
 .DS_Store
