@@ -15,9 +15,12 @@ screenshots and version metadata per app: `index.json`.
 
 `com.motomodsdev.mdkaudio` has no usable capture.
 
-Binaries: four are in `archive/apks/`. Not recoverable from git history,
-GitHub releases, the site captures, or the Wayback Machine — Google Play did
-not serve APKs from fetchable URLs.
+The apps also shipped on the Lenovo App Store
+(`lenovomm.com/appdetail/<package>/0`). Those pages now redirect to the site
+root and the Wayback Machine holds only redirects, no content.
+
+Binaries: all five are in `docs/assets/apks/`. Not recoverable from git history,
+GitHub releases, the site captures, or the Wayback Machine.
 
 Published apps use `com.motomodsdev.*`; the open-source projects build
 `com.motorola.samples.*`.

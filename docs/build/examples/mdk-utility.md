@@ -40,8 +40,8 @@ See the [Build > Tools](../tools/index.md) section to set up your development en
 
 The MDK Utility App will only work on Moto Z devices.
 
-- [MDK Utility app (archived APK)](../../assets/apks/mdkutility.apk)
-- [MDK Utility app on Lenovo App Store](http://www.lenovomm.com/appdetail/com.motomodsdev.mdkutility/0)
+- [MDK Utility app (archived APK, was on Google Play Store)](../../assets/apks/mdkutility.apk)
+- [MDK Utility app (archived APK, was on Lenovo App Store)](../../assets/apks/mdkutility.apk)
 
 For more details, see the [Moto Mods Android Application](#application) section further down this page.
 
@@ -53,7 +53,7 @@ Ask questions, engage with the developer community, and get support for this exa
 
 #### Install APK {#install-apk}
 
-Download and install the [MDK Utility app (archived APK)](../../assets/apks/mdkutility.apk).
+Download and install the [MDK Utility app (archived APK, was on Google Play Store)](../../assets/apks/mdkutility.apk).
 
 #### MDK Utility sample APK {#mdk-utility-sample-apk}
 

@@ -174,20 +174,26 @@ GITHUB_IN_TEXT = re.compile(
 
 
 SDK_REF = re.compile(r'https?://' + re.escape(SDK_REFERENCE_FROM), re.I)
-PLAY_LINK = re.compile(
-    r'https?://play\.google\.com/store/apps/details\?id=([A-Za-z0-9_.]+)', re.I)
+# The sample apps shipped through two stores, both now gone: Google Play and
+# the Lenovo App Store.
+STORE_LINKS = (
+    re.compile(r'https?://play\.google\.com/store/apps/details\?id=([A-Za-z0-9_.]+)', re.I),
+    re.compile(r'https?://(?:www\.)?lenovomm\.com/appdetail/([A-Za-z0-9_.]+)/\d+', re.I),
+)
 
 
 def repoint_play(href, depth):
-    """Send a Play Store link to the archived APK, or None if not one."""
-    m = PLAY_LINK.match(href.strip())
-    if not m:
-        return None
-    target = PLAY_APKS.get(m.group(1))
-    if not target:
-        return None
-    play_repointed.append(m.group(1))
-    return ('../' * depth) + target
+    """Send a store link to the archived APK, or None if not one."""
+    for pattern in STORE_LINKS:
+        m = pattern.match(href.strip())
+        if not m:
+            continue
+        target = PLAY_APKS.get(m.group(1))
+        if not target:
+            return None
+        play_repointed.append(m.group(1))
+        return ('../' * depth) + target
+    return None
 
 
 def repoint_sdk(url):
@@ -603,11 +609,11 @@ def convert_page(entry, out_md, nav_title):
         apk = repoint_play(href, depth)
         if apk:
             a['href'] = apk
-            # The label says "on Google Play Store", which is no longer where
-            # it goes.
+            # The label names a store the link no longer goes to; keep which
+            # store it was, since both are gone and each app had two.
             for text_node in a.find_all(string=True):
-                moved = re.sub(r'\s*on Google Play Store', ' (archived APK)',
-                               str(text_node))
+                moved = re.sub(r'\s*on (Google Play Store|Lenovo App Store)',
+                               r' (archived APK, was on \1)', str(text_node))
                 if moved != str(text_node):
                     text_node.replace_with(NavigableString(moved))
             continue
