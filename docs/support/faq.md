@@ -131,7 +131,7 @@ You may use the following statements to describe any Moto Mod concepts in develo
 *“Moto Mods™ is a trademark of Motorola Trademark Holdings, LLC.”*
 
 You may also use the below statement to provide your audience with more information on the Moto Mods ecosystem:
-*"Moto Mods™ snap onto any Moto Z to give it a whole new superpower. They transform your phone allowing it to do things other phones can’t. To learn more visit <http://www.motomods.com>."*
+*"Moto Mods™ snap onto any Moto Z to give it a whole new superpower. They transform your phone allowing it to do things other phones can’t. To learn more visit <https://jksim.github.io/Moto-Z>."*
 
 ### Strategy {#strategy}
 

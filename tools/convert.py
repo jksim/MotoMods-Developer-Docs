@@ -15,7 +15,8 @@ from markdownify import MarkdownConverter
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from manifest import (PAGES, ARCHIVE_ONLY, REDIRECTS, MIRROR_OWNER,
                       MIRRORED_REPOS, UPSTREAM_OWNER, SDK_REFERENCE_FROM,
-                      SDK_REFERENCE_TO, PLAY_APKS)
+                      SDK_REFERENCE_TO, PLAY_APKS, MOTO_Z_SITE_FROM,
+                      MOTO_Z_SITE_TO)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OLD = os.path.join(ROOT, 'old_website')
@@ -48,6 +49,7 @@ repairs = {}      # page -> links recovered from an alternate capture
 mirrored = set()  # repositories whose links were repointed at the mirrors
 sdk_repointed = []  # SDK javadoc links sent to the preserved copy
 play_repointed = []  # Play Store links sent to the archived APKs
+moto_z_repointed = []  # motomods.com links sent to the preserved Moto Z site
 
 
 # --------------------------------------------------------------------------- #
@@ -194,6 +196,14 @@ def repoint_play(href, depth):
         play_repointed.append(m.group(1))
         return ('../' * depth) + target
     return None
+
+
+def repoint_moto_z(url):
+    """Send Moto Z consumer-site links to the preserved copy."""
+    if not MOTO_Z_SITE_FROM.search(url):
+        return url
+    moto_z_repointed.append(1)
+    return MOTO_Z_SITE_FROM.sub(MOTO_Z_SITE_TO, url)
 
 
 def repoint_sdk(url):
@@ -606,6 +616,14 @@ def convert_page(entry, out_md, nav_title):
             continue
         if href.startswith(('mailto:', 'tel:', '#')):
             continue
+        if MOTO_Z_SITE_FROM.search(href):
+            a['href'] = repoint_moto_z(href)
+            # One of these links is labelled with the URL itself.
+            for text_node in a.find_all(string=True):
+                moved = repoint_moto_z(str(text_node))
+                if moved != str(text_node):
+                    text_node.replace_with(NavigableString(moved))
+            continue
         apk = repoint_play(href, depth)
         if apk:
             a['href'] = apk
@@ -772,6 +790,9 @@ def main():
     if sdk_repointed:
         print(f'repointed {len(sdk_repointed)} SDK reference link(s) to '
               f'{SDK_REFERENCE_TO}')
+    if moto_z_repointed:
+        print(f'repointed {len(moto_z_repointed)} Moto Z site link(s) to '
+              f'{MOTO_Z_SITE_TO}')
     if play_repointed:
         print(f'repointed {len(play_repointed)} Play Store link(s) to the '
               f'archived APKs')

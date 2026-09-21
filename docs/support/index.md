@@ -38,7 +38,7 @@ Ready to partner with Moto? Head over to our [**contact form**](../partner/certi
 
 [![Moto Mods Developer Kit Hardware](../assets/img/mdk-e69404.jpg)](../hardware/where-to-buy.md)
 
-[![Moto Z](../assets/img/1470086055915-3025a1.jpg)](http://www.motomods.com)
+[![Moto Z](../assets/img/1470086055915-3025a1.jpg)](https://jksim.github.io/Moto-Z)
 
 ![background_blue.jpg](../assets/img/background_blue-5e2c4f.jpg)
 

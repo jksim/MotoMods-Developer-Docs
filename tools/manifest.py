@@ -7,6 +7,8 @@ where it merely reflowed identical text, the Squarespace original wins and the
 Drupal copy survives only in archive/.
 """
 
+import re
+
 # (original path, output markdown path, nav title)
 PAGES = [
     ('get-started',                                 'get-started.md',                               'Get Started'),
@@ -242,3 +244,7 @@ PLAY_APKS = {
     'com.motomodsdev.mdksensor':  'assets/apks/mdksensor.apk',
     'com.motomodsdev.mdkutility': 'assets/apks/mdkutility.apk',
 }
+
+# motomods.com, the Moto Z consumer site, is gone.
+MOTO_Z_SITE_FROM = re.compile(r'https?://(?:www\.)?motomods\.com/?', re.I)
+MOTO_Z_SITE_TO = 'https://jksim.github.io/Moto-Z'

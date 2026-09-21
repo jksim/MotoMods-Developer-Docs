@@ -10,7 +10,7 @@ source_capture: 2016 Squarespace portal
 
 ### Required Hardware {#required-hardware}
 
-The HAT Adapter Board requires a [Moto Z](http://www.motomods.com/) and [Reference Moto Mod](../../hardware/mdk.md). If you don't have these, you'll need to buy the required hardware.
+The HAT Adapter Board requires a [Moto Z](https://jksim.github.io/Moto-Z) and [Reference Moto Mod](../../hardware/mdk.md). If you don't have these, you'll need to buy the required hardware.
 
 ## Introduction {#introduction}
 

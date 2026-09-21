@@ -22,7 +22,7 @@ As a developer, you can use this as a reference when designing and building your
 Technical documentation for this card can be found at the [Build > Examples > **Temperature Sensor Personality Card** page](../build/examples/sensor.md).
 
 **Requirements**
-The Temperature Sensor Personality Card requires a [Moto Z](http://www.motomods.com/) and [Reference Moto Mod](mdk.md).
+The Temperature Sensor Personality Card requires a [Moto Z](https://jksim.github.io/Moto-Z) and [Reference Moto Mod](mdk.md).
 
 [< Back to All Products](where-to-buy.md)
 

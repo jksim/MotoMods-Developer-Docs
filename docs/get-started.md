@@ -34,7 +34,7 @@ When you’re ready to take your prototype to market, we’'ve got you covered w
 
 [![Moto Mods Developer Kit Hardware](assets/img/mdk.jpg)](hardware/where-to-buy.md)
 
-[![Moto Z](assets/img/1470086055915.jpg)](http://www.motomods.com)
+[![Moto Z](assets/img/1470086055915.jpg)](https://jksim.github.io/Moto-Z)
 
 ![background_blue.jpg](assets/img/background_blue.jpg)
 

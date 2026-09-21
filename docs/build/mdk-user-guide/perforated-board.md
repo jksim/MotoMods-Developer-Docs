@@ -10,7 +10,7 @@ source_capture: 2016 Squarespace portal
 
 #### Required Hardware {#required-hardware}
 
-The Perforated Board requires a [Moto Z](http://www.motomods.com) and [Reference Moto Mod](../../hardware/mdk.md). If you don't have these, you'll need to buy the required hardware.
+The Perforated Board requires a [Moto Z](https://jksim.github.io/Moto-Z) and [Reference Moto Mod](../../hardware/mdk.md). If you don't have these, you'll need to buy the required hardware.
 
 **Note:** One Perforated Board is included in-box along with the [MDK](../../hardware/mdk.md). You can also [buy more Perforated Boards](../../hardware/perforated-board.md) as needed.
 

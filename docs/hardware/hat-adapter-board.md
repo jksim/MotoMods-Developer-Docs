@@ -24,7 +24,7 @@ This card plugs into the 80 pin connector that comes with the [Reference Moto Mo
 Technical documentation for this board can be found at the [Build > MDK User Guide > **HAT Adapter Board**](../build/mdk-user-guide/hat-adapter-board.md) page.
 
 **Requirements**
-The HAT Adapter Board requires a [Moto Z](http://www.motomods.com/) and [Reference Moto Mod](mdk.md).
+The HAT Adapter Board requires a [Moto Z](https://jksim.github.io/Moto-Z) and [Reference Moto Mod](mdk.md).
 
 [< Back to All Products](where-to-buy.md)
 

@@ -20,7 +20,7 @@ source_capture: 2016 Squarespace portal
 
 ## Moto Mods Development Kit
 
-The Moto Mods Development Kit includes a Reference Moto Mod, a [Perforated Board](perforated-board.md) for you to solder your own components to, and an example cover. Together with a [compatible Moto Z](http://www.motomods.com/), the MDK is the starting point for developing your own Moto Mod prototype.
+The Moto Mods Development Kit includes a Reference Moto Mod, a [Perforated Board](perforated-board.md) for you to solder your own components to, and an example cover. Together with a [compatible Moto Z](https://jksim.github.io/Moto-Z), the MDK is the starting point for developing your own Moto Mod prototype.
 
 On the Reference Moto Mod board, we’ve included a µUSB-B port (can also be used for Mobility Display Port), USB-C, and connector interface that exposes all key interfaces.
 
@@ -38,7 +38,7 @@ Technical documentation for the MDK can be found at the following pages:
 - [Build > MDK User Guide > **Perforated Board**](../build/mdk-user-guide/perforated-board.md)
 
 **Requirements**
-The Moto Mods Development Kit requires a [Moto Z](http://www.motomods.com/).
+The Moto Mods Development Kit requires a [Moto Z](https://jksim.github.io/Moto-Z).
 
 [< Back to All Products](where-to-buy.md)
 

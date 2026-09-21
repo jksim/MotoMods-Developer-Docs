@@ -24,7 +24,7 @@ Remember that you receive one Perforated Board in the box with your [MDK](mdk.md
 Technical documentation for this board can be found at the [Build > MDK User Guide > **Perforated Board** page](../build/mdk-user-guide/perforated-board.md).
 
 **Requirements**
-The Perforated Board requires a [Moto Z](http://www.motomods.com/) and [Reference Moto Mod](mdk.md).
+The Perforated Board requires a [Moto Z](https://jksim.github.io/Moto-Z) and [Reference Moto Mod](mdk.md).
 
 [< Back to All Products](where-to-buy.md)
 

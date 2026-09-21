@@ -30,7 +30,7 @@ As a developer, you can use this as a reference when designing and building your
 Technical documentation for this card can be found at the [Build > Examples > **Display Personality Card** page](../build/examples/display.md).
 
 **Requirements**
-The Display Personality Card requires a [Moto Z](http://www.motomods.com/) and [Reference Moto Mod](mdk.md).
+The Display Personality Card requires a [Moto Z](https://jksim.github.io/Moto-Z) and [Reference Moto Mod](mdk.md).
 
 [< Back to All Products](where-to-buy.md)
 
