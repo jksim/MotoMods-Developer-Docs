@@ -130,6 +130,28 @@ The originals were:
 | `jksim/mdkdisplay` | `MotorolaMobilityLLC/mdkdisplay` |
 | `jksim/mdksensor` | `MotorolaMobilityLLC/mdksensor` |
 
+### The sample Android apps
+
+The example pages tell you to install five sample apps — MDK Utility, Audio,
+Battery, Display and Sensor — from Google Play. All five listings now return
+404, and the published binaries are not recoverable: no `.apk` was ever
+committed to the repositories or attached to a release, none appears in the
+site captures, and Google Play never served APKs from a URL a crawler could
+reach.
+
+The **source for all five is preserved** in the repositories above, which is
+the substantive part. A rebuild would not reproduce the published apps though:
+they shipped as `com.motomodsdev.*` while the open-source projects build
+`com.motorola.samples.*`, so Motorola published from a configuration that is
+not in the public source.
+
+The Play listings themselves were captured by the Wayback Machine and are kept
+in `archive/play-store/` — descriptions, screenshots and version metadata for
+four of the five. The Play links in the documentation are left as they were
+written.
+
+### The SDK API reference
+
 The Moto Mods SDK for Android API reference — the javadoc for
 `com.motorola.mod`, linked from every page under Android Software — was
 published from a subdirectory of Motorola's GitHub Pages site. It is preserved

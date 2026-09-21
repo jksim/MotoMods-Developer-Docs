@@ -1,0 +1,68 @@
+{
+  "com.motomodsdev.mdkbattery": {
+    "archived_file": "com.motomodsdev.mdkbattery.html",
+    "bytes": 594883,
+    "description": "MDK Battery is a simple app that shows charge level and status of your Moto Z and the Battery Personality card attached to your Reference Moto Mod. It provides an end-to-end example for how to interface with a Moto Mod that contains a battery.\n\nFor a detailed walk-through and details for this app, visit http://developer.motorola.com/build/examples/battery\n\nThis app requires a Moto Z, Reference Moto Mod, and Battery Personality Card. To purchase hardware, visit http://developer.motorola.com/buy\n\nNote: This app is for development purposes.",
+    "image_urls": [
+      "https://play-lh.googleusercontent.com/-1axlp6L9mTyr8ECP8Hp8L1NcHpwOiLa3KS3c2URpckFxVBK95qPaH4Xj21c8TUCOSsf",
+      "https://play-lh.googleusercontent.com/516RzYLvgqpRRMF8zJn5ARZsQYEAnt7MiJoEjXQV61SFRsRrpiGs9dOlD5-4T6q3qGE",
+      "https://play-lh.googleusercontent.com/GYh4zuHzCRCYiUrOUAnkyNbV_sUSojy_nQPzwnpjjAN7zcM4VlnJTRqub_FMsUXBBEYs",
+      "https://play-lh.googleusercontent.com/HpwLlTBLSXzVtwslQYBk7Dy37Y3edpnSaxcAdn7_9_F5YshsV-TPbhIdolN1EBpRUw0",
+      "https://play-lh.googleusercontent.com/Kcyo0TJztwtSNyYeu-tudL2sGohqa6U3LU_P6gggz_6yXuYPaHn0jOiAYh2YBIEIjfI",
+      "https://play-lh.googleusercontent.com/MVTBjiX-BpHtSYvUP6VcrwhQAYZApiGfMaNFO4IWAJYcEOj2snIeYbMqJ2GaCqnpdw",
+      "https://play-lh.googleusercontent.com/NSWG3Kp7tYWjoetH9OyWPtyt2lHcnBqcIz0X8VgBqXoBrdfpjDbkaw4IM5qYSygdhHk",
+      "https://play-lh.googleusercontent.com/P5ZE7uMbrKOFjhwOqbTUffVhdlIRL2fLbsTV7mxCcnrpA7bBdAS_sDpF6vRScaPLi3fJ",
+      "https://play-lh.googleusercontent.com/PyGXfNpAX7eqPr0bRg09xD823WXhEwktjpE45_cNxCla_KtDppAHdqJws7Yb5WWM7zM",
+      "https://play-lh.googleusercontent.com/RQa8iBnlqhPTirTIq7HvU5Xme93oLAzzflLkNUhmJ4IDoGb5OZDyiyOULYE3TV-B5A",
+      "https://play-lh.googleusercontent.com/Yq7oyNIvAAkuc69fG51sbAQS4otJxbObbt3xdr8tXxXyUdq4tVGtfgeKuptveGdP1srxaHVrNPzOYcfaEQ",
+      "https://play-lh.googleusercontent.com/Yt3niOQLbS76NeWcUhat0tDY3c5NLfIqlNdmyTGShJcZ8db6H9K-tTcmS2RjVR0WedVabzba7W1bOlkbhg"
+    ],
+    "play_url": "https://play.google.com/store/apps/details?id=com.motomodsdev.mdkbattery",
+    "title": "MDK Battery - Apps on Google Play",
+    "wayback_timestamp": "20201111233321",
+    "wayback_url": "https://web.archive.org/web/20201111233321/https://play.google.com/store/apps/details?id=com.motomodsdev.mdkbattery"
+  },
+  "com.motomodsdev.mdkdisplay": {
+    "archived_file": "com.motomodsdev.mdkdisplay.html",
+    "bytes": 532296,
+    "description": "MDK Display is a simple app that provides an end-to-end example of a Moto Mod that contains a display. This is accomplished via the Display Personality Card attached to your Reference Moto Mod. This app provides controls to turn on/off the Moto Mod display, and a way to test various sample modes such as rear camera selfie, clock, and presentation modes.\n\nFor a detailed walk-through and details for this app, visit http://developer.motorola.com/build/examples/display \n\nThis app requires a Moto Z, Reference Moto Mod, and Display Personality Card. To purchase hardware, visit http://developer.motorola.com/buy\n\nNote: This app is for development purposes.",
+    "image_urls": [],
+    "play_url": "https://play.google.com/store/apps/details?id=com.motomodsdev.mdkdisplay",
+    "title": "MDK Display - Apps on Google Play",
+    "wayback_timestamp": "20190825135940",
+    "wayback_url": "https://web.archive.org/web/20190825135940/https://play.google.com/store/apps/details?id=com.motomodsdev.mdkdisplay"
+  },
+  "com.motomodsdev.mdksensor": {
+    "archived_file": "com.motomodsdev.mdksensor.html",
+    "bytes": 538615,
+    "description": "MDK Sensor is a simple app that provides an end-to-end example demonstrating how to obtain readings from the Sensor Personality card attached to your Reference Moto Mod, which it then displays in the app as graph.\n\nFor a detailed walk-through and details for this app, visit http://developer.motorola.com/build/examples/sensor \n\nThis app requires a Moto Z, Reference Moto Mod, and Sensor Personality Card. To purchase hardware, visit http://developer.motorola.com/buy\n\nNote: This app is for development purposes.",
+    "image_urls": [],
+    "play_url": "https://play.google.com/store/apps/details?id=com.motomodsdev.mdksensor",
+    "title": "MDK Sensor - Apps on Google Play",
+    "wayback_timestamp": "20191215141323",
+    "wayback_url": "https://web.archive.org/web/20191215141323/https://play.google.com/store/apps/details?id=com.motomodsdev.mdksensor"
+  },
+  "com.motomodsdev.mdkutility": {
+    "archived_file": "com.motomodsdev.mdkutility.html",
+    "bytes": 768100,
+    "description": "Moto Mods\u2122 Development Kit Utility Application",
+    "image_urls": [
+      "https://play-lh.googleusercontent.com/-2qHrJn0wwHoGNZCXrwY7x5aWFOkzkBe3LBVteTobFDCrVCjK2aJ_Rtun4WdCIdEHQE",
+      "https://play-lh.googleusercontent.com/1Es9EJBtWEbDQzROlXPJp68s4mH_vUPPNbWZwV23_RIgU_sSQNguN5Io5htTBZy4jQ",
+      "https://play-lh.googleusercontent.com/2PVp7_OwhgCRekekTbakqlGtNpgSYlxoELgE5E3TVpD2Xh2oGa-aWBsY5tK4fSW4Uw",
+      "https://play-lh.googleusercontent.com/2wI4CAh5UStl1Kvo0XNfc9IFpxnMwdmOzJvJYrGSqOD_fRJhmDySr9zKqdIhGo26d5M",
+      "https://play-lh.googleusercontent.com/3HgDVWx71DIpbXQvfotxHjbW0rJts7gUc13qzr6Dn3x0aBYOOOaCug5BwC34e6X4GtI",
+      "https://play-lh.googleusercontent.com/3wnPuBWI_RAk8HIhIUsyff-3aYP6lSf086hLBbnTVTclxCi_mIZbQFJG2tpA255YKgY",
+      "https://play-lh.googleusercontent.com/55Q-SAig2W6jFLdkg1hvl2EzLvuyE6uytcSjY_RmhjkRpkOotqOq_hdaJ5hMH7PyHel_",
+      "https://play-lh.googleusercontent.com/6rfAfABLcN-vyRZ-oFaASbzgmtLZ0c_djAAZPvWxISyLrdSEhief2XlLWl8VWCbCkQ",
+      "https://play-lh.googleusercontent.com/7CF6zr29XelbGOiYlluqnrGo5c9mvzKeLatI7g2wff7V1zF8Gg19242qz4tWRos6UkM",
+      "https://play-lh.googleusercontent.com/7x6XRVTXLw8td0zI3TpSS8FT4jBtDrUf7x1SsmE352h4sheRq8viQjq1H2_qhRxoHTE",
+      "https://play-lh.googleusercontent.com/A6CL4IO_oHuypStrWhHpESy9lk49mG5lUSr_9TybTMJYulebhAMsBHLFyZv75L6Fgw",
+      "https://play-lh.googleusercontent.com/AR9qqvpc1abI8vctpkAfgxt4ZAdRSjkjIaUUnCe5WOcog8sYNseXNoC47llsS6UuEQ"
+    ],
+    "play_url": "https://play.google.com/store/apps/details?id=com.motomodsdev.mdkutility",
+    "title": "MDK Utility - Apps on Google Play",
+    "wayback_timestamp": "20220904100648",
+    "wayback_url": "https://web.archive.org/web/20220904100648/https://play.google.com/store/apps/details?id=com.motomodsdev.mdkutility"
+  }
+}
