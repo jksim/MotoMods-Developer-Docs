@@ -39,8 +39,8 @@ MDK Display is a simple app that provides an end-to-end example of a Moto Mod th
 
 The MDK Display App will only work on Moto Z devices.
 
-- [MDK Display app (archived APK, was on Google Play Store)](../../assets/apks/mdkdisplay.apk)
-- [MDK Display app (archived APK, was on Lenovo App Store)](../../assets/apks/mdkdisplay.apk)
+- [MDK Display app (rebuilt from source; was on Google Play Store)](../../assets/apks/mdkdisplay.apk)
+- [MDK Display app (rebuilt from source; was on Lenovo App Store)](../../assets/apks/mdkdisplay.apk)
 
 For more details, see the [Moto Mods Android Application](#application) section further down this page.
 
@@ -402,7 +402,7 @@ MDK Display is a simple app that provides an end-to-end example of a Moto Mod th
 
 #### Install APK {#install-apk}
 
-Download and install the Display card sample app - see [MDK Display app (archived APK, was on Google Play Store)](../../assets/apks/mdkdisplay.apk)
+Download and install the Display card sample app - see [MDK Display app (rebuilt from source; was on Google Play Store)](../../assets/apks/mdkdisplay.apk)
 
 #### Source code {#source-code}
 

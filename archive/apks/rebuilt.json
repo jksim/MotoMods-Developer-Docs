@@ -1,0 +1,57 @@
+{
+  "mdkaudio.apk": {
+    "bytes": 110613,
+    "origin": "rebuilt from preserved source; Gradle 2.14.1, AGP 2.2.3, JDK 8, build-tools 25.0.2",
+    "package": "com.motorola.samples.mdkaudio",
+    "published_url": "https://jksim.github.io/MotoMods-Developer-Docs/assets/apks/mdkaudio.apk",
+    "sha256": "c4ee6f58c0bf38d78e5299321d4149647d16a87262451f4ad246dda0d758f946",
+    "signer_cert_sha256": "3052fedba90cda165803e757f3c950255aa27daf486dcfedf6e96bce32d8bd1f",
+    "signer_dn": "C=US, O=Android, CN=Android Debug",
+    "version_code": "100006",
+    "version_name": "1.00.006"
+  },
+  "mdkbattery.apk": {
+    "bytes": 113860,
+    "origin": "rebuilt from preserved source; Gradle 2.14.1, AGP 2.2.3, JDK 8, build-tools 25.0.2",
+    "package": "com.motorola.samples.mdkbattery",
+    "published_url": "https://jksim.github.io/MotoMods-Developer-Docs/assets/apks/mdkbattery.apk",
+    "sha256": "017c54fa83ddf94c17f2cad7190ccb2d5b0f47ca3bc2089529df80e1e047bbce",
+    "signer_cert_sha256": "3052fedba90cda165803e757f3c950255aa27daf486dcfedf6e96bce32d8bd1f",
+    "signer_dn": "C=US, O=Android, CN=Android Debug",
+    "version_code": "100006",
+    "version_name": "1.00.006"
+  },
+  "mdkdisplay.apk": {
+    "bytes": 582763,
+    "origin": "rebuilt from preserved source; Gradle 2.14.1, AGP 2.2.3, JDK 8, build-tools 25.0.2",
+    "package": "com.motorola.samples.mdkdisplay",
+    "published_url": "https://jksim.github.io/MotoMods-Developer-Docs/assets/apks/mdkdisplay.apk",
+    "sha256": "1b6a107e2cc050982b237a17e5bdf11fabed90b6429116c76d3dffeb629139d9",
+    "signer_cert_sha256": "3052fedba90cda165803e757f3c950255aa27daf486dcfedf6e96bce32d8bd1f",
+    "signer_dn": "C=US, O=Android, CN=Android Debug",
+    "version_code": "100006",
+    "version_name": "1.00.006"
+  },
+  "mdksensor.apk": {
+    "bytes": 750981,
+    "origin": "rebuilt from preserved source; Gradle 2.14.1, AGP 2.2.3, JDK 8, build-tools 25.0.2",
+    "package": "com.motorola.samples.mdksensor",
+    "published_url": "https://jksim.github.io/MotoMods-Developer-Docs/assets/apks/mdksensor.apk",
+    "sha256": "b2bfd85f3f8eac3f4f587750855a211f7cd5f73427d413b9a26e8a280984007f",
+    "signer_cert_sha256": "3052fedba90cda165803e757f3c950255aa27daf486dcfedf6e96bce32d8bd1f",
+    "signer_dn": "C=US, O=Android, CN=Android Debug",
+    "version_code": "100006",
+    "version_name": "1.00.006"
+  },
+  "mdkutility.apk": {
+    "bytes": 120601,
+    "origin": "rebuilt from preserved source; Gradle 2.14.1, AGP 2.2.3, JDK 8, build-tools 25.0.2",
+    "package": "com.motorola.samples.mdkutility",
+    "published_url": "https://jksim.github.io/MotoMods-Developer-Docs/assets/apks/mdkutility.apk",
+    "sha256": "6a781dc7637e163bb717efea4850f5e28c6acda16953df9fb96f0acb783ce34a",
+    "signer_cert_sha256": "3052fedba90cda165803e757f3c950255aa27daf486dcfedf6e96bce32d8bd1f",
+    "signer_dn": "C=US, O=Android, CN=Android Debug",
+    "version_code": "100006",
+    "version_name": "1.00.006"
+  }
+}

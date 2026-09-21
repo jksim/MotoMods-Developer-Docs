@@ -609,11 +609,13 @@ def convert_page(entry, out_md, nav_title):
         apk = repoint_play(href, depth)
         if apk:
             a['href'] = apk
-            # The label names a store the link no longer goes to; keep which
-            # store it was, since both are gone and each app had two.
+            # The label names a store the link no longer goes to. The site
+            # serves a rebuild from source; keep which store it was, since
+            # both are gone and each app was listed on two.
             for text_node in a.find_all(string=True):
                 moved = re.sub(r'\s*on (Google Play Store|Lenovo App Store)',
-                               r' (archived APK, was on \1)', str(text_node))
+                               r' (rebuilt from source; was on \1)',
+                               str(text_node))
                 if moved != str(text_node):
                     text_node.replace_with(NavigableString(moved))
             continue

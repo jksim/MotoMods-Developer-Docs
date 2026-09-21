@@ -153,8 +153,13 @@ written.
 All five binaries were since recovered from a third-party mirror and are kept
 in `archive/apks/`, with each file's package, version, SHA-256 and signing
 certificate recorded. Four carry Motorola's release signing key; MDK Sensor
-carries the Android Studio debug key. They are version 1.00.003 and 1.00.002,
-behind the 1.00.006 the source and the archived listing describe.
+carries the Android Studio debug key. They are version 1.00.003 and 1.00.002.
+
+The apps the example pages link to are rebuilt from the preserved source at
+version 1.00.006 — the version the Play listing named as current, which no
+mirror had. They declare `com.motorola.samples.*`, as the open-source projects
+do, rather than the `com.motomodsdev.*` Motorola published, and they are
+debug-signed. They are not Motorola's builds; `archive/apks/` holds those.
 
 ### The SDK API reference
 

@@ -39,8 +39,8 @@ MDK Sensor is a simple app that provides an end-to-end example demonstrating how
 
 The MDK Sensor App will only work on Moto Z devices.
 
-- [MDK Sensor app (archived APK, was on Google Play Store)](../../assets/apks/mdksensor.apk)
-- [MDK Sensor app (archived APK, was on Lenovo App Store)](../../assets/apks/mdksensor.apk)
+- [MDK Sensor app (rebuilt from source; was on Google Play Store)](../../assets/apks/mdksensor.apk)
+- [MDK Sensor app (rebuilt from source; was on Lenovo App Store)](../../assets/apks/mdksensor.apk)
 
 For more details, see the [Moto Mods Android Application](#application) section further down this page.
 
