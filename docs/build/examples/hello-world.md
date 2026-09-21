@@ -39,7 +39,7 @@ MDK Utility is a simple app that provides an end-to-end ‘Hello World’ exampl
 
 The MDK Utility App will only work on Moto Z devices.
 
-- [MDK Utility app on Google Play Store](https://play.google.com/store/apps/details?id=com.motomodsdev.mdkutility)
+- [MDK Utility app (archived APK)](../../assets/apks/mdkutility.apk)
 - [MDK Utility app on Lenovo App Store](http://www.lenovomm.com/appdetail/com.motomodsdev.mdkutility/0)
 
 For more details, see the [Moto Mods Android Application](#application) section further down this page.
@@ -363,7 +363,7 @@ The MDK Utility sample APK is an open source project, works as an downloadable A
 
 #### Install APK {#install-apk}
 
-Download and install the MDK Utility sample APK - see [MDK Utility app on Google Play Store](https://play.google.com/store/apps/details?id=com.motomodsdev.mdkutility)
+Download and install the MDK Utility sample APK - see [MDK Utility app (archived APK)](../../assets/apks/mdkutility.apk)
 
 #### Source code {#source-code}
 

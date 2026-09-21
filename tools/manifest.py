@@ -232,3 +232,13 @@ UPSTREAM_OWNER = 'MotorolaMobilityLLC'
 # project Pages site serves it at the same path and only the host changes.
 SDK_REFERENCE_FROM = 'motorolamobilityllc.github.io/motomods_sdk'
 SDK_REFERENCE_TO = 'jksim.github.io/motomods_sdk'
+
+# Google Play listings for the sample apps are gone; the binaries are archived
+# with the site. Links are repointed to those copies.
+PLAY_APKS = {
+    'com.motomodsdev.mdkaudio':   'assets/apks/mdkaudio.apk',
+    'com.motomodsdev.mdkbattery': 'assets/apks/mdkbattery.apk',
+    'com.motomodsdev.mdkdisplay': 'assets/apks/mdkdisplay.apk',
+    'com.motomodsdev.mdksensor':  'assets/apks/mdksensor.apk',
+    'com.motomodsdev.mdkutility': 'assets/apks/mdkutility.apk',
+}

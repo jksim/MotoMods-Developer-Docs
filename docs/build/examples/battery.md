@@ -43,7 +43,7 @@ MDK Battery is a simple app that shows charge level and status of your Moto Z an
 
 The MDK Battery App will only work on Moto Z devices.
 
-- [MDK Battery app on Google Play Store](https://play.google.com/store/apps/details?id=com.motomodsdev.mdkbattery)
+- [MDK Battery app (archived APK)](../../assets/apks/mdkbattery.apk)
 - [MDK Battery app on Lenovo App Store](http://www.lenovomm.com/appdetail/com.motomodsdev.mdkbattery/0)
 
 For more details, see the [Moto Mods Android Application](#application) section further down this page.
@@ -696,7 +696,7 @@ MDK Battery is a simple app that shows charge level and status of your Moto Z an
 
 The MDK Battery App will only work on Moto Z devices.
 
-- [MDK Battery app on Google Play Store](https://play.google.com/store/apps/details?id=com.motomodsdev.mdkbattery)
+- [MDK Battery app (archived APK)](../../assets/apks/mdkbattery.apk)
 - [MDK Battery app on Lenovo App Store](http://www.lenovomm.com/appdetail/com.motomodsdev.mdkbattery/0)
 
 #### Battery card sample APK {#battery-card-sample-apk}
@@ -705,7 +705,7 @@ The Moto Battery card sample APK is an open source project, works as a downloada
 
 #### Install APK {#install-apk}
 
-Download and install the Battery card sample APK - see [MDK Battery app on Google Play Store](https://play.google.com/store/apps/details?id=com.motomodsdev.mdkbattery)
+Download and install the Battery card sample APK - see [MDK Battery app (archived APK)](../../assets/apks/mdkbattery.apk)
 
 #### Source code {#source-code}
 

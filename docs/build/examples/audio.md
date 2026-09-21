@@ -37,7 +37,7 @@ We also provide schematics, layouts, BOMs, and CAD files for this example. See t
 
 The MDK Audio App will only work on Moto Z devices.
 
-- [MDK Audio app on Google Play Store](https://play.google.com/store/apps/details?id=com.motomodsdev.mdkaudio)
+- [MDK Audio app (archived APK)](../../assets/apks/mdkaudio.apk)
 - [MDK Audio app on Lenovo App Store](http://www.lenovomm.com/appdetail/com.motomodsdev.mdkaudio/0)
 
 For more details, see the [Moto Mods Android Application](#application) section further down this page.
@@ -529,7 +529,7 @@ The Moto Audio card sample APK is an open source project, works as an downloadab
 
 #### Install APK {#install-apk}
 
-Download and install the Audio card sample app - see [MDK Audio app on Google Play Store](https://play.google.com/store/apps/details?id=com.motomodsdev.mdkaudio)
+Download and install the Audio card sample app - see [MDK Audio app (archived APK)](../../assets/apks/mdkaudio.apk)
 
 #### Source code {#source-code}
 

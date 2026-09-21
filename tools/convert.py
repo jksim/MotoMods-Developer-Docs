@@ -15,7 +15,7 @@ from markdownify import MarkdownConverter
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from manifest import (PAGES, ARCHIVE_ONLY, REDIRECTS, MIRROR_OWNER,
                       MIRRORED_REPOS, UPSTREAM_OWNER, SDK_REFERENCE_FROM,
-                      SDK_REFERENCE_TO)
+                      SDK_REFERENCE_TO, PLAY_APKS)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OLD = os.path.join(ROOT, 'old_website')
@@ -47,6 +47,7 @@ unmapped = set()  # internal paths with no page in the rebuild
 repairs = {}      # page -> links recovered from an alternate capture
 mirrored = set()  # repositories whose links were repointed at the mirrors
 sdk_repointed = []  # SDK javadoc links sent to the preserved copy
+play_repointed = []  # Play Store links sent to the archived APKs
 
 
 # --------------------------------------------------------------------------- #
@@ -173,6 +174,20 @@ GITHUB_IN_TEXT = re.compile(
 
 
 SDK_REF = re.compile(r'https?://' + re.escape(SDK_REFERENCE_FROM), re.I)
+PLAY_LINK = re.compile(
+    r'https?://play\.google\.com/store/apps/details\?id=([A-Za-z0-9_.]+)', re.I)
+
+
+def repoint_play(href, depth):
+    """Send a Play Store link to the archived APK, or None if not one."""
+    m = PLAY_LINK.match(href.strip())
+    if not m:
+        return None
+    target = PLAY_APKS.get(m.group(1))
+    if not target:
+        return None
+    play_repointed.append(m.group(1))
+    return ('../' * depth) + target
 
 
 def repoint_sdk(url):
@@ -585,6 +600,17 @@ def convert_page(entry, out_md, nav_title):
             continue
         if href.startswith(('mailto:', 'tel:', '#')):
             continue
+        apk = repoint_play(href, depth)
+        if apk:
+            a['href'] = apk
+            # The label says "on Google Play Store", which is no longer where
+            # it goes.
+            for text_node in a.find_all(string=True):
+                moved = re.sub(r'\s*on Google Play Store', ' (archived APK)',
+                               str(text_node))
+                if moved != str(text_node):
+                    text_node.replace_with(NavigableString(moved))
+            continue
         if SDK_REF.search(href):
             a['href'] = repoint_sdk(href)
             for text_node in a.find_all(string=True):
@@ -738,6 +764,9 @@ def main():
     if sdk_repointed:
         print(f'repointed {len(sdk_repointed)} SDK reference link(s) to '
               f'{SDK_REFERENCE_TO}')
+    if play_repointed:
+        print(f'repointed {len(play_repointed)} Play Store link(s) to the '
+              f'archived APKs')
     if repairs:
         print(f'\nrecovered {sum(repairs.values())} root-collapsed link(s) from '
               f'alternate captures, across {len(repairs)} page(s):')
