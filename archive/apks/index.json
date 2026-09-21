@@ -35,6 +35,18 @@
     "version_code": "100003",
     "version_name": "1.00.003"
   },
+  "mdksensor.apk": {
+    "bytes": 630910,
+    "label": "MDK Sensor",
+    "package": "com.motomodsdev.mdksensor",
+    "play_url": "https://play.google.com/store/apps/details?id=com.motomodsdev.mdksensor",
+    "sha256": "e0d6fb3a7f3e0b4a5bcb3ec2037713b7bb5a89bd311b2233345e4cb50a02c566",
+    "signature_verifies": true,
+    "signer_cert_sha256": "80a3e92c4ab1e7e2248dcf45fb0916b2f439137351f4400a56f9f7c4be0b8b58",
+    "signer_dn": "CN=Android Debug, O=Android, C=US",
+    "version_code": "100002",
+    "version_name": "1.00.002"
+  },
   "mdkutility.apk": {
     "bytes": 273072,
     "label": "MDK Utility",
