@@ -1,0 +1,50 @@
+{
+  "mdkaudio.apk": {
+    "bytes": 66667,
+    "label": "MDK Audio",
+    "package": "com.motomodsdev.mdkaudio",
+    "play_url": "https://play.google.com/store/apps/details?id=com.motomodsdev.mdkaudio",
+    "sha256": "6652deb193af6f2bd99108cc311139846bc613e7bee821bf849da3aff39b5473",
+    "signature_verifies": true,
+    "signer_cert_sha256": "c463fa2a0351086dd6328d9daf6218146ee1651521c1cb6b4c538f85eeec7a3c",
+    "signer_dn": "CN=Common MotoBLUR 2-1-1, OU=MMI, O=Motorola, L=Libertyville, ST=Illinois, C=US",
+    "version_code": "100003",
+    "version_name": "1.00.003"
+  },
+  "mdkbattery.apk": {
+    "bytes": 71072,
+    "label": "MDK Battery",
+    "package": "com.motomodsdev.mdkbattery",
+    "play_url": "https://play.google.com/store/apps/details?id=com.motomodsdev.mdkbattery",
+    "sha256": "b9c6fc2de609b78c1758c1f4a2013f35378643728b267265f7497dff481b4b11",
+    "signature_verifies": true,
+    "signer_cert_sha256": "c463fa2a0351086dd6328d9daf6218146ee1651521c1cb6b4c538f85eeec7a3c",
+    "signer_dn": "CN=Common MotoBLUR 2-1-1, OU=MMI, O=Motorola, L=Libertyville, ST=Illinois, C=US",
+    "version_code": "100003",
+    "version_name": "1.00.003"
+  },
+  "mdkdisplay.apk": {
+    "bytes": 544230,
+    "label": "MDK Display",
+    "package": "com.motomodsdev.mdkdisplay",
+    "play_url": "https://play.google.com/store/apps/details?id=com.motomodsdev.mdkdisplay",
+    "sha256": "77f8c034c6f1c36450eccfd7d646f8aa471592bc4ac768362f340245be68cc79",
+    "signature_verifies": true,
+    "signer_cert_sha256": "c463fa2a0351086dd6328d9daf6218146ee1651521c1cb6b4c538f85eeec7a3c",
+    "signer_dn": "CN=Common MotoBLUR 2-1-1, OU=MMI, O=Motorola, L=Libertyville, ST=Illinois, C=US",
+    "version_code": "100003",
+    "version_name": "1.00.003"
+  },
+  "mdkutility.apk": {
+    "bytes": 273072,
+    "label": "MDK Utility",
+    "package": "com.motomodsdev.mdkutility",
+    "play_url": "https://play.google.com/store/apps/details?id=com.motomodsdev.mdkutility",
+    "sha256": "9c52da011854e859385467a5dd04cbb90e3b33c512927dcf2644475fae768d1c",
+    "signature_verifies": true,
+    "signer_cert_sha256": "c463fa2a0351086dd6328d9daf6218146ee1651521c1cb6b4c538f85eeec7a3c",
+    "signer_dn": "CN=Common MotoBLUR 2-1-1, OU=MMI, O=Motorola, L=Libertyville, ST=Illinois, C=US",
+    "version_code": "100003",
+    "version_name": "1.00.003"
+  }
+}

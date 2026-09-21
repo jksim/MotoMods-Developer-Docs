@@ -150,6 +150,14 @@ in `archive/play-store/` — descriptions, screenshots and version metadata for
 four of the five. The Play links in the documentation are left as they were
 written.
 
+Four of the five binaries were since recovered from a third-party mirror and
+verified against Motorola's own release signing key, and are kept in
+`archive/apks/`. The fifth, MDK Sensor, turned out to be signed with the stock
+Android debug key — a local build of the open-source project rather than
+Motorola's release, which Google Play would never have accepted — and is
+excluded. The recovered binaries are version 1.00.003, one release behind the
+1.00.006 the source and the archived listing describe.
+
 ### The SDK API reference
 
 The Moto Mods SDK for Android API reference — the javadoc for
