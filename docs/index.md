@@ -4,9 +4,6 @@ title: "Moto Mods Developer Documentation"
 
 # Moto Mods Developer Documentation
 
-*A restored archive of the developer documentation Motorola published at
-`developer.motorola.com` between 2016 and 2018.*
-
 Moto Mods snap onto the back of a Moto Z phone and extend it with hardware the
 phone does not have — speakers, projectors, batteries, cameras, displays, and
 whatever else a developer could build. The platform was opened up with a
