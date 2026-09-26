@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{# Material emits no Open Graph tags of its own. Without them a shared link
+   previews as a bare URL; the card image is the exploded view of the Reference
+   Moto Mod, at the largest rendition the Wayback Machine preserved. #}
+{% block extrahead %}
+  {% set page_title = page.meta.title if page and page.meta and page.meta.title
+                      else (page.title if page and page.title else config.site_name) %}
+  {% set page_desc = page.meta.description if page and page.meta and page.meta.description
+                     else config.site_description %}
+  {% set card = config.site_url ~ 'assets/social-card.png' %}
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ config.site_name }}">
+  <meta property="og:title" content="{{ page_title }}">
+  <meta property="og:description" content="{{ page_desc }}">
+  <meta property="og:url" content="{{ page.canonical_url if page else config.site_url }}">
+  <meta property="og:image" content="{{ card }}">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="500">
+  <meta property="og:image:height" content="500">
+  <meta property="og:image:alt" content="Exploded view of the Reference Moto Mod">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{{ page_title }}">
+  <meta name="twitter:description" content="{{ page_desc }}">
+  <meta name="twitter:image" content="{{ card }}">
+{% endblock %}

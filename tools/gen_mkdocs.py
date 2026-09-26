@@ -30,6 +30,7 @@ site_dir: site
 
 theme:
   name: material
+  custom_dir: overrides
   language: en
   icon:
     logo: material/cellphone-link
