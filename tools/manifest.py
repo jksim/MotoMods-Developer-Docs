@@ -233,7 +233,7 @@ UPSTREAM_OWNER = 'MotorolaMobilityLLC'
 # GitHub Pages site. The preserved copy holds it at the repository root, so a
 # project Pages site serves it at the same path and only the host changes.
 SDK_REFERENCE_FROM = 'motorolamobilityllc.github.io/motomods_sdk'
-SDK_REFERENCE_TO = 'jksim.github.io/motomods_sdk'
+SDK_REFERENCE_TO = 'sdk.motomods.dev'
 
 # Google Play listings for the sample apps are gone; the binaries are archived
 # with the site. Links are repointed to those copies.

@@ -241,7 +241,7 @@ mManager.registerModListener(MainActivity.this, new int[] {ModProtocol.BATTERY})
 
 ## More Information
 
-For more information, see the [ModBattery Javadoc API](https://jksim.github.io/motomods_sdk/com/motorola/mod/ModBattery.html).
+For more information, see the [ModBattery Javadoc API](https://sdk.motomods.dev/com/motorola/mod/ModBattery.html).
 
 [< Previous Page
 **Mod Display**](mod-display.md)
@@ -251,16 +251,16 @@ For more information, see the [ModBattery Javadoc API](https://jksim.github.io/m
 
 ## Related references
 
-- [Moto Mods SDK for Android API Reference](https://jksim.github.io/motomods_sdk/com/motorola/mod/package-summary.html)
-- [Moto Mods SDK for Android API Reference](https://jksim.github.io/motomods_sdk)
-- [Index](https://jksim.github.io/motomods_sdk/index.html)
-- [ModListener](https://jksim.github.io/motomods_sdk/index.html?com/motorola/mod/ModListener.html)
-- [ModBacklight](https://jksim.github.io/motomods_sdk/index.html?com/motorola/mod/ModBacklight.html)
-- [ModBattery](https://jksim.github.io/motomods_sdk/index.html?com/motorola/mod/ModBattery.html)
-- [ModConnection](https://jksim.github.io/motomods_sdk/index.html?com/motorola/mod/ModConnection.html)
-- [ModContract](https://jksim.github.io/motomods_sdk/index.html?com/motorola/mod/ModContract.html)
-- [ModDevice](https://jksim.github.io/motomods_sdk/index.html?com/motorola/mod/ModDevice.html)
-- [ModDisplay](https://jksim.github.io/motomods_sdk/index.html?com/motorola/mod/ModDisplay.html)
-- [ModInterfaceDelegation](https://jksim.github.io/motomods_sdk/index.html?com/motorola/mod/ModInterfaceDelegation.html)
-- [ModManager](https://jksim.github.io/motomods_sdk/index.html?com/motorola/mod/ModManager.html)
-- [ModProtocol](https://jksim.github.io/motomods_sdk/index.html?com/motorola/mod/ModProtocol.html)
+- [Moto Mods SDK for Android API Reference](https://sdk.motomods.dev/com/motorola/mod/package-summary.html)
+- [Moto Mods SDK for Android API Reference](https://sdk.motomods.dev)
+- [Index](https://sdk.motomods.dev/index.html)
+- [ModListener](https://sdk.motomods.dev/index.html?com/motorola/mod/ModListener.html)
+- [ModBacklight](https://sdk.motomods.dev/index.html?com/motorola/mod/ModBacklight.html)
+- [ModBattery](https://sdk.motomods.dev/index.html?com/motorola/mod/ModBattery.html)
+- [ModConnection](https://sdk.motomods.dev/index.html?com/motorola/mod/ModConnection.html)
+- [ModContract](https://sdk.motomods.dev/index.html?com/motorola/mod/ModContract.html)
+- [ModDevice](https://sdk.motomods.dev/index.html?com/motorola/mod/ModDevice.html)
+- [ModDisplay](https://sdk.motomods.dev/index.html?com/motorola/mod/ModDisplay.html)
+- [ModInterfaceDelegation](https://sdk.motomods.dev/index.html?com/motorola/mod/ModInterfaceDelegation.html)
+- [ModManager](https://sdk.motomods.dev/index.html?com/motorola/mod/ModManager.html)
+- [ModProtocol](https://sdk.motomods.dev/index.html?com/motorola/mod/ModProtocol.html)

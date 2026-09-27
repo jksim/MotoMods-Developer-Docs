@@ -167,7 +167,7 @@ The Moto Mods SDK for Android API reference — the javadoc for
 `com.motorola.mod`, linked from every page under Android Software — was
 published from a subdirectory of Motorola's GitHub Pages site. It is preserved
 at [jksim/motomods_sdk](https://github.com/jksim/motomods_sdk) and served at
-[jksim.github.io/motomods_sdk](https://jksim.github.io/motomods_sdk/), with the
+[sdk.motomods.dev](https://sdk.motomods.dev/), with the
 files unchanged and at the same paths, so only the host differs from the URLs
 the documentation originally used.
 
