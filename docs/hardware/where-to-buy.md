@@ -14,7 +14,7 @@ source_capture: 2016 Squarespace portal
 
 ## Developing with the MDK requires any Moto Z smartphone.
 
-[![Moto_Z](../assets/img/Moto_Z.png)](https://jksim.github.io/Moto-Z)
+[![Moto_Z](../assets/img/Moto_Z.png)](https://moto-z.dev)
 
 ## Perforated Board
 

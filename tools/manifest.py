@@ -247,4 +247,4 @@ PLAY_APKS = {
 
 # motomods.com, the Moto Z consumer site, is gone.
 MOTO_Z_SITE_FROM = re.compile(r'https?://(?:www\.)?motomods\.com/?', re.I)
-MOTO_Z_SITE_TO = 'https://jksim.github.io/Moto-Z'
+MOTO_Z_SITE_TO = 'https://moto-z.dev'
