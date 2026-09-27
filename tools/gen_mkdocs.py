@@ -17,7 +17,7 @@ site_description: >-
   Developer documentation for Moto Mods: system architecture, the Greybus
   firmware protocols, the Android SDK, the Mods Development Kit, and worked
   hardware examples.
-site_url: https://jksim.github.io/MotoMods-Developer-Docs/
+site_url: https://motomods.dev/
 repo_url: https://github.com/jksim/MotoMods-Developer-Docs
 repo_name: MotoMods-Developer-Docs
 edit_uri: ""
