@@ -83,6 +83,9 @@ markdown_extensions:
       alternate_style: true
   - pymdownx.smartsymbols
 
+hooks:
+  - hooks/og_image.py
+
 plugins:
   - search
 
